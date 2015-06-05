@@ -1,8 +1,8 @@
 ScatterPlot = function(frame, xvar, yvar,
                        smoothmethod="auto", # only works for auto and lm
                        minimal_labels = TRUE,
-                       binwidth_x = 1,
-                       binwidth_y = 1,
+                       binwidth_x = NULL,
+                       binwidth_y = NULL,
                        adjust_x = 1,
                        adjust_y = 1) {
 
