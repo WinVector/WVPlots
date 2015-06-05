@@ -35,4 +35,8 @@ gainCurve(frm, "x", "yC", title="Example Gain Curve")
 plotROC(frm, "x", "yC", title="Example ROC plot")
 ```
 
+```{r, fig.width=8, fig.height=8}
+doubleDensity(frm, "x", "yC", title="Example double density plot")
+```
+
 
