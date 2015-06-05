@@ -1,0 +1,25 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, fig.width=8, fig.height=8}
+library(ggplot2)
+library(gridExtra)
+library(WVPlots)
+
+set.seed(34903490)
+x = rnorm(1500)
+y = 0.5*x^2 + 2*x + rnorm(1500)
+frm = data.frame(x=x,y=y)
+
+ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=3)
+```
+

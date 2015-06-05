@@ -1,5 +1,6 @@
 ScatterPlot = function(frame, xvar, yvar,
                        smoothmethod="auto", # only works for auto and lm
+                       title='', annot_size=5,
                        minimal_labels = TRUE,
                        binwidth_x = NULL,
                        binwidth_y = NULL,
@@ -34,13 +35,14 @@ ScatterPlot = function(frame, xvar, yvar,
     fitstring = paste("R-squared = ", format(rsqr, digits=3))
     sigstring = paste("Significance = ", format(pval, digits=3))
 
-    empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring) +
-      annotate("text", x=0.5, y=0.5, label=sigstring)
+    empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
+      annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)
+
   }
 
   # scatterplot of x and y
   plot_center = ggplot(frame, aes_string(x=xvar,y=yvar)) +
-    geom_point() + geom_smooth(method=smoothmethod)
+    geom_point(alpha=0.5) + geom_smooth(method=smoothmethod)
 
   # In current ggplot2, presentation area is always a bit bigger
   # than data and a bit bigger than assigned limits- but by
@@ -102,5 +104,6 @@ ScatterPlot = function(frame, xvar, yvar,
   # arrange the plots together, with appropriate height and width
   # for each row and column
   grid.arrange(plot_top, empty, plot_center, plot_right,
-               ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
+               ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4),
+               main=title)
 }
