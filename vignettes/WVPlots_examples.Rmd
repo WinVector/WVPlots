@@ -13,13 +13,26 @@ vignette: >
 ```{r, fig.width=8, fig.height=8}
 library(ggplot2)
 library(gridExtra)
+library(reshape2)
+library(ROCR)
 library(WVPlots)
 
 set.seed(34903490)
-x = rnorm(1500)
-y = 0.5*x^2 + 2*x + rnorm(1500)
-frm = data.frame(x=x,y=y)
-
-ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=3)
+x = rnorm(50)
+y = 0.5*x^2 + 2*x + rnorm(length(x))
+frm = data.frame(x=x,y=y,yC=y>median(y))
 ```
+
+```{r, fig.width=8, fig.height=8}
+ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=2)
+```
+
+```{r, fig.width=8, fig.height=8}
+gainCurve(frm, "x", "yC", title="Example Gain Curve")
+```
+
+```{r, fig.width=8, fig.height=8}
+plotROC(frm, "x", "yC", title="Example ROC plot")
+```
+
 

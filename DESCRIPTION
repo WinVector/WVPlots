@@ -10,4 +10,6 @@ License: What license is it under?
 Suggests: knitr
 VignetteBuilder: knitr
 Imports: ggplot2,
-    gridExtra
+    gridExtra,
+    reshape2,
+    ROCR
