@@ -12,5 +12,5 @@ doubleDensity <- function(frame, xvar, truthVar,title='double density plot') {
                 stringsAsFactors=FALSE)
   })
   ggplot(pf, aes(x=pred,ymin=0,y=density,ymax=density,color=truth,fill=truth)) +
-    geom_line() + geom_ribbon(alpha=0.5)
+    geom_line() + geom_ribbon(alpha=0.5,color=NA)
 }

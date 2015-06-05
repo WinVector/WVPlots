@@ -19,6 +19,7 @@ plotROC <- function(frame, xvar, truthVar,title='ROC plot') {
     geom_ribbon(data=pf,aes(x=FalsePositiveRate,ymax=TruePositiveRate,ymin=0),
                 fill='blue',alpha=0.3) +
     geom_point(data=pf,aes(x=FalsePositiveRate,y=TruePositiveRate)) +
+    geom_line(data=pf,aes(x=FalsePositiveRate,y=TruePositiveRate)) +
     geom_line(aes(x=c(0,1),y=c(0,1))) + coord_fixed() +
     ggtitle(paste(title,'\nAUC:',format(auc,digits=2)))
   plot

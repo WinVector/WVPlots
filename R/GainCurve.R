@@ -40,6 +40,9 @@ gainCurve = function(frame, xvar, truthVar,title='Gain Curve') {
   gplot = ggplot(data=results, aes(x=pctpop, y=pct_outcome, color=sort_criterion)) +
     geom_point() + geom_line() +
     geom_abline(color="gray") +
+    geom_ribbon(data=results[results$sort_criterion=='model',,drop=FALSE],
+                aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+                alpha=0.2,color=NA) +
     ggtitle(paste("Gain curve,", title, '\n',
                   'relative Gini score', format(giniScore,digits=2))) +
     xlab("% items in score order") + ylab("% total category") +

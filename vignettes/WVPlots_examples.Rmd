@@ -29,7 +29,12 @@ ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_
 ```
 
 ```{r, fig.width=8, fig.height=8}
-gainCurve(frm, "x", "yC", title="Example Gain Curve")
+frm$absY <- abs(frm$y)
+gainCurve(frm, "x", "absY", title="Example Continuous Gain Curve")
+```
+
+```{r, fig.width=8, fig.height=8}
+gainCurve(frm, "x", "yC", title="Example Discrete Gain Curve")
 ```
 
 ```{r, fig.width=8, fig.height=8}

@@ -76,7 +76,7 @@ ScatterPlot = function(frame, xvar, yvar,
   plot_top <- ggplot(frame, aes_string(x=xvar)) +
     geom_histogram(aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x) +
-    geom_density(color="blue", adjust=adjust_x) +
+   geom_line(stat='density',color="blue", adjust=adjust_x) +
     xlim(xlims)
   if(minimal_labels) {
     plot_top = plot_top +
@@ -90,7 +90,7 @@ ScatterPlot = function(frame, xvar, yvar,
   plot_right <- ggplot(frame, aes_string(x=yvar)) +
     geom_histogram(aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_y) +
-    geom_density(color="blue", adjust=adjust_y) +
+   geom_line(stat='density',color="blue", adjust=adjust_y) +
     xlim(ylims) +
     coord_flip()
   if(minimal_labels) {
