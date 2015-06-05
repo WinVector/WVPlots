@@ -12,4 +12,5 @@ VignetteBuilder: knitr
 Imports: ggplot2,
     gridExtra,
     reshape2,
-    ROCR
+    ROCR,
+    plyr
