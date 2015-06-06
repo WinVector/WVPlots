@@ -11,11 +11,6 @@ vignette: >
 
 
 ```{r, fig.width=8, fig.height=8}
-library(ggplot2)
-library(gridExtra)
-library(reshape2)
-library(ROCR)
-library(plyr)
 library(WVPlots)
 
 set.seed(34903490)

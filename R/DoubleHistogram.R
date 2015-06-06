@@ -33,7 +33,8 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
   sm <- loess(paste('count','~','x'),netF)
   pf$net <- predict(sm,pf,se=FALSE)
   # ConditionalDistributionPlot assumes no xlim set
-  ggplot(data=pf,mapping=aes_string(x=xvar,
+  # ConditionalDistributionPlot assumes no scale_y_continuous set
+  plot <- ggplot(data=pf,mapping=aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_bar(mapping=aes_string(y='count'),
              stat='identity',alpha=0.5,position='identity') +
@@ -41,4 +42,5 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
     geom_line(mapping=aes_string(y='net'),linetype=3,color='black') +
     scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
     ggtitle(title)
+  plot
 }
