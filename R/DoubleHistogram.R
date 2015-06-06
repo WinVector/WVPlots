@@ -18,10 +18,14 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
     rf$smooth = rf$smooth*scale
     rf
   })
+  # library(RColorBrewer)
+  # display.brewer.all()
+  palletName = "Dark2"
   ggplot(data=pf,mapping=aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_bar(mapping=aes_string(y='count'),
              stat='identity',alpha=0.5,position='identity') +
     geom_line(mapping=aes_string(y='smooth')) +
+    scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
     ggtitle(title)
 }

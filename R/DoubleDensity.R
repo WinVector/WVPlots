@@ -13,7 +13,13 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title='double density plot')
     rf[[truthVar]] <- sf$y[[1]]
     rf
   })
+  # library(RColorBrewer)
+  # display.brewer.all()
+  palletName = "Dark2"
   ggplot(pf,mapping=aes_string(x=xvar,y='density',ymax='density',
                                color=truthVar,fill=truthVar,linetype=truthVar)) +
-    geom_line() + geom_ribbon(mapping=aes(ymin=0),alpha=0.5,color=NA) + ggtitle(title)
+    geom_line() +
+    geom_ribbon(mapping=aes(ymin=0),alpha=0.5,color=NA) +
+    scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
+    ggtitle(title)
 }
