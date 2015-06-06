@@ -1,5 +1,5 @@
 
-deviance <- function(truth,pred,epsilon=1.e-6) {
+cdeviance <- function(truth,pred,epsilon=1.e-6) {
   pred = pmax(pred, epsilon)
   pred = pmin(pred, 1-epsilon)
   S = 0.0 # assumed log-likelihood of saturated model

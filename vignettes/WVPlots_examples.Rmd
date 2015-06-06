@@ -45,4 +45,11 @@ plotROC(frm, "x", "yC", title="Example ROC plot")
 doubleDensity(frm, "x", "yC", title="Example double density plot")
 ```
 
+```{r, fig.width=8, fig.height=8}
+doubleHistogram(frm, "x", "yC", title="Example double histogram plot")
+```
+
+```{r, fig.width=8, fig.height=8}
+conditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
+```
 
