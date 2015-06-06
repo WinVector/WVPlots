@@ -44,6 +44,7 @@ gainCurve = function(frame, xvar, truthVar,title='Gain Curve') {
                 aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
     ggtitle(paste("Gain curve,", title, '\n',
+                  truthVar, '~', xvar, '\n',
                   'relative Gini score', format(giniScore,digits=2))) +
     xlab("% items in score order") + ylab("% total category") +
     scale_x_continuous(breaks=seq(0,1,0.1)) +
