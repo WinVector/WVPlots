@@ -21,7 +21,7 @@ library(WVPlots)
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,y=y,yC=y>median(y))
+frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.9)))
 ```
 
 ```{r, fig.width=8, fig.height=8}
