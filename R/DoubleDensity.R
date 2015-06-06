@@ -16,6 +16,7 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title='double density plot')
   # library(RColorBrewer)
   # display.brewer.all()
   palletName = "Dark2"
+  # ConditionalDistributionPlot assumes no xlim set
   ggplot(pf,mapping=aes_string(x=xvar,y='density',ymax='density',
                                color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_line() +

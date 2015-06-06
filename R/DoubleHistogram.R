@@ -21,6 +21,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
   # library(RColorBrewer)
   # display.brewer.all()
   palletName = "Dark2"
+  # ConditionalDistributionPlot assumes no xlim set
   ggplot(data=pf,mapping=aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_bar(mapping=aes_string(y='count'),
