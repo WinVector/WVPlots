@@ -12,7 +12,7 @@ areaCalc <- function(x,y) {
 }
 
 
-gainCurve = function(frame, xvar, truthVar,title='Gain Curve') {
+GainCurvePlot = function(frame, xvar, truthVar,title='Gain Curve') {
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions

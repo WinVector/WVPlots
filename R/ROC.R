@@ -6,7 +6,7 @@ cdeviance <- function(truth,pred,epsilon=1.e-6) {
   -2*(sum(ifelse(truth,log(pred),log(1-pred)))-S)
 }
 
-plotROC <- function(frame, xvar, truthVar,title='ROC plot') {
+ROCPlot <- function(frame, xvar, truthVar,title='ROC plot') {
   outcol <- frame[[truthVar]]
   predcol <- frame[[xvar]]
   pred <- prediction(predcol,outcol)

@@ -1,6 +1,6 @@
 
 
-doubleDensity <- function(frame, xvar, truthVar,title='double density plot') {
+DoubleDensityPlot <- function(frame, xvar, truthVar,title='double density plot') {
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
