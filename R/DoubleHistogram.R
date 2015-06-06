@@ -5,22 +5,28 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
   breaksV <- hist(df[['x']],breaks=breaks,plot=FALSE)$breaks
+  yVals <- sort(unique(df[['y']]))
+  signs <- (-1)^seq_len(length(yVals))
+  names(signs) <- yVals
   pf <- ddply(df,'y',function(sf) {
-    counts = hist(sf[['x']],breaks=breaksV,plot=FALSE)
-    rf = data.frame(count=counts$counts,
+    yGroup <- sf$y[[1]]
+    si <- signs[[yGroup]]
+    counts <- hist(sf[['x']],breaks=breaksV,plot=FALSE)
+    rf <- data.frame(count=counts$counts,
                stringsAsFactors=FALSE)
-    rf[[xvar]] = counts$mids
-    rf[[truthVar]] = sf$y[[1]]
-    sm = loess(paste('count','~',xvar),rf)
-    rf$smooth = pmax(0,predict(sm,rf,se=FALSE))
+    rf[[xvar]] <- counts$mids
+    rf[[truthVar]] <- yGroup
+    sm <- loess(paste('count','~',xvar),rf)
+    rf$smooth <- pmax(0,predict(sm,rf,se=FALSE))
     # crudely match areas
-    scale = sum(rf$count)/sum(rf$smooth)
-    rf$smooth = rf$smooth*scale
+    scale <- sum(rf$count)/sum(rf$smooth)
+    rf$smooth <- si*rf$smooth*scale
+    rf[['count']] <- si*rf[['count']]
     rf
   })
   # library(RColorBrewer)
   # display.brewer.all()
-  palletName = "Dark2"
+  palletName <- "Dark2"
   # ConditionalDistributionPlot assumes no xlim set
   ggplot(data=pf,mapping=aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
