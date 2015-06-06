@@ -27,12 +27,18 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
   # library(RColorBrewer)
   # display.brewer.all()
   palletName <- "Dark2"
+  # build a net effect curve
+  netF <- ddply(pf,'x',summarize,
+                      count=sum(count))
+  sm <- loess(paste('count','~','x'),netF)
+  pf$net <- predict(sm,pf,se=FALSE)
   # ConditionalDistributionPlot assumes no xlim set
   ggplot(data=pf,mapping=aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_bar(mapping=aes_string(y='count'),
              stat='identity',alpha=0.5,position='identity') +
     geom_line(mapping=aes_string(y='smooth')) +
+    geom_line(mapping=aes_string(y='net'),linetype=3,color='black') +
     scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
     ggtitle(title)
 }
