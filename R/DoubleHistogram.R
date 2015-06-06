@@ -18,9 +18,10 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
     rf$smooth = rf$smooth*scale
     rf
   })
-  ggplot() +
-    geom_bar(data=pf,mapping=aes_string(x=xvar,color=truthVar,fill=truthVar,y='count'),
+  ggplot(data=pf,mapping=aes_string(x=xvar,
+                                    color=truthVar,fill=truthVar,linetype=truthVar)) +
+    geom_bar(mapping=aes_string(y='count'),
              stat='identity',alpha=0.5,position='identity') +
-    geom_line(data=pf,mapping=aes_string(x=xvar,color=truthVar,y='smooth'),linetype=2) +
+    geom_line(mapping=aes_string(y='smooth')) +
     ggtitle(title)
 }

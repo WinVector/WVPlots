@@ -13,6 +13,7 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title='double density plot')
     rf[[truthVar]] <- sf$y[[1]]
     rf
   })
-  ggplot(pf,mapping=aes_string(x=xvar,y='density',ymax='density',color=truthVar,fill=truthVar)) +
+  ggplot(pf,mapping=aes_string(x=xvar,y='density',ymax='density',
+                               color=truthVar,fill=truthVar,linetype=truthVar)) +
     geom_line() + geom_ribbon(mapping=aes(ymin=0),alpha=0.5,color=NA) + ggtitle(title)
 }
