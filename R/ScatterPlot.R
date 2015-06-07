@@ -101,7 +101,7 @@ ScatterPlot = function(frame, xvar, yvar,
   }
 
   newPlots <- alignPlotYlabels(plot_center,plot_top)
-  # plot_center <- newPlots$p1 # seem to be getting breaks wrong in some plots
+  # plot_center <- newPlots$p1 # seem to be getting wrong breaks in center plot, probably set too many scales/ranges/theme/axes by now
   plot_top <- newPlots$p2
 
   # arrange the plots together, with appropriate height and width
