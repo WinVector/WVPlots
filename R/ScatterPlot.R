@@ -100,6 +100,9 @@ ScatterPlot = function(frame, xvar, yvar,
             axis.ticks.y = element_blank())
   }
 
+  newPlots <- alignPlotYlabels(plot_center,plot_top)
+  # plot_center <- newPlots$p1 # seem to be getting breaks wrong in some plots
+  plot_top <- newPlots$p2
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
