@@ -38,7 +38,7 @@ GainCurvePlot = function(frame, xvar, truthVar,title='Gain Curve') {
                  variable.name="sort_criterion", value.name="pct_outcome")
   # rename levels of sort criterion
   colorKey = c('model'='darkblue', 'wizard'='darkgreen')
-  names(colorKey) = c(paste('model: sort by',xvar),paste('wizzard: sort by',truthVar))
+  names(colorKey) = c(paste('model: sort by',xvar),paste('wizard: sort by',truthVar))
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
