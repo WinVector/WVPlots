@@ -21,7 +21,15 @@ frm$absY <- abs(frm$y)
 ```
 
 ```{r, fig.width=8, fig.height=8}
+ScatterPlot(frm, "x", "y", title="Example Fit")
+```
+
+```{r, fig.width=8, fig.height=8}
 ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=2)
+```
+
+```{r, fig.width=8, fig.height=8}
+ScatterPlot(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot", annot_size=2)
 ```
 
 ```{r, fig.width=8, fig.height=8}

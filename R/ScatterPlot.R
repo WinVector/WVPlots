@@ -7,7 +7,7 @@
 #'
 #' @export
 ScatterPlot = function(frame, xvar, yvar,
-                       smoothmethod="auto", # only works for auto and lm
+                       smoothmethod="auto", # only works for 'auto', 'lm', and 'identity'
                        title='', annot_size=5,
                        minimal_labels = TRUE,
                        binwidth_x = NULL,
@@ -15,6 +15,9 @@ ScatterPlot = function(frame, xvar, yvar,
                        adjust_x = 1,
                        adjust_y = 1) {
   checkArgs(frame,xvar,yvar)
+  if(!(smoothmethod %in% c('auto','lm','identity'))) {
+    stop("smoothed method must be one of 'auto','lm', or 'identity'")
+  }
   usePresentationRanges = FALSE
   # placeholder plot - prints nothing at all
   empty =  ggplot() + geom_point(aes(c(0,1), c(0,1)), colour = "white") +
@@ -30,7 +33,10 @@ ScatterPlot = function(frame, xvar, yvar,
           axis.ticks = element_blank())
 
   # if we are showing a linear fit, print the fit's parameters
-  if(smoothmethod=="lm") {
+  gSmooth = NULL
+  if(smoothmethod=='auto') {
+    gSmooth = geom_smooth(method=smoothmethod)
+  } else if(smoothmethod=="lm") {
     # get goodness of linear relation
     model = lm(paste(yvar,"~",xvar), data=frame)
     fstat = summary(model)$fstatistic
@@ -43,12 +49,22 @@ ScatterPlot = function(frame, xvar, yvar,
 
     empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
       annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)
+    gSmooth = geom_smooth(method=smoothmethod)
+  } else if(smoothmethod=='identity') {
+    meanY = mean(frame[[yvar]])
+    rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
+    fitstring = paste("R-squared = ", format(rsqr, digits=3))
 
+    empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size)
+    gSmooth = geom_abline(slope=1,linetype=2,color='blue')
   }
 
   # scatterplot of x and y
   plot_center = ggplot(frame, aes_string(x=xvar,y=yvar)) +
-    geom_point(alpha=0.5) + geom_smooth(method=smoothmethod)
+    geom_point(alpha=0.5)
+  if(!is.null(gSmooth)) {
+    plot_center = plot_center + gSmooth
+  }
 
   # In current ggplot2, presentation area is always a bit bigger
   # than data and a bit bigger than assigned limits- but by
