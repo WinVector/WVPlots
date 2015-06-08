@@ -1,4 +1,24 @@
 
+
+# check the arguments are the types our functions commonly expect
+checkArgs <- function(frame,xvar,yvar) {
+  if((!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
+    stop("frame must be a non-empty data frame")
+  }
+  if((!is.character(xvar))||(length(xvar)!=1)) {
+    stop("xvar must be a length 1 character vector")
+  }
+  if(!(xvar %in% colnames(frame))) {
+    stop("xvar must be the name of a column in frame")
+  }
+  if((!is.character(yvar))||(length(yvar)!=1)) {
+    stop("yvar must be a length 1 character vector")
+  }
+  if(!(yvar %in% colnames(frame))) {
+    stop("yvar must be the name of a column in frame")
+  }
+}
+
 padToK <- function(k) {
   force(k)
   function(x) {str_pad(x,k,pad='_') }

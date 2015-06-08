@@ -13,12 +13,12 @@ stemdotstats = function(ycol) {
 # stem = FALSE will plot only the dots, without the stem to the y=0 line.
 
 #' @export
-ClevelandDotPlot = function(frm, xvar, sort=-1, stem=TRUE, title='Cleveland Dot plot: Count Data'){
+ClevelandDotPlot = function(frm, xvar, sort=-1, stem=TRUE, title='Cleveland Dot plot: Count Data') {
+  checkArgs(frm,xvar,xvar)
   if(abs(sort) > 0) {
     n = length(frm[[xvar]])
     frm[[xvar]] = reorder(frm[[xvar]], numeric(n)+sort, FUN=sum)
   }
-
   frm$count = 1
   if(stem) {
     p = ggplot(frm, aes_string(x=xvar, y="count")) +

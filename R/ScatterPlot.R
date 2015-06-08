@@ -3,6 +3,7 @@
 #' Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
 #' @param frame data frame to get values from
 #' @param xvar name of the indepement (input or model) column in frame
+#' @param smoothmethod (optional) one of 'auto' (the default), 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
 #'
 #' @export
 ScatterPlot = function(frame, xvar, yvar,
@@ -13,9 +14,7 @@ ScatterPlot = function(frame, xvar, yvar,
                        binwidth_y = NULL,
                        adjust_x = 1,
                        adjust_y = 1) {
-
-
-
+  checkArgs(frame,xvar,yvar)
   usePresentationRanges = FALSE
   # placeholder plot - prints nothing at all
   empty =  ggplot() + geom_point(aes(c(0,1), c(0,1)), colour = "white") +
