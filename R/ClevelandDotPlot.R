@@ -1,3 +1,5 @@
+
+
 stemdotstats = function(ycol) {
   data.frame(y=length(ycol),
              ymax=length(ycol),
@@ -9,6 +11,8 @@ stemdotstats = function(ycol) {
 # sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
 # sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
 # stem = FALSE will plot only the dots, without the stem to the y=0 line.
+
+#' @export
 ClevelandDotPlot = function(frm, xvar, sort=-1, stem=TRUE, title='Cleveland Dot plot: Count Data'){
   if(abs(sort) > 0) {
     n = length(frm[[xvar]])

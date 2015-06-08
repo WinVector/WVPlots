@@ -1,11 +1,6 @@
 
-cdeviance <- function(truth,pred,epsilon=1.e-6) {
-  pred = pmax(pred, epsilon)
-  pred = pmin(pred, 1-epsilon)
-  S = 0.0 # assumed log-likelihood of saturated model
-  -2*(sum(ifelse(truth,log(pred),log(1-pred)))-S)
-}
 
+#' @export
 ROCPlot <- function(frame, xvar, truthVar,title='ROC plot') {
   outcol <- frame[[truthVar]]
   predcol <- frame[[xvar]]

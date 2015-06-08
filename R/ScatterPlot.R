@@ -1,3 +1,10 @@
+
+
+#' Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
+#' @param frame data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#'
+#' @export
 ScatterPlot = function(frame, xvar, yvar,
                        smoothmethod="auto", # only works for auto and lm
                        title='', annot_size=5,
