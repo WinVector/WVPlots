@@ -13,6 +13,8 @@ ScatterPlot(frame, xvar, yvar, smoothmethod = "auto", title = "",
 
 \item{xvar}{name of the indepement (input or model) column in frame}
 
+\item{yvar}{name of the dependent (output or result to be modeled) column in frame}
+
 \item{smoothmethod}{(optional) one of 'auto' (the default), 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.}
 }
 \description{

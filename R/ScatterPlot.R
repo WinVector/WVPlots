@@ -3,6 +3,7 @@
 #' Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
 #' @param frame data frame to get values from
 #' @param xvar name of the indepement (input or model) column in frame
+#' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param smoothmethod (optional) one of 'auto' (the default), 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
 #'
 #' @export
@@ -18,7 +19,7 @@ ScatterPlot = function(frame, xvar, yvar,
   if(!(smoothmethod %in% c('auto','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
   }
-  usePresentationRanges = FALSE
+
   # placeholder plot - prints nothing at all
   empty =  ggplot() + geom_point(aes(c(0,1), c(0,1)), colour = "white") +
     theme(plot.background = element_blank(),
@@ -66,31 +67,16 @@ ScatterPlot = function(frame, xvar, yvar,
     plot_center = plot_center + gSmooth
   }
 
-  # In current ggplot2, presentation area is always a bit bigger
-  # than data and a bit bigger than assigned limits- but by
-  # different scaling factors.  So for even the plots to have
-  # a changes to line up (due to similar renderings, and not
-  # gauranteed by shared coordinate maps) we need set limits
-  # everwhere, including on the original controlling plot.
-  if(usePresentationRanges) {
-    # get plot_center's presentation data ranges
-    info = ggplot_build(plot_center)
-    xlims = info$panel$ranges[[1]]$x.range
-    ylims = info$panel$ranges[[1]]$y.range
-  } else {
-    # get the data range
-    x = frame[[xvar]]
-    y = frame[[yvar]]
-    xlims =  c(min(x), max(x))
-    ylims =  c(min(y), max(y))
-  }
-
-
+  # get the data range, to help align plots
+  x = frame[[xvar]]
+  y = frame[[yvar]]
+  xlims =  c(min(x), max(x))
+  ylims =  c(min(y), max(y))
 
   #  print(xlims)
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
-  plot_center = plot_center + xlim(xlims) +  ylim(ylims)
+  plot_center = plot_center + xlim(xlims)
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
@@ -122,9 +108,9 @@ ScatterPlot = function(frame, xvar, yvar,
             axis.ticks.y = element_blank())
   }
 
-  newPlots <- alignPlotYlabels(plot_center,plot_top)
-  # plot_center <- newPlots$p1 # seem to be getting wrong breaks in center plot, probably set too many scales/ranges/theme/axes by now
-  plot_top <- newPlots$p2
+  yPadFn <- designYLabelPadFunction(plot_center + ylim(ylims),plot_top)
+  plot_center <- plot_center + scale_y_continuous(limits=ylims,label=yPadFn)
+  plot_top <- plot_top + scale_y_continuous(label=yPadFn)
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
