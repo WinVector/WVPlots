@@ -18,6 +18,7 @@ x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
 frm$absY <- abs(frm$y)
+frm$posY = frm$y > 0
 ```
 
 ```{r, fig.width=8, fig.height=8}
@@ -30,6 +31,10 @@ ScatterPlot(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_
 
 ```{r, fig.width=8, fig.height=8}
 ScatterPlot(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot", annot_size=2)
+```
+
+```{r, fig.width=8, fig.height=8}
+BinaryYScatterPlot(frm, "x", "posY", title="Example Binary Y Plot")
 ```
 
 ```{r, fig.width=8, fig.height=8}
