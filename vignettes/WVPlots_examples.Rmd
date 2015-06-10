@@ -73,6 +73,7 @@ N = 1000
 randomDraws = data.frame(draw=1:N, letter=sample(letterFrame$letter, size=N, replace=TRUE, prob=letterFrame$freq))
 
 ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-style dot plot")
+ClevelandDotPlot(randomDraws, "letter", limitN = 10,  title = "Top 10 most frequent letters")
 ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
 ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + coord_flip()
 
