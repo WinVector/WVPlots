@@ -5,14 +5,14 @@
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #'
 #' @export
-BinaryYScatterPlot = function(frame, xvar, yvar, title='') {
+BinaryYScatterPlot = function(frame, xvar, yvar, se=FALSE, title='') {
   checkArgs(frame,xvar,yvar)
 
   frame[[yvar]] = as.numeric(frame[[yvar]])
   if(length(unique(frame[[yvar]])) != 2) stop(paste("outcome column", yvar, "not a binary variable"))
 
   ggplot(frame, aes_string(x=xvar, y=yvar)) +
-    geom_point(position=position_jitter(height=0.01), alpha=0.5) + geom_smooth() + ggtitle(title)
+    geom_point(position=position_jitter(height=0.01), alpha=0.5) + geom_smooth(method="gam", formula=y~s(x), se=se) + ggtitle(title)
 
 
 }
