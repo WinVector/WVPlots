@@ -4,7 +4,8 @@
 \alias{BinaryYScatterPlot}
 \title{Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable}
 \usage{
-BinaryYScatterPlot(frame, xvar, yvar, title = "")
+BinaryYScatterPlot(frame, xvar, yvar, se = FALSE, use_glm = FALSE,
+  title = "")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -12,6 +13,10 @@ BinaryYScatterPlot(frame, xvar, yvar, title = "")
 \item{xvar}{name of the independent column in frame}
 
 \item{yvar}{name of the dependent (output or result to be modeled) column in frame}
+
+\item{se}{if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE}
+
+\item{use_glm}{if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)}
 }
 \description{
 Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable
