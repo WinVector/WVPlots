@@ -34,7 +34,9 @@ ScatterPlot(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot
 ```
 
 ```{r, fig.width=8, fig.height=8}
-BinaryYScatterPlot(frm, "x", "posY", title="Example Binary Y Plot")
+BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
+
+BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
 ```{r, fig.width=8, fig.height=8}
@@ -78,7 +80,7 @@ N = 1000
 randomDraws = data.frame(draw=1:N, letter=sample(letterFrame$letter, size=N, replace=TRUE, prob=letterFrame$freq))
 
 ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-style dot plot")
-ClevelandDotPlot(randomDraws, "letter", limitN = 10,  title = "Top 10 most frequent letters")
+ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most frequent letters")
 ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
 ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + coord_flip()
 

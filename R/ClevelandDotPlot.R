@@ -16,23 +16,23 @@ stemdotstats = function(ycol) {
 # sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
 # sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
 # stem = FALSE will plot only the dots, without the stem to the y=0 line.
-# limitN = NULL plots all the levels, N an integer limits to the top N most populous levels
+# limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
 #' @export
-ClevelandDotPlot = function(frm, xvar, sort=-1, limitN = NULL, stem=TRUE, title='Cleveland Dot plot: Count Data') {
+ClevelandDotPlot = function(frm, xvar, sort=-1, limit_n = NULL, stem=TRUE, title='Cleveland Dot plot: Count Data') {
   checkArgs(frm,xvar,xvar)
-  if(!(is.null(limitN) || isScalar(limitN))) {
-    stop("parameter limitN must either be null or a numeric scalar")
+  if(!(is.null(limit_n) || isScalar(limit_n))) {
+    stop("parameter limit_n must either be null or a numeric scalar")
   }
-  if(isScalar(limitN) && (limitN < 1)) {
-    stop("parameter limitN must be at least 1")
+  if(isScalar(limit_n) && (limit_n < 1)) {
+    stop("parameter limit_n must be at least 1")
   }
 
   # to get the top N, we always use decreasing sort order
-  if(!is.null(limitN)) {
+  if(!is.null(limit_n)) {
     tab = table(frm[[xvar]])
     levelnames = names(tab)
     ord = order(tab, decreasing=TRUE)
-    N = min(c(limitN, length(tab)))
+    N = min(c(limit_n, length(tab)))
     topN = levelnames[ord][1:N]
 
     frm = subset(frm, frm[[xvar]] %in% topN)
