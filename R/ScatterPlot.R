@@ -31,7 +31,8 @@ ScatterPlot = function(frame, xvar, yvar,
           axis.title.y = element_blank(),
           axis.text.x = element_blank(),
           axis.text.y = element_blank(),
-          axis.ticks = element_blank())
+          axis.ticks = element_blank(),
+          plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
   gSmooth = NULL
@@ -62,7 +63,8 @@ ScatterPlot = function(frame, xvar, yvar,
 
   # scatterplot of x and y
   plot_center = ggplot(frame, aes_string(x=xvar,y=yvar)) +
-    geom_point(alpha=0.5)
+    geom_point(alpha=0.5) +
+    theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   if(!is.null(gSmooth)) {
     plot_center = plot_center + gSmooth
   }
@@ -90,7 +92,8 @@ ScatterPlot = function(frame, xvar, yvar,
     plot_top = plot_top +
       theme(legend.position = "none", axis.title.x = element_blank(),
             axis.text.x = element_blank(),
-            axis.ticks.x = element_blank())
+            axis.ticks.x = element_blank(),
+            plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   }
 
 
@@ -105,7 +108,8 @@ ScatterPlot = function(frame, xvar, yvar,
     plot_right = plot_right +
       theme(legend.position = "none", axis.title.y = element_blank(),
             axis.text.y = element_blank(),
-            axis.ticks.y = element_blank())
+            axis.ticks.y = element_blank(),
+            plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   }
 
   yPadFn <- designYLabelPadFunction(plot_center + ylim(ylims),plot_top)
