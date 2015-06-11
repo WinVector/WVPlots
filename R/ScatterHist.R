@@ -83,6 +83,13 @@ ScatterHist = function(frame, xvar, yvar,
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
   # marginal density of x - plot on top
+  #
+  # 0,0,0,0 -- title squooshed down
+  # 1,0,0,0 -- title has space
+  # 0,1,0,0 -- right side is shorter
+  # 0,0,1,0 -- bottom gap bigger
+  # 0,0,0,1 -- left side is shorter
+  #
   plot_top <- ggplot(frame, aes_string(x=xvar)) +
     geom_histogram(aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x) +
@@ -93,7 +100,10 @@ ScatterHist = function(frame, xvar, yvar,
       theme(legend.position = "none", axis.title.x = element_blank(),
             axis.text.x = element_blank(),
             axis.ticks.x = element_blank(),
-            plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
+            plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
+  } else {
+    plot_top = plot_top +
+      theme(plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
   }
 
 
@@ -109,7 +119,10 @@ ScatterHist = function(frame, xvar, yvar,
       theme(legend.position = "none", axis.title.y = element_blank(),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank(),
-            plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
+            plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
+  } else {
+    plot_right = plot_right +
+      theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   }
 
   yPadFn <- designYLabelPadFunction(plot_center + ylim(ylims),plot_top)
