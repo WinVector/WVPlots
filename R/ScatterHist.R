@@ -32,7 +32,7 @@ ScatterHist = function(frame, xvar, yvar,
           axis.text.x = element_blank(),
           axis.text.y = element_blank(),
           axis.ticks = element_blank(),
-          plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
+          plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
   gSmooth = NULL
