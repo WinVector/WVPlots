@@ -39,6 +39,7 @@ BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
 BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
+
 ```{r, fig.width=8, fig.height=8}
 GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
 ```
@@ -84,5 +85,18 @@ ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most freq
 ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
 ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + coord_flip()
 
-
 ```
+
+```{r, fig.width=8, fig.height=8}
+classes = c("a", "b", "c")
+means = c(2, 4, 3)
+names(means) = classes
+
+label = sample(classes, size=1000, replace=TRUE)
+meas = means[label] + rnorm(1000)
+
+frm2 = data.frame(label=label,
+                  meas = meas)
+ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
+```
+
