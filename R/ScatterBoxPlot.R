@@ -1,5 +1,6 @@
+# this function counts logical as discrete
 isDiscrete = function(x) {
-  return (is.factor(x) || is.character(x) || is.integer(x))
+  return (is.factor(x) || is.character(x) || is.integer(x) || is.logical(x))
 }
 
 
@@ -16,7 +17,7 @@ isDiscrete = function(x) {
 ScatterBoxPlot = function(frm, xvar, yvar, pt_alpha=0.3, title='') {
   checkArgs(frm,xvar,yvar)
   if(!isDiscrete(frm[[xvar]])) {
-    stop(paste(xvar, "should be discrete (factor, character, or integer)"))
+    stop(paste(xvar, "should be discrete (factor, character, integer, or logical)"))
   }
   if(is.integer(frm[[xvar]])) {
     frm[[xvar]] = as.factor(frm[[xvar]])
