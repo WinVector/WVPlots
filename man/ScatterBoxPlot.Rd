@@ -4,7 +4,7 @@
 \alias{ScatterBoxPlot}
 \title{Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable}
 \usage{
-ScatterBoxPlot(frm, xvar, yvar, title = "")
+ScatterBoxPlot(frm, xvar, yvar, pt_alpha = 0.3, title = "")
 }
 \arguments{
 \item{xvar}{name of the independent column in frame; assumed discrete.
@@ -12,6 +12,8 @@ if frm[[xvar]] is an interger column, it will be converted to a factor. This mea
 additional layers that rely on continuous x scales (like geom_smooth) won't work}
 
 \item{yvar}{name of the dependent column in frame}
+
+\item{pt_alpha}{transparency of points in scatter plot}
 
 \item{title}{plot title}
 

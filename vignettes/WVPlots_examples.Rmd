@@ -100,3 +100,7 @@ frm2 = data.frame(label=label,
 ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 ```
 
+```{r, fig.width=8, fig.height=8}
+frm = data.frame(x = rbinom(1000, 20, 0.5))
+DiscreteDistribution(frm, "x")
+```

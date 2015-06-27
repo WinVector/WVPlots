@@ -3,6 +3,7 @@
 export(BinaryYScatterPlot)
 export(ClevelandDotPlot)
 export(ConditionalDistributionPlot)
+export(DiscreteDistribution)
 export(DoubleDensityPlot)
 export(DoubleHistogramPlot)
 export(GainCurvePlot)
