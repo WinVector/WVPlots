@@ -12,8 +12,9 @@ ConditionalDistributionPlot <- function(frame, xvar, truthVar, title, ...,
   # assumes no scale_y_continuous in DoubleDensityPlot
   # assumes no scale_y_continuous in DoubleHistogramPlot
   yPadFn <- designYLabelPadFunction(p1,p2)
-  # TODO: get title back
+
   grid.arrange(p1 + scale_y_continuous(label=yPadFn),
                p2 + scale_y_continuous(label=yPadFn),
+               top=textGrob(title),
                ncol = 1, nrow = 2)
 }

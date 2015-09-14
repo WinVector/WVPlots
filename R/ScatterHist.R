@@ -131,7 +131,8 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
-  # TODO: get title back
+
   grid.arrange(plot_top, empty, plot_center, plot_right,
+               top=textGrob(title),
                ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }
