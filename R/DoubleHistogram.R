@@ -29,9 +29,9 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double hi
   # display.brewer.all()
   palletName <- "Dark2"
   # build a net effect curve
-  netF <- ddply(pf,'x',summarize,
+  netF <- ddply(pf,xvar,summarize,
                       count=sum(count))
-  sm <- loess(paste('count','~','x'),netF)
+  sm <- loess(paste('count','~',xvar),netF)
   pf$net <- predict(sm,pf,se=FALSE)
   # ConditionalDistributionPlot assumes no xlim set
   # ConditionalDistributionPlot assumes no scale_y_continuous set
