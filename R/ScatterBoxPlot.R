@@ -14,7 +14,8 @@ isDiscrete = function(x) {
 #' @param title plot title
 #'
 #' @export
-ScatterBoxPlot = function(frm, xvar, yvar, pt_alpha=0.3, title='') {
+ScatterBoxPlot = function(frm, xvar, yvar, title='', ...,
+                          pt_alpha=0.3) {
   checkArgs(frm,xvar,yvar)
   if(!isDiscrete(frm[[xvar]])) {
     stop(paste(xvar, "should be discrete (factor, character, integer, or logical)"))

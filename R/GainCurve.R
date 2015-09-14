@@ -2,7 +2,7 @@
 
 
 #' @export
-GainCurvePlot = function(frame, xvar, truthVar,title='Gain Curve') {
+GainCurvePlot = function(frame, xvar, truthVar,title) {
   checkArgs(frame,xvar,truthVar)
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])

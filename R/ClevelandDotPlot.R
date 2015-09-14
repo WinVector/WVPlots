@@ -18,7 +18,8 @@ stemdotstats = function(ycol) {
 # stem = FALSE will plot only the dots, without the stem to the y=0 line.
 # limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
 #' @export
-ClevelandDotPlot = function(frm, xvar, sort=-1, limit_n = NULL, stem=TRUE, title='Cleveland Dot plot: Count Data') {
+ClevelandDotPlot = function(frm, xvar, title, ...,
+                            sort=-1, limit_n = NULL, stem=TRUE) {
   checkArgs(frm,xvar,xvar)
   if(!(is.null(limit_n) || isScalar(limit_n))) {
     stop("parameter limit_n must either be null or a numeric scalar")

@@ -7,7 +7,8 @@
 #' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)
 #'
 #' @export
-BinaryYScatterPlot = function(frame, xvar, yvar, se=FALSE, use_glm=FALSE, title='') {
+BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
+                              se=FALSE, use_glm=FALSE) {
   checkArgs(frame,xvar,yvar)
 
   frame[[yvar]] = as.numeric(frame[[yvar]])

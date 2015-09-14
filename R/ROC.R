@@ -1,7 +1,7 @@
 
 
 #' @export
-ROCPlot <- function(frame, xvar, truthVar,title='ROC plot') {
+ROCPlot <- function(frame, xvar, truthVar,title) {
   checkArgs(frame,xvar,truthVar)
   outcol <- frame[[truthVar]]
   predcol <- frame[[xvar]]

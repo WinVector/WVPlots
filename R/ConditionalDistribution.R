@@ -1,7 +1,8 @@
 
 
 #' @export
-ConditionalDistributionPlot <- function(frame, xvar, truthVar,breaks=40,title='conditionianl distribution plot') {
+ConditionalDistributionPlot <- function(frame, xvar, truthVar, title, ...,
+                                        breaks=40) {
   checkArgs(frame,xvar,truthVar)
   xlims = c(min(frame[[xvar]]),max(frame[[xvar]]))
   p1 <- DoubleDensityPlot(frame, xvar, truthVar,  title='')  +
