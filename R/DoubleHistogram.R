@@ -1,6 +1,7 @@
 
 #' @export
-DoubleHistogramPlot <- function(frame, xvar, truthVar,breaks=40,title='double histogram plot') {
+DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
+                                breaks=40) {
   checkArgs(frame,xvar,truthVar)
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
