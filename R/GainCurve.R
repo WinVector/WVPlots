@@ -2,8 +2,8 @@
 
 
 #' @export
-GainCurvePlot = function(frame, xvar, truthVar,title) {
-  checkArgs(frame,xvar,truthVar)
+GainCurvePlot = function(frame, xvar, truthVar,title,...) {
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions

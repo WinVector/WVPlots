@@ -9,8 +9,7 @@
 #' @export
 BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
                               se=FALSE, use_glm=FALSE) {
-  checkArgs(frame,xvar,yvar)
-
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   frame[[yvar]] = as.numeric(frame[[yvar]])
   if(length(unique(frame[[yvar]])) != 2) stop(paste("outcome column", yvar, "not a binary variable"))
 

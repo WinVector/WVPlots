@@ -1,8 +1,8 @@
 
 
 #' @export
-ROCPlot <- function(frame, xvar, truthVar,title) {
-  checkArgs(frame,xvar,truthVar)
+ROCPlot <- function(frame, xvar, truthVar,title,...) {
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   outcol <- frame[[truthVar]]
   predcol <- frame[[xvar]]
   pred <- ROCR::prediction(predcol,outcol)

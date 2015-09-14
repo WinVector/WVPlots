@@ -1,7 +1,7 @@
 
 #' @export
-DoubleDensityPlot <- function(frame, xvar, truthVar,title) {
-  checkArgs(frame,xvar,truthVar)
+DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)

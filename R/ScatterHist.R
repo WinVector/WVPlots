@@ -15,7 +15,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
                        binwidth_y = NULL,
                        adjust_x = 1,
                        adjust_y = 1) {
-  checkArgs(frame,xvar,yvar)
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   if(!(smoothmethod %in% c('auto','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
   }

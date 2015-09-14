@@ -8,9 +8,9 @@ is_integral = function(x) {
 
 
 #' @export
-DiscreteDistribution = function(frm, xvar, title='Discrete Distribution', ...,
+DiscreteDistribution = function(frm, xvar, title, ...,
                                 stem=TRUE) {
-  checkArgs(frm,xvar,xvar)
+  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title,...)
   if(!is_integral(frm[[xvar]])) {
     stop(paste("Column", xvar, "must have integer values"))
   }

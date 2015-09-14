@@ -2,7 +2,7 @@
 #' @export
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
-  checkArgs(frame,xvar,truthVar)
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)

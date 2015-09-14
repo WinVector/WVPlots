@@ -3,7 +3,7 @@
 #' @export
 ConditionalDistributionPlot <- function(frame, xvar, truthVar, title, ...,
                                         breaks=40) {
-  checkArgs(frame,xvar,truthVar)
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   xlims = c(min(frame[[xvar]]),max(frame[[xvar]]))
   p1 <- DoubleDensityPlot(frame, xvar, truthVar,  title='')  +
     xlim(xlims) # assumes no xlim set in DoubleDensityPlot

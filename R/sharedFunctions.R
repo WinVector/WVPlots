@@ -1,21 +1,30 @@
 
 
 # check the arguments are the types our functions commonly expect
-checkArgs <- function(frame,xvar,yvar) {
-  if((!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
+checkArgs <- function(frame,xvar,yvar,title,...) {
+  args <- list(...)
+  if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
     stop("frame must be a non-empty data frame")
   }
-  if((!is.character(xvar))||(length(xvar)!=1)) {
+  if(missing(title)||(!is.character(title))||(length(title)!=1)) {
+    stop("title must be a length 1 character vector")
+  }
+  if(missing(xvar)||(!is.character(xvar))||(length(xvar)!=1)) {
     stop("xvar must be a length 1 character vector")
+  }
+  if(missing(yvar)||(!is.character(yvar))||(length(yvar)!=1)) {
+    stop("yvar must be a length 1 character vector")
   }
   if(!(xvar %in% colnames(frame))) {
     stop("xvar must be the name of a column in frame")
   }
-  if((!is.character(yvar))||(length(yvar)!=1)) {
-    stop("yvar must be a length 1 character vector")
-  }
   if(!(yvar %in% colnames(frame))) {
     stop("yvar must be the name of a column in frame")
+  }
+  if(length(args)!=0) {
+    nm <- setdiff(paste(names(args),collapse=", "),'')
+    nv <- length(args)-length(nm)
+    stop(paste("unexpected arguments",nm,"(and",nv,"unexpected values)"))
   }
 }
 
