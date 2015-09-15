@@ -4,7 +4,7 @@
 \alias{ScatterHist}
 \title{Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable}
 \usage{
-ScatterHist(frame, xvar, yvar, smoothmethod = "auto", title = "",
+ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
   annot_size = 5, minimal_labels = TRUE, binwidth_x = NULL,
   binwidth_y = NULL, adjust_x = 1, adjust_y = 1)
 }

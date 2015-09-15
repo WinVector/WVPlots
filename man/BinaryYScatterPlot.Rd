@@ -4,8 +4,8 @@
 \alias{BinaryYScatterPlot}
 \title{Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable}
 \usage{
-BinaryYScatterPlot(frame, xvar, yvar, se = FALSE, use_glm = FALSE,
-  title = "")
+BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
+  use_glm = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}

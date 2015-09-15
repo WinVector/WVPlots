@@ -2,24 +2,26 @@
 % Please edit documentation in R/ScatterBoxPlot.R
 \name{ScatterBoxPlot}
 \alias{ScatterBoxPlot}
-\title{Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable}
+\title{Plot a scatter plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable}
 \usage{
-ScatterBoxPlot(frm, xvar, yvar, pt_alpha = 0.3, title = "")
+ScatterBoxPlot(frm, xvar, yvar, title = "", ..., pt_alpha = 0.3)
 }
 \arguments{
 \item{xvar}{name of the independent column in frame; assumed discrete.
 if frm[[xvar]] is an interger column, it will be converted to a factor. This means that
 additional layers that rely on continuous x scales (like geom_smooth) won't work}
 
-\item{yvar}{name of the dependent column in frame}
-
-\item{pt_alpha}{transparency of points in scatter plot}
+\item{yvar}{name of the continuous column in frame}
 
 \item{title}{plot title}
+
+\item{...}{(doesn't take additional arguments, used to force later arguments by name)}
+
+\item{pt_alpha}{transparency of points in scatter plot}
 
 \item{frame}{data frame to get values from}
 }
 \description{
-Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
+Plot a scatter plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable
 }
 
