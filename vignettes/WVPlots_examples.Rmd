@@ -104,3 +104,23 @@ ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box p
 frm = data.frame(x = rbinom(1000, 20, 0.5))
 DiscreteDistribution(frm, "x","Discrete example")
 ```
+
+```{r, fig.width=8, fig.height=8}
+y = c(1,2,3,4,5,10,15,18,20,25)
+x = seq_len(length(y))
+
+df = data.frame(x=x,y=y)
+ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="centered smooth, one group")
+ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="left smooth, one group", align="left")
+ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="right smooth, one group", align="right")
+
+n = length(x)
+df = rbind(data.frame(x=x, y=y+rnorm(n), gp="times 1"),
+           data.frame(x=x, y=0.5*y + rnorm(n), gp="times 1/2"),
+           data.frame(x=x, y=2*y + rnorm(n), gp="times 2"))
+
+ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="centered smooth, multigroup")
+ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, multigroup", align="left")
+ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth, multigroup", align="right")
+
+```

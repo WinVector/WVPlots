@@ -1,9 +1,3 @@
-# this function counts logical as discrete
-isDiscrete = function(x) {
-  return (is.factor(x) || is.character(x) || is.integer(x) || is.logical(x))
-}
-
-
 #' Plot a scatter plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable
 #' @param frame data frame to get values from
 #' @param xvar name of the independent column in frame; assumed discrete.

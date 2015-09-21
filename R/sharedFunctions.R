@@ -64,4 +64,9 @@ cdeviance <- function(truth,pred,epsilon=1.e-6) {
   -2*(sum(ifelse(truth,log(pred),log(1-pred)))-S)
 }
 
+# this function counts logical as discrete
+isDiscrete = function(x) {
+  return (is.factor(x) || is.character(x) || is.integer(x) || is.logical(x))
+}
+
 
