@@ -56,6 +56,11 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
   }
   check_align(align)
   if((k%%2)==0 && align=="center") {error("For centered windows, k must be odd")}
+
+  # sort the frame by x
+  ord = order(frame[[xvar]])
+  frame=frame[ord,]
+
   fs = frame
   fs$smooth=0
 
