@@ -9,7 +9,7 @@
 #' @param pt_alpha transparency of points in scatter plot
 #'
 #' @export
-ScatterBoxPlot = function(frm, xvar, yvar, title='', ...,
+ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
                           pt_alpha=0.3) {
   checkArgs(frame=frm,xvar=xvar,yvar=yvar,title=title,...)
   if(!isDiscrete(frm[[xvar]])) {
