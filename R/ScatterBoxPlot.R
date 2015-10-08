@@ -21,7 +21,7 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 
   ggplot(frm, aes_string(x=xvar, y=yvar)) +
     geom_boxplot(outlier.size=0, fill="lightgray") +
-    geom_point(alpha=pt_alpha, position=position_jitter(width=0.1)) +
+    geom_point(alpha=pt_alpha, position=position_jitter(width=0.1,height=0)) +
     ggtitle(title)
 
 }
