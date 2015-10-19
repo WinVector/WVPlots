@@ -61,20 +61,32 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   # data frame of pred and truth, sorted in order of the predictions
   d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
   predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
+  wizord = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
   # of the fraction of the population we're considering, highest first
-  results = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
-                       model = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]))
+  mName = paste("model: sort by",xvar)
+  resultsM = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
+                        pct_outcome = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
+                        sort_criterion=mName)
+  wName = paste("wizard: sort by ",truthVar,'/',costVar)
+  resultsW = data.frame(pctpop = cumsum(d[wizord,'costcol'])/sum(d[['costcol']]),
+                        pct_outcome = cumsum(d[wizord,'truthcol'])/sum(d[['truthcol']]),
+                        sort_criterion=wName)
+  results = rbind(resultsM,resultsW)
 
-  # melt the frame into the tall form, for plotting
-  results = melt(results, id.vars="pctpop", measure.vars=c("model"),
-                 variable.name="sort_criterion", value.name="pct_outcome")
+  # calculate the areas under each curve
+  # gini score is 2* (area - 0.5)
+  idealArea = areaCalc(resultsW$pctpop,resultsW$pct_outcome) - 0.5
+  modelArea = areaCalc(resultsM$pctpop,resultsM$pct_outcome) - 0.5
+  giniScore = modelArea/idealArea # actually, normalized gini score
+
+
   # rename levels of sort criterion
-  colorKey = c('model'='darkblue')
-  names(colorKey) = c(paste('model: sort by',xvar))
-  modelKey = names(colorKey)[[1]]
+  colorKey = c('model'='darkblue', 'wizard'='darkgreen')
+  names(colorKey) = c(mName,wName)
+  modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
   gplot = ggplot(data=results, aes(x=pctpop, y=pct_outcome,
@@ -87,7 +99,8 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
                 aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
     ggtitle(paste("Gain curve,", title, '\n',
-                  truthVar, '~', xvar, '\n')) +
+                  truthVar, '~', xvar, '\n',
+            'relative Gini score', format(giniScore,digits=2))) +
     xlab(paste("fraction ",costVar,"cost in sort order")) +
     ylab(paste("fraction total sum",truthVar)) +
     scale_x_continuous(breaks=seq(0,1,0.1)) +
