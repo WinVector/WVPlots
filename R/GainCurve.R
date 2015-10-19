@@ -45,9 +45,54 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
     ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
                   'relative Gini score', format(giniScore,digits=2))) +
-    xlab("% items in sort order") + ylab(paste("% total sum",truthVar)) +
+    xlab("fraction items in sort order") + ylab(paste("fraction total sum",truthVar)) +
     scale_x_continuous(breaks=seq(0,1,0.1)) +
     scale_y_continuous(breaks=seq(0,1,0.1)) +
     scale_color_manual(values=colorKey)
   gplot
 }
+
+#' @export
+GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  truthcol <- as.numeric(frame[[truthVar]])
+  predcol <- as.numeric(frame[[xvar]])
+  costcol <- as.numeric(frame[[costVar]])
+  # data frame of pred and truth, sorted in order of the predictions
+  d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
+  predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
+  npop = dim(d)[1]
+
+  # data frame the cumulative prediction/truth as a function
+  # of the fraction of the population we're considering, highest first
+  results = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
+                       model = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]))
+
+  # melt the frame into the tall form, for plotting
+  results = melt(results, id.vars="pctpop", measure.vars=c("model"),
+                 variable.name="sort_criterion", value.name="pct_outcome")
+  # rename levels of sort criterion
+  colorKey = c('model'='darkblue')
+  names(colorKey) = c(paste('model: sort by',xvar))
+  modelKey = names(colorKey)[[1]]
+  results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
+  # plot
+  gplot = ggplot(data=results, aes(x=pctpop, y=pct_outcome,
+                                   color=sort_criterion,
+                                   shape=sort_criterion,
+                                   linetype=sort_criterion)) +
+    geom_point() + geom_line() +
+    geom_abline(color="gray") +
+    geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
+                aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+                alpha=0.2,color=NA) +
+    ggtitle(paste("Gain curve,", title, '\n',
+                  truthVar, '~', xvar, '\n')) +
+    xlab(paste("fraction ",costVar,"cost in sort order")) +
+    ylab(paste("fraction total sum",truthVar)) +
+    scale_x_continuous(breaks=seq(0,1,0.1)) +
+    scale_y_continuous(breaks=seq(0,1,0.1)) +
+    scale_color_manual(values=colorKey)
+  gplot
+}
+

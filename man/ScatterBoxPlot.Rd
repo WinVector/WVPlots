@@ -4,7 +4,7 @@
 \alias{ScatterBoxPlot}
 \title{Plot a scatter plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable}
 \usage{
-ScatterBoxPlot(frm, xvar, yvar, title = "", ..., pt_alpha = 0.3)
+ScatterBoxPlot(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 }
 \arguments{
 \item{xvar}{name of the independent column in frame; assumed discrete.

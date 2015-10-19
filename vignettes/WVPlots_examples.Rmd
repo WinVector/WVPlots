@@ -19,6 +19,7 @@ y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
 frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
+frm$costX = 1
 ```
 
 ```{r, fig.width=8, fig.height=8}
@@ -42,6 +43,10 @@ BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability o
 
 ```{r, fig.width=8, fig.height=8}
 GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
+```
+
+```{r, fig.width=8, fig.height=8}
+GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
 ```
 
 ```{r, fig.width=8, fig.height=8}
