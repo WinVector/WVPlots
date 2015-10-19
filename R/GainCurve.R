@@ -37,7 +37,7 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
                                    color=sort_criterion,
                                    shape=sort_criterion,
                                    linetype=sort_criterion)) +
-    geom_point() + geom_line() +
+    geom_point(alpha=0.5) + geom_line() +
     geom_abline(color="gray") +
     geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
                 aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
@@ -93,7 +93,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
                                    color=sort_criterion,
                                    shape=sort_criterion,
                                    linetype=sort_criterion)) +
-    geom_point() + geom_line() +
+    geom_point(alpha=0.5) + geom_line() +
     geom_abline(color="gray") +
     geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
                 aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
