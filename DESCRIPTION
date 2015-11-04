@@ -1,12 +1,13 @@
 Package: WVPlots
 Type: Package
-Title: What the package does (short line)
+Title: Common plots used by Win-Vector LLC, based on ggplot2.
 Version: 1.0
-Date: 2015-06-05
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Date: 2015-10-04
+Author: John Mount, Nina Zumel
+Maintainer: John Mount <jmount@win-vector.com>
+URL: https://github.com/WinVector/WVPlots
+Description: Example plots we have found useful, under a standardized calling interface.
+License: GPL-3
 Suggests: knitr
 VignetteBuilder: knitr
 Depends: ggplot2,

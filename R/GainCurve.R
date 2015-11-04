@@ -1,6 +1,12 @@
 
-
-
+#' Plot the gain curve of a sort-order.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#'
 #' @export
 GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
@@ -52,6 +58,15 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   gplot
 }
 
+#' Plot the gain curve of a sort-order in horizontal orientation.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param costVar cost of each item (drives x-axis sum)
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#'
 #' @export
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
@@ -61,7 +76,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   # data frame of pred and truth, sorted in order of the predictions
   d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
   predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
-  wizord = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
+  wizard = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
@@ -71,8 +86,8 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
                         pct_outcome = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
                         sort_criterion=mName)
   wName = paste("wizard: sort by ",truthVar,'/',costVar)
-  resultsW = data.frame(pctpop = cumsum(d[wizord,'costcol'])/sum(d[['costcol']]),
-                        pct_outcome = cumsum(d[wizord,'truthcol'])/sum(d[['truthcol']]),
+  resultsW = data.frame(pctpop = cumsum(d[wizard,'costcol'])/sum(d[['costcol']]),
+                        pct_outcome = cumsum(d[wizard,'truthcol'])/sum(d[['truthcol']]),
                         sort_criterion=wName)
   results = rbind(resultsM,resultsW)
 

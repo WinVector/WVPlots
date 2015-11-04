@@ -1,5 +1,14 @@
 
 
+#' Plot conditional density and conditional histogram.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param breaks number of breaks in histogram
+#'
 #' @export
 ConditionalDistributionPlot <- function(frame, xvar, truthVar, title, ...,
                                         breaks=40) {

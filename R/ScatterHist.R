@@ -1,11 +1,19 @@
 
 
-#' Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
+#' Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the indepement (input or model) column in frame
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
 #' @param smoothmethod (optional) one of 'auto' (the default), 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
-#'
+#' @param annot_size numeric scale annotation text (if present)
+#' @param minimal_labels logical drop some annotations
+#' @param binwidth_x  numeric binwidth for x histogram
+#' @param binwidth_y  numeric binwidth for y histogram
+#' @param adjust_x  numeric adjust x density plot
+#' @param adjust_y  numeric adjust y density plot
 #' @export
 ScatterHist = function(frame, xvar, yvar,title, ...,
                        smoothmethod="auto", # only works for 'auto', 'lm', and 'identity'

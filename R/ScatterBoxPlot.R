@@ -1,5 +1,8 @@
-#' Plot a scatter plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable
-#' @param frame data frame to get values from
+
+
+#' Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.
+#'
+#' @param frm data frame to get values from
 #' @param xvar name of the independent column in frame; assumed discrete.
 #' if frm[[xvar]] is an interger column, it will be converted to a factor. This means that
 #' additional layers that rely on continuous x scales (like geom_smooth) won't work
@@ -29,7 +32,7 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 
 #' Plot a scatter plot in horizontal mode.
 #' xvar is the continuous variable and yvar is the discrete variable (input or model) and
-#' @param frame data frame to get values from
+#' @param frm data frame to get values from
 #' @param xvar name of the continuous column in frame
 #' @param yvar name of the independent column in frame; assumed discrete.
 #' if frm[[yvar]] is an interger column, it will be converted to a factor. This means that

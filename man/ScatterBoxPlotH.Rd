@@ -8,6 +8,8 @@ xvar is the continuous variable and yvar is the discrete variable (input or mode
 ScatterBoxPlotH(frm, xvar, yvar, title = "", ..., pt_alpha = 0.3)
 }
 \arguments{
+\item{frm}{data frame to get values from}
+
 \item{xvar}{name of the continuous column in frame}
 
 \item{yvar}{name of the independent column in frame; assumed discrete.
@@ -19,8 +21,6 @@ additional layers that rely on continuous x scales (like geom_smooth) won't work
 \item{...}{(doesn't take additional arguments, used to force later arguments by name)}
 
 \item{pt_alpha}{transparency of points in scatter plot}
-
-\item{frame}{data frame to get values from}
 }
 \description{
 Plot a scatter plot in horizontal mode.

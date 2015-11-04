@@ -18,9 +18,13 @@ ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ..., k = 3,
 
 \item{groupvar}{name of the grouping column in frame. Can be NULL for an unconditional plot}
 
+\item{title}{title for plot}
+
+\item{...}{no unamed argument, added to force named binding of later arguments.}
+
 \item{k}{width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3}
 
-\item{window}{alignment: 'center', 'left', or 'right'. Defaults to 'center'}
+\item{align}{smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'}
 }
 \description{
 Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,

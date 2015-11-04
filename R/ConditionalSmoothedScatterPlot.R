@@ -38,12 +38,15 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
 #'       xvar is the continuous independent variable and yvar is the dependent binary variable.
 #'       Smoothing is by a square window of width k
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent column in frame. Assumed to be regularly spaced
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param groupvar name of the grouping column in frame. Can be NULL for an unconditional plot
+#' @param title title for plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
 #' @param k width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3
-#' @param window alignment: 'center', 'left', or 'right'. Defaults to 'center'
+#' @param align smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'
 #'
 #' @export
 ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ...,

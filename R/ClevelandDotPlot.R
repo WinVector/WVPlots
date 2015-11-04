@@ -11,12 +11,22 @@ stemdotstats = function(ycol) {
              ymin=0)
 }
 
-# assumes that xvar is a factor variable
-# sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-# sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-# sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-# stem = FALSE will plot only the dots, without the stem to the y=0 line.
-# limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' Plot a Cleveland dot plot.
+#'
+#' assumes that xvar is a factor variable
+#' sort < 0 sorts the factor levels in decreasing order (most frequent level first)
+#' sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
+#' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
+#' stem = FALSE will plot only the dots, without the stem to the y=0 line.
+#' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' @param frm data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param sort if TRUE sort data
+#' @param limit_n if not NULL number of items to plot
+#' @param stem if TRUE add stems/whiskers to plot
+#'
 #' @export
 ClevelandDotPlot = function(frm, xvar, title, ...,
                             sort=-1, limit_n = NULL, stem=TRUE) {

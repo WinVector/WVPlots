@@ -6,7 +6,14 @@ is_integral = function(x) {
   return(sum(xint != x)==0)
 }
 
-
+#' Plot distribution of a single continuous variable.
+#'
+#' @param frm data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param title title to place on plot
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param stem if TRUE add whisker/stems to plot
+#'
 #' @export
 DiscreteDistribution = function(frm, xvar, title, ...,
                                 stem=TRUE) {

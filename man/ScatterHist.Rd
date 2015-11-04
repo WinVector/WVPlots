@@ -2,7 +2,7 @@
 % Please edit documentation in R/ScatterHist.R
 \name{ScatterHist}
 \alias{ScatterHist}
-\title{Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable}
+\title{Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable}
 \usage{
 ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
   annot_size = 5, minimal_labels = TRUE, binwidth_x = NULL,
@@ -15,9 +15,25 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
 
 \item{yvar}{name of the dependent (output or result to be modeled) column in frame}
 
+\item{title}{title to place on plot}
+
+\item{...}{no unamed argument, added to force named binding of later arguments.}
+
 \item{smoothmethod}{(optional) one of 'auto' (the default), 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.}
+
+\item{annot_size}{numeric scale annotation text (if present)}
+
+\item{minimal_labels}{logical drop some annotations}
+
+\item{binwidth_x}{numeric binwidth for x histogram}
+
+\item{binwidth_y}{numeric binwidth for y histogram}
+
+\item{adjust_x}{numeric adjust x density plot}
+
+\item{adjust_y}{numeric adjust y density plot}
 }
 \description{
-Plot a scatter plot.  xvar is the independent variable (input or model) and yvar is the dependent variable
+Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
 }
 
