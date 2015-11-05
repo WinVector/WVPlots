@@ -20,4 +20,8 @@ DiscreteDistribution(frm, xvar, title, ..., stem = TRUE)
 \description{
 Plot distribution of a single continuous variable.
 }
+\examples{
+frmx = data.frame(x = rbinom(1000, 20, 0.5))
+WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
+}
 

@@ -88,12 +88,11 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Exam
 classes = c("a", "b", "c")
 means = c(2, 4, 3)
 names(means) = classes
-
 label = sample(classes, size=1000, replace=TRUE)
 meas = means[label] + rnorm(1000)
-
 frm2 = data.frame(label=label,
                   meas = meas)
+
 WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
 ```
@@ -106,8 +105,8 @@ WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 ```{r, fig.width=8, fig.height=8}
 y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
-
 df = data.frame(x=x,y=y)
+
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="centered smooth, one group")
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="left smooth, one group", align="left")
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="right smooth, one group", align="right")

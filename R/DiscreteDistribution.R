@@ -13,6 +13,10 @@ is_integral = function(x) {
 #' @param title title to place on plot
 #' @param ...  no unamed argument, added to force named binding of later arguments.
 #' @param stem if TRUE add whisker/stems to plot
+#' @examples
+#'
+#' frmx = data.frame(x = rbinom(1000, 20, 0.5))
+#' WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 #'
 #' @export
 DiscreteDistribution = function(frm, xvar, title, ...,

@@ -22,4 +22,14 @@ GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...)
 \description{
 Plot the gain curve of a sort-order in horizontal orientation.
 }
+\examples{
+set.seed(34903490)
+x = rnorm(50)
+y = 0.5*x^2 + 2*x + rnorm(length(x))
+frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
+frm$absY <- abs(frm$y)
+frm$posY = frm$y > 0
+frm$costX = 1
+WVPlots::GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
+}
 

@@ -49,6 +49,13 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @param ...  no unamed argument, added to force named binding of later arguments.
 #' @param k width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3
 #' @param align smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'
+#' @examples
+#'
+#' y = c(1,2,3,4,5,10,15,18,20,25)
+#' x = seq_len(length(y))
+#' df = data.frame(x=x,y=y)
+#' WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL,
+#'    title="left smooth, one group", align="left")
 #'
 #' @export
 ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ...,

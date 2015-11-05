@@ -1,5 +1,15 @@
 
 
+#' @importFrom stats aggregate anova as.formula binomial glm lm lm.wfit pchisq pf quantile
+#' @importFrom ROCR prediction performance
+#' @importFrom ggplot2 ggplot_build aes aes_string
+#' @importFrom grid textGrob unit
+#' @importFrom gridExtra grid.arrange
+#' @importFrom plyr ddply summarize
+#' @importFrom reshape2 melt
+#' @importFrom stringr str_pad
+NULL
+
 # check the arguments are the types our functions commonly expect
 checkArgs <- function(frame,xvar,yvar,title,...) {
   args <- list(...)

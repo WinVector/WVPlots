@@ -14,6 +14,17 @@
 #' @param binwidth_y  numeric binwidth for y histogram
 #' @param adjust_x  numeric adjust x density plot
 #' @param adjust_y  numeric adjust y density plot
+#' @examples
+#'
+#' set.seed(34903490)
+#' x = rnorm(50)
+#' y = 0.5*x^2 + 2*x + rnorm(length(x))
+#' frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' frm$absY <- abs(frm$y)
+#' frm$posY = frm$y > 0
+#' frm$costX = 1
+#' WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+#'
 #' @export
 ScatterHist = function(frame, xvar, yvar,title, ...,
                        smoothmethod="auto", # only works for 'auto', 'lm', and 'identity'

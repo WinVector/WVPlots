@@ -31,4 +31,11 @@ Plot a scatter plot with smoothing line, with smoothing window aligned either le
       xvar is the continuous independent variable and yvar is the dependent binary variable.
       Smoothing is by a square window of width k
 }
+\examples{
+y = c(1,2,3,4,5,10,15,18,20,25)
+x = seq_len(length(y))
+df = data.frame(x=x,y=y)
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL,
+   title="left smooth, one group", align="left")
+}
 

@@ -8,6 +8,17 @@
 #' @param ...  no unamed argument, added to force named binding of later arguments.
 #' @param se if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE
 #' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)
+#' @examples
+#'
+#' set.seed(34903490)
+#' x = rnorm(50)
+#' y = 0.5*x^2 + 2*x + rnorm(length(x))
+#' frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' frm$absY <- abs(frm$y)
+#' frm$posY = frm$y > 0
+#' frm$costX = 1
+#' WVPlots::BinaryYScatterPlot(frm, "x", "posY",
+#'    title="Example 'Probability of Y' Plot")
 #'
 #' @export
 BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
