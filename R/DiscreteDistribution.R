@@ -29,7 +29,7 @@ DiscreteDistribution = function(frm, xvar, title, ...,
   } else {
     geom="point"
   }
-  ggplot(frm, aes_string(xvar, "unit")) +
-    stat_summary(fun.y=sum, fun.ymax=sum, fun.ymin=function(x){0}, geom=geom) +
-    ggtitle(title)
+  ggplot2::ggplot(frm, ggplot2::aes_string(xvar, "unit")) +
+    ggplot2::stat_summary(fun.y=sum, fun.ymax=sum, fun.ymin=function(x){0}, geom=geom) +
+    ggplot2::ggtitle(title)
 }

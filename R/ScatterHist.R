@@ -29,23 +29,24 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   }
 
   # placeholder plot - prints nothing at all
-  empty =  ggplot() + geom_point(aes(c(0,1), c(0,1)), colour = "white") +
-    theme(plot.background = element_blank(),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.border = element_blank(),
-          panel.background = element_blank(),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text.x = element_blank(),
-          axis.text.y = element_blank(),
-          axis.ticks = element_blank(),
+  empty =  ggplot2::ggplot() +
+    ggplot2::geom_point(ggplot2::aes(c(0,1), c(0,1)), colour = "white") +
+    ggplot2::theme(plot.background = ggplot2::element_blank(),
+          panel.grid.major = ggplot2::element_blank(),
+          panel.grid.minor = ggplot2::element_blank(),
+          panel.border = ggplot2::element_blank(),
+          panel.background = ggplot2::element_blank(),
+          axis.title.x = ggplot2::element_blank(),
+          axis.title.y = ggplot2::element_blank(),
+          axis.text.x = ggplot2::element_blank(),
+          axis.text.y = ggplot2::element_blank(),
+          axis.ticks = ggplot2::element_blank(),
           plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
   gSmooth = NULL
   if(smoothmethod=='auto') {
-    gSmooth = geom_smooth(method=smoothmethod)
+    gSmooth = ggplot2::geom_smooth(method=smoothmethod)
   } else if(smoothmethod=="lm") {
     # get goodness of linear relation
     model = lm(paste(yvar,"~",xvar), data=frame)
@@ -57,22 +58,22 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     fitstring = paste("R-squared = ", format(rsqr, digits=3))
     sigstring = paste("Significance = ", format(pval, digits=3))
 
-    empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
-      annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)
-    gSmooth = geom_smooth(method=smoothmethod)
+    empty = empty + ggplot2::annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
+      ggplot2::annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)
+    gSmooth = ggplot2::geom_smooth(method=smoothmethod)
   } else if(smoothmethod=='identity') {
     meanY = mean(frame[[yvar]])
     rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
     fitstring = paste("R-squared = ", format(rsqr, digits=3))
 
-    empty = empty + annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size)
-    gSmooth = geom_abline(slope=1,linetype=2,color='blue')
+    empty = empty + ggplot2::annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size)
+    gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
   }
 
   # scatterplot of x and y
-  plot_center = ggplot(frame, aes_string(x=xvar,y=yvar)) +
-    geom_point(alpha=0.5) +
-    theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
+  plot_center = ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar,y=yvar)) +
+    ggplot2::geom_point(alpha=0.5) +
+    ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   if(!is.null(gSmooth)) {
     plot_center = plot_center + gSmooth
   }
@@ -86,7 +87,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   #  print(xlims)
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
-  plot_center = plot_center + xlim(xlims)
+  plot_center = plot_center + ggplot2::xlim(xlims)
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
@@ -98,49 +99,51 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   # 0,0,1,0 -- bottom gap bigger
   # 0,0,0,1 -- left side is shorter
   #
-  plot_top <- ggplot(frame, aes_string(x=xvar)) +
-    geom_histogram(aes(y=..density..), fill="gray",
+  plot_top <- ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
+    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x) +
-   geom_line(stat='density',color="blue", adjust=adjust_x) +
-    xlim(xlims)
+    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
+    ggplot2::xlim(xlims)
   if(minimal_labels) {
     plot_top = plot_top +
-      theme(legend.position = "none", axis.title.x = element_blank(),
-            axis.text.x = element_blank(),
-            axis.ticks.x = element_blank(),
+      ggplot2::theme(legend.position = "none",
+                     axis.title.x = ggplot2::element_blank(),
+            axis.text.x = ggplot2::element_blank(),
+            axis.ticks.x = ggplot2::element_blank(),
             plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
   } else {
     plot_top = plot_top +
-      theme(plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
+      ggplot2::theme(plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
   }
 
 
   # marginal density of y - plot on the right
-  plot_right <- ggplot(frame, aes_string(x=yvar)) +
-    geom_histogram(aes(y=..density..), fill="gray",
+  plot_right <- ggplot2::ggplot(frame, ggplot2::aes_string(x=yvar)) +
+    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_y) +
-   geom_line(stat='density',color="blue", adjust=adjust_y) +
-    xlim(ylims) +
-    coord_flip()
+    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
+    ggplot2::xlim(ylims) +
+    ggplot2::coord_flip()
   if(minimal_labels) {
     plot_right = plot_right +
-      theme(legend.position = "none", axis.title.y = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank(),
+      ggplot2::theme(legend.position = "none",
+                     axis.title.y = ggplot2::element_blank(),
+            axis.text.y = ggplot2::element_blank(),
+            axis.ticks.y = ggplot2::element_blank(),
             plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   } else {
     plot_right = plot_right +
-      theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
+      ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   }
 
-  yPadFn <- designYLabelPadFunction(plot_center + ylim(ylims),plot_top)
-  plot_center <- plot_center + scale_y_continuous(limits=ylims,label=yPadFn)
-  plot_top <- plot_top + scale_y_continuous(label=yPadFn)
+  yPadFn <- designYLabelPadFunction(plot_center + ggplot2::ylim(ylims),plot_top)
+  plot_center <- plot_center + ggplot2::scale_y_continuous(limits=ylims,label=yPadFn)
+  plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
 
-  grid.arrange(plot_top, empty, plot_center, plot_right,
-               top=textGrob(title),
+  gridExtra::grid.arrange(plot_top, empty, plot_center, plot_right,
+               top=grid::textGrob(title),
                ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }

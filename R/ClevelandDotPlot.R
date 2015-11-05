@@ -56,10 +56,10 @@ ClevelandDotPlot = function(frm, xvar, title, ...,
   }
   frm$count = 1
   if(stem) {
-    p = ggplot(frm, aes_string(x=xvar, y="count")) +
-      stat_summary(fun.data=stemdotstats, geom="pointrange")
+    p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar, y="count")) +
+      ggplot2::stat_summary(fun.data=stemdotstats, geom="pointrange")
   } else {
-    p = ggplot(frm, aes_string(x=xvar)) + geom_point(stat="bin")
+    p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar)) + ggplot2::geom_point(stat="bin")
   }
-  p + ggtitle(title)
+  p + ggplot2::ggtitle(title)
 }

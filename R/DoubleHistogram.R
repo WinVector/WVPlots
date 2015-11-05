@@ -19,7 +19,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   yVals <- sort(unique(df[['y']]))
   signs <- (-1)^seq_len(length(yVals))
   names(signs) <- yVals
-  pf <- ddply(df,'y',function(sf) {
+  pf <- plyr::ddply(df,'y',function(sf) {
     yGroup <- sf$y[[1]]
     si <- signs[[yGroup]]
     counts <- hist(sf[['x']],breaks=breaksV,plot=FALSE)
@@ -39,19 +39,20 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   # display.brewer.all()
   palletName <- "Dark2"
   # build a net effect curve
-  netF <- ddply(pf,xvar,summarize,
+  netF <- plyr::ddply(pf,xvar,plyr::summarize,
                       count=sum(count))
   sm <- loess(paste('count','~',xvar),netF)
   pf$net <- predict(sm,pf,se=FALSE)
   # ConditionalDistributionPlot assumes no xlim set
   # ConditionalDistributionPlot assumes no scale_y_continuous set
-  plot <- ggplot(data=pf,mapping=aes_string(x=xvar,
+  plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
-    geom_bar(mapping=aes_string(y='count'),
+    ggplot2::geom_bar(mapping=ggplot2::aes_string(y='count'),
              stat='identity',alpha=0.5,position='identity') +
-    geom_line(mapping=aes_string(y='smooth')) +
-    geom_line(mapping=aes_string(y='net'),linetype=3,color='black') +
-    scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
-    ggtitle(title)
+    ggplot2::geom_line(mapping=ggplot2::aes_string(y='smooth')) +
+    ggplot2::geom_line(mapping=ggplot2::aes_string(y='net'),linetype=3,color='black') +
+    ggplot2::scale_fill_brewer(palette=palletName) +
+    ggplot2::scale_color_brewer(palette=palletName) +
+    ggplot2::ggtitle(title)
   plot
 }

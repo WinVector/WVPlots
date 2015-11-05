@@ -19,13 +19,13 @@ BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
   if(use_glm) {
     model = glm(frame[[yvar]] == max(frame[[yvar]]) ~ frame[[xvar]], family=binomial(link="logit"))
     frame$smooth = predict(model, type="response")
-    ggplot(frame, aes_string(x=xvar)) +
-      geom_point(aes_string(y=yvar), position=position_jitter(height=0.01), alpha=0.5) +
-      geom_line(aes(y=smooth), color='blue') +
-      ggtitle(title)
+    ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
+      ggplot2::geom_point(ggplot2::aes_string(y=yvar), position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
+      ggplot2::geom_line(ggplot2::aes(y=smooth), color='blue') +
+      ggplot2::ggtitle(title)
   } else {
-    ggplot(frame, aes_string(x=xvar, y=yvar)) +
-      geom_point(position=position_jitter(height=0.01), alpha=0.5) +
-      geom_smooth(method="gam", formula=y~s(x), se=se) + ggtitle(title)
+    ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar, y=yvar)) +
+      ggplot2::geom_point(position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
+      ggplot2::geom_smooth(method="gam", formula=y~s(x), se=se) + ggplot2::ggtitle(title)
   }
 }

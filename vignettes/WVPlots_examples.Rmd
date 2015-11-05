@@ -11,8 +11,6 @@ vignette: >
 
 
 ```{r, fig.width=8, fig.height=8}
-library(WVPlots)
-
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
@@ -23,51 +21,45 @@ frm$costX = 1
 ```
 
 ```{r, fig.width=8, fig.height=8}
-ScatterHist(frm, "x", "y", title="Example Fit")
+WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-ScatterHist(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=2)
+WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=2)
 ```
 
 ```{r, fig.width=8, fig.height=8}
-ScatterHist(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot", annot_size=2)
+WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot", annot_size=2)
 ```
 
 ```{r, fig.width=8, fig.height=8}
-BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
+WVPlots::BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
 
-BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
+WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
 
 ```{r, fig.width=8, fig.height=8}
-GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
+WVPlots::GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
+WVPlots::GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-GainCurvePlot(frm, "x", "yC", title="Example Discrete Gain Curve")
+WVPlots::GainCurvePlot(frm, "x", "yC", title="Example Discrete Gain Curve")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-ROCPlot(frm, "x", "yC", title="Example ROC plot")
+WVPlots::ROCPlot(frm, "x", "yC", title="Example ROC plot")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-DoubleDensityPlot(frm, "x", "yC", title="Example double density plot")
+WVPlots::DoubleDensityPlot(frm, "x", "yC", title="Example double density plot")
 ```
 
-```{r, fig.width=8, fig.height=8}
-DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
-```
 
-```{r, fig.width=8, fig.height=8}
-ConditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
-```
 
 ```{r, fig.width=8, fig.height=8}
 set.seed(34903490)
@@ -85,10 +77,10 @@ letterFrame = data.frame(letter = letters, freq=letterFreqs)
 N = 1000
 randomDraws = data.frame(draw=1:N, letter=sample(letterFrame$letter, size=N, replace=TRUE, prob=letterFrame$freq))
 
-ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-style dot plot")
-ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most frequent letters")
-ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
-ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + coord_flip()
+WVPlots::ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-style dot plot")
+WVPlots::ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most frequent letters")
+WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
+WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + ggplot2::coord_flip()
 
 ```
 
@@ -102,13 +94,13 @@ meas = means[label] + rnorm(1000)
 
 frm2 = data.frame(label=label,
                   meas = meas)
-ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
-ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
+WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
+WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
 ```
 
 ```{r, fig.width=8, fig.height=8}
-frm = data.frame(x = rbinom(1000, 20, 0.5))
-DiscreteDistribution(frm, "x","Discrete example")
+frmx = data.frame(x = rbinom(1000, 20, 0.5))
+WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 ```
 
 ```{r, fig.width=8, fig.height=8}
@@ -116,17 +108,24 @@ y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
 
 df = data.frame(x=x,y=y)
-ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="centered smooth, one group")
-ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="left smooth, one group", align="left")
-ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="right smooth, one group", align="right")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="centered smooth, one group")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="left smooth, one group", align="left")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="right smooth, one group", align="right")
 
 n = length(x)
 df = rbind(data.frame(x=x, y=y+rnorm(n), gp="times 1"),
            data.frame(x=x, y=0.5*y + rnorm(n), gp="times 1/2"),
            data.frame(x=x, y=2*y + rnorm(n), gp="times 2"))
 
-ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="centered smooth, multigroup")
-ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, multigroup", align="left")
-ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth, multigroup", align="right")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="centered smooth, multigroup")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, multigroup", align="left")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth, multigroup", align="right")
+```
 
+```{r, fig.width=8, fig.height=8}
+WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
+```
+
+```{r, fig.width=8, fig.height=8}
+WVPlots::ConditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
 ```

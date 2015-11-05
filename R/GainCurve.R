@@ -31,7 +31,7 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   giniScore = modelArea/idealArea # actually, normalized gini score
 
   # melt the frame into the tall form, for plotting
-  results = melt(results, id.vars="pctpop", measure.vars=c("model", "wizard"),
+  results = reshape2::melt(results, id.vars="pctpop", measure.vars=c("model", "wizard"),
                  variable.name="sort_criterion", value.name="pct_outcome")
   # rename levels of sort criterion
   colorKey = c('model'='darkblue', 'wizard'='darkgreen')
@@ -39,22 +39,23 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
-  gplot = ggplot(data=results, aes(x=pctpop, y=pct_outcome,
+  gplot = ggplot2::ggplot(data=results, ggplot2::aes(x=pctpop, y=pct_outcome,
                                    color=sort_criterion,
                                    shape=sort_criterion,
                                    linetype=sort_criterion)) +
-    geom_point(alpha=0.5) + geom_line() +
-    geom_abline(color="gray") +
-    geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+    ggplot2::geom_point(alpha=0.5) + ggplot2::geom_line() +
+    ggplot2::geom_abline(color="gray") +
+    ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
+                         ggplot2::aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
-    ggtitle(paste("Gain curve,", title, '\n',
+    ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
                   'relative Gini score', format(giniScore,digits=2))) +
-    xlab("fraction items in sort order") + ylab(paste("fraction total sum",truthVar)) +
-    scale_x_continuous(breaks=seq(0,1,0.1)) +
-    scale_y_continuous(breaks=seq(0,1,0.1)) +
-    scale_color_manual(values=colorKey)
+    ggplot2::xlab("fraction items in sort order") +
+    ggplot2::ylab(paste("fraction total sum",truthVar)) +
+    ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
+    ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
+    ggplot2::scale_color_manual(values=colorKey)
   gplot
 }
 
@@ -104,23 +105,23 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
-  gplot = ggplot(data=results, aes(x=pctpop, y=pct_outcome,
+  gplot = ggplot2::ggplot(data=results, ggplot2::aes(x=pctpop, y=pct_outcome,
                                    color=sort_criterion,
                                    shape=sort_criterion,
                                    linetype=sort_criterion)) +
-    geom_point(alpha=0.5) + geom_line() +
-    geom_abline(color="gray") +
-    geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+    ggplot2::geom_point(alpha=0.5) + ggplot2::geom_line() +
+    ggplot2::geom_abline(color="gray") +
+    ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
+                         ggplot2::aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
-    ggtitle(paste("Gain curve,", title, '\n',
+    ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
             'relative Gini score', format(giniScore,digits=2))) +
-    xlab(paste("fraction ",costVar,"cost in sort order")) +
-    ylab(paste("fraction total sum",truthVar)) +
-    scale_x_continuous(breaks=seq(0,1,0.1)) +
-    scale_y_continuous(breaks=seq(0,1,0.1)) +
-    scale_color_manual(values=colorKey)
+    ggplot2::xlab(paste("fraction ",costVar,"cost in sort order")) +
+    ggplot2::ylab(paste("fraction total sum",truthVar)) +
+    ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
+    ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
+    ggplot2::scale_color_manual(values=colorKey)
   gplot
 }
 

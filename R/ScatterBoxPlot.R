@@ -22,11 +22,10 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
     frm[[xvar]] = as.factor(frm[[xvar]])
   }
 
-  ggplot(frm, aes_string(x=xvar, y=yvar)) +
-    geom_boxplot(outlier.size=0, fill="lightgray") +
-    geom_point(alpha=pt_alpha, position=position_jitter(width=0.1,height=0)) +
-    ggtitle(title)
-
+  ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar, y=yvar)) +
+    ggplot2::geom_boxplot(outlier.size=0, fill="lightgray") +
+    ggplot2::geom_point(alpha=pt_alpha, position=ggplot2::position_jitter(width=0.1,height=0)) +
+    ggplot2::ggtitle(title)
 }
 
 
@@ -45,5 +44,5 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 ScatterBoxPlotH = function(frm, xvar, yvar, title='', ...,
                           pt_alpha=0.3) {
   ScatterBoxPlot(frm, yvar, xvar, title=title, ...,
-                            pt_alpha=pt_alpha) + coord_flip()
+                            pt_alpha=pt_alpha) + ggplot2::coord_flip()
 }

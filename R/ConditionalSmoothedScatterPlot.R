@@ -1,6 +1,8 @@
+
+
 check_align = function(arg) {
   if(!(arg %in% c("center", "left", "right")))
-    error(paste("align must be one of 'center','left', or 'right'"))
+    stop(paste("align must be one of 'center','left', or 'right'"))
 }
 
 make_window = function(i, k, n, align="center") {
@@ -58,7 +60,7 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
     }
   }
   check_align(align)
-  if((k%%2)==0 && align=="center") {error("For centered windows, k must be odd")}
+  if((k%%2)==0 && align=="center") {stop("For centered windows, k must be odd")}
 
   # sort the frame by x
   ord = order(frame[[xvar]])
@@ -70,10 +72,10 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
   if(is.null(groupvar)) {
     fs$smooth = smoothing(fs, xvar, yvar, k, align)
     fs = fs[!is.na(fs$smooth),]
-    p =  ggplot() +
-      geom_point(data=frame, aes_string(x=xvar, y=yvar)) +
-      geom_line(data=fs, aes_string(x=xvar, y="smooth")) +
-      ggtitle(title)
+    p =  ggplot2::ggplot() +
+      ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar)) +
+      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar, y="smooth")) +
+      ggplot2::ggtitle(title)
   } else{
     gplist = unique(fs[[groupvar]])
     for(gp in gplist) {
@@ -81,10 +83,10 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
       fs$smooth[ix] = smoothing(fs[ix, ], xvar, yvar, k, align)
     }
     fs = fs[!is.na(fs$smooth),]
-    p =  ggplot() +
-      geom_point(data=frame, aes_string(x=xvar, y=yvar, color=groupvar)) +
-      geom_line(data=fs, aes_string(x=xvar,y="smooth",color=groupvar)) +
-      ggtitle(title)
+    p =  ggplot2::ggplot() +
+      ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar, color=groupvar)) +
+      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar,y="smooth",color=groupvar)) +
+      ggplot2::ggtitle(title)
   }
   p
 }

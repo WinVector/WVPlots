@@ -13,7 +13,7 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
-  pf <- ddply(df,'y',function(sf) {
+  pf <- plyr::ddply(df,'y',function(sf) {
     dens <- density(sf[['x']],adjust=0.5,
                    from=min(sf[['x']]),to=max(sf[['x']]))
     rf <- data.frame(density=dens$y,
@@ -27,10 +27,11 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   palletName = "Dark2"
   # ConditionalDistributionPlot assumes no xlim set
   # ConditionalDistributionPlot assumes no scale_y_continuous set
-  ggplot(pf,mapping=aes_string(x=xvar,y='density',ymax='density',
+  ggplot2::ggplot(pf,mapping=ggplot2::aes_string(x=xvar,y='density',ymax='density',
                                color=truthVar,fill=truthVar,linetype=truthVar)) +
-    geom_line() +
-    geom_ribbon(mapping=aes(ymin=0),alpha=0.5,color=NA) +
-    scale_fill_brewer(palette=palletName) + scale_color_brewer(palette=palletName) +
-    ggtitle(title)
+    ggplot2::geom_line() +
+    ggplot2::geom_ribbon(mapping=ggplot2::aes(ymin=0),alpha=0.5,color=NA) +
+    ggplot2::scale_fill_brewer(palette=palletName) +
+    ggplot2::scale_color_brewer(palette=palletName) +
+    ggplot2::ggtitle(title)
 }
