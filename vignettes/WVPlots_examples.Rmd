@@ -128,3 +128,11 @@ WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plo
 ```{r, fig.width=8, fig.height=8}
 WVPlots::ConditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
 ```
+
+
+```{r, fig.width=8, fig.height=8}
+set.seed(52523)
+d <- data.frame(wt=100*rnorm(100))
+WVPlots::PlotDistCountNormal(d,'wt','example')
+WVPlots::PlotDistDensityNormal(d,'wt','example')
+```
