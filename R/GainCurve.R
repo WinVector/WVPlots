@@ -68,7 +68,8 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_color_manual(values=colorKey)
+    ggplot2::scale_color_manual(values=colorKey) +
+    ggplot2::coord_fixed()
   gplot
 }
 
@@ -147,7 +148,8 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_color_manual(values=colorKey)
+    ggplot2::scale_color_manual(values=colorKey) +
+    ggplot2::coord_fixed()
   gplot
 }
 
