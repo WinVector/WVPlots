@@ -49,14 +49,17 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
-  gplot = ggplot2::ggplot(data=results, ggplot2::aes(x=pctpop, y=pct_outcome,
-                                   color=sort_criterion,
-                                   shape=sort_criterion,
-                                   linetype=sort_criterion)) +
-    ggplot2::geom_point(alpha=0.5) + ggplot2::geom_line() +
-    ggplot2::geom_abline(color="gray") +
+  ges = ggplot2::aes(x=pctpop, y=pct_outcome,
+                     color=sort_criterion,
+                     shape=sort_criterion,
+                     linetype=sort_criterion)
+  gplot = ggplot2::ggplot(data=results) +
+    ggplot2::geom_point(mapping=ges,alpha=0.5) +
+    ggplot2::geom_line(mapping=ges) +
+    ggplot2::geom_abline(mapping=ges,color="gray",slope=1,intercept=0) +
     ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                         ggplot2::aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+                         mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
+                                              ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
     ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
@@ -125,14 +128,17 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
   # plot
-  gplot = ggplot2::ggplot(data=results, ggplot2::aes(x=pctpop, y=pct_outcome,
-                                   color=sort_criterion,
-                                   shape=sort_criterion,
-                                   linetype=sort_criterion)) +
-    ggplot2::geom_point(alpha=0.5) + ggplot2::geom_line() +
-    ggplot2::geom_abline(color="gray") +
+  ges = ggplot2::aes(x=pctpop, y=pct_outcome,
+                     color=sort_criterion,
+                     shape=sort_criterion,
+                     linetype=sort_criterion)
+  gplot = ggplot2::ggplot(data=results) +
+    ggplot2::geom_point(mapping=ges,alpha=0.5) +
+    ggplot2::geom_line(mapping=ges) +
+    ggplot2::geom_abline(mapping=ges,color="gray",slope=1,intercept=0) +
     ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                         ggplot2::aes(x=pctpop, ymin=pctpop,ymax=pct_outcome, color=sort_criterion),
+                         mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
+                                              ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
     ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
