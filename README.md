@@ -8,6 +8,7 @@ Common plots we use for analysis and presentation (on top of ggplot2).  See:
 
 To install in R:
 
-   install.packages(c('devtools','ggplot2'))
-   devtools::devtools::install_github("WinVector/WVPlots")
+
+    install.packages(c('devtools','ggplot2'));
+    devtools::devtools::install_github("WinVector/WVPlots")
 
