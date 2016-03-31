@@ -9,8 +9,11 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
+```{r echo=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
@@ -20,48 +23,48 @@ frm$posY = frm$y > 0
 frm$costX = 1
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm", title="Example Linear Fit", annot_size=2)
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity", title="Example Relation Plot", annot_size=2)
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
 
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::GainCurvePlot(frm, "x", "yC", title="Example Discrete Gain Curve")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::ROCPlot(frm, "x", "yC", title="Example ROC plot")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::DoubleDensityPlot(frm, "x", "yC", title="Example double density plot")
 ```
 
 
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 set.seed(34903490)
 
 # discrete variable: letters of the alphabet
@@ -84,7 +87,7 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Exam
 
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 classes = c("a", "b", "c")
 means = c(2, 4, 3)
 names(means) = classes
@@ -97,12 +100,12 @@ WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scat
 WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 frmx = data.frame(x = rbinom(1000, 20, 0.5))
 WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
 df = data.frame(x=x,y=y)
@@ -121,18 +124,28 @@ WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, 
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth, multigroup", align="right")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
 ```
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 WVPlots::ConditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
 ```
 
 
-```{r, fig.width=8, fig.height=8}
+```{r}
 set.seed(52523)
 d <- data.frame(wt=100*rnorm(100))
 WVPlots::PlotDistCountNormal(d,'wt','example')
 WVPlots::PlotDistDensityNormal(d,'wt','example')
+```
+
+
+```{r}
+set.seed(52523)
+d = data.frame(meas=rnorm(100))
+threshold = -1.5
+WVPlots::ShadedDensity(d, "meas", threshold, title="Example shaded density plot, left tail")
+WVPlots::ShadedDensity(d, "meas", -threshold, tail="right", title="Example shaded density plot, right tail")
+
 ```
