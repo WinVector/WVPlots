@@ -40,3 +40,8 @@ BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
       ggplot2::geom_smooth(method="gam", formula=y~s(x), se=se) + ggplot2::ggtitle(title)
   }
 }
+
+# ggplot2::geom_smooth(method="gam") needs mgcv::gam.  Since ggplot2 doesn't seem
+# to declare this, it errors out if we don't so declare.
+#' @importFrom mgcv gam
+NULL

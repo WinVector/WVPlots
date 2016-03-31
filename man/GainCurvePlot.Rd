@@ -23,13 +23,15 @@ Plot the gain curve of a sort-order.
 \examples{
 
 set.seed(34903490)
-x = rnorm(50)
-y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
-frm$absY <- abs(frm$y)
-frm$posY = frm$y > 0
-frm$costX = 1
-WVPlots::GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
+y = abs(rnorm(20)) + 0.1
+x = abs(y + 0.5*rnorm(20))
+frm = data.frame(model=x, value=y)
+frm$costs=1
+frm$costs[1]=5
+frm$rate = with(frm, value/costs)
+frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
+WVPlots::GainCurvePlot(frm, "model", "value",
+   title="Example Continuous Gain Curve")
 
 }
 

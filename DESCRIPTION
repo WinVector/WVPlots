@@ -10,7 +10,8 @@ Description: Example ggplot2 plots we have found useful, under a standardized
     calling interface.
 License: GPL-3
 Suggests:
-    knitr
+    knitr,
+    testthat
 VignetteBuilder: knitr
 Depends:
     ggplot2,
@@ -19,5 +20,6 @@ Depends:
     reshape2,
     ROCR,
     plyr,
-    stringr
+    stringr,
+    mgcv
 RoxygenNote: 5.0.1

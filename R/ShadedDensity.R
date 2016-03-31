@@ -9,11 +9,13 @@
 #' @param tail which tail to shade, 'left' (default) or 'right'
 #' @examples
 #'
-#' set.seed(34903490)
-#' x = rnorm(50)
-#' frm = data.frame(x=x)
-#' threshold = -1
-#' WVPlots::ShadedDensity(frm, "x", title="Example shaded density plot")
+#' set.seed(52523)
+#' d = data.frame(meas=rnorm(100))
+#' threshold = -1.5
+#' WVPlots::ShadedDensity(d, "meas", threshold,
+#'                        title="Example shaded density plot, left tail")
+#' WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
+#'                        title="Example shaded density plot, right tail")
 #'
 #' @export
 ShadedDensity <- function(frame, xvar, threshold,title,..., tail="left") {
