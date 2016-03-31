@@ -20,9 +20,10 @@ y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
 frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
-frm$costX = 1
+
 ```
 
+## Scatterplots
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 ```
@@ -41,28 +42,80 @@ WVPlots::BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' 
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
+## Gain Curves
 
 ```{r}
-WVPlots::GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
+set.seed(34903490)
+y = abs(rnorm(20)) + 0.1
+x = abs(y + 0.5*rnorm(20))
+
+frm = data.frame(model=x, value=y)
+
+frm$costs=1
+frm$costs[1]=5
+frm$rate = with(frm, value/costs)
+
+frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
+
 ```
+
+Basic curve: each item "costs" the same. The wizard sorts by true value, the x axis sorts by the model, and plots the fraction of the total population.
 
 ```{r}
-WVPlots::GainCurvePlotC(frm, "x", "costX", "absY", title="Example Continuous Gain CurveC")
+WVPlots::GainCurvePlot(frm, "model", "value", title="Example Continuous Gain Curve")
 ```
+
+We can annotate a point of the model at a specific x value
+```{r}
+
+gainx = 0.10  # get the top 10% most valuable points as sorted by the model
+
+# make a function to calculate the label for the annotated point
+labelfun = function(gx, gy) {
+  pctx = gx*100
+  pcty = gy*100
+  
+  paste("The top ", pctx, "% most valuable points by the model\n",
+        "are ", pcty, "% of total actual value", sep='')
+}
+
+WVPlots::GainCurvePlotWithNotation(frm, "model", "value", title="Example Gain Curve with annotation", 
+                          gainx=gainx,labelfun=labelfun) 
+
+
+```
+
+When the `x` values have different costs, take that into account in the gain curve.
+The wizard now sorts by value/cost, and the x axis is sorted by the model, but plots the fraction of total cost, rather than total count.
 
 ```{r}
-WVPlots::GainCurvePlot(frm, "x", "yC", title="Example Discrete Gain Curve")
+WVPlots::GainCurvePlotC(frm, "model", "costs", "value", title="Example Continuous Gain CurveC")
 ```
+
+
+## ROC Plots
 
 ```{r}
-WVPlots::ROCPlot(frm, "x", "yC", title="Example ROC plot")
+WVPlots::ROCPlot(frm, "model", "isValuable", title="Example ROC plot")
 ```
 
+## Double Density Plot
 ```{r}
-WVPlots::DoubleDensityPlot(frm, "x", "yC", title="Example double density plot")
+WVPlots::DoubleDensityPlot(frm, "model", "isValuable", title="Example double density plot")
+```
+
+## Double Histogram Plot
+```{r}
+WVPlots::DoubleHistogramPlot(frm, "model", "isValuable", title="Example double histogram plot")
+```
+
+## Conditional Distribution Plot
+```{r}
+WVPlots::ConditionalDistributionPlot(frm, "model", "isValuable", title="Example conditional distribution plot")
 ```
 
 
+## Cleveland Style Dotplots
 
 ```{r}
 set.seed(34903490)
@@ -87,6 +140,8 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Exam
 
 ```
 
+## ScatterBox Plots
+
 ```{r}
 classes = c("a", "b", "c")
 means = c(2, 4, 3)
@@ -100,11 +155,21 @@ WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scat
 WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
 ```
 
+## Discrete Distribution Plot
 ```{r}
 frmx = data.frame(x = rbinom(1000, 20, 0.5))
 WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 ```
 
+## Distribution and Count Plot
+```{r}
+set.seed(52523)
+d <- data.frame(wt=100*rnorm(100))
+WVPlots::PlotDistCountNormal(d,'wt','example')
+WVPlots::PlotDistDensityNormal(d,'wt','example')
+```
+
+## Smoothed Scatterplots
 ```{r}
 y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
@@ -124,22 +189,8 @@ WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, 
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth, multigroup", align="right")
 ```
 
-```{r}
-WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
-```
 
-```{r}
-WVPlots::ConditionalDistributionPlot(frm, "x", "yC", title="Example conditional distribution plot")
-```
-
-
-```{r}
-set.seed(52523)
-d <- data.frame(wt=100*rnorm(100))
-WVPlots::PlotDistCountNormal(d,'wt','example')
-WVPlots::PlotDistDensityNormal(d,'wt','example')
-```
-
+## Density Plot with Shaded Tail
 
 ```{r}
 set.seed(52523)

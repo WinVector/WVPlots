@@ -144,12 +144,62 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
     ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
             'relative Gini score', format(giniScore,digits=2))) +
-    ggplot2::xlab(paste("fraction ",costVar,"cost in sort order")) +
+    ggplot2::xlab(paste("fraction of sum",costVar,"cost in sort order")) +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_color_manual(values=colorKey) +
     ggplot2::coord_fixed()
   gplot
+}
+
+# --------------------------------------------------------------
+
+# find the y value that approximately corresponds to an x value on the gain curve
+get_gainy = function(frame, xvar, truthVar, gainx) {
+  # The sort order for predicted salary, decreasing
+  ord = order(frame[[xvar]], decreasing=TRUE)
+
+  # top 25 predicted salaries
+  n = round(nrow(frame)*gainx)
+  topN = ord[1:n]
+
+  truth_topN= sum(frame[topN, truthVar])
+  totalY = sum(frame[[truthVar]])
+  round(100*truth_topN/totalY)/100  # two sig figs
+}
+
+#' Take the standard WVPlots gain curve and add extra notation
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the indepement (input or model) column in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param gainx the point on the x axis corresponding to the desired label
+#' @param labelfun a function to return a label for the marked point
+#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @examples
+#'
+#' set.seed(34903490)
+#' x = rnorm(50)
+#' y = 0.5*x^2 + 2*x + rnorm(length(x))
+#' frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' frm$absY <- abs(frm$y)
+#' frm$posY = frm$y > 0
+#' frm$costX = 1
+#' WVPlots::GainCurvePlot(frm, "x", "absY", title="Example Continuous Gain Curve")
+#'
+#' @export
+GainCurvePlotWithNotation = function(frame, xvar, truthVar, title, gainx, labelfun, ...) {
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  gainy = get_gainy(frame, xvar, truthVar, gainx)
+  label = labelfun(gainx, gainy)
+  gp = GainCurvePlot(frame, xvar, truthVar, title) +
+    ggplot2::geom_vline(xintercept=gainx, color="red", alpha=0.5) +
+    ggplot2::geom_hline(yintercept=gainy, color="red", alpha=0.5) +
+    ggplot2::scale_shape_discrete(guide=FALSE) +
+    ggplot2::annotate(geom="text", x=gainx+0.01, y=gainy-0.01,
+              color="black", label=label, vjust="top", hjust="left")
+  gp
 }
 
