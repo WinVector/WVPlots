@@ -1,6 +1,9 @@
 # WVPlots
 
-Common plots we use for analysis and presentation (on top of ggplot2 in [R](https://cran.r-project.org)).  See:
+Common plots we use for analysis and presentation (on top of ggplot2 in [R](https://cran.r-project.org)).  For an introduction see: http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/
+
+
+More:
 
  * http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/
  * http://www.win-vector.com/blog/2011/12/my-favorite-graphs/
