@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common plots used by Win-Vector LLC
-Version: 1.0
-Date: 2015-10-04
+Version: 0.1
+Date: 2016-04-01
 Author: John Mount, Nina Zumel
 Maintainer: John Mount <jmount@win-vector.com>
 URL: https://github.com/WinVector/WVPlots
