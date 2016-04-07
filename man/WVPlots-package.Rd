@@ -27,8 +27,11 @@ Maintainer: <contact@win-vector.com>
 \keyword{ package }
 \seealso{
 For more information:
-  \code{vignette(package='WVPlots')},
-  \code{RShowDoc('WVPlots_examples',package='WVPlots')}
+\itemize{
+  \item \code{vignette(package='WVPlots')}
+  \item \code{RShowDoc('WVPlots_examples',package='WVPlots')}
+  \item Website: \url{https://github.com/WinVector/WVPlots}
+}
 }
 \examples{
 
