@@ -59,6 +59,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   if(smoothmethod=='auto') {
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
   } else if(smoothmethod=="lm") {
+    tryCatch({
     # get goodness of linear relation
     model = lm(paste(yvar,"~",xvar), data=frame)
     fstat = summary(model)$fstatistic
@@ -70,7 +71,8 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     sigstring = paste("Significance = ", format(pval, digits=3))
 
     empty = empty + ggplot2::annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
-      ggplot2::annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)
+      ggplot2::annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)},
+    error=function(x){})
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
   } else if(smoothmethod=='identity') {
     meanY = mean(frame[[yvar]])
