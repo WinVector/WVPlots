@@ -39,11 +39,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
     rf[[truthVar]] <- yGroup
     sm <- tryCatch({
       smf <- loess(paste('count','~',xvar),rf)
-<<<<<<< HEAD
       sm <- pmax(0,predict(smf,rf,se=FALSE))
-=======
-      sm <- pmax(0,predict(sm,rf,se=FALSE))
->>>>>>> 88dee7ddf573730485bb4c3a58f89555c521ca21
     },
     error = function(e) { NA }
     )
@@ -62,11 +58,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                       count=sum(count))
   sm <- tryCatch({
     smf <- loess(paste('count','~',xvar),netF)
-<<<<<<< HEAD
     sm <- predict(smf,pf,se=FALSE)
-=======
-    sm <- predict(sm,pf,se=FALSE)
->>>>>>> 88dee7ddf573730485bb4c3a58f89555c521ca21
   },
     error = function(e) { NA }
   )
