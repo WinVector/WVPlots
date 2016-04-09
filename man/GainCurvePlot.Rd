@@ -9,13 +9,13 @@ GainCurvePlot(frame, xvar, truthVar, title, ...)
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the indepement (input or model) column in frame}
+\item{xvar}{name of the independent (input or model) column in frame}
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
 
 \item{title}{title to place on plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
 Plot the gain curve of a sort-order.

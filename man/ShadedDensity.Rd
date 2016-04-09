@@ -15,7 +15,7 @@ ShadedDensity(frame, xvar, threshold, title, ..., tail = "left")
 
 \item{title}{title to place on plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{tail}{which tail to shade, 'left' (default) or 'right'}
 }

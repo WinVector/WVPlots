@@ -16,7 +16,7 @@ BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
 
 \item{title}{title to place on plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{se}{if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE}
 

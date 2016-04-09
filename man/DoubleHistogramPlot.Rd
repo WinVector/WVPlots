@@ -9,13 +9,13 @@ DoubleHistogramPlot(frame, xvar, truthVar, title, ..., breaks = 40)
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the indepement (input or model) column in frame}
+\item{xvar}{name of the independent (input or model) column in frame}
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
 
 \item{title}{title to place on plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{breaks}{breaks to pass to histogram}
 }

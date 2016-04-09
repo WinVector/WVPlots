@@ -18,7 +18,7 @@ fn(...) normally, but if f(...) throws an save to saveFile RDS of list r such th
 }
 \description{
 Run fn and print result, save arguments on failure.  Use on systems like ggplot()
-where some caclulation is delayed until print().
+where some calculation is delayed until print().
 }
 \examples{
 

@@ -9,9 +9,9 @@ is_integral = function(x) {
 #' Plot distribution of a single continuous variable.
 #'
 #' @param frm data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param stem if TRUE add whisker/stems to plot
 #' @examples
 #'

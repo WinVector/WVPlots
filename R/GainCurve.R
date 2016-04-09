@@ -2,10 +2,10 @@
 #' Plot the gain curve of a sort-order.
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(34903490)
@@ -78,11 +78,11 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
 #' Plot the gain curve of a sort-order in horizontal orientation.
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param costVar cost of each item (drives x-axis sum)
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(34903490)
@@ -176,12 +176,12 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' Take the standard WVPlots gain curve and add extra notation
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param gainx the point on the x axis corresponding to the desired label
 #' @param labelfun a function to return a label for the marked point
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unarmed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(34903490)

@@ -46,7 +46,7 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param groupvar name of the grouping column in frame. Can be NULL for an unconditional plot
 #' @param title title for plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param k width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3
 #' @param align smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'
 #' @examples

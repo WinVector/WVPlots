@@ -20,7 +20,7 @@ ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ..., k = 3,
 
 \item{title}{title for plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{k}{width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3}
 

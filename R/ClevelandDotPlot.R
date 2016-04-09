@@ -20,9 +20,9 @@ stemdotstats = function(ycol) {
 #' stem = FALSE will plot only the dots, without the stem to the y=0 line.
 #' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
 #' @param frm data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param sort if TRUE sort data
 #' @param limit_n if not NULL number of items to plot
 #' @param stem if TRUE add stems/whiskers to plot
@@ -30,7 +30,7 @@ stemdotstats = function(ycol) {
 #'
 #' set.seed(34903490)
 #' # discrete variable: letters of the alphabet
-#' # frequencies of letters in english
+#' # frequencies of letters in English
 #' # source: http://en.algoritmy.net/article/40379/Letter-frequency-English
 #' letterFreqs = c(8.167, 1.492, 2.782, 4.253, 12.702, 2.228,
 #'                 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929,

@@ -9,7 +9,7 @@ GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...)
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the indepement (input or model) column in frame}
+\item{xvar}{name of the independent (input or model) column in frame}
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
 
@@ -19,7 +19,7 @@ GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...)
 
 \item{labelfun}{a function to return a label for the marked point}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unarmed argument, added to force named binding of later arguments.}
 }
 \description{
 Take the standard WVPlots gain curve and add extra notation

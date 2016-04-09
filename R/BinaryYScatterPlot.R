@@ -5,7 +5,7 @@
 #' @param xvar name of the independent column in frame
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param se if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE
 #' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)
 #' @examples

@@ -33,7 +33,7 @@ DebugFn <- function(saveFile,fn,...) {
 #' Capture arguments of exception throwing plot for later debugging.
 #'
 #' Run fn and print result, save arguments on failure.  Use on systems like ggplot()
-#' where some caclulation is delayed until print().
+#' where some calculation is delayed until print().
 #'
 #' @param saveFile path to save RDS to.
 #' @param fn function to call

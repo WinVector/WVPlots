@@ -5,7 +5,7 @@
 #' @param xvar name of the variable to be density plotted
 #' @param threshold boundary value for the tail
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param tail which tail to shade, 'left' (default) or 'right'
 #' @examples
 #'

@@ -58,7 +58,7 @@ designYLabelPadFunction <- function(p1,p2) {
 
 
 # define some helper and reporting functions
-# calulcate area under the curve of numeric vectors x,y
+# calculate area under the curve of numeric vectors x,y
 # length(x)==length(y)
 # y>=0, 0<=x<=1 and x increasing
 areaCalc <- function(x,y) {

@@ -10,11 +10,11 @@ ClevelandDotPlot(frm, xvar, title, ..., sort = -1, limit_n = NULL,
 \arguments{
 \item{frm}{data frame to get values from}
 
-\item{xvar}{name of the indepement (input or model) column in frame}
+\item{xvar}{name of the independent (input or model) column in frame}
 
 \item{title}{title to place on plot}
 
-\item{...}{no unamed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{sort}{if TRUE sort data}
 
@@ -34,7 +34,7 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
 
 set.seed(34903490)
 # discrete variable: letters of the alphabet
-# frequencies of letters in english
+# frequencies of letters in English
 # source: http://en.algoritmy.net/article/40379/Letter-frequency-English
 letterFreqs = c(8.167, 1.492, 2.782, 4.253, 12.702, 2.228,
                 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929,

@@ -9,9 +9,9 @@
 #' stem = FALSE will plot only the dots, without the stem to the y=0 line.
 #' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
 #' @param frm data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(52523)
@@ -54,9 +54,9 @@ PlotDistDensityNormal <- function(frm,xvar,title,...) {
 #' stem = FALSE will plot only the dots, without the stem to the y=0 line.
 #' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
 #' @param frm data frame to get values from
-#' @param xvar name of the indepement (input or model) column in frame
+#' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unamed argument, added to force named binding of later arguments.
+#' @param ...  no unarmed argument, added to force named binding of later arguments.
 #' @param binWidth with of histogram bins
 #' @examples
 #'
