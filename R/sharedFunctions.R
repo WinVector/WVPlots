@@ -32,9 +32,11 @@ checkArgs <- function(frame,xvar,yvar,title,...) {
     stop("yvar must be the name of a column in frame")
   }
   if(length(args)!=0) {
-    nm <- setdiff(paste(names(args),collapse=", "),'')
-    nv <- length(args)-length(nm)
-    stop(paste("unexpected arguments",nm,"(and",nv,"unexpected values)"))
+    nm <- names(args)
+    if(length(nm)>0) {
+      stop(paste("unexpected named arguments",paste(nm,collapse = ', ')))
+    }
+    stop(paste("saw",length(args),"unexpected argument values: ",paste(args,collapse=', ')))
   }
 }
 

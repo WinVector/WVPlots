@@ -53,8 +53,6 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                       count=sum(count))
   sm <- loess(paste('count','~',xvar),netF)
   pf$net <- predict(sm,pf,se=FALSE)
-  # ConditionalDistributionPlot assumes no xlim set
-  # ConditionalDistributionPlot assumes no scale_y_continuous set
   plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     ggplot2::geom_bar(mapping=ggplot2::aes_string(y='count'),

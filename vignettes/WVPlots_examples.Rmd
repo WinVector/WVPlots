@@ -114,11 +114,6 @@ WVPlots::DoubleDensityPlot(frm, "model", "isValuable", title="Example double den
 WVPlots::DoubleHistogramPlot(frm, "model", "isValuable", title="Example double histogram plot")
 ```
 
-## Conditional Distribution Plot
-```{r}
-WVPlots::ConditionalDistributionPlot(frm, "model", "isValuable", title="Example conditional distribution plot")
-```
-
 
 ## Cleveland Style Dotplots
 

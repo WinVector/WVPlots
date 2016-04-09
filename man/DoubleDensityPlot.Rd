@@ -25,11 +25,14 @@ Plot two density plots conditioned on truthVar.
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
-frm$absY <- abs(frm$y)
-frm$posY = frm$y > 0
-frm$costX = 1
-WVPlots::DoubleDensityPlot(frm, "x", "yC", title="Example double density plot")
+frm = data.frame(score=x,
+   truth=(y>=as.numeric(quantile(y,probs=0.8))),
+   stuck=TRUE,
+   rare=FALSE)
+frm[1,'rare'] = TRUE
+WVPlots::DoubleDensityPlot(frm, "score", "truth", title="Example double density plot")
+WVPlots::DoubleDensityPlot(frm, "score", "stuck", title="Example double density plot")
+WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 
 }
 
