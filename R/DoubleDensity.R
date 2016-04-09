@@ -52,16 +52,17 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
                          mapping=ggplot2::aes_string(x=xvar,y='density',
                                                      ymin='zero',ymax='density',
                                                      color=truthVar,fill=truthVar,linetype=truthVar,
-                                                     xintercept='xintercept')) +
-    ggplot2::geom_line() +
-    ggplot2::geom_ribbon(alpha=0.5,color=NA) +
-    ggplot2::scale_fill_brewer(palette=palletName) +
-    ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(title)
+                                                     xintercept='xintercept'))
+  if(sum(!is.na(pf$density))>0) {
+    plt <- plt + ggplot2::geom_line() +
+      ggplot2::geom_ribbon(alpha=0.5,color=NA)
+  }
   if(sum(!is.na(pf$xintercept))>0) {
     plt <- plt + ggplot2::geom_vline(data=pf,
                                      mapping=ggplot2::aes_string(color=truthVar,linetype=truthVar,
                                                                  xintercept='xintercept'))
   }
-  plt
+  plt + ggplot2::ggtitle(title) +
+    ggplot2::scale_fill_brewer(palette=palletName) +
+    ggplot2::scale_color_brewer(palette=palletName)
 }
