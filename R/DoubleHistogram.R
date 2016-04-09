@@ -37,8 +37,13 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                stringsAsFactors=FALSE)
     rf[[xvar]] <- counts$mids
     rf[[truthVar]] <- yGroup
-    sm <- loess(paste('count','~',xvar),rf)
-    rf$smooth <- pmax(0,predict(sm,rf,se=FALSE))
+    sm <- tryCatch({
+      smf <- loess(paste('count','~',xvar),rf)
+      sm <- pmax(0,predict(sm,rf,se=FALSE))
+    },
+    error = function(e) { NA }
+    )
+    rf$smooth <- sm
     # crudely match areas
     scale <- sum(rf$count)/sum(rf$smooth)
     rf$smooth <- si*rf$smooth*scale
@@ -51,16 +56,26 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   # build a net effect curve
   netF <- plyr::ddply(pf,xvar,plyr::summarize,
                       count=sum(count))
-  sm <- loess(paste('count','~',xvar),netF)
-  pf$net <- predict(sm,pf,se=FALSE)
+  sm <- tryCatch({
+    smf <- loess(paste('count','~',xvar),netF)
+    sm <- predict(sm,pf,se=FALSE)
+  },
+    error = function(e) { NA }
+  )
+  pf$net <- sm
   plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes_string(x=xvar,
                                     color=truthVar,fill=truthVar,linetype=truthVar)) +
     ggplot2::geom_bar(mapping=ggplot2::aes_string(y='count'),
-             stat='identity',alpha=0.5,position='identity') +
-    ggplot2::geom_line(mapping=ggplot2::aes_string(y='smooth')) +
-    ggplot2::geom_line(mapping=ggplot2::aes_string(y='net'),linetype=3,color='black') +
-    ggplot2::scale_fill_brewer(palette=palletName) +
+             stat='identity',alpha=0.5,position='identity')
+  if(sum(!is.na(pf$smooth))>1) {
+    plot <- plot +
+      ggplot2::geom_line(mapping=ggplot2::aes_string(y='smooth'))
+  }
+  if(sum(!is.na(pf$net))>1) {
+    plot <- plot +
+      ggplot2::geom_line(mapping=ggplot2::aes_string(y='net'),linetype=3,color='black')
+  }
+  plot + ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(title)
-  plot
 }
