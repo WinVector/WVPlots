@@ -121,7 +121,7 @@ WVPlots::DoubleHistogramPlot(frm, "model", "isValuable", title="Example double h
 set.seed(34903490)
 
 # discrete variable: letters of the alphabet
-# frequencies of letters in english
+# frequencies of letters in English
 # source: http://en.algoritmy.net/article/40379/Letter-frequency-English
 letterFreqs = c(8.167, 1.492, 2.782, 4.253, 12.702, 2.228,
                 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929,
