@@ -6,7 +6,7 @@
 #' @param saveFile path to save RDS to.
 #' @param fn function to call
 #' @param ... arguments for fn
-#' @return fn(...) normally, but if f(...) throws an save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+#' @return fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 #'
 #' @examples
 #'
@@ -38,7 +38,7 @@ DebugFn <- function(saveFile,fn,...) {
 #' @param saveFile path to save RDS to.
 #' @param fn function to call
 #' @param ... arguments for fn
-#' @return fn(...) normally, but if f(...) throws an save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+#' @return fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 #'
 #' @examples
 #'
