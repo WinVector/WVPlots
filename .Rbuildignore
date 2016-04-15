@@ -1,2 +1,15 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^cran-comments.md$
+^revdep$
+^README\.Rmd$
+^README-.*\.png$
+^NEWS\.md$
+^LICENSE$
+^.*\.DS_Store$
+^.*\.Rhistory$
+^.*\.gitignore$
+^\.git.*$
+^html$
+^.*rsconnect.*$
+
