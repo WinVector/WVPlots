@@ -33,6 +33,4 @@ For more information:
   \item Website: \url{https://github.com/WinVector/WVPlots}
 }
 }
-\examples{
 
-}
