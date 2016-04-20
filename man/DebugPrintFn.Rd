@@ -14,7 +14,7 @@ DebugPrintFn(saveFile, fn, ...)
 \item{...}{arguments for fn}
 }
 \value{
-fn(...) normally, but if f(...) throws an save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 }
 \description{
 Run fn and print result, save arguments on failure.  Use on systems like ggplot()
