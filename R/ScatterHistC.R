@@ -8,8 +8,7 @@
 #' @param cvar name of condition variable
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param annot_size numeric scale annotation text (if present)
-#' @param minimal_labels logical drop some annotations
+#' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
 #' @param adjust_x  numeric adjust x density plot
 #' @param adjust_y  numeric adjust y density plot
 #' @examples
@@ -21,11 +20,11 @@
 #'
 #' @export
 ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
-                       annot_size=5,
-                       minimal_labels = TRUE,
+                        colorPalette="Dark2",
                        adjust_x = 1,
                        adjust_y = 1) {
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
+  minimal_labels = TRUE
 
   # placeholder plot - prints nothing at all
   empty =  ggplot2::ggplot() +
@@ -43,11 +42,12 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                    plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # scatterplot of x and y
-  plot_center = ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar,y=yvar,color=cvar)) +
+  plot_center = ggplot2::ggplot(frame,
+                                ggplot2::aes_string(x=xvar,y=yvar,color=cvar)) +
     ggplot2::geom_point() +
     ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines")) +
-    scale_color_brewer(palette="Dark2") +
-    scale_fill_brewer(palette="Dark2")
+    ggplot2::scale_color_brewer(palette=colorPalette) +
+    ggplot2::scale_fill_brewer(palette=colorPalette)
 
   # get the data range, to help align plots
   x = frame[[xvar]]
@@ -58,7 +58,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   #  print(xlims)
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
-  plot_center = plot_center + ggplot2::xlim(xlims) + theme(legend.position="none")
+  plot_center = plot_center + ggplot2::xlim(xlims) +
+    ggplot2::theme(legend.position="none")
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
@@ -85,8 +86,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
     plot_top = plot_top +
       ggplot2::theme(plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
   }
-  plot_top <- plot_top + scale_color_brewer(palette="Dark2") +
-    scale_fill_brewer(palette="Dark2")
+  plot_top <- plot_top + ggplot2::scale_color_brewer(palette=colorPalette) +
+    ggplot2::scale_fill_brewer(palette=colorPalette)
 
 
   # marginal density of y - plot on the right
@@ -106,8 +107,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
     plot_right = plot_right +
       ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   }
-  plot_right <- plot_right + scale_color_brewer(palette="Dark2") +
-    scale_fill_brewer(palette="Dark2")
+  plot_right <- plot_right + ggplot2::scale_color_brewer(palette=colorPalette) +
+    ggplot2::scale_fill_brewer(palette=colorPalette)
 
   yPadFn <- designYLabelPadFunction(plot_center + ggplot2::ylim(ylims),plot_top)
   plot_center <- plot_center + ggplot2::scale_y_continuous(limits=ylims,label=yPadFn)

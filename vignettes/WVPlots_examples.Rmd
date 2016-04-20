@@ -41,9 +41,18 @@ WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity",
 ```
 
 ```{r}
-WVPlots::BinaryYScatterPlot(frm, "x", "posY", title="Example 'Probability of Y' Plot")
+set.seed(34903490)
+fmScatterHistC = data.frame(x=rnorm(50),y=rnorm(50))
+fmScatterHistC$cat <- fmScatterHistC$x+fmScatterHistC$y>0
+WVPlots::ScatterHistC(fmScatterHistC, "x", "y", "cat", title="Example Conditional Distribution")
+```
 
-WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, title="Example 'Probability of Y' Plot (GLM smoothing)")
+```{r}
+WVPlots::BinaryYScatterPlot(frm, "x", "posY", 
+                            title="Example 'Probability of Y' Plot")
+
+WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, 
+                            title="Example 'Probability of Y' Plot (GLM smoothing)")
 ```
 
 ## Gain Curves

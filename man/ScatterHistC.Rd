@@ -4,9 +4,8 @@
 \alias{ScatterHistC}
 \title{Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code}
 \usage{
-ScatterHistC(frame, xvar, yvar, cvar, title, ..., smoothmethod = "auto",
-  annot_size = 5, minimal_labels = TRUE, binwidth_x = NULL,
-  binwidth_y = NULL, adjust_x = 1, adjust_y = 1)
+ScatterHistC(frame, xvar, yvar, cvar, title, ..., colorPalette = "Dark2",
+  adjust_x = 1, adjust_y = 1)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,9 +20,7 @@ ScatterHistC(frame, xvar, yvar, cvar, title, ..., smoothmethod = "auto",
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{annot_size}{numeric scale annotation text (if present)}
-
-\item{minimal_labels}{logical drop some annotations}
+\item{colorPalette}{name of a Brewer palette (see http://colorbrewer2.org/ )}
 
 \item{adjust_x}{numeric adjust x density plot}
 
