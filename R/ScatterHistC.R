@@ -27,16 +27,27 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   minimal_labels = TRUE
 
   # Use this plot to print the legend.
-  labels = levels(as.factor(frame[[cvar]]))
-  nlab = length(labels)
-  # add a blank to the front
-  labels = paste(" ", labels, sep='')
-  legendframe = data.frame(x=0, y=seq_len(nlab), cvar=labels)
+  if(is.factor(frame[[cvar]])) {
+    labs = levels(frame[[cvar]])
+    labs = factor(labs,
+                  levels=labs,
+                  labels=paste(" ", labs, sep='')  # add a blank to the front
+    )
+    # this preserves the factor order, if it's not alphabetical
+  } else {
+    # if frame[[cvar]] isn't a factor, then it will sort alphabetical anyway
+    labs = levels(as.factor(frame[[cvar]]))
+    labs = paste(" ", labs, sep='')  # add a blank to the front
+  }
+  nlab = length(labs)
 
-  legendplt =  ggplot2::ggplot(legendframe) +
-    ggplot2::geom_point(ggplot2::aes(x=x,y=y,color=cvar), size=3) +
-    ggplot2::geom_text(ggplot2::aes(x=x,y=y,label=cvar),nudge_x=0.025, hjust="left") +
-    ggplot2::geom_point(ggplot2::aes(c(-0.01,1), c(0,nlab+1)), colour = "white") +
+  legendframe = data.frame(x=0, y=seq_len(nlab), cvar=labs)
+  emptyframe = data.frame(x=c(-0.01,1), y=c(0,nlab+1))
+
+  legendplt =  ggplot2::ggplot() +
+    ggplot2::geom_point(data=legendframe, ggplot2::aes(x=x,y=y,color=cvar), size=3) +
+    ggplot2::geom_text(data=legendframe, ggplot2::aes(x=x,y=y,label=cvar),nudge_x=0.025, hjust="left") +
+    ggplot2::geom_point(data=emptyframe, ggplot2::aes(x=x,y=y), colour = "white") +
     ggplot2::theme(plot.background = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
