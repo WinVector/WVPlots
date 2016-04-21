@@ -26,9 +26,17 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   minimal_labels = TRUE
 
-  # placeholder plot - prints nothing at all
-  empty =  ggplot2::ggplot() +
-    ggplot2::geom_point(ggplot2::aes(c(0,1), c(0,1)), colour = "white") +
+  # Use this plot to print the legend.
+  labels = levels(as.factor(frame[[cvar]]))
+  nlab = length(labels)
+  # add a blank to the front
+  labels = paste(" ", labels, sep='')
+  legendframe = data.frame(x=0, y=seq_len(nlab), cvar=labels)
+
+  legendplt =  ggplot2::ggplot(legendframe) +
+    ggplot2::geom_point(ggplot2::aes(x=x,y=y,color=cvar), size=3) +
+    ggplot2::geom_text(ggplot2::aes(x=x,y=y,label=cvar),nudge_x=0.025, hjust="left") +
+    ggplot2::geom_point(ggplot2::aes(c(-0.01,1), c(0,nlab+1)), colour = "white") +
     ggplot2::theme(plot.background = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
@@ -39,7 +47,10 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                    axis.text.x = ggplot2::element_blank(),
                    axis.text.y = ggplot2::element_blank(),
                    axis.ticks = ggplot2::element_blank(),
-                   plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
+                   plot.margin = grid::unit(c(1, 1, 0, 0), "lines"),
+                   legend.position="none") +
+   ggplot2:: scale_color_brewer(palette=colorPalette)
+
 
   # scatterplot of x and y
   plot_center = ggplot2::ggplot(frame,
@@ -117,7 +128,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   # arrange the plots together, with appropriate height and width
   # for each row and column
 
-  gridExtra::grid.arrange(plot_top, empty, plot_center, plot_right,
+  gridExtra::grid.arrange(plot_top, legendplt, plot_center, plot_right,
                           top=grid::textGrob(title),
                           ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }
