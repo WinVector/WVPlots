@@ -121,3 +121,38 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                           top=grid::textGrob(title),
                           ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }
+
+#' Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the independent (input or model) column in frame
+#' @param yvar name of the dependent (output or result to be modeled) column in frame
+#' @param zvar name of height variable
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
+#' @param nclus scalar number of z-clusters to plot
+#' @param adjust_x  numeric adjust x density plot
+#' @param adjust_y  numeric adjust y density plot
+#' @examples
+#'
+#' set.seed(34903490)
+#' frm = data.frame(x=rnorm(50),y=rnorm(50))
+#' frm$z <- frm$x+frm$y
+#' WVPlots::ScatterHistN(frm, "x", "y", "z", title="Example Joint Distribution")
+#'
+#' @export
+ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
+                        colorPalette="RdYlBu",
+                        nclus=3,
+                        adjust_x = 1,
+                        adjust_y = 1) {
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
+  q <- quantile(frame[[zvar]],seq(0, 1, 1/nclus))
+  yC <- cut(frame[[zvar]],q,include.lowest = TRUE)
+  frame[[zvar]] <- yC
+  ScatterHistC(frame, xvar, yvar, zvar, title, ...,
+               colorPalette=colorPalette,
+               adjust_x = adjust_x,
+               adjust_y = adjust_y)
+}

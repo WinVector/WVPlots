@@ -48,6 +48,13 @@ WVPlots::ScatterHistC(fmScatterHistC, "x", "y", "cat", title="Example Conditiona
 ```
 
 ```{r}
+set.seed(34903490)
+frmScatterHistN = data.frame(x=rnorm(50),y=rnorm(50))
+frmScatterHistN$z <- frmScatterHistN$x+frmScatterHistN$y
+WVPlots::ScatterHistN(frmScatterHistN, "x", "y", "z", title="Example Joint Distribution")
+```
+
+```{r}
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", 
                             title="Example 'Probability of Y' Plot")
 
