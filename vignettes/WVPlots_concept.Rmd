@@ -96,6 +96,13 @@ WVPlots::ShadedDensity(d, "meas", threshold, tail="right",
 
 ```
 
+```{r}
+set.seed(34903490)
+frm = data.frame(x=rnorm(50),y=rnorm(50))
+frm$z <- frm$x+frm$y
+WVPlots::ScatterHistN(frm, "x", "y", "z", title="Example Joint Distribution")
+```
+
 
 We know this collection doesn't rise to the standard of a complete "grammar of graphics" or even a substantial library (which is why we are not submitting it to CRAN).  But it can become (through accumulation) a re-usable repository of a number of specific graphing tasks done well.  It is also a chance to eventually document presentation design decisions (though we haven't gotten far on that yet).  The complete current set of graphs is viewable as <a target="_blank" href="http://rpubs.com/jmount/WVPlots">WVPlots examples</a> at <a target="_blank" href="https://www.rstudio.com">RStudio</a>'s <a target="_blank" href="http://rpubs.com">rpubs site</a>.
 
