@@ -4,8 +4,8 @@
 \alias{ScatterHistN}
 \title{Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.}
 \usage{
-ScatterHistN(frame, xvar, yvar, zvar, title, ..., colorPalette = "RdYlBu",
-  nclus = 3, adjust_x = 1, adjust_y = 1)
+ScatterHistN(frame, xvar, yvar, zvar, title, ..., annot_size = 3,
+  colorPalette = "RdYlBu", nclus = 3, adjust_x = 1, adjust_y = 1)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -19,6 +19,8 @@ ScatterHistN(frame, xvar, yvar, zvar, title, ..., colorPalette = "RdYlBu",
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{annot_size}{numeric scale annotation text (if present)}
 
 \item{colorPalette}{name of a Brewer palette (see http://colorbrewer2.org/ )}
 

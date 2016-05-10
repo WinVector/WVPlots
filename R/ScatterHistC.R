@@ -8,6 +8,7 @@
 #' @param cvar name of condition variable
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param annot_size numeric scale annotation text (if present)
 #' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
 #' @param adjust_x  numeric adjust x density plot
 #' @param adjust_y  numeric adjust y density plot
@@ -20,6 +21,7 @@
 #'
 #' @export
 ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
+                        annot_size=3,
                         colorPalette="Dark2",
                        adjust_x = 1,
                        adjust_y = 1) {
@@ -42,12 +44,16 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   nlab = length(labs)
 
   legendframe = data.frame(x=0, y=seq_len(nlab), cvar=labs)
-  emptyframe = data.frame(x=c(-0.01,1), y=c(0,nlab+1))
+  emptyframe = data.frame(x=c(-0.01,1), y=c(0,nlab+2))
 
   legendplt =  ggplot2::ggplot() +
-    ggplot2::geom_point(data=legendframe, ggplot2::aes(x=x,y=y,color=cvar), size=3) +
-    ggplot2::geom_text(data=legendframe, ggplot2::aes(x=x,y=y,label=cvar),nudge_x=0.025, hjust="left") +
-    ggplot2::geom_point(data=emptyframe, ggplot2::aes(x=x,y=y), colour = "white") +
+    ggplot2::annotate("text", x=0.1, y=nlab+1, label=cvar, size=annot_size) +
+    ggplot2::geom_point(data=legendframe, ggplot2::aes(x=x,y=y,color=cvar),
+                        size=3) +
+    ggplot2::geom_text(data=legendframe, ggplot2::aes(x=x,y=y,label=cvar),
+                       nudge_x=0.025, hjust="left", size=annot_size) +
+    ggplot2::geom_point(data=emptyframe, ggplot2::aes(x=x,y=y),
+                        colour = "white") +
     ggplot2::theme(plot.background = ggplot2::element_blank(),
                    panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
@@ -152,6 +158,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 #' @param zvar name of height variable
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param annot_size numeric scale annotation text (if present)
 #' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
 #' @param nclus scalar number of z-clusters to plot
 #' @param adjust_x  numeric adjust x density plot
@@ -165,6 +172,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 #'
 #' @export
 ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
+                        annot_size=3,
                         colorPalette="RdYlBu",
                         nclus=3,
                         adjust_x = 1,
@@ -174,6 +182,7 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
   yC <- cut(frame[[zvar]],q,include.lowest = TRUE)
   frame[[zvar]] <- yC
   ScatterHistC(frame, xvar, yvar, zvar, title, ...,
+               annot_size=annot_size,
                colorPalette=colorPalette,
                adjust_x = adjust_x,
                adjust_y = adjust_y)
