@@ -21,10 +21,11 @@ To install in R:
 
 Some users have been having a bit of trouble using
 [`devtools`](https://cran.r-project.org/package=devtools) to install
-[`WVPlots`](https://github.com/WinVector/WVPlots). I thought I would
-write a note with a few instructions to help. These are things you
-should not have to do often, and things those of us already running `R`
-have stumbled through and forgotten about.
+[`WVPlots`](https://github.com/WinVector/WVPlots) (announced [here](http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/) and used to produce some of the graphs shown [here](http://www.win-vector.com/blog/2016/05/pcr_part1_xonly/)). I thought I would
+write a note with a few instructions to help.
+
+These are things you should not have to do often, and things those of us already running <code>R</code> have stumbled through and forgotten about.  These are also the kind of finicky system dependent non-repeatable interactive GUI steps you largely avoid once you have a scriptable system like fully R up and running.
+
 
 First you will need install (likely admin) privileges on your machine
 and a network connection that is not blocking and of cran, RStudio or
