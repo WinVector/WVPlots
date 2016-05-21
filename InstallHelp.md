@@ -1,24 +1,3 @@
-# WVPlots
-
-Common plots we use for analysis and presentation (on top of ggplot2 in [R](https://cran.r-project.org)).  For an introduction see: http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/
-
-Website: [https://github.com/WinVector/WVPlots](https://github.com/WinVector/WVPlots)
-
-More:
-
- * http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/
- * http://www.win-vector.com/blog/2011/12/my-favorite-graphs/
- * http://www.win-vector.com/blog/2009/11/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/
- 
-
-To install in R:
-
-    # install.packages(c('devtools','ggplot2'))
-    devtools::install_github('WinVector/WVPlots',build_vignettes=TRUE)
-
-
----------------
-
 Some users have been having a bit of trouble using
 [`devtools`](https://cran.r-project.org/package=devtools) to install
 [`WVPlots`](https://github.com/WinVector/WVPlots). I thought I would
@@ -62,7 +41,10 @@ command below to install `WVPlots`: ``
     devtools::install_github('WinVector/WVPlots',
                             build_vignettes=TRUE)
 
-If the above fails (some Windows users are seeing "curl" errors) it can be a problem with your machine (perhaps permissions, or no curl library installed), network, anti-virus, or firewall software.  If it does fail you can try to install <code>WVPlots</code> yourself by doing the following:
+If the above fails it can be a problem with your machine (perhaps
+permissions, or not curl library installed), network, anti-virus, or
+firewall software. If it does fail you can try to install `WVPlots`
+yourself by doing the following:
 
 1.  Navigate a web browser to <http://winvector.github.io/WVPlots/>.
 2.  From there download the file `WVPlots_0.1.tar.gz`.
@@ -89,4 +71,3 @@ If this isn't working then something is either not installed or
 configured correctly, or something is blocking access (such as
 anti-virus software or firewall software). The best thing to do is find
 another local `R` user and debug together.
-
