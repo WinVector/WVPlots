@@ -66,7 +66,7 @@ If the above fails (some Windows users are seeing "curl" errors) it can be a pro
 
 1.  Navigate a web browser to <http://winvector.github.io/WVPlots/>.
 2.  From there download the file `WVPlots_0.1.tar.gz`.
-3.  In the RStudio "Consoel" window type:
+3.  In the RStudio "Console" window type:
     `install.packages('~/Downloads/WVPlots_0.1.tar.gz',repos=NULL)`
     (replacing `'~/Downloads/WVPlots_0.1.tar.gz'` with wherever you
     downloaded `WVPlots_0.1.tar.gz` to).
@@ -82,7 +82,7 @@ worksheets.
 3.  Rename the downloaded file from `XonlyPCA.Rmd.txt` to
     `XonlyPCA.Rmd`.
 4.  In Rstudio use `File->"Open File"` to open `XonlyPCA.Rmd`.
-5.  Press the "Knit HTML" button (top midle of the editor pane) and this
+5.  Press the "Knit HTML" button (top middle of the editor pane) and this
     should produced the rendered result.
 
 If this isn't working then something is either not installed or
