@@ -1,0 +1,37 @@
+<h1 id="wvplots">WVPlots</h1>
+<p>Common plots we use for analysis and presentation (on top of ggplot2 in <a href="https://cran.r-project.org">R</a>). For an introduction see: http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/</p>
+<p>Website: <a href="https://github.com/WinVector/WVPlots" class="uri">https://github.com/WinVector/WVPlots</a></p>
+<p>More:</p>
+<ul>
+<li>http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/</li>
+<li>http://www.win-vector.com/blog/2011/12/my-favorite-graphs/</li>
+<li>http://www.win-vector.com/blog/2009/11/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/</li>
+</ul>
+<p>To install in R:</p>
+<pre><code># install.packages(c(&#39;devtools&#39;,&#39;ggplot2&#39;))
+devtools::install_github(&#39;WinVector/WVPlots&#39;,build_vignettes=TRUE)</code></pre>
+<hr />
+<p>Some users have been having a bit of trouble using <a href="https://cran.r-project.org/package=devtools"><code>devtools</code></a> to install <a href="https://github.com/WinVector/WVPlots"><code>WVPlots</code></a> (announced <a href="http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/">here</a> and used to produce some of the graphs shown <a href="http://www.win-vector.com/blog/2016/05/pcr_part1_xonly/">here</a>). I thought I would write a note with a few instructions to help.</p>
+<p>These are things you should not have to do often, and things those of us already running <code>R</code> have stumbled through and forgotten about. These are also the kind of finicky system dependent non-repeatable interactive GUI steps you largely avoid once you have a scriptable system like fully R up and running.</p>
+<p>First you will need install (likely admin) privileges on your machine and a network connection that is not blocking and of cran, RStudio or Github. Make sure you have up to date copies of both <a href="https://cran.r-project.org">R</a> and <a href="https://www.rstudio.com">RStudio</a>. We have to assume you are somewhat familiar with R and RStudio (so suggest a tutorial if you are not). Once you have these we will try to &quot;knit&quot; or render a R markdown document. To do this start RStudio select <code>File-&gt;&quot;New File&quot;-&gt;&quot;R Markdown&quot;</code> as shown below (menus may be different on different systems, you will have to look around a bit). <img src="http://www.win-vector.com/blog/wp-content/uploads/2016/05/RStudio1.png" title="RStudio1.png" alt="RStudio1" /> Then click &quot;OK&quot;. Then press the &quot;Knit HTML&quot; button as shown in the next figure. <img src="http://www.win-vector.com/blog/wp-content/uploads/2016/05/RStudio2.png" title="RStudio2.png" alt="RStudio2" /> This will ask you to pick a filename to save as (anything ending in &quot;.Rmd&quot; will do). If RStudio asks to install anything let it. In the end you should get a rendered copy of RStudio's example document. If any of this doesn't work you can look to <a href="http://rmarkdown.rstudio.com">RStudio documentation</a>. Assuming the above worked paste the following commands into RStudio's &quot;Console&quot; window (entering a &quot;return&quot; after the paste to ensure execution). [Note any time we say paste or type, watch out for any errors caused by conversion of normal machine quotes to insidious smart quotes.] ``</p>
+<pre><code>install.packages(c(&#39;RCurl&#39;,&#39;ggplot2&#39;,&#39;tidyr&#39;,
+                    &#39;devtools&#39;,&#39;knitr&#39;))</code></pre>
+<p>The set of packages you actually need can usually be found by looking at the <code>R</code> you wish to run and looking for any <code>library()</code> or <code>::</code> commands. R scripts and worksheets tend not to install packages on their own as that would be a bit invasive. If the above commands execute without error (messages and warnings are okay) you can then try the command below to install <code>WVPlots</code>: ``</p>
+<pre><code>devtools::install_github(&#39;WinVector/WVPlots&#39;,
+                        build_vignettes=TRUE)</code></pre>
+<p>If the above fails (some Windows users are seeing &quot;curl&quot; errors) it can be a problem with your machine (perhaps permissions, or no curl library installed), network, anti-virus, or firewall software. If it does fail you can try to install <code>WVPlots</code> yourself by doing the following:</p>
+<ol style="list-style-type: decimal">
+<li>Navigate a web browser to <a href="http://winvector.github.io/WVPlots/" class="uri">http://winvector.github.io/WVPlots/</a>.</li>
+<li>From there download the file <code>WVPlots_0.1.tar.gz</code>.</li>
+<li>In the RStudio &quot;Console&quot; window type: <code> install.packages(c('ROCR', 'ggplot2', 'gridExtra', 'mgcv', 'plyr', 'reshape2', 'stringr', 'knitr', 'testthat'))</code> (we are installing the dependencies of <code>WVPlots</code> by hand, the dependencies are found by looking at the WVPLots <a href="https://github.com/WinVector/WVPlots/DESCRIPTION">DESCRIPTION</a> file, and excluding <code>grid</code> as it is part of the base system and doesn't need to be installed).</li>
+<li>In the RStudio &quot;Console&quot; window type: <code><code>install.packages('~/Downloads/WVPlots_0.1.tar.gz',repos=NULL)</code></code> (replacing <code>'~/Downloads/WVPlots_0.1.tar.gz'</code> with wherever you downloaded <code>WVPlots_0.1.tar.gz</code> to).</li>
+</ol>
+<p>If the above worked you can test the <code>WVPlots</code> package by typing <code>library(&quot;WVPlots&quot;)</code>. Now you can try knitting one of our example worksheets.</p>
+<ol style="list-style-type: decimal">
+<li>Navigate a web browser to <a href="https://github.com/WinVector/Examples/blob/master/PCR/XonlyPCA.Rmd" class="uri">https://github.com/WinVector/Examples/blob/master/PCR/XonlyPCA.Rmd</a></li>
+<li>Download the file <code>XonlyPCA.Rmd</code> by right-clicking on the &quot;Raw&quot; button (towards the top right).</li>
+<li>Rename the downloaded file from <code>XonlyPCA.Rmd.txt</code> to <code>XonlyPCA.Rmd</code>.</li>
+<li>In Rstudio use <code>File-&gt;&quot;Open File&quot;</code> to open <code>XonlyPCA.Rmd</code>.</li>
+<li>Press the &quot;Knit HTML&quot; button (top middle of the editor pane) and this should produced the rendered result.</li>
+</ol>
+<p>If this isn't working then something is either not installed or configured correctly, or something is blocking access (such as anti-virus software or firewall software). The best thing to do is find another local <code>R</code> user and debug together.</p>
