@@ -68,7 +68,7 @@ If the above fails (some Windows users are seeing "curl" errors) it can be a pro
 1.  Navigate a web browser to <http://winvector.github.io/WVPlots/>.
 2.  From there download the file `WVPlots_0.1.tar.gz`.
 3.  In the RStudio "Console" window type:
-    <code> install.packages(c('ROCR', 'ggplot2', 'gridExtra', 'mgcv', 'plyr', 'reshape2', 'stringr', 'knitr', 'testthat'))</code> (we are installing the dependencies of <code>WVPlots</code> by hand, the dependencies are found by looking at the WVPLots [DESCRIPTION](https://github.com/WinVector/WVPlots/DESCRIPTION) file, and excluding <code>grid</code> as it is part of the base system and doesn't need to be installed).
+    <code> install.packages(c('ROCR', 'ggplot2', 'gridExtra', 'mgcv', 'plyr', 'reshape2', 'stringr', 'knitr', 'testthat'))</code> (we are installing the dependencies of <code>WVPlots</code> by hand, the dependencies are found by looking at the WVPLots [DESCRIPTION](https://github.com/WinVector/WVPlots/blob/master/DESCRIPTION) file, and excluding <code>grid</code> as it is part of the base system and doesn't need to be installed).
 3.  In the RStudio "Console" window type:
     <code>`install.packages('~/Downloads/WVPlots_0.1.tar.gz',repos=NULL)`</code>
     (replacing `'~/Downloads/WVPlots_0.1.tar.gz'` with wherever you
