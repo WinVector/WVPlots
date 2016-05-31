@@ -51,8 +51,9 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   plt <- ggplot2::ggplot(data=pf,
                          mapping=ggplot2::aes_string(x=xvar,y='density',
                                                      ymin='zero',ymax='density',
-                                                     color=truthVar,fill=truthVar,linetype=truthVar,
-                                                     xintercept='xintercept'))
+                                                     color=truthVar,fill=truthVar,
+                                                     linetype=truthVar
+                                                     ))
   if(sum(!is.na(pf$density))>0) {
     plt <- plt + ggplot2::geom_line() +
       ggplot2::geom_ribbon(alpha=0.5,color=NA)
