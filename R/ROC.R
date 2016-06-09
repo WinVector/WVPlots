@@ -21,6 +21,9 @@
 ROCPlot <- function(frame, xvar, truthVar,title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   outcol <- frame[[truthVar]]
+  if(length(unique(outcol))!=2) {
+    return(NULL)
+  }
   predcol <- frame[[xvar]]
   pred <- ROCR::prediction(predcol,outcol)
   perf <-  ROCR::performance(pred,'tpr','fpr')
