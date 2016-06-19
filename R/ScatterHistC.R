@@ -178,8 +178,12 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
                         adjust_x = 1,
                         adjust_y = 1) {
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
-  q <- quantile(frame[[zvar]],seq(0, 1, 1/nclus))
-  yC <- cut(frame[[zvar]],q,include.lowest = TRUE)
+  q <- sort(unique(quantile(frame[[zvar]],seq(0, 1, 1/nclus))))
+  yC <- cut(frame[[zvar]],q,include.lowest=TRUE)
+  if(length(unique(yC))<=1) {
+    q <- sort(unique(c(q,median(unique(frame[[zvar]])))))
+    yC <- cut(frame[[zvar]],q,include.lowest=TRUE)
+  }
   frame[[zvar]] <- yC
   ScatterHistC(frame, xvar, yvar, zvar, title, ...,
                annot_size=annot_size,
