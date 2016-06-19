@@ -9,6 +9,7 @@
 #' @importFrom plyr ddply summarize
 #' @importFrom reshape2 melt
 #' @importFrom stringr str_pad
+#' @importFrom stats median
 NULL
 
 # check the arguments are the types our functions commonly expect
