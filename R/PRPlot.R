@@ -1,5 +1,7 @@
 
-#' Plot Precision-Recall plot
+#' Plot Precision-Recall plot.
+#'
+#' See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
@@ -24,6 +26,8 @@ PRPlot <- function(frame, xvar, truthVar,title,...) {
   if(length(unique(outcol))!=2) {
     return(NULL)
   }
+
+  prevalence = mean(as.numeric(outcol) == max(as.numeric(outcol)))
   predcol <- frame[[xvar]]
   pred <- ROCR::prediction(predcol,outcol)
   perf <-  ROCR::performance(pred,'prec','rec')
@@ -31,6 +35,14 @@ PRPlot <- function(frame, xvar, truthVar,title,...) {
   pf <- data.frame(
     Recall=perf@x.values[[1]],
     Precision=perf@y.values[[1]])
+
+  # ROCR marks the pt where recall=0 as precision=NaN
+  # get rid of that, and make it 1
+  isnan = which(is.nan(pf$Precision) && pf$Recall==0)
+
+  if(length(isnan) > 0) {
+    pf$Precision[isnan]=1
+  }
 
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
@@ -41,6 +53,7 @@ PRPlot <- function(frame, xvar, truthVar,title,...) {
                         ggplot2::aes(x=Recall,y=Precision)) +
     ggplot2::geom_line(data=pf,
                        ggplot2::aes(x=Recall,y=Precision)) +
+    ggplot2::geom_hline(yintercept=prevalence, linetype=2) +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
