@@ -120,6 +120,11 @@ WVPlots::GainCurvePlotC(frm, "model", "costs", "value", title="Example Continuou
 WVPlots::ROCPlot(frm, "model", "isValuable", title="Example ROC plot")
 ```
 
+## Precision-Recall Plot
+```{r}
+WVPlots::PRPlot(frm, "model", "isValuable", title="Example Precision-Recall plot")
+```
+
 ## Double Density Plot
 ```{r}
 WVPlots::DoubleDensityPlot(frm, "model", "isValuable", title="Example double density plot")
