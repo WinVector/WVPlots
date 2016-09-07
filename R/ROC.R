@@ -45,8 +45,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(paste(title,'\n',
-                  truthVar, '~', xvar, '\n',
-                  'AUC:',format(auc,digits=2)))
+    ggplot2::ggtitle(paste0(title,'\n',
+                  truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
+                  'AUC: ',format(auc,digits=2)))
   plot
 }

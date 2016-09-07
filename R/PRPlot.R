@@ -29,7 +29,7 @@ prArea <- function(x,y) {
 #' frm$absY <- abs(frm$y)
 #' frm$posY = frm$y > 0
 #' frm$costX = 1
-#' WVPlots::PRPlot(frm, "x", "yC", title="Example Precision-Recall plot")
+#' WVPlots::PRPlot(frm, "x", "yC", TRUE, title="Example Precision-Recall plot")
 #'
 #' @export
 PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
@@ -101,6 +101,6 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
                            'best f1 ',format(bestF1, digits=2, nsmall=2),
                            ', area ',format(pra, digits=2,nsmall=2),
                            '\n',
-                           truthVar, '~', xvar))
+                           truthVar,'==',truthTarget, '~', xvar))
   plot
 }
