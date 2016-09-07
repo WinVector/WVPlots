@@ -2,9 +2,9 @@
 % Please edit documentation in R/PRPlot.R
 \name{PRPlot}
 \alias{PRPlot}
-\title{Plot Precision-Recall plot}
+\title{Plot Precision-Recall plot.}
 \usage{
-PRPlot(frame, xvar, truthVar, title, ...)
+PRPlot(frame, xvar, truthVar, truthTarget, title, ...)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -13,12 +13,14 @@ PRPlot(frame, xvar, truthVar, title, ...)
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
 
+\item{truthTarget}{value we consider to be positive}
+
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
-Plot Precision-Recall plot
+See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html
 }
 \examples{
 

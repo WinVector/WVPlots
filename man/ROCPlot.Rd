@@ -4,7 +4,7 @@
 \alias{ROCPlot}
 \title{Plot receiver operating characteristic plot.}
 \usage{
-ROCPlot(frame, xvar, truthVar, title, ...)
+ROCPlot(frame, xvar, truthVar, truthTarget, title, ...)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -12,6 +12,8 @@ ROCPlot(frame, xvar, truthVar, title, ...)
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
+
+\item{truthTarget}{value we consider to be positive}
 
 \item{title}{title to place on plot}
 
@@ -29,7 +31,7 @@ frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
 frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
 frm$costX = 1
-WVPlots::ROCPlot(frm, "x", "yC", title="Example ROC plot")
+WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
 
 }
 

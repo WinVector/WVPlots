@@ -17,6 +17,7 @@ prArea <- function(x,y) {
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
@@ -31,9 +32,9 @@ prArea <- function(x,y) {
 #' WVPlots::PRPlot(frm, "x", "yC", title="Example Precision-Recall plot")
 #'
 #' @export
-PRPlot <- function(frame, xvar, truthVar,title,...) {
+PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
-  outcol <- frame[[truthVar]]
+  outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
   }
