@@ -1,4 +1,27 @@
 
+
+# define some helper and reporting functions
+# calculate area under the curve of numeric vectors x,y
+# length(x)==length(y)
+# y>=0, 0<=x<=1 x non-empty, and x strictly increasing
+areaCalc <- function(x,y) {
+  # append extra points to get rid of degenerate cases
+  if(!all(diff(x)>0)) {
+    stop("areaCalc x wasn't strinctly increasing")
+  }
+  if(x[1]<0) {
+    x <- c(0,x)
+    y <- c(0,y)
+  }
+  if(x[length(x)]<1) {
+    x <- c(x,1)
+    y <- c(y,1)
+  }
+  n <- length(x)
+  sum(0.5*(y[-1]+y[-n])*(x[-1]-x[-n]))
+}
+
+
 #' Plot the gain curve of a sort-order.
 #'
 #' @param frame data frame to get values from

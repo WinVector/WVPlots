@@ -59,18 +59,6 @@ designYLabelPadFunction <- function(p1,p2) {
 }
 
 
-# define some helper and reporting functions
-# calculate area under the curve of numeric vectors x,y
-# length(x)==length(y)
-# y>=0, 0<=x<=1 and x increasing
-areaCalc <- function(x,y) {
-  # append extra points to get rid of degenerate cases
-  x <- c(0,x,1)
-  y <- c(0,y,1)
-  n <- length(x)
-  sum(0.5*(y[-1]+y[-n])*(x[-1]-x[-n]))
-}
-
 cdeviance <- function(truth,pred,epsilon=1.e-6) {
   pred = pmax(pred, epsilon)
   pred = pmin(pred, 1-epsilon)
