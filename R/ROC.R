@@ -4,6 +4,7 @@
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
@@ -15,12 +16,12 @@
 #' frm$absY <- abs(frm$y)
 #' frm$posY = frm$y > 0
 #' frm$costX = 1
-#' WVPlots::ROCPlot(frm, "x", "yC", title="Example ROC plot")
+#' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
 #'
 #' @export
-ROCPlot <- function(frame, xvar, truthVar,title,...) {
+ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
-  outcol <- frame[[truthVar]]
+  outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
   }
@@ -44,8 +45,8 @@ ROCPlot <- function(frame, xvar, truthVar,title,...) {
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(paste(title,'\n',
-                  truthVar, '~', xvar, '\n',
-                  'AUC:',format(auc,digits=2)))
+    ggplot2::ggtitle(paste0(title,'\n',
+                  truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
+                  'AUC: ',sprintf("%.2g",auc)))
   plot
 }
