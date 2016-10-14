@@ -1,4 +1,41 @@
 
+
+#' calculate AUC.
+#'
+#' Based on:
+#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'
+#'  See also https://github.com/WinVector/sigr
+#'
+#' @param modelPredictions numeric predictions (not empty)
+#' @param yValues logical truth (not empty, same lenght as model predictions)
+#' @return line graph, point grain, and area under curve
+#'
+calcAUC <- function(modelPredictions,yValues) {
+  ord <- order(modelPredictions, decreasing=TRUE)
+  yValues <- yValues[ord]
+  modelPredictions <- modelPredictions[ord]
+  # FPR is the x-axis, TPR the y.
+  x <- cumsum(!yValues)/max(1,sum(!yValues)) # FPR = x-axis
+  y <- cumsum(yValues)/max(1,sum(yValues))   # TPR = y-axis
+  pointGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
+                           stringsAsFactors = FALSE)
+  # each point should be fully after a bunch of points or fully before a
+  # decision level. remove dups to achieve this.
+  dup <- c(modelPredictions[-1]>=modelPredictions[-length(modelPredictions)],
+           FALSE)
+  # And add in ideal endpoints just in case (redundancy here is not a problem).
+  x <- c(0,x[!dup],1)
+  y <- c(0,y[!dup],1)
+  lineGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
+                          stringsAsFactors = FALSE)
+  # sum areas of segments (triangle topped vertical rectangles)
+  n <- length(y)
+  area <- sum( ((y[-1]+y[-n])/2) * (x[-1]-x[-n]) )
+  list(lineGraph=lineGraph,pointGraph=pointGraph,area=area)
+}
+
+
 #' Plot receiver operating characteristic plot.
 #'
 #' @param frame data frame to get values from
@@ -26,22 +63,20 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     return(NULL)
   }
   predcol <- frame[[xvar]]
-  pred <- ROCR::prediction(predcol,outcol)
-  perf <-  ROCR::performance(pred,'tpr','fpr')
-  auc <- as.numeric(ROCR::performance(pred,'auc')@y.values)
-  pf <- data.frame(
-    FalsePositiveRate=perf@x.values[[1]],
-    TruePositiveRate=perf@y.values[[1]])
+  rocList <- calcAUC(predcol,outcol)
+  auc <- rocList$area
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data=pf,
+    ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes(x=FalsePositiveRate,ymax=TruePositiveRate,ymin=0),
-                alpha=0.3) +
-    ggplot2::geom_point(data=pf,
-                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate)) +
-    ggplot2::geom_line(data=pf,
-                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate)) +
-    ggplot2::geom_line(ggplot2::aes(x=c(0,1),y=c(0,1))) +
+                         alpha=0.2,color=NA) +
+    ggplot2::geom_point(data=rocList$pointGraph,
+                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                        color='darkblue',alpha=0.5) +
+    ggplot2::geom_line(data=rocList$lineGraph,
+                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                       color='darkblue') +
+    ggplot2::geom_abline(slope=1,intercept=0) +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
