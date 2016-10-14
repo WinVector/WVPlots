@@ -37,7 +37,6 @@ calcAUC <- function(modelPredictions,yValues) {
   list(lineGraph=lineGraph,pointGraph=pointGraph,area=area)
 }
 
-
 #' Plot receiver operating characteristic plot.
 #'
 #' @param frame data frame to get values from
@@ -51,10 +50,7 @@ calcAUC <- function(modelPredictions,yValues) {
 #' set.seed(34903490)
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
-#' frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' frm$absY <- abs(frm$y)
-#' frm$posY = frm$y > 0
-#' frm$costX = 1
+#' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
 #' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
 #'
 #' @export
@@ -67,9 +63,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   predcol <- frame[[xvar]]
   rocList <- calcAUC(predcol,outcol)
   aucsig <- sigr::formatAUC(data.frame(pred=predcol,outcome=outcol,
-                             stringsAsFactors =FALSE),
-                  'pred','outcome',TRUE,pLargeCutoff=1,
-                  nrep=100,format = 'ascii')
+                                       stringsAsFactors =FALSE),
+                            'pred','outcome',TRUE,pLargeCutoff=1,
+                            nrep=100,format = 'ascii')
   auc <- rocList$area
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
@@ -87,8 +83,67 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                  truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
+                            truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
+                            'AUC=',aucsig$scoreString,' ',aucsig$pString)) +
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+  plot
+}
+
+
+
+#' Plot two receiver operating characteristic plots.
+#'
+#' @param frame data frame to get values from
+#' @param xvar1 name of the first independent (input or model) column in frame
+#' @param xvar2 name of the second independent (input or model) column in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget value we consider to be positive
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @examples
+#'
+#' set.seed(34903490)
+#' x1 = rnorm(50)
+#' x2 = rnorm(length(x1))
+#' y = 0.2*x1^2 + 0.5*x1 + x2 + rnorm(length(x1))
+#' frm = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE, title="Example ROC plot")
+#'
+#' @export
+ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
+  checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title,...)
+  checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title,...)
+  outcol <- frame[[truthVar]]==truthTarget
+  if(length(unique(outcol))!=2) {
+    return(NULL)
+  }
+  rocList1 <- calcAUC(frame[[xvar1]],outcol)
+  rocList2 <- calcAUC(frame[[xvar2]],outcol)
+  aucsig <- sigr::formatAUCpair(frame,xvar1,xvar2,truthVar,truthTarget,
+    pLargeCutoff=1,
+    nrep=100,format = 'ascii')
+  palletName = "Dark2"
+  plot= ggplot2::ggplot() +
+    ggplot2::geom_point(data=rocList1$pointGraph,
+                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                        color='black',alpha=0.5) +
+    ggplot2::geom_line(data=rocList1$lineGraph,
+                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                       color='black') +
+    ggplot2::geom_point(data=rocList2$pointGraph,
+                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                        color='darkblue',alpha=0.5) +
+    ggplot2::geom_line(data=rocList2$lineGraph,
+                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                       color='darkblue') +
+    ggplot2::geom_abline(slope=1,intercept=0) +
+    ggplot2::coord_fixed() +
+    ggplot2::scale_fill_brewer(palette=palletName) +
+    ggplot2::scale_color_brewer(palette=palletName) +
+    ggplot2::ggtitle(paste0(title,'\n',
+                  truthVar, '==', truthTarget, ' ~ ', xvar1, '\n',
                   'AUC=',aucsig$scoreString,' ',aucsig$pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }
+
