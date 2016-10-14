@@ -1,14 +1,38 @@
 
 
-# define some helper and reporting functions
-# calculate fraction of area above prevalance floor that is under curve
-# length(x)>=2
-# length(x)==length(y)
-# y>=0, x increasing and min(x)==0,max(x)==1
-prArea <- function(x,y) {
-  n <- length(x)
-  sum(0.5*(y[-1]+y[-n])*(x[-1]-x[-n]))
+#' calculate precision/recall curve.
+#'
+#' Based on:
+#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'
+#'  See also https://github.com/WinVector/sigr
+#'
+#' @param modelPredictions numeric predictions (not empty)
+#' @param yValues logical truth (not empty, same lenght as model predictions)
+#' @return line graph, and point graph
+#'
+calcPR <- function(modelPredictions,yValues) {
+  prevalence = mean(yValues)
+  ord <- order(modelPredictions, decreasing=TRUE)
+  yValues <- yValues[ord]
+  modelPredictions <- modelPredictions[ord]
+  # Precision is the x-axis, TPR/Recall the y.
+  x <- cumsum(yValues)/seq_len(length(yValues)) # Precision
+  y <- cumsum(yValues)/max(1,sum(yValues))      # TPR/Recall
+  pointGraph <- data.frame(Precision=x,Recall=y,
+                           stringsAsFactors = FALSE)
+  # each point should be fully after a bunch of points or fully before a
+  # decision level. remove dups to achieve this.
+  dup <- c(modelPredictions[-1]>=modelPredictions[-length(modelPredictions)],
+           FALSE)
+  # And add in ideal endpoints just in case (redundancy here is not a problem).
+  x <- c(1,x[!dup],prevalence)
+  y <- c(0,y[!dup],1)
+  lineGraph <- data.frame(Precision=x,Recall=y,
+                          stringsAsFactors = FALSE)
+  list(lineGraph=lineGraph,pointGraph=pointGraph)
 }
+
 
 #' Plot Precision-Recall plot.
 #'
@@ -41,34 +65,13 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
 
   prevalence = mean(as.numeric(outcol) == max(as.numeric(outcol)))
   predcol <- frame[[xvar]]
-  pred <- ROCR::prediction(predcol,outcol)
-  perf <-  ROCR::performance(pred,'prec','rec')
-
-  pf <- data.frame(
-    Recall=perf@x.values[[1]],
-    Precision=perf@y.values[[1]])
-
-  # ROCR marks the pt where recall=0 as precision=NaN
-  # get rid of that, and make it 1
-  badPosns <-is.nan(pf$Precision) | is.na(pf$Precision) |
-                      is.infinite(pf$Precision) |
-                      (pf$Precision<0) | (pf$Precision>1) |
-                      is.nan(pf$Recall) | is.na(pf$Recall) |
-                      is.infinite(pf$Recall) |
-                      (pf$Recall<=0) | (pf$Recall>1)
-  pf <- pf[!badPosns,]
-  # add in ideal points
-  pf <- rbind(pf,data.frame(
-    Recall=c(0,1),
-    Precision=c(prevalence,prevalence)
-  ))
+  prList <- calcPR(predcol,outcol)
+  pf <- prList$pointGraph
   pf <- pf[order(pf$Recall),]
   f1 <- 2*pf$Recall*pf$Precision/(pf$Recall+pf$Precision)
   bestX <- which.max(f1)
   bestF1 <- f1[[bestX]]
   pF1 <- pf[bestX,]
-
-  pra <- prArea(pf$Recall,pf$Precision)
 
   # curves of constant F1 with precision as a function of recall.
   isoFrame <- data.frame(Recall=seq(0.01,1,by=0.01))
@@ -79,17 +82,15 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
 
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
-    ggplot2::geom_ribbon(data=pf,
-                         ggplot2::aes(x=Recall,ymax=Precision,ymin=0),
-                         alpha=0.3) +
     ggplot2::geom_point(data=pf,
                         ggplot2::aes(x=Recall,y=Precision),
-                        alpha=0.8) +
+                        color='darkblue',alpha=0.5) +
     ggplot2::geom_point(data=pF1,
                         ggplot2::aes(x=Recall,y=Precision),
                         color='blue',size=2,shape=15) +
-    ggplot2::geom_line(data=pf,
-                       ggplot2::aes(x=Recall,y=Precision)) +
+    ggplot2::geom_line(data=prList$lineGraph,
+                       ggplot2::aes(x=Recall,y=Precision),
+                       color='darkblue') +
     ggplot2::geom_line(data=isoFrame,
                        ggplot2::aes(x=Recall,y=Precision),
                        color='blue',alpha=0.5,linetype=2) +
@@ -99,8 +100,8 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                            'best f1 ',format(bestF1, digits=2, nsmall=2),
-                           ', area ',format(pra, digits=2,nsmall=2),
                            '\n',
-                           truthVar,'==',truthTarget, '~', xvar))
+                           truthVar,'==',truthTarget, '~', xvar)) +
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }

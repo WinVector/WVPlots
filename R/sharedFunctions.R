@@ -1,7 +1,6 @@
 
 
 #' @importFrom stats aggregate anova as.formula binomial glm lm lm.wfit pchisq pf quantile density dnorm ecdf loess pnorm predict reorder smooth var
-#' @importFrom ROCR prediction performance
 #' @importFrom graphics hist
 #' @importFrom ggplot2 ggplot_build aes aes_string
 #' @importFrom grid textGrob unit

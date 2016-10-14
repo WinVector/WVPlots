@@ -9,7 +9,7 @@
 #'
 #' @param modelPredictions numeric predictions (not empty)
 #' @param yValues logical truth (not empty, same lenght as model predictions)
-#' @return line graph, point grain, and area under curve
+#' @return line graph, point graph, and area under curve
 #'
 calcAUC <- function(modelPredictions,yValues) {
   ord <- order(modelPredictions, decreasing=TRUE)
@@ -82,6 +82,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
-                  'AUC: ',sprintf("%.2g",auc)))
+                  'AUC: ',sprintf("%.2g",auc))) +
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }

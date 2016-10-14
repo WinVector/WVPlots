@@ -2,7 +2,7 @@ Package: WVPlots
 Type: Package
 Title: Common Plots For Analysis
 Version: 0.1
-Date: 2016-04-01
+Date: 2016-10-14
 Author: Nina Zumel, John Mount
 Maintainer: John Mount <jmount@win-vector.com>
 URL: https://github.com/WinVector/WVPlots
@@ -18,7 +18,6 @@ Depends:
     grid,
     gridExtra,
     reshape2,
-    ROCR,
     plyr,
     stringr,
     mgcv
