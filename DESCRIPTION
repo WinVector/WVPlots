@@ -21,4 +21,5 @@ Depends:
     plyr,
     stringr,
     mgcv
+Remotes: github::WinVector/sigr
 RoxygenNote: 5.0.1
