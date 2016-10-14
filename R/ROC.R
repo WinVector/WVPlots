@@ -64,6 +64,10 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   }
   predcol <- frame[[xvar]]
   rocList <- calcAUC(predcol,outcol)
+  aucsig <- sigr::formatAUC(data.frame(pred=predcol,outcome=outcol,
+                             stringsAsFactors =FALSE),
+                  'pred','outcome',TRUE,pLargeCutoff=1,
+                  nrep=100,format = 'ascii')
   auc <- rocList$area
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
@@ -82,7 +86,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
-                  'AUC: ',sprintf("%.2g",auc))) +
+                  'AUC=',aucsig$scoreString,' ',aucsig$pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }
