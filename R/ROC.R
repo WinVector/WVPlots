@@ -105,9 +105,11 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
 #' set.seed(34903490)
 #' x1 = rnorm(50)
 #' x2 = rnorm(length(x1))
-#' y = 0.2*x1^2 + 0.5*x1 + x2 + rnorm(length(x1))
+#' y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
 #' frm = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE, title="Example ROC plot")
+#' # WVPlots::ROCPlot(frm, "x1", "yC", TRUE, title="Example ROC plot")
+#' # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
+#' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
 #'
 #' @export
 ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
@@ -122,27 +124,32 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
   aucsig <- sigr::formatAUCpair(frame,xvar1,xvar2,truthVar,truthTarget,
     pLargeCutoff=1,
     nrep=100,format = 'ascii')
+  aucstrs <- strsplit(aucsig$scoreString,';',fixed=TRUE)[[1]]
+  nm1 <- paste0(xvar1,', AUC=',aucstrs[[1]])
+  nm2 <- paste0(xvar2,', AUC=',aucstrs[[2]])
+  rocList1$pointGraph$model <- nm1
+  rocList1$lineGraph$model <- nm1
+  rocList2$pointGraph$model <- nm2
+  rocList2$lineGraph$model <- nm2
+  pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
+  lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
-    ggplot2::geom_point(data=rocList1$pointGraph,
-                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
-                        color='black',alpha=0.5) +
-    ggplot2::geom_line(data=rocList1$lineGraph,
-                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
-                       color='black') +
-    ggplot2::geom_point(data=rocList2$pointGraph,
-                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
-                        color='darkblue',alpha=0.5) +
-    ggplot2::geom_line(data=rocList2$lineGraph,
-                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
-                       color='darkblue') +
-    ggplot2::geom_abline(slope=1,intercept=0) +
+    ggplot2::geom_point(data=pointGraph,
+                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate,
+                                     color=model,shape=model),
+                        alpha=0.5) +
+    ggplot2::geom_line(data=lineGraph,
+                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate,
+                                    color=model,linetype=model)) +
+    ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                  truthVar, '==', truthTarget, ' ~ ', xvar1, '\n',
-                  'AUC=',aucsig$scoreString,' ',aucsig$pString)) +
+                  truthVar, '==', truthTarget, ' ~ model\n',
+                  'alternative hypothesis: AUC(',xvar1,')>AUC(pooled)\n',
+                  aucsig$pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }

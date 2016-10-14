@@ -120,6 +120,17 @@ WVPlots::GainCurvePlotC(frm, "model", "costs", "value", title="Example Continuou
 WVPlots::ROCPlot(frm, "model", "isValuable", TRUE, title="Example ROC plot")
 ```
 
+```{r}
+set.seed(34903490)
+x1 = rnorm(50)
+x2 = rnorm(length(x1))
+y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
+frmP = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
+# WVPlots::ROCPlot(frmP, "x1", "yC", TRUE, title="Example ROC plot")
+# WVPlots::ROCPlot(frmP, "x2", "yC", TRUE, title="Example ROC plot")
+WVPlots::ROCPlotPair(frmP, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
+```
+
 ## Precision-Recall Plot
 ```{r}
 WVPlots::PRPlot(frm, "model", "isValuable", TRUE, title="Example Precision-Recall plot")
