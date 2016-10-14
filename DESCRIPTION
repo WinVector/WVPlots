@@ -20,5 +20,7 @@ Depends:
     reshape2,
     plyr,
     stringr,
-    mgcv
+    mgcv,
+    sigr
+Remotes: github::WinVector/sigr
 RoxygenNote: 5.0.1
