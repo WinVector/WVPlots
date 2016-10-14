@@ -1,4 +1,6 @@
 
+#' @importFrom sigr formatAUC
+NULL
 
 #' calculate AUC.
 #'

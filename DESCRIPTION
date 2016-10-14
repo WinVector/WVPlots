@@ -11,7 +11,8 @@ Description: Example ggplot2 plots we have found useful, under a standardized
 License: GPL-3
 Suggests:
     knitr,
-    testthat
+    testthat,
+    devtools
 VignetteBuilder: knitr
 Depends:
     ggplot2,
