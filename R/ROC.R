@@ -124,9 +124,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
   aucsig <- sigr::formatAUCpair(frame,xvar1,xvar2,truthVar,truthTarget,
     pLargeCutoff=1,
     nrep=100,format = 'ascii')
-  aucstrs <- strsplit(aucsig$scoreString,';',fixed=TRUE)[[1]]
-  nm1 <- paste0(xvar1,', AUC=',aucstrs[[1]])
-  nm2 <- paste0(xvar2,', AUC=',aucstrs[[2]])
+  nm1 <- paste0(xvar1,', AUC=',aucsig$scoreString1)
+  nm2 <- paste0(xvar2,', AUC=',aucsig$scoreString2)
   rocList1$pointGraph$model <- nm1
   rocList1$lineGraph$model <- nm1
   rocList2$pointGraph$model <- nm2
