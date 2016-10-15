@@ -12,7 +12,7 @@ calcPR(modelPredictions, yValues)
 \item{yValues}{logical truth (not empty, same lenght as model predictions)}
 }
 \value{
-line graph, and point graph
+line graph, point graph, and summaries
 }
 \description{
 Based on:

@@ -21,6 +21,26 @@ areaCalc <- function(x,y) {
   sum(0.5*(y[-1]+y[-n])*(x[-1]-x[-n]))
 }
 
+relativeGiniScore <- function(modelValues,yValues) {
+  d = data.frame(predcol=modelValues,truthcol=yValues)
+  predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']], decreasing=TRUE)
+  npop = dim(d)[1]
+
+  # data frame the cumulative prediction/truth as a function
+  # of the fraction of the population we're considering, highest first
+  results = data.frame(pctpop= (1:npop)/npop,
+                       model = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
+                       wizard = cumsum(d[wizard, 'truthcol'])/sum(d[['truthcol']]))
+
+  # calculate the areas under each curve
+  # gini score is 2* (area - 0.5)
+  idealArea = areaCalc(results$pctpop,results$wizard) - 0.5
+  modelArea = areaCalc(results$pctpop,results$model) - 0.5
+  giniScore = modelArea/idealArea # actually, normalized gini score
+  giniScore
+}
+
 
 #' Plot the gain curve of a sort-order.
 #'
@@ -73,6 +93,12 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   names(colorKey) = c(paste('model: sort by',xvar),paste('wizard: sort by',truthVar))
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
+
+
+  sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniScore)
+  #sr <-  sigr::resampleScoreModel(predcol,truthcol,relativeGiniScore)
+  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
+
   # plot
   ges = ggplot2::aes(x=pctpop, y=pct_outcome,
                      color=sort_criterion,
@@ -86,9 +112,11 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
                          mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
                                               ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
-    ggplot2::ggtitle(paste("Gain curve,", title, '\n',
-                  truthVar, '~', xvar, '\n',
-                  'relative Gini score', format(giniScore,digits=2))) +
+    ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
+                  truthVar, '~', xvar,
+                  ', relative Gini score: ', format(giniScore,digits=2),
+                  '\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',
+                  pString)) +
     ggplot2::xlab("fraction items in sort order") +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
@@ -98,7 +126,7 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   gplot
 }
 
-#' Plot the gain curve of a sort-order in horizontal orientation.
+#' Plot the gain curve of a sort-order with costs.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame

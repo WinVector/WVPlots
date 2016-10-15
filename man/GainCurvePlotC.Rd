@@ -2,7 +2,7 @@
 % Please edit documentation in R/GainCurve.R
 \name{GainCurvePlotC}
 \alias{GainCurvePlotC}
-\title{Plot the gain curve of a sort-order in horizontal orientation.}
+\title{Plot the gain curve of a sort-order with costs.}
 \usage{
 GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...)
 }
@@ -20,7 +20,7 @@ GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
-Plot the gain curve of a sort-order in horizontal orientation.
+Plot the gain curve of a sort-order with costs.
 }
 \examples{
 
