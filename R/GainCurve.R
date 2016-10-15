@@ -127,6 +127,40 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   gplot
 }
 
+
+makeRelativeGiniCostScorer <- function(costcol) {
+  force(costcol)
+  function(modelValues,yValues) {
+    truthcol <- yValues
+    predcol <- modelValues
+    # data frame of pred and truth, sorted in order of the predictions
+    d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
+    predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
+    wizard = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
+    npop = dim(d)[1]
+
+    # data frame the cumulative prediction/truth as a function
+    # of the fraction of the population we're considering, highest first
+    mName = paste("model: sort by model")
+    resultsM = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
+                          pct_outcome = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
+                          sort_criterion=mName)
+    wName = paste("wizard: sort by varlue/cost")
+    resultsW = data.frame(pctpop = cumsum(d[wizard,'costcol'])/sum(d[['costcol']]),
+                          pct_outcome = cumsum(d[wizard,'truthcol'])/sum(d[['truthcol']]),
+                          sort_criterion=wName)
+    results = rbind(resultsM,resultsW)
+
+    # calculate the areas under each curve
+    # gini score is 2* (area - 0.5)
+    idealArea = areaCalc(resultsW$pctpop,resultsW$pct_outcome) - 0.5
+    modelArea = areaCalc(resultsM$pctpop,resultsM$pct_outcome) - 0.5
+    giniScore = modelArea/idealArea # actually, normalized gini score
+    giniScore
+  }
+}
+
+
 #' Plot the gain curve of a sort-order with costs.
 #'
 #' @param frame data frame to get values from
@@ -184,6 +218,12 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   names(colorKey) = c(mName,wName)
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
+
+  relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
+  sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniCostScorer)
+  #sr <-  sigr::resampleScoreModel(predcol,truthcol,relativeGiniCostScorer)
+  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
+
   # plot
   ges = ggplot2::aes(x=pctpop, y=pct_outcome,
                      color=sort_criterion,
@@ -197,9 +237,11 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
                          mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
                                               ymax=pct_outcome, color=sort_criterion),
                 alpha=0.2,color=NA) +
-    ggplot2::ggtitle(paste("Gain curve,", title, '\n',
-                  truthVar, '~', xvar, '\n',
-            'relative Gini score', format(giniScore,digits=2))) +
+    ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
+                  truthVar, '~', xvar,
+            ', relative Gini score: ', format(giniScore,digits=2),
+            '\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',
+            pString)) +
     ggplot2::xlab(paste("fraction of sum",costVar," in sort order")) +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
