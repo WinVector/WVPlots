@@ -1,5 +1,5 @@
 
-#' @importFrom sigr formatAUC
+#' @importFrom sigr formatAUC formatAUCpair
 NULL
 
 #' calculate AUC.
@@ -147,7 +147,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ model\n',
-                  'alternative hypothesis: AUC(',xvar1,')>AUC(pooled)\n',
+                  'alt. hyp.: AUC(',xvar1,')-AUC(',xvar2,')>pooled diffs\n',
                   aucsig$pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
