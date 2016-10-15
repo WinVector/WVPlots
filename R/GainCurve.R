@@ -122,7 +122,8 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_color_manual(values=colorKey) +
-    ggplot2::coord_fixed()
+    ggplot2::coord_fixed() +
+    ggplot2::theme(legend.position="bottom")
   gplot
 }
 
@@ -199,12 +200,13 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
     ggplot2::ggtitle(paste("Gain curve,", title, '\n',
                   truthVar, '~', xvar, '\n',
             'relative Gini score', format(giniScore,digits=2))) +
-    ggplot2::xlab(paste("fraction of sum",costVar,"cost in sort order")) +
+    ggplot2::xlab(paste("fraction of sum",costVar," in sort order")) +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
     ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
     ggplot2::scale_color_manual(values=colorKey) +
-    ggplot2::coord_fixed()
+    ggplot2::coord_fixed() +
+    ggplot2::theme(legend.position="bottom")
   gplot
 }
 

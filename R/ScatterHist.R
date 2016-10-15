@@ -52,6 +52,9 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
           plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
+  origTitle <- title
+  title <- paste0(origTitle,'\n',
+                  sigr::formatFTest(frame,xvar,yvar,format='ascii')$formatStr)
   gSmooth = NULL
   if(smoothmethod=='auto') {
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
@@ -71,6 +74,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
       ggplot2::annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)},
     error=function(x){})
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
+    title <- paste0(origTitle,'\n',sigr::formatFTest(model,format='ascii')$formatStr)
   } else if(smoothmethod=='identity') {
     meanY = mean(frame[[yvar]])
     rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
