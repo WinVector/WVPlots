@@ -70,21 +70,26 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
-                         ggplot2::aes(x=FalsePositiveRate,ymax=TruePositiveRate,ymin=0),
+                         ggplot2::aes_string(x='FalsePositiveRate',
+                                             ymax='TruePositiveRate',ymin=0),
                          alpha=0.2,color=NA) +
     ggplot2::geom_point(data=rocList$pointGraph,
-                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                        ggplot2::aes_string(x='FalsePositiveRate',
+                                            y='TruePositiveRate'),
                         color='darkblue',alpha=0.5) +
     ggplot2::geom_line(data=rocList$lineGraph,
-                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate),
+                       ggplot2::aes_string(x='FalsePositiveRate',
+                                           y='TruePositiveRate'),
                        color='darkblue') +
     ggplot2::geom_abline(slope=1,intercept=0) +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                            truthVar, '==', truthTarget, ' ~ ', xvar, '\n',
-                            'AUC=',aucsig$scoreString,' ',aucsig$pString)) +
+                            truthVar, '==', truthTarget, ' ~ ', xvar, ', ',
+                            'AUC=',aucsig$scoreString,
+                            '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
+                            aucsig$pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }
@@ -135,21 +140,24 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
     ggplot2::geom_point(data=pointGraph,
-                        ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate,
-                                     color=model,shape=model),
+                        ggplot2::aes_string(x='FalsePositiveRate',
+                                            y='TruePositiveRate',
+                                     color='model',shape='model'),
                         alpha=0.5) +
     ggplot2::geom_line(data=lineGraph,
-                       ggplot2::aes(x=FalsePositiveRate,y=TruePositiveRate,
-                                    color=model,linetype=model)) +
+                       ggplot2::aes_string(x='FalsePositiveRate',
+                                           y='TruePositiveRate',
+                                    color='model',linetype='model')) +
     ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ model\n',
-                  'alt. hyp.: AUC(',xvar1,')-AUC(',xvar2,')>pooled diffs\n',
+                  'alt. hyp.: AUC(',xvar1,')-AUC(',xvar2,')>pooled diffs, ',
                   aucsig$pString)) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::theme(legend.position="bottom")
   plot
 }
 

@@ -30,7 +30,11 @@ calcPR <- function(modelPredictions,yValues) {
   y <- c(0,y[!dup],1)
   lineGraph <- data.frame(Precision=x,Recall=y,
                           stringsAsFactors = FALSE)
-  list(lineGraph=lineGraph,pointGraph=pointGraph)
+  # get the best F1
+  f1 <- 2*pointGraph$Recall* pointGraph$Precision/
+    (pointGraph$Recall + pointGraph$Precision)
+  bestF1 <- max(f1)
+  list(lineGraph=lineGraph,pointGraph=pointGraph,bestF1=bestF1)
 }
 
 
@@ -77,29 +81,29 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   isoFrame <- data.frame(Recall=seq(0.01,1,by=0.01))
   isoFrame$Precision <- bestF1*isoFrame$Recall/(2*isoFrame$Recall-bestF1)
   isoFrame <- isoFrame[(isoFrame$Precision<=1) & (isoFrame$Precision>0),]
-  f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
+  #f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
 
 
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
     ggplot2::geom_point(data=pf,
-                        ggplot2::aes(x=Recall,y=Precision),
+                        ggplot2::aes_string(x='Recall',y='Precision'),
                         color='darkblue',alpha=0.5) +
     ggplot2::geom_point(data=pF1,
-                        ggplot2::aes(x=Recall,y=Precision),
+                        ggplot2::aes_string(x='Recall',y='Precision'),
                         color='blue',size=2,shape=15) +
     ggplot2::geom_line(data=prList$lineGraph,
-                       ggplot2::aes(x=Recall,y=Precision),
+                       ggplot2::aes_string(x='Recall',y='Precision'),
                        color='darkblue') +
     ggplot2::geom_line(data=isoFrame,
-                       ggplot2::aes(x=Recall,y=Precision),
+                       ggplot2::aes_string(x='Recall',y='Precision'),
                        color='blue',alpha=0.5,linetype=2) +
     ggplot2::geom_hline(yintercept=prevalence, linetype=2) +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                           'best f1 ',format(bestF1, digits=2, nsmall=2),
+                           'best F1 ',format(bestF1, digits=2, nsmall=2),
                            '\n',
                            truthVar,'==',truthTarget, '~', xvar)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
