@@ -1,5 +1,8 @@
 
 
+#' @importFrom sigr formatAUC formatAUCpair
+NULL
+
 #' calculate precision/recall curve.
 #'
 #' Based on:
@@ -9,32 +12,40 @@
 #'
 #' @param modelPredictions numeric predictions (not empty)
 #' @param yValues logical truth (not empty, same lenght as model predictions)
-#' @return line graph, and point graph
+#' @return line graph, point graph, and summaries
 #'
 calcPR <- function(modelPredictions,yValues) {
   prevalence = mean(yValues)
   ord <- order(modelPredictions, decreasing=TRUE)
   yValues <- yValues[ord]
   modelPredictions <- modelPredictions[ord]
-  # Precision is the x-axis, TPR/Recall the y.
-  x <- cumsum(yValues)/seq_len(length(yValues)) # Precision
-  y <- cumsum(yValues)/max(1,sum(yValues))      # TPR/Recall
-  pointGraph <- data.frame(Precision=x,Recall=y,
+  precision <- cumsum(yValues)/seq_len(length(yValues)) # Precision
+  recall <- cumsum(yValues)/max(1,sum(yValues))      # TPR/Recall
+  pointGraph <- data.frame(Precision=precision,Recall=recall,
                            stringsAsFactors = FALSE)
   # each point should be fully after a bunch of points or fully before a
   # decision level. remove dups to achieve this.
   dup <- c(modelPredictions[-1]>=modelPredictions[-length(modelPredictions)],
            FALSE)
   # And add in ideal endpoints just in case (redundancy here is not a problem).
-  x <- c(1,x[!dup],prevalence)
-  y <- c(0,y[!dup],1)
-  lineGraph <- data.frame(Precision=x,Recall=y,
+  precision <- c(1,precision[!dup],prevalence)
+  recall <- c(0,recall[!dup],1)
+  lineGraph <- data.frame(Precision=precision,Recall=recall,
                           stringsAsFactors = FALSE)
   # get the best F1
-  f1 <- 2*pointGraph$Recall* pointGraph$Precision/
-    (pointGraph$Recall + pointGraph$Precision)
-  bestF1 <- max(f1)
-  list(lineGraph=lineGraph,pointGraph=pointGraph,bestF1=bestF1)
+  f1 <- 2*lineGraph$Recall* lineGraph$Precision/
+    (lineGraph$Recall + lineGraph$Precision)
+  bestF1 <- max(f1,na.rm=TRUE)
+  if(is.na(bestF1) || is.infinite(bestF1)) {
+    print("break")
+  }
+  lineGraph <- lineGraph[order(lineGraph$Recall),]
+  pointGraph <- pointGraph[order(pointGraph$Recall),]
+  n <- nrow(lineGraph)
+  area <- sum( ((lineGraph$Precision[-1]+lineGraph$Precision[-n])/2) *
+                 (lineGraph$Recall[-1]-lineGraph$Recall[-n]) )
+  list(lineGraph=lineGraph,pointGraph=pointGraph,
+       bestF1=bestF1,area=area)
 }
 
 
@@ -83,7 +94,15 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   isoFrame <- isoFrame[(isoFrame$Precision<=1) & (isoFrame$Precision>0),]
   #f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
 
-
+  sp <- sigr::permutationScoreModel(predcol,outcol,
+                                    function(modelValues,yValues) {
+                                      calcPR(modelValues,yValues)$bestF1
+                                    })
+  # sr <-  sigr::resampleScoreModel(predcol,outcol,
+  #                                 function(modelValues,yValues) {
+  #                                   calcPR(modelValues,yValues)$bestF1
+  #                                 })
+  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
     ggplot2::geom_point(data=pf,
@@ -103,9 +122,10 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                           'best F1 ',format(bestF1, digits=2, nsmall=2),
-                           '\n',
-                           truthVar,'==',truthTarget, '~', xvar)) +
+                            truthVar,'==',truthTarget, '~', xvar,
+                           ', best F1 ',format(bestF1, digits=2, nsmall=2),
+                           '\nalt. hyp.: F1(',xvar,')>permuted F1, ',
+                           pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }
