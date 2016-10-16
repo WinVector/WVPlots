@@ -157,6 +157,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                                          nRep=nrep,
                                          parallelCluster=parallelCluster)
   eString <- sigr::formatSignificance(aucsig$eValue,format='ascii',
+                                      symbol = 'e',
                                       pLargeCutoff=2.0)
   nm1 <- paste0(xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
   nm2 <- paste0(xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
