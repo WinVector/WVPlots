@@ -163,8 +163,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ model\n',
-                  'alt. hyp.: AUC(',xvar1,')-AUC(',xvar2,')>pooled diffs, ',
-                  aucsig$pString)) +
+                  'testing: AUC(',xvar1,')>AUC(',xvar2,') ',
+                  aucsig$eString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
     ggplot2::theme(legend.position="bottom")
   plot
