@@ -5,7 +5,7 @@
 \title{Plot two receiver operating characteristic plots.}
 \usage{
 ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
-  parallelCluster = NULL)
+  returnScores = FALSE, nrep = 100, parallelCluster = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,10 @@ ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{returnScores}{logical if TRUE return detailed permutedScores}
+
+\item{nrep}{number of permutation repititions to estimate p values.}
 
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
 }

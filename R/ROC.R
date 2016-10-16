@@ -1,5 +1,5 @@
 
-#' @importFrom sigr formatAUC formatAUCpair
+#' @importFrom sigr permutationScoreModel calcAUC resampleScoreModelPair formatSignificance
 NULL
 
 #' calculate AUC.
@@ -45,6 +45,8 @@ calcAUC <- function(modelPredictions,yValues) {
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param returnScores logical if TRUE return detailed permutedScores
+#' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #'
 #' @examples
@@ -58,6 +60,8 @@ calcAUC <- function(modelPredictions,yValues) {
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     ...,
+                    returnScores=FALSE,
+                    nrep=100,
                     parallelCluster=NULL) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   outcol <- frame[[truthVar]]==truthTarget
@@ -66,13 +70,16 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   }
   predcol <- frame[[xvar]]
   rocList <- calcAUC(predcol,outcol)
-  aucsig <- sigr::formatAUC(data.frame(pred=predcol,outcome=outcol,
-                                       stringsAsFactors =FALSE),
-                            'pred','outcome',TRUE,pLargeCutoff=1,
-                            nrep=100,format = 'ascii',
-                            parallelCluster=parallelCluster)
   auc <- rocList$area
+  aucsig <- sigr::permutationScoreModel(modelValues=predcol,
+                                        yValues=outcol,
+                                        scoreFn=sigr::calcAUC,
+                                        returnScores=returnScores,
+                                        nRep=nrep,
+                                        parallelCluster=parallelCluster)
+
   palletName = "Dark2"
+  pString <- sigr::formatSignificance(aucsig$pValue,format='ascii')
   plot= ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes_string(x='FalsePositiveRate',
@@ -94,8 +101,11 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                             truthVar, '==', truthTarget, ' ~ ', xvar, ', ',
                             'AUC=',aucsig$scoreString,
                             '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
-                            aucsig$pString)) +
+                            pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+  if(returnScores) {
+    return(list(plot=plot,rocList=rocList,aucsig=aucsig,pString=pString))
+  }
   plot
 }
 
@@ -110,6 +120,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param returnScores logical if TRUE return detailed permutedScores
+#' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #' @examples
 #'
@@ -125,6 +137,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @export
 ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         ...,
+                        returnScores=FALSE,
+                        nrep=100,
                         parallelCluster=NULL) {
   checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title,...)
   checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title,...)
@@ -134,12 +148,18 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   }
   rocList1 <- calcAUC(frame[[xvar1]],outcol)
   rocList2 <- calcAUC(frame[[xvar2]],outcol)
-  aucsig <- sigr::formatAUCpair(frame,xvar1,xvar2,truthVar,truthTarget,
-    pLargeCutoff=1,
-    nrep=100,format = 'ascii',
-    parallelCluster=parallelCluster)
-  nm1 <- paste0(xvar1,', AUC=',aucsig$scoreString1)
-  nm2 <- paste0(xvar2,', AUC=',aucsig$scoreString2)
+
+  aucsig <- sigr::resampleScoreModelPair(frame[[xvar1]],
+                                         frame[[xvar2]],
+                                         frame[[truthVar]]==truthTarget,
+                                         scoreFn=sigr::calcAUC,
+                                         returnScores=returnScores,
+                                         nRep=nrep,
+                                         parallelCluster=parallelCluster)
+  eString <- sigr::formatSignificance(aucsig$eValue,format='ascii',
+                                      pLargeCutoff=2.0)
+  nm1 <- paste0(xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
+  nm2 <- paste0(xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
   rocList1$pointGraph$model <- nm1
   rocList1$lineGraph$model <- nm1
   rocList2$pointGraph$model <- nm2
@@ -164,9 +184,14 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ model\n',
                   'testing: AUC(',xvar1,')>AUC(',xvar2,') ',
-                  aucsig$eString)) +
+                  eString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
     ggplot2::theme(legend.position="bottom")
+  if(returnScores) {
+    return(list(plot=plot,
+                rocList1=rocList1,rocList2=rocList2,
+                aucsig=aucsig,eString=eString))
+  }
   plot
 }
 
