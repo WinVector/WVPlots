@@ -45,6 +45,8 @@ calcAUC <- function(modelPredictions,yValues) {
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#'
 #' @examples
 #'
 #' set.seed(34903490)
@@ -54,7 +56,9 @@ calcAUC <- function(modelPredictions,yValues) {
 #' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
 #'
 #' @export
-ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
+ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
+                    ...,
+                    parallelCluster=NULL) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
@@ -65,7 +69,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   aucsig <- sigr::formatAUC(data.frame(pred=predcol,outcome=outcol,
                                        stringsAsFactors =FALSE),
                             'pred','outcome',TRUE,pLargeCutoff=1,
-                            nrep=100,format = 'ascii')
+                            nrep=100,format = 'ascii',
+                            parallelCluster=parallelCluster)
   auc <- rocList$area
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
@@ -105,6 +110,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #' @examples
 #'
 #' set.seed(34903490)
@@ -117,7 +123,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
 #' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
 #'
 #' @export
-ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
+ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
+                        ...,
+                        parallelCluster=NULL) {
   checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title,...)
   checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title,...)
   outcol <- frame[[truthVar]]==truthTarget
@@ -128,7 +136,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,...) {
   rocList2 <- calcAUC(frame[[xvar2]],outcol)
   aucsig <- sigr::formatAUCpair(frame,xvar1,xvar2,truthVar,truthTarget,
     pLargeCutoff=1,
-    nrep=100,format = 'ascii')
+    nrep=100,format = 'ascii',
+    parallelCluster=parallelCluster)
   nm1 <- paste0(xvar1,', AUC=',aucsig$scoreString1)
   nm2 <- paste0(xvar2,', AUC=',aucsig$scoreString2)
   rocList1$pointGraph$model <- nm1

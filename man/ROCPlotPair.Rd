@@ -4,7 +4,8 @@
 \alias{ROCPlotPair}
 \title{Plot two receiver operating characteristic plots.}
 \usage{
-ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...)
+ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
+  parallelCluster = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -20,6 +21,8 @@ ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...)
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
 }
 \description{
 Plot two receiver operating characteristic plots.
