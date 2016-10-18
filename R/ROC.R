@@ -80,6 +80,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 
   palletName = "Dark2"
   pString <- sigr::formatSignificance(aucsig$pValue,format='ascii')
+  aucString <- sprintf('%.2g',auc)
   plot= ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes_string(x='FalsePositiveRate',
@@ -99,7 +100,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                             truthVar, '==', truthTarget, ' ~ ', xvar, ', ',
-                            'AUC=',aucsig$scoreString,
+                            'AUC=',aucString,
                             '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
                             pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
