@@ -20,15 +20,17 @@ calcAUC <- function(modelPredictions,yValues) {
   # FPR is the x-axis, TPR the y.
   x <- cumsum(!yValues)/max(1,sum(!yValues)) # FPR = x-axis
   y <- cumsum(yValues)/max(1,sum(yValues))   # TPR = y-axis
-  pointGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
-                           stringsAsFactors = FALSE)
   # each point should be fully after a bunch of points or fully before a
   # decision level. remove dups to achieve this.
   dup <- c(modelPredictions[-1]>=modelPredictions[-length(modelPredictions)],
            FALSE)
   # And add in ideal endpoints just in case (redundancy here is not a problem).
-  x <- c(0,x[!dup],1)
-  y <- c(0,y[!dup],1)
+  x <- x[!dup]
+  y <- y[!dup]
+  pointGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
+                           stringsAsFactors = FALSE)
+  x <- c(0,x,1)
+  y <- c(0,y,1)
   lineGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
                           stringsAsFactors = FALSE)
   # sum areas of segments (triangle topped vertical rectangles)
