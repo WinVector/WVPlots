@@ -258,7 +258,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   d2 <- sigr::formatAUCresample(frame2,xvar2,truthVar2,truthTarget2,
                                 nrep=nrep,returnScores = TRUE,
                                 format='ascii')
-  test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores)
+  test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores,
+                 alternative='greater')
   aucsig <- sigr::formatTTest(test)
   eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
                    sigr::formatSignificance(aucsig$tt$p.value))
