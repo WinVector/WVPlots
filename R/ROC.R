@@ -262,7 +262,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                  alternative='greater')
   aucsig <- sigr::formatTTest(test)
   eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
-                   sigr::formatSignificance(aucsig$tt$p.value))
+                   sigr::formatSignificance(aucsig$tt$p.value,
+                                            format='ascii'))
   nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
   nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
   rocList1$pointGraph$model <- nm1
