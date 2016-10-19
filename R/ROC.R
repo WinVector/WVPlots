@@ -114,7 +114,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 
 
 
-#' Plot two receiver operating characteristic plots.
+#' Plot two receiver operating characteristic from the same data.frame.
 #'
 #' @param frame data frame to get values from
 #' @param xvar1 name of the first independent (input or model) column in frame
@@ -135,7 +135,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' frm = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
 #' # WVPlots::ROCPlot(frm, "x1", "yC", TRUE, title="Example ROC plot")
 #' # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
-#' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
+#' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE,
+#'    title="Example ROC pair plot")
 #'
 #' @export
 ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
@@ -162,8 +163,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   eString <- sigr::formatSignificance(aucsig$eValue,format='ascii',
                                       symbol = 'e',
                                       pLargeCutoff=2.0)
-  nm1 <- paste0(xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
-  nm2 <- paste0(xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
+  nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
+  nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
   rocList1$pointGraph$model <- nm1
   rocList1$lineGraph$model <- nm1
   rocList2$pointGraph$model <- nm2
@@ -195,6 +196,107 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
                 aucsig=aucsig,eString=eString))
+  }
+  plot
+}
+
+
+#' Plot two receiver operating characteristic plots from unrelated frames.
+#'
+#' @param nm1 name of first model
+#' @param frame1 data frame to get values from
+#' @param xvar1 name of the first independent (input or model) column in frame
+#' @param truthVar1 name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget1 value we consider to be positive
+#' @param nm2 name of second model
+#' @param frame2 data frame to get values from
+#' @param xvar2 name of the first independent (input or model) column in frame
+#' @param truthVar2 name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget2 value we consider to be positive
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param returnScores logical if TRUE return detailed permutedScores
+#' @param nrep number of permutation repititions to estimate p values.
+#' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#' @examples
+#'
+#' set.seed(34903490)
+#' x1 = rnorm(50)
+#' x2 = rnorm(length(x1))
+#' y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
+#' frm = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' # WVPlots::ROCPlot(frm, "x1", "yC", TRUE, title="Example ROC plot")
+#' # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
+#' WVPlots::ROCPlotPair2('train',frm, "x1", "yC", TRUE,
+#'                       'test', frm, "x2", "yC", TRUE,
+#'                       title="Example ROC pair plot")
+#'
+#' @export
+ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
+                         nm2, frame2, xvar2, truthVar2, truthTarget2,
+                         title,
+                         ...,
+                         returnScores=FALSE,
+                         nrep=100,
+                         parallelCluster=NULL) {
+  checkArgs(frame=frame1,xvar=xvar1,yvar=truthVar1,title=title,...)
+  checkArgs(frame=frame2,xvar=xvar2,yvar=truthVar2,title=title,...)
+  outcol1 <- frame1[[truthVar1]]==truthTarget1
+  if(length(unique(outcol1))!=2) {
+    return(NULL)
+  }
+  outcol2 <- frame2[[truthVar2]]==truthTarget2
+  if(length(unique(outcol2))!=2) {
+    return(NULL)
+  }
+  rocList1 <- calcAUC(frame1[[xvar1]],outcol1)
+  rocList2 <- calcAUC(frame1[[xvar2]],outcol2)
+
+  d1 <- sigr::formatAUCresample(frame1,xvar1,truthVar1,truthTarget1,
+                                nrep=nrep,returnScores = TRUE,
+                                format='ascii')
+  d2 <- sigr::formatAUCresample(frame2,xvar2,truthVar2,truthTarget2,
+                                nrep=nrep,returnScores = TRUE,
+                                format='ascii')
+  test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores)
+  aucsig <- sigr::formatTTest(test)
+  eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
+                   sigr::formatSignificance(aucsig$tt$p.value))
+  nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
+  nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
+  rocList1$pointGraph$model <- nm1
+  rocList1$lineGraph$model <- nm1
+  rocList2$pointGraph$model <- nm2
+  rocList2$lineGraph$model <- nm2
+  pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
+  lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
+  palletName = "Dark2"
+  plot= ggplot2::ggplot() +
+    ggplot2::geom_point(data=pointGraph,
+                        ggplot2::aes_string(x='FalsePositiveRate',
+                                            y='TruePositiveRate',
+                                            color='model',shape='model'),
+                        alpha=0.5) +
+    ggplot2::geom_line(data=lineGraph,
+                       ggplot2::aes_string(x='FalsePositiveRate',
+                                           y='TruePositiveRate',
+                                           color='model',linetype='model')) +
+    ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
+    ggplot2::coord_fixed() +
+    ggplot2::scale_fill_brewer(palette=palletName) +
+    ggplot2::scale_color_brewer(palette=palletName) +
+    ggplot2::ggtitle(paste0(title,'\n',
+                            'testing: AUC(1)>AUC(2)\n',
+                            eString)) +
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::theme(legend.position="bottom")
+  if(returnScores) {
+    return(list(plot=plot,
+                rocList1=rocList1,rocList2=rocList2,
+                d1=d1,d2=d2,
+                test=test,
+                aucsig=aucsig,
+                eString=eString))
   }
   plot
 }
