@@ -250,7 +250,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
     return(NULL)
   }
   rocList1 <- calcAUC(frame1[[xvar1]],outcol1)
-  rocList2 <- calcAUC(frame1[[xvar2]],outcol2)
+  rocList2 <- calcAUC(frame2[[xvar2]],outcol2)
 
   d1 <- sigr::formatAUCresample(frame1,xvar1,truthVar1,truthTarget1,
                                 nrep=nrep,returnScores = TRUE,
