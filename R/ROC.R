@@ -258,12 +258,19 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   d2 <- sigr::formatAUCresample(frame2,xvar2,truthVar2,truthTarget2,
                                 nrep=nrep,returnScores = TRUE,
                                 format='ascii')
-  test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores,
-                 alternative='greater')
-  aucsig <- sigr::formatTTest(test)
-  eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
-                   sigr::formatSignificance(aucsig$tt$p.value,
-                                            format='ascii'))
+  # # below would test separation of ideal AUCs on infinite data.
+  # test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores,
+  #                alternative='greater')
+  # aucsig <- sigr::formatTTest(test)
+  # eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
+  #                  sigr::formatSignificance(aucsig$tt$p.value,
+  #                                           format='ascii'))
+  aucsig <- sigr::estimateDifferenceZeroCrossing(d1$eScore$resampledScores -
+                                                 d2$eScore$resampledScores)
+  eString <- paste("testing:",aucsig$test,
+                   sigr::formatSignificance(aucsig$eValue,symbol='e',
+                                            format='ascii',
+                                            pLargeCutoff=0.5))
   nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
   nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
   rocList1$pointGraph$model <- nm1
