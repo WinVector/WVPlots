@@ -47,12 +47,21 @@ padToK <- function(k) {
   function(x) {stringr::str_pad(x,k,pad='_') }
 }
 
+# get the y lables from a ready to go ggplot2
+getYLabs <- function(p) {
+  info <- ggplot2::ggplot_build(p)
+  origlabs <- info$panel$ranges[[1]]$y.labels  # worked prior to ggplot2.2.0
+  if(!is.null(origlabs)) {
+    return(origlabs)
+  }
+  origlabs <- info$layout$panel_ranges[[1]]$y.labels
+  origlabs
+}
+
 # assumes p1 and p2 have not set scale_y_*
 designYLabelPadFunction <- function(p1,p2) {
-  info1 <- ggplot2::ggplot_build(p1)
-  origlabs1 <- info1$panel$ranges[[1]]$y.labels
-  info2 <- ggplot2::ggplot_build(p2)
-  origlabs2 <- info2$panel$ranges[[1]]$y.labels
+  origlabs1 <- getYLabs(p1)
+  origlabs2 <- getYLabs(p2)
   lengthTarget <- max(nchar(c(origlabs1,origlabs2)))
   padToK(lengthTarget)
 }
