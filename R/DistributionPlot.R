@@ -1,4 +1,6 @@
 
+#' @importFrom stats dbeta
+NULL
 
 #' plot distribution details as a density plus matching normal
 #'

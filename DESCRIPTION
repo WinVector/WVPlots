@@ -12,7 +12,8 @@ License: GPL-3
 Suggests:
     knitr,
     testthat,
-    devtools
+    devtools,
+    sigr
 VignetteBuilder: knitr
 Depends:
     ggplot2,
@@ -21,8 +22,6 @@ Depends:
     reshape2,
     plyr,
     stringr,
-    mgcv,
-Suggests:
-    sigr
+    mgcv
 Remotes: github::WinVector/sigr
 RoxygenNote: 5.0.1
