@@ -94,10 +94,12 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
-
-  sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniScore)
-  #sr <-  sigr::resampleScoreModel(predcol,truthcol,relativeGiniScore)
-  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
+  pString <- ''
+  if(requireNamespace('sigr',quietly = TRUE)) {
+    sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniScore)
+    pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
+    pString <- paste0('\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',    pString)
+  }
 
   # plot
   ges = ggplot2::aes(x=pctpop, y=pct_outcome,
@@ -115,7 +117,6 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
     ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
                   truthVar, '~', xvar,
                   ', relative Gini score: ', format(giniScore,digits=2),
-                  '\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',
                   pString)) +
     ggplot2::xlab("fraction items in sort order") +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +
@@ -219,10 +220,13 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
-  relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
-  sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniCostScorer)
-  #sr <-  sigr::resampleScoreModel(predcol,truthcol,relativeGiniCostScorer)
-  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
+  pString <- ''
+  if(requireNamespace('sigr',quietly=TRUE)) {
+    relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
+    sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniCostScorer)
+    pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
+    pString <- paste0('\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',pString)
+  }
 
   # plot
   ges = ggplot2::aes(x=pctpop, y=pct_outcome,
@@ -240,7 +244,6 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
     ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
                   truthVar, '~', xvar,
             ', relative Gini score: ', format(giniScore,digits=2),
-            '\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',
             pString)) +
     ggplot2::xlab(paste("fraction of sum",costVar," in sort order")) +
     ggplot2::ylab(paste("fraction total sum",truthVar)) +

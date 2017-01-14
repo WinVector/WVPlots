@@ -1,7 +1,5 @@
 
 
-#' @importFrom sigr formatAUC formatAUCpair
-NULL
 
 #' calculate precision/recall curve.
 #'
@@ -94,15 +92,15 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
   isoFrame <- isoFrame[(isoFrame$Precision<=1) & (isoFrame$Precision>0),]
   #f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
 
-  sp <- sigr::permutationScoreModel(predcol,outcol,
-                                    function(modelValues,yValues) {
-                                      calcPR(modelValues,yValues)$bestF1
-                                    })
-  # sr <-  sigr::resampleScoreModel(predcol,outcol,
-  #                                 function(modelValues,yValues) {
-  #                                   calcPR(modelValues,yValues)$bestF1
-  #                                 })
-  pString <- sigr::formatSignificance(sp$pValue,format='ascii')
+  pString <- ''
+  if(requireNamespace('sigr',quietly = TRUE)) {
+    sp <- sigr::permutationScoreModel(predcol,outcol,
+                                      function(modelValues,yValues) {
+                                        calcPR(modelValues,yValues)$bestF1
+                                      })
+    pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
+    pString <- paste0('\nalt. hyp.: F1(',xvar,')>permuted F1, ',pString)
+  }
   palletName = "Dark2"
   plot= ggplot2::ggplot() +
     ggplot2::geom_point(data=pf,
@@ -124,8 +122,7 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::ggtitle(paste0(title,'\n',
                             truthVar,'==',truthTarget, '~', xvar,
                            ', best F1 ',format(bestF1, digits=2, nsmall=2),
-                           '\nalt. hyp.: F1(',xvar,')>permuted F1, ',
-                           pString)) +
+                            pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
 }

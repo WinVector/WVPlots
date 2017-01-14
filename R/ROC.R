@@ -1,6 +1,4 @@
 
-#' @importFrom sigr permutationScoreModel calcAUC resampleScoreModelPair formatSignificance
-NULL
 
 #' calculate AUC.
 #'
@@ -81,7 +79,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                                         parallelCluster=parallelCluster)
 
   palletName = "Dark2"
-  pString <- sigr::formatSignificance(aucsig$pValue,format='ascii')
+  pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
   aucString <- sprintf('%.2g',auc)
   plot= ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
@@ -160,9 +158,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                                          returnScores=returnScores,
                                          nRep=nrep,
                                          parallelCluster=parallelCluster)
-  eString <- sigr::formatSignificance(aucsig$eValue,format='ascii',
-                                      symbol = 'e',
-                                      pLargeCutoff=2.0)
+  eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol = 'e'),
+                          format='ascii',
+                          pLargeCutoff=2.0)
   nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
   nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
   rocList1$pointGraph$model <- nm1
@@ -252,23 +250,14 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   rocList1 <- calcAUC(frame1[[xvar1]],outcol1)
   rocList2 <- calcAUC(frame2[[xvar2]],outcol2)
 
-  d1 <- sigr::formatAUCresample(frame1,xvar1,truthVar1,truthTarget1,
-                                nrep=nrep,returnScores = TRUE,
-                                format='ascii')
-  d2 <- sigr::formatAUCresample(frame2,xvar2,truthVar2,truthTarget2,
-                                nrep=nrep,returnScores = TRUE,
-                                format='ascii')
-  # # below would test separation of ideal AUCs on infinite data.
-  # test <- t.test(d1$eScore$resampledScores,d2$eScore$resampledScores,
-  #                alternative='greater')
-  # aucsig <- sigr::formatTTest(test)
-  # eString <- paste(aucsig$tt$method,aucsig$tt$alternative,
-  #                  sigr::formatSignificance(aucsig$tt$p.value,
-  #                                           format='ascii'))
+  d1 <- sigr::resampleTestAUC(frame1,xvar1,truthVar1,truthTarget1,
+                                nrep=nrep,returnScores = TRUE)
+  d2 <- sigr::resampleTestAUC(frame2,xvar2,truthVar2,truthTarget2,
+                                nrep=nrep,returnScores = TRUE)
   aucsig <- sigr::estimateDifferenceZeroCrossing(d1$eScore$resampledScores -
                                                  d2$eScore$resampledScores)
   eString <- paste("testing:",aucsig$test,
-                   sigr::formatSignificance(aucsig$eValue,symbol='e',
+                   sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
                                             format='ascii',
                                             pLargeCutoff=0.5))
   nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
