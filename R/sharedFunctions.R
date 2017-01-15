@@ -7,7 +7,6 @@
 #' @importFrom gridExtra grid.arrange
 #' @importFrom plyr ddply summarize
 #' @importFrom reshape2 melt
-#' @importFrom stringr str_pad
 #' @importFrom stats median
 NULL
 
@@ -44,7 +43,19 @@ checkArgs <- function(frame,xvar,yvar,title,...) {
 # Curry without leaking
 padToK <- function(k) {
   force(k)
-  function(x) {stringr::str_pad(x,k,pad='_') }
+  function(x) {
+    xres <- as.character(x)
+    xres[is.na(xres)] <- 'NA'
+    nx <- length(x)
+    for(i in seq_len(nx)) {
+      di <- k - nchar(xres[[i]])
+      if(di>0) {
+        pi <- paste(rep('_',di), collapse = '')
+        xres[[i]] <- paste(pi,xres[[i]])
+      }
+    }
+    xres
+  }
 }
 
 # get the y lables from a ready to go ggplot2

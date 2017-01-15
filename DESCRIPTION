@@ -21,7 +21,6 @@ Depends:
     gridExtra,
     reshape2,
     plyr,
-    stringr,
     mgcv
 Remotes: github::WinVector/sigr
 RoxygenNote: 5.0.1
