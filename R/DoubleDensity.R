@@ -23,6 +23,10 @@
 #' @export
 DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  if(!requireNamespace('plyr',quietly = TRUE)) {
+    warning("DoubleDensityPlot needs plyr")
+    return(NULL)
+  }
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)

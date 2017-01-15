@@ -1,12 +1,9 @@
 
 
 #' @importFrom stats aggregate anova as.formula binomial glm lm lm.wfit pchisq pf quantile density dnorm ecdf loess pnorm predict reorder smooth var
-#' @importFrom graphics hist
 #' @importFrom ggplot2 ggplot_build aes aes_string
 #' @importFrom grid textGrob unit
 #' @importFrom gridExtra grid.arrange
-#' @importFrom plyr ddply summarize
-#' @importFrom reshape2 melt
 #' @importFrom stats median
 NULL
 

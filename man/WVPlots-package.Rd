@@ -12,8 +12,8 @@ WVPlots is a package of common useful plots on top of ggplot2.
 \tabular{ll}{
 Package: \tab WVPlots\cr
 Type: \tab Package\cr
-Version: \tab 0.1\cr
-Date: \tab 2016-10-14\cr
+Version: \tab 0.2.0\cr
+Date: \tab 2017-01-15\cr
 License: \tab GNU General Public License version 3\cr
 }
 }

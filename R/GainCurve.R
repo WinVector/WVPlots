@@ -65,6 +65,10 @@ relativeGiniScore <- function(modelValues,yValues) {
 #' @export
 GainCurvePlot = function(frame, xvar, truthVar,title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  if(!requireNamespace('reshape2',quietly = TRUE)) {
+    warning("GainCurve needs reshape2")
+    return(NULL)
+  }
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions

@@ -22,17 +22,25 @@
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  if(!requireNamespace('plyr',quietly = TRUE)) {
+    warning("DoubleHistogramPlot needs plyr")
+    return(NULL)
+  }
+  if(!requireNamespace('graphics',quietly = TRUE)) {
+    warning("DoubleHistogramPlot needs graphics")
+    return(NULL)
+  }
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
-  breaksV <- hist(df[['x']],breaks=breaks,plot=FALSE)$breaks
+  breaksV <- graphics::hist(df[['x']],breaks=breaks,plot=FALSE)$breaks
   yVals <- sort(unique(df[['y']]))
   signs <- (-1)^seq_len(length(yVals))
   names(signs) <- yVals
   pf <- plyr::ddply(df,'y',function(sf) {
     yGroup <- sf$y[[1]]
     si <- signs[[yGroup]]
-    counts <- hist(sf[['x']],breaks=breaksV,plot=FALSE)
+    counts <- graphics::hist(sf[['x']],breaks=breaksV,plot=FALSE)
     rf <- data.frame(count=counts$counts,
                stringsAsFactors=FALSE)
     rf[[xvar]] <- counts$mids
