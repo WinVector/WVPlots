@@ -239,6 +239,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                          parallelCluster=NULL) {
   checkArgs(frame=frame1,xvar=xvar1,yvar=truthVar1,title=title,...)
   checkArgs(frame=frame2,xvar=xvar2,yvar=truthVar2,title=title,...)
+  test <- NULL # used as a symbol, declare not an unbound variable
   outcol1 <- frame1[[truthVar1]]==truthTarget1
   if(length(unique(outcol1))!=2) {
     return(NULL)

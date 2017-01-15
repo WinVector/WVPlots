@@ -69,6 +69,9 @@ GainCurvePlot = function(frame, xvar, truthVar,title,...) {
     warning("GainCurve needs reshape2")
     return(NULL)
   }
+  pctpop <- NULL # used as a symbol, declare not an unbound variable
+  pct_outcome <- NULL # used as a symbol, declare not an unbound variable
+  sort_criterion <- NULL # used as a symbol, declare not an unbound variable
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions
@@ -190,6 +193,9 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @export
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  pctpop <- NULL # used as a symbol, declare not an unbound variable
+  pct_outcome <- NULL # used as a symbol, declare not an unbound variable
+  sort_criterion <- NULL # used as a symbol, declare not an unbound variable
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   costcol <- as.numeric(frame[[costVar]])

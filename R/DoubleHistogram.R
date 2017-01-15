@@ -30,6 +30,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
     warning("DoubleHistogramPlot needs graphics")
     return(NULL)
   }
+  count <- NULL # used as a symbol, declare not an unbound variable
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)

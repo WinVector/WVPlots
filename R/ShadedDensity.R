@@ -20,6 +20,7 @@
 #' @export
 ShadedDensity <- function(frame, xvar, threshold,title,..., tail="left") {
   checkArgs(frame=frame,xvar=xvar,yvar=xvar,title=title,...)
+  x <- NULL # used as a symbol, declare not an unbound variable
 
   # calculate the distribution by hand
   dens = density(frame[[xvar]], adjust=0.5)

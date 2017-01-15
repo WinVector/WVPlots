@@ -35,6 +35,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   if(!(smoothmethod %in% c('auto','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
   }
+  ..density.. <- NULL # used as a symbol, declare not an unbound variable
 
   # placeholder plot - prints nothing at all
   empty =  ggplot2::ggplot() +
