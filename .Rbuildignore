@@ -13,4 +13,5 @@
 ^\.git.*$
 ^html$
 ^.*rsconnect.*$
-
+^README.Rmd$
+^cran-comments.md$
