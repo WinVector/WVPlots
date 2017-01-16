@@ -1,4 +1,6 @@
 
+#' @importFrom sigr wrapFTest render
+NULL
 
 #' Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
 #'
