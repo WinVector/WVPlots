@@ -1,43 +1,46 @@
 
 
+
 # define some helper and reporting functions
 # calculate area under the curve of numeric vectors x,y
 # length(x)==length(y)
 # y>=0, 0<=x<=1 x non-empty, and x strictly increasing
-areaCalc <- function(x,y) {
+areaCalc <- function(x, y) {
   # append extra points to get rid of degenerate cases
-  if(!all(diff(x)>0)) {
+  if (!all(diff(x) > 0)) {
     stop("areaCalc x wasn't strinctly increasing")
   }
-  if(x[1]<0) {
-    x <- c(0,x)
-    y <- c(0,y)
+  if (x[1] < 0) {
+    x <- c(0, x)
+    y <- c(0, y)
   }
-  if(x[length(x)]<1) {
-    x <- c(x,1)
-    y <- c(y,1)
+  if (x[length(x)] < 1) {
+    x <- c(x, 1)
+    y <- c(y, 1)
   }
   n <- length(x)
-  sum(0.5*(y[-1]+y[-n])*(x[-1]-x[-n]))
+  sum(0.5 * (y[-1] + y[-n]) * (x[-1] - x[-n]))
 }
 
-relativeGiniScore <- function(modelValues,yValues) {
-  d = data.frame(predcol=modelValues,truthcol=yValues)
-  predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']], decreasing=TRUE)
+relativeGiniScore <- function(modelValues, yValues) {
+  d = data.frame(predcol = modelValues, truthcol = yValues)
+  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']], decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
   # of the fraction of the population we're considering, highest first
-  results = data.frame(pctpop= (1:npop)/npop,
-                       model = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
-                       wizard = cumsum(d[wizard, 'truthcol'])/sum(d[['truthcol']]))
+  results = data.frame(
+    pctpop = (1:npop) / npop,
+    model = cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']]),
+    wizard = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']])
+  )
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)
-  idealArea = areaCalc(results$pctpop,results$wizard) - 0.5
-  modelArea = areaCalc(results$pctpop,results$model) - 0.5
-  giniScore = modelArea/idealArea # actually, normalized gini score
+  idealArea = areaCalc(results$pctpop, results$wizard) - 0.5
+  modelArea = areaCalc(results$pctpop, results$model) - 0.5
+  giniScore = modelArea / idealArea # actually, normalized gini score
   giniScore
 }
 
@@ -63,107 +66,174 @@ relativeGiniScore <- function(modelValues,yValues) {
 #'    title="Example Continuous Gain Curve")
 #'
 #' @export
-GainCurvePlot = function(frame, xvar, truthVar,title,...) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
-  if(!requireNamespace('reshape2',quietly = TRUE)) {
+GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
+  checkArgs(
+    frame = frame,
+    xvar = xvar,
+    yvar = truthVar,
+    title = title,
+    ...
+  )
+  if (!requireNamespace('reshape2', quietly = TRUE)) {
     warning("GainCurve needs reshape2")
     return(NULL)
   }
   pctpop <- NULL # used as a symbol, declare not an unbound variable
-  pct_outcome <- NULL # used as a symbol, declare not an unbound variable
-  sort_criterion <- NULL # used as a symbol, declare not an unbound variable
+  pct_outcome <-
+    NULL # used as a symbol, declare not an unbound variable
+  sort_criterion <-
+    NULL # used as a symbol, declare not an unbound variable
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions
-  d = data.frame(predcol=predcol,truthcol=truthcol)
-  predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']], decreasing=TRUE)
+  d = data.frame(predcol = predcol, truthcol = truthcol)
+  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']], decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
   # of the fraction of the population we're considering, highest first
-  results = data.frame(pctpop= (1:npop)/npop,
-                       model = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
-                       wizard = cumsum(d[wizard, 'truthcol'])/sum(d[['truthcol']]))
+  results = data.frame(
+    pctpop = (1:npop) / npop,
+    model = cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']]),
+    wizard = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']])
+  )
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)
-  idealArea = areaCalc(results$pctpop,results$wizard) - 0.5
-  modelArea = areaCalc(results$pctpop,results$model) - 0.5
-  giniScore = modelArea/idealArea # actually, normalized gini score
+  idealArea = areaCalc(results$pctpop, results$wizard) - 0.5
+  modelArea = areaCalc(results$pctpop, results$model) - 0.5
+  giniScore = modelArea / idealArea # actually, normalized gini score
 
   # melt the frame into the tall form, for plotting
-  results = reshape2::melt(results, id.vars="pctpop", measure.vars=c("model", "wizard"),
-                 variable.name="sort_criterion", value.name="pct_outcome")
+  results = reshape2::melt(
+    results,
+    id.vars = "pctpop",
+    measure.vars = c("model", "wizard"),
+    variable.name = "sort_criterion",
+    value.name = "pct_outcome"
+  )
   # rename levels of sort criterion
-  colorKey = c('model'='darkblue', 'wizard'='darkgreen')
-  names(colorKey) = c(paste('model: sort by',xvar),paste('wizard: sort by',truthVar))
+  colorKey = c('model' = 'darkblue', 'wizard' = 'darkgreen')
+  names(colorKey) = c(paste('model: sort by', xvar),
+                      paste('wizard: sort by', truthVar))
   modelKey = names(colorKey)[[1]]
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
-  if(requireNamespace('sigr',quietly = TRUE)) {
-    sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniScore)
-    pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
-    pString <- paste0('\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',    pString)
+  if (requireNamespace('sigr', quietly = TRUE)) {
+    sp <-
+      sigr::permutationScoreModel(predcol, truthcol, relativeGiniScore)
+    pString <-
+      sigr::render(sigr::wrapSignificance(sp$pValue), format = 'ascii')
+    pString <-
+      paste0('\nalt. hyp.: relGini(',
+             xvar,
+             ')>permuted relGini, ',
+             pString)
   }
 
   # plot
-  ges = ggplot2::aes(x=pctpop, y=pct_outcome,
-                     color=sort_criterion,
-                     shape=sort_criterion,
-                     linetype=sort_criterion)
-  gplot = ggplot2::ggplot(data=results) +
-    ggplot2::geom_point(mapping=ges,alpha=0.5) +
-    ggplot2::geom_line(mapping=ges) +
-    ggplot2::geom_abline(mapping=ges,color="gray",slope=1,intercept=0) +
-    ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                         mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
-                                              ymax=pct_outcome, color=sort_criterion),
-                alpha=0.2,color=NA) +
-    ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
-                  truthVar, '~', xvar,
-                  ', relative Gini score: ', format(giniScore,digits=2),
-                  pString)) +
+  gplot = ggplot2::ggplot(data = results) +
+    ggplot2::geom_point(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        shape = sort_criterion
+      ),
+      alpha = 0.5
+    ) +
+    ggplot2::geom_line(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        linetype = sort_criterion
+      )
+    ) +
+    ggplot2::geom_abline(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        linetype = sort_criterion
+      ),
+      color = "gray",
+      slope = 1,
+      intercept = 0
+    ) +
+    ggplot2::geom_ribbon(
+      data = results[results$sort_criterion == modelKey, , drop = FALSE],
+      mapping = ggplot2::aes(
+        x = pctpop,
+        ymin = pctpop,
+        ymax = pct_outcome,
+        color = sort_criterion
+      ),
+      alpha = 0.2,
+      color = NA
+    ) +
+    ggplot2::ggtitle(
+      paste0(
+        "Gain curve, ",
+        title,
+        '\n',
+        truthVar,
+        '~',
+        xvar,
+        ', relative Gini score: ',
+        format(giniScore, digits = 2),
+        pString
+      )
+    ) +
     ggplot2::xlab("fraction items in sort order") +
-    ggplot2::ylab(paste("fraction total sum",truthVar)) +
-    ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_color_manual(values=colorKey) +
+    ggplot2::ylab(paste("fraction total sum", truthVar)) +
+    ggplot2::scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+    ggplot2::scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+    ggplot2::scale_color_manual(values = colorKey) +
     ggplot2::coord_fixed() +
-    ggplot2::theme(legend.position="bottom")
+    ggplot2::theme(legend.position = "bottom")
   gplot
 }
 
 
 makeRelativeGiniCostScorer <- function(costcol) {
   force(costcol)
-  function(modelValues,yValues) {
+  function(modelValues, yValues) {
     truthcol <- yValues
     predcol <- modelValues
     # data frame of pred and truth, sorted in order of the predictions
-    d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
-    predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
-    wizard = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
+    d = data.frame(predcol = predcol,
+                   truthcol = truthcol,
+                   costcol = costcol)
+    predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
+    wizard = order(d[['truthcol']] / d[['costcol']], decreasing = TRUE)
     npop = dim(d)[1]
 
     # data frame the cumulative prediction/truth as a function
     # of the fraction of the population we're considering, highest first
     mName = paste("model: sort by model")
-    resultsM = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
-                          pct_outcome = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
-                          sort_criterion=mName)
+    resultsM = data.frame(
+      pctpop = cumsum(d[predord, 'costcol']) / sum(d[['costcol']]),
+      pct_outcome = cumsum(d[predord, 'truthcol']) /
+        sum(d[['truthcol']]),
+      sort_criterion = mName
+    )
     wName = paste("wizard: sort by varlue/cost")
-    resultsW = data.frame(pctpop = cumsum(d[wizard,'costcol'])/sum(d[['costcol']]),
-                          pct_outcome = cumsum(d[wizard,'truthcol'])/sum(d[['truthcol']]),
-                          sort_criterion=wName)
-    results = rbind(resultsM,resultsW)
+    resultsW = data.frame(
+      pctpop = cumsum(d[wizard, 'costcol']) / sum(d[['costcol']]),
+      pct_outcome = cumsum(d[wizard, 'truthcol']) /
+        sum(d[['truthcol']]),
+      sort_criterion = wName
+    )
+    results = rbind(resultsM, resultsW)
 
     # calculate the areas under each curve
     # gini score is 2* (area - 0.5)
-    idealArea = areaCalc(resultsW$pctpop,resultsW$pct_outcome) - 0.5
-    modelArea = areaCalc(resultsM$pctpop,resultsM$pct_outcome) - 0.5
-    giniScore = modelArea/idealArea # actually, normalized gini score
+    idealArea = areaCalc(resultsW$pctpop, resultsW$pct_outcome) - 0.5
+    modelArea = areaCalc(resultsM$pctpop, resultsM$pct_outcome) - 0.5
+    giniScore = modelArea / idealArea # actually, normalized gini score
     giniScore
   }
 }
@@ -191,77 +261,134 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #'    title="Example Continuous Gain CurveC")
 #'
 #' @export
-GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+GainCurvePlotC = function(frame, xvar, costVar, truthVar, title, ...) {
+  checkArgs(
+    frame = frame,
+    xvar = xvar,
+    yvar = truthVar,
+    title = title,
+    ...
+  )
   pctpop <- NULL # used as a symbol, declare not an unbound variable
-  pct_outcome <- NULL # used as a symbol, declare not an unbound variable
-  sort_criterion <- NULL # used as a symbol, declare not an unbound variable
+  pct_outcome <-
+    NULL # used as a symbol, declare not an unbound variable
+  sort_criterion <-
+    NULL # used as a symbol, declare not an unbound variable
   truthcol <- as.numeric(frame[[truthVar]])
   predcol <- as.numeric(frame[[xvar]])
   costcol <- as.numeric(frame[[costVar]])
   # data frame of pred and truth, sorted in order of the predictions
-  d = data.frame(predcol=predcol,truthcol=truthcol,costcol=costcol)
-  predord = order(d[['predcol']], decreasing=TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']]/d[['costcol']], decreasing=TRUE)
+  d = data.frame(predcol = predcol,
+                 truthcol = truthcol,
+                 costcol = costcol)
+  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']] / d[['costcol']], decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
   # of the fraction of the population we're considering, highest first
-  mName = paste("model: sort by",xvar)
-  resultsM = data.frame(pctpop = cumsum(d[predord,'costcol'])/sum(d[['costcol']]),
-                        pct_outcome = cumsum(d[predord,'truthcol'])/sum(d[['truthcol']]),
-                        sort_criterion=mName)
-  wName = paste("wizard: sort by ",truthVar,'/',costVar)
-  resultsW = data.frame(pctpop = cumsum(d[wizard,'costcol'])/sum(d[['costcol']]),
-                        pct_outcome = cumsum(d[wizard,'truthcol'])/sum(d[['truthcol']]),
-                        sort_criterion=wName)
-  results = rbind(resultsM,resultsW)
+  mName = paste("model: sort by", xvar)
+  resultsM = data.frame(
+    pctpop = cumsum(d[predord, 'costcol']) / sum(d[['costcol']]),
+    pct_outcome = cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']]),
+    sort_criterion = mName
+  )
+  wName = paste("wizard: sort by ", truthVar, '/', costVar)
+  resultsW = data.frame(
+    pctpop = cumsum(d[wizard, 'costcol']) / sum(d[['costcol']]),
+    pct_outcome = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']]),
+    sort_criterion = wName
+  )
+  results = rbind(resultsM, resultsW)
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)
-  idealArea = areaCalc(resultsW$pctpop,resultsW$pct_outcome) - 0.5
-  modelArea = areaCalc(resultsM$pctpop,resultsM$pct_outcome) - 0.5
-  giniScore = modelArea/idealArea # actually, normalized gini score
+  idealArea = areaCalc(resultsW$pctpop, resultsW$pct_outcome) - 0.5
+  modelArea = areaCalc(resultsM$pctpop, resultsM$pct_outcome) - 0.5
+  giniScore = modelArea / idealArea # actually, normalized gini score
 
 
   # rename levels of sort criterion
-  colorKey = c('model'='darkblue', 'wizard'='darkgreen')
-  names(colorKey) = c(mName,wName)
+  colorKey = c('model' = 'darkblue', 'wizard' = 'darkgreen')
+  names(colorKey) = c(mName, wName)
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
-  if(requireNamespace('sigr',quietly=TRUE)) {
+  if (requireNamespace('sigr', quietly = TRUE)) {
     relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
-    sp <- sigr::permutationScoreModel(predcol,truthcol,relativeGiniCostScorer)
-    pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
-    pString <- paste0('\nalt. hyp.: relGini(',xvar,')>permuted relGini, ',pString)
+    sp <-
+      sigr::permutationScoreModel(predcol, truthcol, relativeGiniCostScorer)
+    pString <-
+      sigr::render(sigr::wrapSignificance(sp$pValue), format = 'ascii')
+    pString <-
+      paste0('\nalt. hyp.: relGini(',
+             xvar,
+             ')>permuted relGini, ',
+             pString)
   }
 
   # plot
-  ges = ggplot2::aes(x=pctpop, y=pct_outcome,
-                     color=sort_criterion,
-                     shape=sort_criterion,
-                     linetype=sort_criterion)
-  gplot = ggplot2::ggplot(data=results) +
-    ggplot2::geom_point(mapping=ges,alpha=0.5) +
-    ggplot2::geom_line(mapping=ges) +
-    ggplot2::geom_abline(mapping=ges,color="gray",slope=1,intercept=0) +
-    ggplot2::geom_ribbon(data=results[results$sort_criterion==modelKey,,drop=FALSE],
-                         mapping=ggplot2::aes(x=pctpop, ymin=pctpop,
-                                              ymax=pct_outcome, color=sort_criterion),
-                alpha=0.2,color=NA) +
-    ggplot2::ggtitle(paste0("Gain curve, ", title, '\n',
-                  truthVar, '~', xvar,
-            ', relative Gini score: ', format(giniScore,digits=2),
-            pString)) +
-    ggplot2::xlab(paste("fraction of sum",costVar," in sort order")) +
-    ggplot2::ylab(paste("fraction total sum",truthVar)) +
-    ggplot2::scale_x_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_y_continuous(breaks=seq(0,1,0.1)) +
-    ggplot2::scale_color_manual(values=colorKey) +
+  gplot = ggplot2::ggplot(data = results) +
+    ggplot2::geom_point(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        shape = sort_criterion
+      ),
+      alpha = 0.5
+    ) +
+    ggplot2::geom_line(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        linetype = sort_criterion
+      )
+    ) +
+    ggplot2::geom_abline(
+      mapping = ggplot2::aes(
+        x = pctpop,
+        y = pct_outcome,
+        color = sort_criterion,
+        linetype = sort_criterion
+      ),
+      color = "gray",
+      slope = 1,
+      intercept = 0
+    ) +
+    ggplot2::geom_ribbon(
+      data = results[results$sort_criterion == modelKey, , drop = FALSE],
+      mapping = ggplot2::aes(
+        x = pctpop,
+        ymin = pctpop,
+        ymax = pct_outcome,
+        color = sort_criterion
+      ),
+      alpha = 0.2,
+      color = NA
+    ) +
+    ggplot2::ggtitle(
+      paste0(
+        "Gain curve, ",
+        title,
+        '\n',
+        truthVar,
+        '~',
+        xvar,
+        ', relative Gini score: ',
+        format(giniScore, digits = 2),
+        pString
+      )
+    ) +
+    ggplot2::xlab(paste("fraction of sum", costVar, " in sort order")) +
+    ggplot2::ylab(paste("fraction total sum", truthVar)) +
+    ggplot2::scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+    ggplot2::scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+    ggplot2::scale_color_manual(values = colorKey) +
     ggplot2::coord_fixed() +
-    ggplot2::theme(legend.position="bottom")
+    ggplot2::theme(legend.position = "bottom")
   gplot
 }
 
@@ -270,15 +397,15 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,...) {
 # find the y value that approximately corresponds to an x value on the gain curve
 get_gainy = function(frame, xvar, truthVar, gainx) {
   # The sort order for predicted salary, decreasing
-  ord = order(frame[[xvar]], decreasing=TRUE)
+  ord = order(frame[[xvar]], decreasing = TRUE)
 
   # top 25 predicted salaries
-  n = round(nrow(frame)*gainx)
+  n = round(nrow(frame) * gainx)
   topN = ord[1:n]
 
-  truth_topN= sum(frame[topN, truthVar])
+  truth_topN = sum(frame[topN, truthVar])
   totalY = sum(frame[[truthVar]])
-  round(100*truth_topN/totalY)/100  # two sig figs
+  round(100 * truth_topN / totalY) / 100  # two sig figs
 }
 
 #' Take the standard WVPlots gain curve and add extra notation
@@ -314,16 +441,38 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #'    gainx=gainx,labelfun=labelfun)
 #'
 #' @export
-GainCurvePlotWithNotation = function(frame, xvar, truthVar, title, gainx, labelfun, ...) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+GainCurvePlotWithNotation = function(frame,
+                                     xvar,
+                                     truthVar,
+                                     title,
+                                     gainx,
+                                     labelfun,
+                                     ...) {
+  checkArgs(
+    frame = frame,
+    xvar = xvar,
+    yvar = truthVar,
+    title = title,
+    ...
+  )
   gainy = get_gainy(frame, xvar, truthVar, gainx)
   label = labelfun(gainx, gainy)
   gp = GainCurvePlot(frame, xvar, truthVar, title) +
-    ggplot2::geom_vline(xintercept=gainx, color="red", alpha=0.5) +
-    ggplot2::geom_hline(yintercept=gainy, color="red", alpha=0.5) +
-    ggplot2::scale_shape_discrete(guide=FALSE) +
-    ggplot2::annotate(geom="text", x=gainx+0.01, y=gainy-0.01,
-              color="black", label=label, vjust="top", hjust="left")
+    ggplot2::geom_vline(xintercept = gainx,
+                        color = "red",
+                        alpha = 0.5) +
+    ggplot2::geom_hline(yintercept = gainy,
+                        color = "red",
+                        alpha = 0.5) +
+    ggplot2::scale_shape_discrete(guide = FALSE) +
+    ggplot2::annotate(
+      geom = "text",
+      x = gainx + 0.01,
+      y = gainy - 0.01,
+      color = "black",
+      label = label,
+      vjust = "top",
+      hjust = "left"
+    )
   gp
 }
-
