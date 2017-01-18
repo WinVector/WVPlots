@@ -5,7 +5,7 @@
 \title{Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable}
 \usage{
 BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
-  use_glm = FALSE)
+  use_glm = FALSE, smoothingmethod = "auto")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,8 @@ BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
 \item{se}{if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE}
 
 \item{use_glm}{if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)}
+
+\item{smoothingmethod}{character smoothing method (see geom_smooth)}
 }
 \description{
 Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable

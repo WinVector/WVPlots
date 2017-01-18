@@ -1,4 +1,6 @@
 
+
+
 #' Plot two density plots conditioned on truthVar.
 #'
 #' @param frame data frame to get values from
@@ -23,31 +25,29 @@
 #' @export
 DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
-  if(!requireNamespace('plyr',quietly = TRUE)) {
-    warning("DoubleDensityPlot needs plyr")
-    return(NULL)
-  }
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
-  pf <- plyr::ddply(df,'y',function(sf) {
-    uvals <- unique(sf[['x']])
-    nunique <- length(uvals)
-    if(nunique>1) {
-      dens <- density(sf[['x']],adjust=0.5,
-                      from=min(sf[['x']]),to=max(sf[['x']]))
-      rf <- data.frame(density=dens$y,xintercept=NA,
-                       stringsAsFactors=FALSE)
-      rf[[xvar]] <- dens$x
-      rf[[truthVar]] <- sf$y[[1]]
-    } else {
-      rf <- data.frame(density=NA,xintercept=uvals,
-                       stringsAsFactors=FALSE)
-      rf[[xvar]] <- NA
-      rf[[truthVar]] <- sf$y[[1]]
-    }
-    rf
-  })
+  pf <- replyr::gapply(df,'y',
+                    partitionMethod='split',
+                    function(sf) {
+                      uvals <- unique(sf[['x']])
+                      nunique <- length(uvals)
+                      if(nunique>1) {
+                        dens <- density(sf[['x']],adjust=0.5,
+                                        from=min(sf[['x']]),to=max(sf[['x']]))
+                        rf <- data.frame(density=dens$y,xintercept=NA,
+                                         stringsAsFactors=FALSE)
+                        rf[[xvar]] <- dens$x
+                        rf[[truthVar]] <- sf$y[[1]]
+                      } else {
+                        rf <- data.frame(density=NA,xintercept=uvals,
+                                         stringsAsFactors=FALSE)
+                        rf[[xvar]] <- NA
+                        rf[[truthVar]] <- sf$y[[1]]
+                      }
+                      rf
+                    })
   pf$zero = 0
   # library(RColorBrewer)
   # display.brewer.all()

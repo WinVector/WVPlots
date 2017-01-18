@@ -1,4 +1,7 @@
 
+#' @importFrom replyr gapply
+NULL
+
 #' Plot two histograms conditioned on truthVar.
 #'
 #' @param frame data frame to get values from
@@ -22,10 +25,6 @@
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
-  if(!requireNamespace('plyr',quietly = TRUE)) {
-    warning("DoubleHistogramPlot needs plyr")
-    return(NULL)
-  }
   if(!requireNamespace('graphics',quietly = TRUE)) {
     warning("DoubleHistogramPlot needs graphics")
     return(NULL)
@@ -38,33 +37,40 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   yVals <- sort(unique(df[['y']]))
   signs <- (-1)^seq_len(length(yVals))
   names(signs) <- yVals
-  pf <- plyr::ddply(df,'y',function(sf) {
-    yGroup <- sf$y[[1]]
-    si <- signs[[yGroup]]
-    counts <- graphics::hist(sf[['x']],breaks=breaksV,plot=FALSE)
-    rf <- data.frame(count=counts$counts,
-               stringsAsFactors=FALSE)
-    rf[[xvar]] <- counts$mids
-    rf[[truthVar]] <- yGroup
-    sm <- tryCatch({
-      smf <- loess(paste('count','~',xvar),rf)
-      sm <- pmax(0,predict(smf,rf,se=FALSE))
-    },
-    error = function(e) { NA }
-    )
-    rf$smooth <- sm
-    # crudely match areas
-    scale <- sum(rf$count)/sum(rf$smooth)
-    rf$smooth <- si*rf$smooth*scale
-    rf[['count']] <- si*rf[['count']]
-    rf
-  })
+  pf <- replyr::gapply(df,'y',
+                       partitionMethod='split',
+                       function(sf) {
+                         yGroup <- sf$y[[1]]
+                         si <- signs[[yGroup]]
+                         counts <- graphics::hist(sf[['x']],breaks=breaksV,plot=FALSE)
+                         rf <- data.frame(count=counts$counts,
+                                          stringsAsFactors=FALSE)
+                         rf[[xvar]] <- counts$mids
+                         rf[[truthVar]] <- yGroup
+                         sm <- tryCatch({
+                           smf <- loess(paste('count','~',xvar),rf)
+                           sm <- pmax(0,predict(smf,rf,se=FALSE))
+                         },
+                         error = function(e) { NA }
+                         )
+                         rf$smooth <- sm
+                         # crudely match areas
+                         scale <- sum(rf$count)/sum(rf$smooth)
+                         rf$smooth <- si*rf$smooth*scale
+                         rf[['count']] <- si*rf[['count']]
+                         rf
+                       })
   # library(RColorBrewer)
   # display.brewer.all()
   palletName <- "Dark2"
   # build a net effect curve
-  netF <- plyr::ddply(pf,xvar,plyr::summarize,
-                      count=sum(count))
+  netF <- replyr::gapply(pf,xvar,partitionMethod = 'split',
+                         function(fi) {
+                           di <- data.frame(count=sum(fi$count))
+                           di[[xvar]] <- fi[[xvar]][[1]]
+                           di
+                         })
+  netF <- netF[order(netF[[xvar]]),,drop=FALSE]
   sm <- tryCatch({
     smf <- loess(paste('count','~',xvar),netF)
     sm <- predict(smf,pf,se=FALSE)
