@@ -19,7 +19,7 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{smoothmethod}{(optional) one of 'loess' (the default), 'auto', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.}
+\item{smoothmethod}{(optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.}
 
 \item{annot_size}{numeric scale annotation text (if present)}
 

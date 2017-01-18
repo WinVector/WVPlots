@@ -9,7 +9,7 @@ NULL
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param smoothmethod (optional) one of 'loess' (the default), 'auto', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
+#' @param smoothmethod (optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
 #' @param annot_size numeric scale annotation text (if present)
 #' @param minimal_labels logical drop some annotations
 #' @param binwidth_x  numeric binwidth for x histogram
@@ -26,7 +26,7 @@ NULL
 #'
 #' @export
 ScatterHist = function(frame, xvar, yvar,title, ...,
-                       smoothmethod="loess", # only works for 'auto', 'loess', 'gam', 'lm', and 'identity'
+                       smoothmethod="auto", # only works for 'auto', 'loess', 'gam', 'lm', and 'identity'
                        annot_size=5,
                        minimal_labels = TRUE,
                        binwidth_x = NULL,
@@ -126,7 +126,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
-    ggplot2::xlim(xlims)
+    ggplot2::coord_cartesian(xlim=xlims)
   if(minimal_labels) {
     plot_top = plot_top +
       ggplot2::theme(legend.position = "none",
@@ -145,7 +145,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
-    ggplot2::xlim(ylims) +
+    ggplot2::coord_cartesian(ylim=ylims) +
     ggplot2::coord_flip()
   if(minimal_labels) {
     plot_right = plot_right +
