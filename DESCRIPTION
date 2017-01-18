@@ -18,7 +18,7 @@ Suggests:
     graphics,
     mgcv
 VignetteBuilder: knitr
-Depends:
+Imports:
     ggplot2,
     grid,
     gridExtra,
