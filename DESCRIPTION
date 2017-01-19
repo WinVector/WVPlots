@@ -16,7 +16,7 @@ Suggests:
     devtools
 VignetteBuilder: knitr
 Imports:
-    ggplot2,
+    ggplot2 (>= 2.2.0),
     grid,
     gridExtra,
     sigr,
