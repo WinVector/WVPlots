@@ -25,14 +25,22 @@ frm$posY = frm$y > 0
 ```
 
 ## Scatterplots
+
+Scatterplot with smoothing line through points. Reports the square of the correlation between x and y (R-squared) and its significance.
+
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 ```
+
+Scatterplot with best linear fit through points. Reports the R-squared and significance of the linear fit.
 
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm", 
                      title="Example Linear Fit", annot_size=2)
 ```
+
+Scatterplot compared to the line `x = y`. Reports the square of the correlation between x and y (R-squared)
+and its significance.
 
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity", 

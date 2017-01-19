@@ -58,26 +58,25 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   origTitle <- title
   if(requireNamespace('sigr',quietly = TRUE)) {
     title <- paste0(origTitle,'\nData: ',
-                    sigr::render(sigr::wrapFTest(frame,xvar,yvar),format='ascii'))
+                   sigr::render(sigr::wrapFTest(frame,xvar,yvar),format='ascii'))
   }
   gSmooth = NULL
   if(smoothmethod %in%  c('auto','loess','gam')) {
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
   } else if(smoothmethod=="lm") {
     tryCatch({
-    # get goodness of linear relation
-    model = lm(paste(yvar,"~",xvar), data=frame)
-    fstat = summary(model)$fstatistic
-    rsqr = summary(model)$r.squared
-    pval = pf(fstat[["value"]], fstat[["numdf"]], fstat[["dendf"]], lower.tail=FALSE)
+      # get goodness of linear relation
+      model = lm(paste(yvar,"~",xvar), data=frame)
+      fstat = summary(model)$fstatistic
+      rsqr = summary(model)$r.squared
+      pval = pf(fstat[["value"]], fstat[["numdf"]], fstat[["dendf"]], lower.tail=FALSE)
 
-    # print(summary(model))
-    fitstring = paste("R-squared = ", format(rsqr, digits=3))
-    sigstring = paste("Significance = ", format(pval, digits=3))
-
-    empty = empty + ggplot2::annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size) +
-      ggplot2::annotate("text", x=0.5, y=0.5, label=sigstring, size=annot_size)},
-    error=function(x){})
+      # print(summary(model))
+      fitstring = paste("R-squared = ", format(rsqr, digits=3))
+      sigstring = paste("Significance = ", format(pval, digits=3))
+    },
+    error=function(x){}
+    )
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
     title <- origTitle
     if(requireNamespace('sigr',quietly = TRUE)) {
@@ -89,7 +88,6 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
     fitstring = paste("R-squared = ", format(rsqr, digits=3))
 
-    empty = empty + ggplot2::annotate("text", x=0.5, y=0.75, label=fitstring, size=annot_size)
     gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
   }
 
