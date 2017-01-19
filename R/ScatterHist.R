@@ -163,7 +163,9 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
       ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   }
 
-  yPadFn <- designYLabelPadFunction(plot_center + ggplot2::ylim(ylims),plot_top)
+  yPadFn <- designYLabelPadFunction(plot_center +
+                                      ggplot2::scale_y_continuous(limits=ylims, expand = c(0,0)),
+                                    plot_top)
   plot_center <- plot_center +
     ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
   plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
