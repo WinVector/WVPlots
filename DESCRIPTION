@@ -15,13 +15,13 @@ Suggests:
     testthat,
     devtools,
     reshape2,
-    graphics,
-    mgcv
+    graphics
 VignetteBuilder: knitr
 Imports:
     ggplot2,
     grid,
     gridExtra,
     sigr,
-    replyr
+    replyr,
+    mgcv
 RoxygenNote: 5.0.1
