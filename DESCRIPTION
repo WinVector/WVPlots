@@ -13,9 +13,7 @@ License: GPL-3
 Suggests:
     knitr,
     testthat,
-    devtools,
-    reshape2,
-    graphics
+    devtools
 VignetteBuilder: knitr
 Imports:
     ggplot2,
@@ -23,5 +21,7 @@ Imports:
     gridExtra,
     sigr,
     replyr,
-    mgcv
+    mgcv,
+    reshape2,
+    graphics
 RoxygenNote: 5.0.1
