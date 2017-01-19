@@ -7,8 +7,7 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param se if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE
-#' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to FALSE)
-#' @param smoothingmethod character smoothing method (see geom_smooth)
+#' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to TRUE)
 #'
 #'
 #' @examples
@@ -25,7 +24,7 @@
 #'
 #' @export
 BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
-                              se=FALSE, use_glm=FALSE, smoothingmethod='auto') {
+                              se=FALSE, use_glm=TRUE) {
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   frame[[yvar]] = as.numeric(frame[[yvar]])
   if(length(unique(frame[[yvar]])) != 2) stop(paste("outcome column", yvar, "not a binary variable"))
@@ -40,7 +39,7 @@ BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
   } else {
     ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar, y=yvar)) +
       ggplot2::geom_point(position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
-      ggplot2::geom_smooth(method=smoothingmethod, formula=y~s(x), se=se) + ggplot2::ggtitle(title)
+      ggplot2::geom_smooth(se=se) + ggplot2::ggtitle(title)
   }
 }
 
