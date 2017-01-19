@@ -110,7 +110,9 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   #  print(xlims)
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
-  plot_center = plot_center + ggplot2::xlim(xlims)
+  plot_center = plot_center +
+    ggplot2::coord_cartesian(xlim=xlims) +
+    ggplot2::scale_x_continuous(expand = c(0,0))
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
@@ -126,6 +128,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
+    ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_cartesian(xlim=xlims)
   if(minimal_labels) {
     plot_top = plot_top +
@@ -146,6 +149,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
                    color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
     ggplot2::coord_cartesian(ylim=ylims) +
+    ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_flip()
   if(minimal_labels) {
     plot_right = plot_right +
@@ -160,7 +164,8 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   }
 
   yPadFn <- designYLabelPadFunction(plot_center + ggplot2::ylim(ylims),plot_top)
-  plot_center <- plot_center + ggplot2::scale_y_continuous(limits=ylims,label=yPadFn)
+  plot_center <- plot_center +
+    ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
   plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
 
   # arrange the plots together, with appropriate height and width
