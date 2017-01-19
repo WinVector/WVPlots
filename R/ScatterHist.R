@@ -148,7 +148,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
-    ggplot2::coord_cartesian(ylim=ylims) +
+    ggplot2::coord_cartesian(xlim=ylims) +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_flip()
   if(minimal_labels) {
@@ -163,9 +163,11 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
       ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
   }
 
+  # estimate size
   yPadFn <- designYLabelPadFunction(plot_center +
                                       ggplot2::scale_y_continuous(limits=ylims, expand = c(0,0)),
                                     plot_top)
+  # adjust using estimate
   plot_center <- plot_center +
     ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
   plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
