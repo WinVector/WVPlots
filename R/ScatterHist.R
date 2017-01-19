@@ -128,8 +128,8 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                    color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
-    ggplot2::scale_x_continuous(expand = c(0,0)) +
-    ggplot2::coord_cartesian(xlim=xlims)
+    ggplot2::coord_cartesian(xlim=xlims) +
+    ggplot2::scale_x_continuous(expand = c(0,0))
   if(minimal_labels) {
     plot_top = plot_top +
       ggplot2::theme(legend.position = "none",

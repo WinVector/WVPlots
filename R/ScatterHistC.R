@@ -87,7 +87,9 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   #  print(xlims)
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
-  plot_center = plot_center + ggplot2::xlim(xlims) +
+  plot_center = plot_center +
+    ggplot2::coord_cartesian(xlim=xlims) +
+    ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::theme(legend.position="none")
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
@@ -103,7 +105,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   plot_top <- ggplot2::ggplot(frame,
                               ggplot2::aes_string(x=xvar,color=cvar)) +
     ggplot2::geom_line(stat='density',adjust=adjust_x) +
-    ggplot2::xlim(xlims)
+    ggplot2::coord_cartesian(xlim=xlims) +
+     ggplot2::scale_x_continuous(expand = c(0,0))
   if(minimal_labels) {
     plot_top = plot_top +
       ggplot2::theme(legend.position = "none",
@@ -123,7 +126,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   plot_right <- ggplot2::ggplot(frame,
                                 ggplot2::aes_string(x=yvar,color=cvar)) +
     ggplot2::geom_line(stat='density', adjust=adjust_y) +
-    ggplot2::xlim(ylims) +
+    ggplot2::coord_cartesian(xlim=ylims) +
+    ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_flip()
   if(minimal_labels) {
     plot_right = plot_right +
@@ -139,9 +143,15 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   plot_right <- plot_right + ggplot2::scale_color_brewer(palette=colorPalette) +
     ggplot2::scale_fill_brewer(palette=colorPalette)
 
-  yPadFn <- designYLabelPadFunction(plot_center + ggplot2::ylim(ylims),plot_top)
-  plot_center <- plot_center + ggplot2::scale_y_continuous(limits=ylims,label=yPadFn)
-  plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
+  # esimate size
+  yPadFn <- designYLabelPadFunction(plot_center +
+                                      ggplot2::scale_y_continuous(limits=ylims, expand = c(0,0)),
+                                    plot_top)
+  # adjust using estimte
+  plot_center <- plot_center +
+    ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
+  plot_top <- plot_top +
+    ggplot2::scale_y_continuous(label=yPadFn)
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
