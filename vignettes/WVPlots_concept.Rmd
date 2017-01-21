@@ -103,6 +103,13 @@ frm$z <- frm$x+frm$y
 WVPlots::ScatterHistN(frm, "x", "y", "z", title="Example Joint Distribution")
 ```
 
+```{r}
+set.seed(34903490)
+x = rnorm(50)
+y = 0.5*x^2 + 2*x + rnorm(length(x))
+frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
+WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
+```
 
 We know this collection doesn't rise to the standard of a complete "grammar of graphics."  But it can become (through accumulation) a re-usable repository of a number of specific graphing tasks done well.  It is also a chance to eventually document presentation design decisions (though we haven't gotten far on that yet).  The complete set of graphs is shown in the `WVPlots_example` vignette.
 

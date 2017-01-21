@@ -1,16 +1,31 @@
 
+novelPointPositionsL <- function(x) {
+  len <- length(x)
+  if(len<=1) {
+    return(rep(TRUE,len))
+  }
+  c(TRUE,abs(x[-1]-x[-len])>1.0e-6)
+}
 
-#' calculate AUC.
-#'
-#' Based on:
-#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
-#'
-#'  See also https://github.com/WinVector/sigr
-#'
-#' @param modelPredictions numeric predictions (not empty)
-#' @param yValues logical truth (not empty, same lenght as model predictions)
-#' @return line graph, point graph, and area under curve
-#'
+novelPointPositionsR <- function(x) {
+  len <- length(x)
+  if(len<=1) {
+    return(rep(TRUE,len))
+  }
+  c(abs(x[-1]-x[-len])>1.0e-6,TRUE)
+}
+
+# calculate AUC.
+#
+# Based on:
+#  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#
+#  See also https://github.com/WinVector/sigr
+#
+# param modelPredictions numeric predictions (not empty)
+# param yValues logical truth (not empty, same lenght as model predictions)
+# return line graph, point graph, and area under curve
+#
 calcAUC <- function(modelPredictions,yValues) {
   ord <- order(modelPredictions, decreasing=TRUE)
   yValues <- yValues[ord]
@@ -31,10 +46,18 @@ calcAUC <- function(modelPredictions,yValues) {
   y <- c(0,y,1)
   lineGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
                           stringsAsFactors = FALSE)
-  # sum areas of segments (triangle topped vertical rectangles)
-  n <- length(y)
-  area <- sum( ((y[-1]+y[-n])/2) * (x[-1]-x[-n]) )
-  list(lineGraph=lineGraph,pointGraph=pointGraph,area=area)
+  # further de-dup points
+  # care about changes in x or y
+  goodPointRows <- novelPointPositionsL(pointGraph$FalsePositiveRate) |
+    novelPointPositionsL(pointGraph$TruePositiveRate)
+  pointGraph <- pointGraph[goodPointRows, , drop=FALSE]
+  # only care about points near height changes
+  goodLineRows <- novelPointPositionsL(lineGraph$TruePositiveRate) |
+    novelPointPositionsR(lineGraph$TruePositiveRate)
+  lineGraph <- lineGraph[goodLineRows, , drop=FALSE]
+  list(lineGraph=lineGraph,
+       pointGraph=pointGraph,
+       area=sigr::calcAUC(modelPredictions,yValues))
 }
 
 #' Plot receiver operating characteristic plot.
@@ -77,19 +100,22 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                                         returnScores=returnScores,
                                         nRep=nrep,
                                         parallelCluster=parallelCluster)
-
   palletName = "Dark2"
   pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
   aucString <- sprintf('%.2g',auc)
-  plot= ggplot2::ggplot() +
+  plot <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes_string(x='FalsePositiveRate',
                                              ymax='TruePositiveRate',ymin=0),
-                         alpha=0.2,color=NA) +
-    ggplot2::geom_point(data=rocList$pointGraph,
-                        ggplot2::aes_string(x='FalsePositiveRate',
-                                            y='TruePositiveRate'),
-                        color='darkblue',alpha=0.5) +
+                         alpha=0.2,color=NA)
+  if(nrow(rocList$pointGraph)<=1000) {
+    plot <- plot +
+      ggplot2::geom_point(data=rocList$pointGraph,
+                          ggplot2::aes_string(x='FalsePositiveRate',
+                                              y='TruePositiveRate'),
+                          color='darkblue',alpha=0.5)
+  }
+  plot <- plot +
     ggplot2::geom_line(data=rocList$lineGraph,
                        ggplot2::aes_string(x='FalsePositiveRate',
                                            y='TruePositiveRate'),
@@ -99,7 +125,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                            truthVar, '==', truthTarget, ' ~ ', xvar, ', ',
+                            truthVar, '==', truthTarget, ' ~ ', xvar, ', '),
+                     subtitle = paste0(
                             'AUC=',aucString,
                             '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
                             pString)) +
@@ -170,12 +197,15 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
   lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
   palletName = "Dark2"
-  plot= ggplot2::ggplot() +
-    ggplot2::geom_point(data=pointGraph,
+  plot <- ggplot2::ggplot()
+  if(nrow(pointGraph)<=1000) {
+    plot <- plot + ggplot2::geom_point(data=pointGraph,
                         ggplot2::aes_string(x='FalsePositiveRate',
                                             y='TruePositiveRate',
                                      color='model',shape='model'),
-                        alpha=0.5) +
+                        alpha=0.5)
+  }
+  plot <- plot +
     ggplot2::geom_line(data=lineGraph,
                        ggplot2::aes_string(x='FalsePositiveRate',
                                            y='TruePositiveRate',
@@ -185,11 +215,12 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                  truthVar, '==', truthTarget, ' ~ model\n',
-                  'testing: AUC(',xvar1,')>AUC(',xvar2,') ',
+                  truthVar, '==', truthTarget, ' ~ model'),
+                  subtitle = paste0(
+                  'testing: AUC(1)>AUC(2)\n on same data\n ',
                   eString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
-    ggplot2::theme(legend.position="bottom")
+    ggplot2::theme(legend.position="bottom", legend.direction="vertical")
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
@@ -257,38 +288,42 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                                 nrep=nrep,returnScores = TRUE)
   aucsig <- sigr::estimateDifferenceZeroCrossing(d1$eScore$resampledScores -
                                                  d2$eScore$resampledScores)
-  eString <- paste("testing:",aucsig$test,
-                   sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
+  eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
                                             format='ascii',
-                                            pLargeCutoff=0.5))
+                                            pLargeCutoff=0.5)
   nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
   nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
-  rocList1$pointGraph$model <- nm1
-  rocList1$lineGraph$model <- nm1
-  rocList2$pointGraph$model <- nm2
-  rocList2$lineGraph$model <- nm2
+  rocList1$pointGraph$dataset <- nm1
+  rocList1$lineGraph$dataset <- nm1
+  rocList2$pointGraph$dataset <- nm2
+  rocList2$lineGraph$dataset <- nm2
   pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
   lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
   palletName = "Dark2"
-  plot= ggplot2::ggplot() +
-    ggplot2::geom_point(data=pointGraph,
-                        ggplot2::aes_string(x='FalsePositiveRate',
-                                            y='TruePositiveRate',
-                                            color='model',shape='model'),
-                        alpha=0.5) +
+  plot <- ggplot2::ggplot()
+  if(nrow(pointGraph)<=1000) {
+    plot <- plot +
+      ggplot2::geom_point(data=pointGraph,
+                          ggplot2::aes_string(x='FalsePositiveRate',
+                                              y='TruePositiveRate',
+                                              color='dataset',shape='dataset'),
+                          alpha=0.5)
+  }
+  plot <- plot +
     ggplot2::geom_line(data=lineGraph,
                        ggplot2::aes_string(x='FalsePositiveRate',
                                            y='TruePositiveRate',
-                                           color='model',linetype='model')) +
+                                           color='dataset',linetype='dataset')) +
     ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(paste0(title,'\n',
-                            'testing: AUC(1)>AUC(2)\n',
+    ggplot2::ggtitle(title,
+                     subtitle = paste0(
+                            'testing: AUC(1)>AUC(2)\n on different data\n ',
                             eString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
-    ggplot2::theme(legend.position="bottom")
+    ggplot2::theme(legend.position="bottom", legend.direction="vertical")
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
