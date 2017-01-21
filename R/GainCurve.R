@@ -176,13 +176,13 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
     ) +
     ggplot2::ggtitle(
       paste0(
-        "Gain curve, ",
         title,
         '\n',
         truthVar,
         '~',
-        xvar,
-        ', relative Gini score: ',
+        xvar),
+      subtitle=paste0(
+        'relative Gini score: ',
         format(giniScore, digits = 2),
         pString
       )
@@ -371,13 +371,13 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title, ...) {
     ) +
     ggplot2::ggtitle(
       paste0(
-        "Gain curve, ",
         title,
         '\n',
         truthVar,
         '~',
-        xvar,
-        ', relative Gini score: ',
+        xvar),
+      subtitle=paste0(
+        'relative Gini score: ',
         format(giniScore, digits = 2),
         pString
       )

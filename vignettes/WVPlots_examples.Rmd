@@ -63,7 +63,7 @@ frmScatterHistN$z <- frmScatterHistN$x+frmScatterHistN$y
 WVPlots::ScatterHistN(frmScatterHistN, "x", "y", "z", title="Example Joint Distribution")
 ```
 
-Plot the relationship *y* as a function of *x* with a smoothing curve that estimates $E[y | x]$. If *y* is a 0/1 variable as below (binary classification, where 1 is the target class), then the smoothing curve estimates $P(y | x)$. Since $y \in \{0,1\}$ with $y$ intended to be monotone in $x$ is the most common use of this graph, `BinaryYScatterPlot` uses a `glm` smoother by default (`use_glm=TRUE`), as the best estimate of $P(y | x)$. 
+Plot the relationship *y* as a function of *x* with a smoothing curve that estimates $E[y | x]$. If *y* is a 0/1 variable as below (binary classification, where 1 is the target class), then the smoothing curve estimates $P(y | x)$. Since $y \in \{0,1\}$ with $y$ intended to be monotone in $x$ is the most common use of this graph, `BinaryYScatterPlot` uses a `glm` smoother by default (`use_glm=TRUE`, this is essentially Platt scaling), as the best estimate of $P(y | x)$. 
 
 ```{r}
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=FALSE,

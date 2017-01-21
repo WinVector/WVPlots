@@ -99,13 +99,17 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
                                         calcPR(modelValues,yValues)$bestF1
                                       })
     pString <- sigr::render(sigr::wrapSignificance(sp$pValue),format='ascii')
-    pString <- paste0('\nalt. hyp.: F1(',xvar,')>permuted F1, ',pString)
+    pString <- paste0('\n alt. hyp.: F1(',xvar,')>permuted F1, ',pString)
   }
   palletName = "Dark2"
-  plot= ggplot2::ggplot() +
-    ggplot2::geom_point(data=pf,
-                        ggplot2::aes_string(x='Recall',y='Precision'),
-                        color='darkblue',alpha=0.5) +
+  plot <- ggplot2::ggplot()
+  if(nrow(pF1)<1000) {
+    plot <- plot +
+      ggplot2::geom_point(data=pf,
+                          ggplot2::aes_string(x='Recall',y='Precision'),
+                          color='darkblue',alpha=0.5)
+  }
+  plot <- plot +
     ggplot2::geom_point(data=pF1,
                         ggplot2::aes_string(x='Recall',y='Precision'),
                         color='blue',size=2,shape=15) +
@@ -115,13 +119,17 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
     ggplot2::geom_line(data=isoFrame,
                        ggplot2::aes_string(x='Recall',y='Precision'),
                        color='blue',alpha=0.5,linetype=2) +
-    ggplot2::geom_hline(yintercept=prevalence, linetype=2) +
+    ggplot2::geom_hline(yintercept=prevalence, linetype=3, alpha=0.2) +
+    ggplot2::geom_vline(xintercept=1, linetype=3, alpha=0.2) +
+    ggplot2::geom_hline(yintercept=1, linetype=3, alpha=0.2) +
+    ggplot2::geom_vline(xintercept=0, linetype=3, alpha=0.2) +
     ggplot2::coord_fixed() +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                            truthVar,'==',truthTarget, '~', xvar,
-                           ', best F1 ',format(bestF1, digits=2, nsmall=2),
+                            truthVar,'==',truthTarget, '~', xvar),
+                     subtitle = paste0(
+                           'best F1 ',format(bestF1, digits=2, nsmall=2),
                             pString)) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   plot
