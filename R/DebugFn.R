@@ -33,8 +33,9 @@
 #' @export
 DebugFn <- function(saveFile,fn,...) {
   args <- list(...)
+  envir = parent.frame()
   tryCatch({
-    res = do.call(fn,args)
+    res = do.call(fn,args, envir=envir)
     res
   },
   error = function(e) {
@@ -79,8 +80,9 @@ DebugFn <- function(saveFile,fn,...) {
 #' @export
 DebugPrintFn <- function(saveFile,fn,...) {
   args <- list(...)
+  envir = parent.frame()
   tryCatch({
-    res = do.call(fn,args)
+    res = do.call(fn,args, envir=envir)
     print(res)
     res
   },
