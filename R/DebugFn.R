@@ -12,23 +12,23 @@
 #' @examples
 #'
 #' d <- data.frame(x=1:5)
-#' fnam <- paste0(tempfile('debug'),'.RDS')
+#' saveName <- paste0(tempfile('debug'),'.RDS')
 #' # correct run
-#' DebugFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+#' DebugFn(saveName, 'PlotDistCountNormal', d, xvar='x', 'example')
 #' # now re-run
 #' # capture error on incorrect run
 #' tryCatch(
-#'    DebugFn(fnam,'PlotDistCountNormal',
+#'    DebugFn(saveName,'PlotDistCountNormal',
 #'       d,xvar='xmisspelled','example'),
 #'    error = function(e) { print(e) })
 #' # examine details
-#' situation <- readRDS(fnam)
+#' situation <- readRDS(saveName)
 #' str(situation)
 #' # fix and re-run
 #' situation$args$xvar <- 'x'
 #' do.call(situation$fn,situation$args)
 #' # clean up
-#' file.remove(fnam)
+#' file.remove(saveName)
 #'
 #' @export
 DebugFn <- function(saveFile,fn,...) {
@@ -58,23 +58,23 @@ DebugFn <- function(saveFile,fn,...) {
 #' @examples
 #'
 #' d <- data.frame(x=1:5)
-#' fnam <- paste0(tempfile('debug'),'.RDS')
+#' saveName <- paste0(tempfile('debug'),'.RDS')
 #' # correct run
-#' DebugPrintFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+#' DebugPrintFn(saveName, 'PlotDistCountNormal', d, xvar='x', 'example')
 #' # now re-run
 #' # capture error on incorrect run
 #' tryCatch(
-#'    DebugPrintFn(fnam,'PlotDistCountNormal',
+#'    DebugPrintFn(saveName,'PlotDistCountNormal',
 #'       d,xvar='xmisspelled','example'),
 #'    error = function(e) { print(e) })
 #' # examine details
-#' situation <- readRDS(fnam)
+#' situation <- readRDS(saveName)
 #' str(situation)
 #' # fix and re-run
 #' situation$args$xvar <- 'x'
 #' do.call(situation$fn,situation$args)
 #' # clean up
-#' file.remove(fnam)
+#' file.remove(saveName)
 #'
 #' @export
 DebugPrintFn <- function(saveFile,fn,...) {
