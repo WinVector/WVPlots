@@ -2,20 +2,33 @@
 #' Capture arguments of exception throwing plot for later debugging.
 #'
 #' Run fn, save arguments on failure.
+#' @seealso \code{\link{DebugPrintFn}}
 #'
 #' @param saveFile path to save RDS to.
 #' @param fn function to call
 #' @param ... arguments for fn
-#' @return fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+#' @return fn(...) normally, but if fn(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 #'
 #' @examples
 #'
 #' d <- data.frame(x=1:5)
-#' DebugFn('problem.RDS','PlotDistCountNormal',d,xvar='x','example')
+#' fnam <- paste0(tempfile('debug'),'.RDS')
+#' # correct run
+#' DebugFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+#' # now re-run
+#' # capture error on incorrect run
 #' tryCatch(
-#'    DebugFn('problem.RDS','PlotDistCountNormal',
+#'    DebugFn(fnam,'PlotDistCountNormal',
 #'       d,xvar='xmisspelled','example'),
 #'    error = function(e) { print(e) })
+#' # examine details
+#' situation <- readRDS(fnam)
+#' str(situation)
+#' # fix and re-run
+#' situation$args$xvar <- 'x'
+#' do.call(situation$fn,situation$args)
+#' # clean up
+#' file.remove(fnam)
 #'
 #' @export
 DebugFn <- function(saveFile,fn,...) {
@@ -35,19 +48,33 @@ DebugFn <- function(saveFile,fn,...) {
 #' Run fn and print result, save arguments on failure.  Use on systems like ggplot()
 #' where some calculation is delayed until print().
 #'
+#' @seealso \code{\link{DebugFn}}
+#'
 #' @param saveFile path to save RDS to.
 #' @param fn function to call
 #' @param ... arguments for fn
-#' @return fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+#' @return fn(...) normally, but if fn(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 #'
 #' @examples
 #'
 #' d <- data.frame(x=1:5)
-#' DebugPrintFn('problem.RDS','PlotDistCountNormal',d,xvar='x','example')
+#' fnam <- paste0(tempfile('debug'),'.RDS')
+#' # correct run
+#' DebugPrintFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+#' # now re-run
+#' # capture error on incorrect run
 #' tryCatch(
-#'    DebugPrintFn('problem.RDS','PlotDistCountNormal',
+#'    DebugPrintFn(fnam,'PlotDistCountNormal',
 #'       d,xvar='xmisspelled','example'),
 #'    error = function(e) { print(e) })
+#' # examine details
+#' situation <- readRDS(fnam)
+#' str(situation)
+#' # fix and re-run
+#' situation$args$xvar <- 'x'
+#' do.call(situation$fn,situation$args)
+#' # clean up
+#' file.remove(fnam)
 #'
 #' @export
 DebugPrintFn <- function(saveFile,fn,...) {

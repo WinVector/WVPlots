@@ -14,7 +14,7 @@ DebugFn(saveFile, fn, ...)
 \item{...}{arguments for fn}
 }
 \value{
-fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+fn(...) normally, but if fn(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 }
 \description{
 Run fn, save arguments on failure.
@@ -22,11 +22,26 @@ Run fn, save arguments on failure.
 \examples{
 
 d <- data.frame(x=1:5)
-DebugFn('problem.RDS','PlotDistCountNormal',d,xvar='x','example')
+fnam <- paste0(tempfile('debug'),'.RDS')
+# correct run
+DebugFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+# now re-run
+# capture error on incorrect run
 tryCatch(
-   DebugFn('problem.RDS','PlotDistCountNormal',
+   DebugFn(fnam,'PlotDistCountNormal',
       d,xvar='xmisspelled','example'),
    error = function(e) { print(e) })
+# examine details
+situation <- readRDS(fnam)
+str(situation)
+# fix and re-run
+situation$args$xvar <- 'x'
+do.call(situation$fn,situation$args)
+# clean up
+file.remove(fnam)
 
+}
+\seealso{
+\code{\link{DebugPrintFn}}
 }
 

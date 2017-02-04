@@ -14,7 +14,7 @@ DebugPrintFn(saveFile, fn, ...)
 \item{...}{arguments for fn}
 }
 \value{
-fn(...) normally, but if f(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
+fn(...) normally, but if fn(...) throws an exception save to saveFile RDS of list r such that do.call(r$fn,r$args) repeats the call to fn with args.
 }
 \description{
 Run fn and print result, save arguments on failure.  Use on systems like ggplot()
@@ -23,11 +23,26 @@ where some calculation is delayed until print().
 \examples{
 
 d <- data.frame(x=1:5)
-DebugPrintFn('problem.RDS','PlotDistCountNormal',d,xvar='x','example')
+fnam <- paste0(tempfile('debug'),'.RDS')
+# correct run
+DebugPrintFn(fnam, 'PlotDistCountNormal', d, xvar='x', 'example')
+# now re-run
+# capture error on incorrect run
 tryCatch(
-   DebugPrintFn('problem.RDS','PlotDistCountNormal',
+   DebugPrintFn(fnam,'PlotDistCountNormal',
       d,xvar='xmisspelled','example'),
    error = function(e) { print(e) })
+# examine details
+situation <- readRDS(fnam)
+str(situation)
+# fix and re-run
+situation$args$xvar <- 'x'
+do.call(situation$fn,situation$args)
+# clean up
+file.remove(fnam)
 
+}
+\seealso{
+\code{\link{DebugFn}}
 }
 
