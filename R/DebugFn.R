@@ -2,7 +2,9 @@
 #' Capture arguments of exception throwing plot for later debugging.
 #'
 #' Run fn, save arguments on failure.
-#' @seealso \code{\link{DebugPrintFn}}
+#' @seealso \code{\link{DebugPrintFn}} .
+#'
+#' Note: newer versions of the debug functions are available in the replyr package.
 #'
 #' @param saveFile path to save RDS to.
 #' @param fn function to call
@@ -48,6 +50,8 @@ DebugFn <- function(saveFile,fn,...) {
 #'
 #' Run fn and print result, save arguments on failure.  Use on systems like ggplot()
 #' where some calculation is delayed until print().
+#'
+#' Note: newer versions of the debug functions are available in the replyr package.
 #'
 #' @seealso \code{\link{DebugFn}}
 #'

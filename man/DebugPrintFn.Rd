@@ -20,6 +20,9 @@ fn(...) normally, but if fn(...) throws an exception save to saveFile RDS of lis
 Run fn and print result, save arguments on failure.  Use on systems like ggplot()
 where some calculation is delayed until print().
 }
+\details{
+Note: newer versions of the debug functions are available in the replyr package.
+}
 \examples{
 
 d <- data.frame(x=1:5)

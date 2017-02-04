@@ -42,6 +42,8 @@ file.remove(saveName)
 
 }
 \seealso{
-\code{\link{DebugPrintFn}}
+\code{\link{DebugPrintFn}} .
+
+Note: newer versions of the debug functions are available in the replyr package.
 }
 
