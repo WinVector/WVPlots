@@ -5,6 +5,7 @@
 #' @importFrom grid textGrob unit
 #' @importFrom gridExtra grid.arrange
 #' @importFrom stats median
+#' @importFrom wrapr DebugPrintFn let
 NULL
 
 # check the arguments are the types our functions commonly expect
