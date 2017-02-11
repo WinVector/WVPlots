@@ -26,4 +26,4 @@ Suggests:
     testthat,
     devtools
 RoxygenNote: 5.0.1
-Remotes: WinVector/wrapr
+
