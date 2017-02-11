@@ -11,8 +11,6 @@ Description: Example 'ggplot2' plots we have found useful, under a standardized
     calling interface.
 License: GPL-3
 VignetteBuilder: knitr
-Depends:
-    wrapr
 Imports:
     ggplot2 (>= 2.2.0),
     grid,
@@ -21,7 +19,8 @@ Imports:
     replyr,
     mgcv,
     reshape2,
-    graphics
+    graphics,
+    wrapr
 Suggests:
     knitr,
     testthat,
