@@ -23,7 +23,6 @@ Imports:
     wrapr
 Suggests:
     knitr,
-    testthat,
-    devtools
+    testthat
 RoxygenNote: 5.0.1
 
