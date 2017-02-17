@@ -1,5 +1,5 @@
 
-'WVPlots' 0.2.2 2017-02-10
+'WVPlots' 0.2.2 2017-02-17
 
  * Move debug to wrapr https://github.com/WinVector/wrapr
 
