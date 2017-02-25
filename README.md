@@ -4,6 +4,8 @@ Common plots we use for analysis and presentation (on top of ggplot2 in [R](http
 
 Website: [https://github.com/WinVector/WVPlots](https://github.com/WinVector/WVPlots)
 
+![](WVPlots.png)
+
 More notes:
 
  * http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/

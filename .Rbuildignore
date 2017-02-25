@@ -15,3 +15,5 @@
 ^.*rsconnect.*$
 ^README.Rmd$
 ^cran-comments.md$
+^WVPlots.png$
+
