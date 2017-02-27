@@ -56,4 +56,3 @@ WVPlots::ROCPlotPair2('train',frm, "x1", "yC", TRUE,
                       title="Example ROC pair plot")
 
 }
-

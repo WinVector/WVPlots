@@ -34,4 +34,3 @@ frm$costX = 1
 WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
 
 }
-

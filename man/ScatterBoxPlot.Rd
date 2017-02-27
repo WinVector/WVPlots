@@ -36,4 +36,3 @@ frm2 = data.frame(label=label,
 WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 
 }
-

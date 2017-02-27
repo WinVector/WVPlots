@@ -38,4 +38,3 @@ WVPlots::BinaryYScatterPlot(frm, "x", "posY",
    title="Example 'Probability of Y' Plot")
 
 }
-

@@ -50,4 +50,3 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter",
   title = "Example Cleveland-style dot plot")
 
 }
-

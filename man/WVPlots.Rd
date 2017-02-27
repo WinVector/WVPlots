@@ -19,4 +19,3 @@ For more information:
   \item \code{RShowDoc('WVPlots_examples',package='WVPlots')}
   \item Website: \url{https://github.com/WinVector/WVPlots} }
 }
-

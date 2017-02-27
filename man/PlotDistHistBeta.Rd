@@ -30,4 +30,3 @@ d <- data.frame(wt=rbeta(100,shape1=0.5,shape2=0.5))
 PlotDistHistBeta(d,'wt','example')
 
 }
-

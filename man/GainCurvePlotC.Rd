@@ -36,4 +36,3 @@ WVPlots::GainCurvePlotC(frm, "model", "costs", "value",
    title="Example Continuous Gain CurveC")
 
 }
-

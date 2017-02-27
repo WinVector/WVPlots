@@ -34,4 +34,3 @@ frm$costX = 1
 WVPlots::PRPlot(frm, "x", "yC", TRUE, title="Example Precision-Recall plot")
 
 }
-

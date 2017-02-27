@@ -38,4 +38,3 @@ frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
 WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
 
 }
-

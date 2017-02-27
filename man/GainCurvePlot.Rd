@@ -34,4 +34,3 @@ WVPlots::GainCurvePlot(frm, "model", "value",
    title="Example Continuous Gain Curve")
 
 }
-

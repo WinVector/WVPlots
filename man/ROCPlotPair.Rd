@@ -44,4 +44,3 @@ WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE,
    title="Example ROC pair plot")
 
 }
-

@@ -41,4 +41,3 @@ frm$z <- frm$x+frm$y
 WVPlots::ScatterHistN(frm, "x", "y", "z", title="Example Joint Distribution")
 
 }
-

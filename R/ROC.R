@@ -15,18 +15,28 @@ novelPointPositionsR <- function(x) {
   c(abs(x[-1]-x[-len])>1.0e-6,TRUE)
 }
 
-# calculate AUC.
+#' calculate AUC.
+#'
+#' Based on:
+#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'
+#'  See also https://github.com/WinVector/sigr
 #
-# Based on:
-#  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
-#
-#  See also https://github.com/WinVector/sigr
-#
-# param modelPredictions numeric predictions (not empty)
-# param yValues logical truth (not empty, same lenght as model predictions)
-# return line graph, point graph, and area under curve
-#
-calcAUC <- function(modelPredictions,yValues) {
+#' @param modelPredictions numeric predictions (not empty)
+#' @param yValues logical truth (not empty, same lenght as model predictions)
+#' @return line graph, point graph, and area under curve
+#'
+#' @examples
+#'
+#' set.seed(34903490)
+#' x = rnorm(50)
+#' y = 0.5*x^2 + 2*x + rnorm(length(x))
+#' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#' WVPlots::graphROC(frm$x, frm$yC)
+#'
+#' @export
+#'
+graphROC <- function(modelPredictions, yValues) {
   ord <- order(modelPredictions, decreasing=TRUE)
   yValues <- yValues[ord]
   modelPredictions <- modelPredictions[ord]
@@ -40,11 +50,17 @@ calcAUC <- function(modelPredictions,yValues) {
   # And add in ideal endpoints just in case (redundancy here is not a problem).
   x <- x[!dup]
   y <- y[!dup]
-  pointGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
+  prediction <- modelPredictions[!dup]
+  pointGraph <- data.frame(FalsePositiveRate= x,
+                           TruePositiveRate= y,
+                           model= prediction,
                            stringsAsFactors = FALSE)
   x <- c(0,x,1)
   y <- c(0,y,1)
-  lineGraph <- data.frame(FalsePositiveRate=x,TruePositiveRate=y,
+  prediction <- c(0,prediction,1)
+  lineGraph <- data.frame(FalsePositiveRate= x,
+                          TruePositiveRate= y,
+                          model= prediction,
                           stringsAsFactors = FALSE)
   # further de-dup points
   # care about changes in x or y
@@ -92,7 +108,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     return(NULL)
   }
   predcol <- frame[[xvar]]
-  rocList <- calcAUC(predcol,outcol)
+  rocList <- graphROC(predcol,outcol)
   auc <- rocList$area
   aucsig <- sigr::permutationScoreModel(modelValues=predcol,
                                         yValues=outcol,
@@ -113,7 +129,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
       ggplot2::geom_point(data=rocList$pointGraph,
                           ggplot2::aes_string(x='FalsePositiveRate',
                                               y='TruePositiveRate'),
-                          color='darkblue',alpha=0.5)
+                          color='darkblue', alpha=0.5)
   }
   plot <- plot +
     ggplot2::geom_line(data=rocList$lineGraph,
@@ -175,8 +191,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   if(length(unique(outcol))!=2) {
     return(NULL)
   }
-  rocList1 <- calcAUC(frame[[xvar1]],outcol)
-  rocList2 <- calcAUC(frame[[xvar2]],outcol)
+  rocList1 <- graphROC(frame[[xvar1]],outcol)
+  rocList2 <- graphROC(frame[[xvar2]],outcol)
 
   aucsig <- sigr::resampleScoreModelPair(frame[[xvar1]],
                                          frame[[xvar2]],
@@ -279,8 +295,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   if(length(unique(outcol2))!=2) {
     return(NULL)
   }
-  rocList1 <- calcAUC(frame1[[xvar1]],outcol1)
-  rocList2 <- calcAUC(frame2[[xvar2]],outcol2)
+  rocList1 <- graphROC(frame1[[xvar1]],outcol1)
+  rocList2 <- graphROC(frame2[[xvar2]],outcol2)
 
   d1 <- sigr::resampleTestAUC(frame1,xvar1,truthVar1,truthTarget1,
                                 nrep=nrep,returnScores = TRUE)

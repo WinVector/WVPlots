@@ -48,4 +48,3 @@ WVPlots::GainCurvePlotWithNotation(frm, "model", "value",
    gainx=gainx,labelfun=labelfun)
 
 }
-

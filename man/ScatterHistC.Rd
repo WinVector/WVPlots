@@ -40,4 +40,3 @@ WVPlots::ScatterHistC(frm, "x", "y", "cat",
                       title="Example Conditional Distribution")
 
 }
-

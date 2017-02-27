@@ -32,4 +32,3 @@ d <- data.frame(wt=100*rnorm(100))
 PlotDistCountNormal(d,'wt','example')
 
 }
-

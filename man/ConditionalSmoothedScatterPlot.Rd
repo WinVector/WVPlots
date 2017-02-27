@@ -40,4 +40,3 @@ WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL,
    title="left smooth, one group", align="left")
 
 }
-

@@ -33,4 +33,3 @@ WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
                        title="Example shaded density plot, right tail")
 
 }
-

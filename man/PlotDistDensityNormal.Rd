@@ -30,4 +30,3 @@ d <- data.frame(wt=100*rnorm(100))
 PlotDistDensityNormal(d,'wt','example')
 
 }
-

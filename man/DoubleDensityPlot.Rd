@@ -35,4 +35,3 @@ WVPlots::DoubleDensityPlot(frm, "score", "stuck", title="Example double density 
 WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 
 }
-

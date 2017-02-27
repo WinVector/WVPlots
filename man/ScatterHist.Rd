@@ -45,4 +45,3 @@ frm = data.frame(x=x,y=y)
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 
 }
-

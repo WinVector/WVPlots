@@ -39,4 +39,3 @@ WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Sc
 
 
 }
-
