@@ -1,4 +1,8 @@
 
+'WVPlots' 0.2.3 2017-03-10
+
+ * Fix right-plot alighment in ScatterHist*
+
 'WVPlots' 0.2.2 2017-02-17
 
  * Move debug to wrapr https://github.com/WinVector/wrapr

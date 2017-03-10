@@ -128,7 +128,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
     ggplot2::geom_line(stat='density', adjust=adjust_y) +
     ggplot2::coord_cartesian(xlim=ylims) +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
-    ggplot2::coord_flip()
+    ggplot2::coord_flip(xlim=ylims, expand=0)
   if(minimal_labels) {
     plot_right = plot_right +
       ggplot2::theme(legend.position = "none",
