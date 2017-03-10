@@ -109,7 +109,7 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
 
   plot_center = plot_center +
-    ggplot2::coord_cartesian(xlim=xlims) +
+    ggplot2::coord_cartesian(xlim=xlims, ylim=ylims) +
     ggplot2::scale_x_continuous(expand = c(0,0))
 
   # print(ggplot_build(plot_center)$panel$ranges[[1]]$x.range)
@@ -141,25 +141,6 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   }
 
 
-  # marginal density of y - plot on the right
-  plot_right <- ggplot2::ggplot(frame, ggplot2::aes_string(x=yvar)) +
-    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
-                   color="white", binwidth=binwidth_y, bins=30) +
-    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
-    ggplot2::coord_cartesian(xlim=ylims) +
-    ggplot2::scale_x_continuous(expand = c(0,0)) +
-    ggplot2::coord_flip()
-  if(minimal_labels) {
-    plot_right = plot_right +
-      ggplot2::theme(legend.position = "none",
-                     axis.title.y = ggplot2::element_blank(),
-            axis.text.y = ggplot2::element_blank(),
-            axis.ticks.y = ggplot2::element_blank(),
-            plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
-  } else {
-    plot_right = plot_right +
-      ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
-  }
 
   # estimate size
   yPadFn <- designYLabelPadFunction(plot_center +
@@ -169,6 +150,30 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   plot_center <- plot_center +
     ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
   plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
+  # # From: http://stackoverflow.com/questions/27374409/get-tick-break-positions-in-ggplot
+  # cRanges <-  ggplot_build(plot_center)$layout$panel_ranges[[1]]
+  # yBreaks <- cRanges$y.major_source
+  # xBreaks <- cRanges$x.major_source
+
+  # marginal density of y - plot on the right
+  plot_right <- ggplot2::ggplot(frame, ggplot2::aes_string(x=yvar)) +
+    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
+                            color="white", binwidth=binwidth_y, bins=30) +
+    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
+    ggplot2::coord_cartesian(xlim=ylims) +
+    ggplot2::scale_x_continuous(expand = c(0,0)) + # , breaks= yBreaks) +
+    ggplot2::coord_flip(xlim=ylims, expand = 0) # see: https://github.com/tidyverse/ggplot2/issues/2013
+  if(minimal_labels) {
+    plot_right = plot_right +
+      ggplot2::theme(legend.position = "none",
+                     axis.title.y = ggplot2::element_blank(),
+                     axis.text.y = ggplot2::element_blank(),
+                     axis.ticks.y = ggplot2::element_blank(),
+                     plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
+  } else {
+    plot_right = plot_right +
+      ggplot2::theme(plot.margin = grid::unit(c(0, 1, 0, 0), "lines"))
+  }
 
   # arrange the plots together, with appropriate height and width
   # for each row and column
