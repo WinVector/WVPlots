@@ -4,7 +4,7 @@ Common plots we use for analysis and presentation (on top of ggplot2 in [R](http
 
 Website: [https://github.com/WinVector/WVPlots](https://github.com/WinVector/WVPlots)
 
-![](vignettes/WVPlots.png)
+![](tools/WVPlots.png)
 
 More notes:
 
