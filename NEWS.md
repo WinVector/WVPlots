@@ -1,7 +1,8 @@
 
-'WVPlots' 0.2.3 2017-03-10
+'WVPlots' 0.2.3 2017-03-24
 
- * Fix right-plot alighment in ScatterHist*
+ * Fix right-plot alighment in ScatterHist
+ * Expose ROC data structures
 
 'WVPlots' 0.2.2 2017-02-17
 
