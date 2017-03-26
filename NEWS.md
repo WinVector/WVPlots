@@ -1,4 +1,8 @@
 
+'WVPlots' 0.2.4 2017-03-25
+
+ * More argument checking.
+ 
 'WVPlots' 0.2.3 2017-03-24
 
  * Fix right-plot alighment in ScatterHist

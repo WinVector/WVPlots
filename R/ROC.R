@@ -37,6 +37,15 @@ novelPointPositionsR <- function(x) {
 #' @export
 #'
 graphROC <- function(modelPredictions, yValues) {
+  if(!is.numeric(modelPredictions)) {
+    stop("WVPlots::graphROC modelPredictions must be numeric")
+  }
+  if(!is.logical(yValues)) {
+    stop("WVPlots::graphROC yValues must be logical")
+  }
+  if(length(modelPredictions)!=length(yValues)) {
+    stop("WVPlots::graphROC must have length(modelPredictions)==length(yValues)")
+  }
   ord <- order(modelPredictions, decreasing=TRUE)
   yValues <- yValues[ord]
   modelPredictions <- modelPredictions[ord]
