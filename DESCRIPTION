@@ -2,13 +2,12 @@ Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
 Version: 0.2.4
-Date: 2017-03-25
+Date: 2017-03-30
 Author: Nina Zumel, John Mount
 Maintainer: John Mount <jmount@win-vector.com>
 URL: https://github.com/WinVector/WVPlots
 BugReports: https://github.com/WinVector/WVPlots/issues
-Description: Example 'ggplot2' plots we have found useful, under a standardized
-    calling interface.
+Description: Plots we have found useful, under a standardized calling interface.
 License: GPL-3
 VignetteBuilder: knitr
 Imports:
@@ -20,7 +19,8 @@ Imports:
     mgcv,
     reshape2,
     graphics,
-    wrapr
+    wrapr,
+    plotly
 Suggests:
     knitr,
     testthat

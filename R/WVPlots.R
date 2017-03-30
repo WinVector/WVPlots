@@ -1,6 +1,6 @@
 #' WVPlots: Common Plots for Analysis
 #'
-#' Example 'ggplot2' plots we have found useful, under a standardized
+#' Example plots we have found useful, under a standardized
 #' calling interface.
 #'
 #' To learn more about replyr, please start with the vignette:

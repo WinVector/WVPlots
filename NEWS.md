@@ -1,7 +1,8 @@
 
-'WVPlots' 0.2.4 2017-03-25
+'WVPlots' 0.2.4 2017-03-30
 
  * More argument checking.
+ * plotly ROC.
  
 'WVPlots' 0.2.3 2017-03-24
 

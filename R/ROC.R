@@ -360,3 +360,44 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   plot
 }
 
+
+
+#' Use \code{plotly} to produce a ROC plot.
+#'
+#'
+#' @param d dataframe
+#' @param predCol name of column with numeric predictions
+#' @param outcomeCol name of column with truth
+#' @param outcomeTarget value considred true
+#' @param title character title for plot
+#' @return plotly plot
+#'
+#' @examples
+#'
+#'
+#' d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
+#' plotlyROC(d, 'x', 'y', TRUE, 'example plot')
+#'
+#' @export
+#'
+plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title) {
+  prediction <- d[[predCol]]
+  if(!is.numeric(prediction)) {
+    stop("WVPlots:plotlyROC prediction must be numeric")
+  }
+  outcome <- d[[outcomeCol]]==outcomeTarget
+  rocFrame <- WVPlots::graphROC(prediction,
+                                outcome)
+  # see https://plot.ly/r/text-and-annotations/
+  plotly::plot_ly(rocFrame$pointGraph,
+                  x = ~FalsePositiveRate,
+                  y = ~TruePositiveRate,
+                  type='scatter',
+                  mode='lines+markers',
+                  hoverinfo= 'text',
+                  text= ~ paste('threshold:', model,
+                                '</br>False Positive Rate:', FalsePositiveRate,
+                                '</br>True Positive Rate:', TruePositiveRate)) ->.;
+    plotly::layout(., title = title)
+}
+

@@ -6,7 +6,7 @@
 \alias{WVPlots-package}
 \title{WVPlots: Common Plots for Analysis}
 \description{
-Example 'ggplot2' plots we have found useful, under a standardized
+Example plots we have found useful, under a standardized
 calling interface.
 }
 \details{
