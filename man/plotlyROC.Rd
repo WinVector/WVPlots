@@ -4,7 +4,7 @@
 \alias{plotlyROC}
 \title{Use \code{plotly} to produce a ROC plot.}
 \usage{
-plotlyROC(d, predCol, outcomeCol, outcomeTarget, title)
+plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...)
 }
 \arguments{
 \item{d}{dataframe}
@@ -16,6 +16,8 @@ plotlyROC(d, predCol, outcomeCol, outcomeTarget, title)
 \item{outcomeTarget}{value considred true}
 
 \item{title}{character title for plot}
+
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \value{
 plotly plot

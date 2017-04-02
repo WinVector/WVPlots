@@ -370,6 +370,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @param outcomeCol name of column with truth
 #' @param outcomeTarget value considred true
 #' @param title character title for plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @return plotly plot
 #'
 #' @examples
@@ -380,7 +381,9 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #'
 #' @export
 #'
-plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title) {
+plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
+                      ...) {
+  checkArgs(frame=d,xvar=predCol,yvar=outcomeCol,title=title,...)
   prediction <- d[[predCol]]
   if(!is.numeric(prediction)) {
     stop("WVPlots:plotlyROC prediction must be numeric")
@@ -388,6 +391,25 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title) {
   outcome <- d[[outcomeCol]]==outcomeTarget
   rocFrame <- WVPlots::graphROC(prediction,
                                 outcome)
+
+  auc <- rocFrame$area
+  returnScores=FALSE
+  nrep=100
+  parallelCluster=NULL
+  aucsig <- sigr::permutationScoreModel(modelValues=prediction,
+                                        yValues=outcome,
+                                        scoreFn=sigr::calcAUC,
+                                        returnScores=returnScores,
+                                        nRep=nrep,
+                                        parallelCluster=parallelCluster)
+  palletName = "Dark2"
+  pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
+  aucString <- sprintf('%.2g',auc)
+  subtitle = paste0(
+    'AUC=',aucString,
+    '\n</br>alt. hyp.: AUC(',predCol,')>permuted AUC, ',
+    pString)
+
   # see https://plot.ly/r/text-and-annotations/
   plotly::plot_ly(rocFrame$pointGraph,
                   x = ~FalsePositiveRate,
@@ -398,6 +420,6 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title) {
                   text= ~ paste('threshold:', model,
                                 '</br>False Positive Rate:', FalsePositiveRate,
                                 '</br>True Positive Rate:', TruePositiveRate)) ->.;
-    plotly::layout(., title = title)
+    plotly::layout(., title = paste(title, '\n</br>', subtitle))
 }
 
