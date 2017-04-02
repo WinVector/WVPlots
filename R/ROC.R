@@ -420,6 +420,9 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                   text= ~ paste('threshold:', model,
                                 '</br>False Positive Rate:', FalsePositiveRate,
                                 '</br>True Positive Rate:', TruePositiveRate)) ->.;
-    plotly::layout(., title = paste(title, '\n</br>', subtitle))
+    plotly::layout(., title = paste(title,
+                                    '\n</br>',
+                                    outcomeCol, '==', outcomeTarget, ' ~ ', predCol, ', ',
+                                    '\n</br>', subtitle))
 }
 
