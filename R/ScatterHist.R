@@ -1,5 +1,6 @@
 
 #' @importFrom sigr wrapFTest render
+#' @importFrom stats complete.cases
 NULL
 
 #' Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
@@ -37,6 +38,8 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
   if(!(smoothmethod %in% c('auto','loess','gam','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
   }
+  frame <- frame[, c(xvar,yvar), drop=FALSE]
+  frame <- frame[complete.cases(frame), , drop=FALSE]
   ..density.. <- NULL # used as a symbol, declare not an unbound variable
 
   # placeholder plot - prints nothing at all
