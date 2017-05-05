@@ -1,7 +1,9 @@
 #' WVPlots: Common Plots for Analysis
 #'
-#' Example plots we have found useful, under a standardized
-#' calling interface.
+#'  Select data analytics plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'.
+#' Plots of interest include: ROC, gain curve, scatter plot with marginal distributions,
+#' conditioned scatter plot with marginal densities.
+#' box and stem with matching theoretical distribution, and density with matching theoretical distribution,
 #'
 #' To learn more about replyr, please start with the vignette:
 #' \code{vignette('replyr','replyr')}
