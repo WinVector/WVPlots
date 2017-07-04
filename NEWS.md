@@ -1,4 +1,8 @@
 
+'WVPlots' 0.2.5 2017-07-04
+
+ * Minor documentation fixes.
+
 'WVPlots' 0.2.4 2017-05-05
 
  * More argument checking.
