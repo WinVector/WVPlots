@@ -6,8 +6,10 @@
 \alias{WVPlots-package}
 \title{WVPlots: Common Plots for Analysis}
 \description{
-Example plots we have found useful, under a standardized
-calling interface.
+Select data analysis plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'.
+Plots of interest include: 'ROC', gain curve, scatter plot with marginal distributions,
+conditioned scatter plot with marginal densities.
+box and stem with matching theoretical distribution, density with matching theoretical distribution.
 }
 \details{
 To learn more about replyr, please start with the vignette:

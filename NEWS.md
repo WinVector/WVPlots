@@ -2,11 +2,12 @@
 'WVPlots' 0.2.4 2017-05-05
 
  * More argument checking.
+ * NA guard on ScatterHist.
  * plotly ROC.
  
 'WVPlots' 0.2.3 2017-03-24
 
- * Fix right-plot alighment in ScatterHist
+ * Fix right-plot alignment in ScatterHist
  * Expose ROC data structures
 
 'WVPlots' 0.2.2 2017-02-17
