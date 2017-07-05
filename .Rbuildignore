@@ -5,7 +5,6 @@
 ^README\.Rmd$
 ^README\.html$
 ^README-.*\.png$
-^NEWS\.md$
 ^LICENSE$
 ^.*\.DS_Store$
 ^.*\.Rhistory$
