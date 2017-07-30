@@ -8,7 +8,7 @@ Authors@R: c(
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
     person(family = "Win-Vector LLC", role = c("cph"))
     )
-URL: http://winvector.github.io/WVPlots/
+URL: https://github.com/WinVector/WVPlots, https://winvector.github.io/WVPlots/
 Maintainer: John Mount <jmount@win-vector.com>
 BugReports: https://github.com/WinVector/WVPlots/issues
 Description: Select data analysis plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'.  
