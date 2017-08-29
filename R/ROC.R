@@ -417,7 +417,7 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                   type='scatter',
                   mode='lines+markers',
                   hoverinfo= 'text',
-                  text= ~ paste('threshold:', model,
+                  text= ~ paste('</br>threshold: ', model,
                                 '</br>False Positive Rate:', FalsePositiveRate,
                                 '</br>True Positive Rate:', TruePositiveRate)) ->.;
     plotly::layout(., title = paste(title,
