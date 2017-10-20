@@ -25,7 +25,8 @@ NULL
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,y=y)
-#' WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+#' WVPlots::ScatterHist(frm, "x", "y", title="Example Fit",
+#'   contour = TRUE)
 #'
 #' @export
 ScatterHist = function(frame, xvar, yvar,title, ...,
