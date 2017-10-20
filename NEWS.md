@@ -1,4 +1,8 @@
 
+# WVPlots 0.276 2017-10-20
+
+ * Fix documentation fixes.
+ 
 # WVPlots 0.2.6 2017-08-28
 
  * Fix plotly labels.
