@@ -19,6 +19,9 @@
 #' @name WVPlots
 NULL
 
+#' @importFrom wrapr :=
+NULL
+
 
 # re-export so old code and demos work (from when functions were here)
 

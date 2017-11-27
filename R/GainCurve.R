@@ -74,10 +74,6 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
     title = title,
     ...
   )
-  if (!requireNamespace('reshape2', quietly = TRUE)) {
-    warning("GainCurve needs reshape2")
-    return(NULL)
-  }
   pctpop <- NULL # used as a symbol, declare not an unbound variable
   pct_outcome <-
     NULL # used as a symbol, declare not an unbound variable
@@ -105,20 +101,21 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
   modelArea = areaCalc(results$pctpop, results$model) - 0.5
   giniScore = modelArea / idealArea # actually, normalized gini score
 
-  # melt the frame into the tall form, for plotting
-  results = reshape2::melt(
-    results,
-    id.vars = "pctpop",
-    measure.vars = c("model", "wizard"),
-    variable.name = "sort_criterion",
-    value.name = "pct_outcome"
-  )
+  # transform the frame into the tall form, for plotting
+  results <-
+    cdata::unpivotValuesToRows(results,
+                               nameForNewKeyColumn = 'sort_criterion',
+                               nameForNewValueColumn = 'pct_outcome',
+                               columnsToTakeFrom = c('model', 'wizard'))
+  # rename sort_criterion
+  sortKeyM <- c('model' = paste('model: sort by', xvar),
+               'wizard' = paste('wizard: sort by', truthVar))
+  results$sort_criterion <- sortKeyM[results$sort_criterion]
   # rename levels of sort criterion
-  colorKey = c('model' = 'darkblue', 'wizard' = 'darkgreen')
+  colorKey = as.character(sortKeyM) := c('darkblue', 'darkgreen')
   names(colorKey) = c(paste('model: sort by', xvar),
                       paste('wizard: sort by', truthVar))
   modelKey = names(colorKey)[[1]]
-  results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
   if (requireNamespace('sigr', quietly = TRUE)) {
