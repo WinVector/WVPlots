@@ -6,7 +6,8 @@
 \usage{
 ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
   annot_size = 5, minimal_labels = TRUE, binwidth_x = NULL,
-  binwidth_y = NULL, adjust_x = 1, adjust_y = 1)
+  binwidth_y = NULL, adjust_x = 1, adjust_y = 1, point_alpha = 0.5,
+  contour = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -32,6 +33,10 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
 \item{adjust_x}{numeric adjust x density plot}
 
 \item{adjust_y}{numeric adjust y density plot}
+
+\item{point_alpha}{numeric opaqueness of the plot points}
+
+\item{contour}{logical if TRUE add a 2d contour plot}
 }
 \description{
 Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
@@ -42,6 +47,7 @@ set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y)
-WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+WVPlots::ScatterHist(frm, "x", "y", title="Example Fit",
+  contour = TRUE)
 
 }

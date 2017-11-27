@@ -17,13 +17,16 @@ NULL
 #' @param binwidth_y  numeric binwidth for y histogram
 #' @param adjust_x  numeric adjust x density plot
 #' @param adjust_y  numeric adjust y density plot
+#' @param point_alpha numeric opaqueness of the plot points
+#' @param contour logical if TRUE add a 2d contour plot
 #' @examples
 #'
 #' set.seed(34903490)
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,y=y)
-#' WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+#' WVPlots::ScatterHist(frm, "x", "y", title="Example Fit",
+#'   contour = TRUE)
 #'
 #' @export
 ScatterHist = function(frame, xvar, yvar,title, ...,
@@ -33,7 +36,9 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
                        binwidth_x = NULL,
                        binwidth_y = NULL,
                        adjust_x = 1,
-                       adjust_y = 1) {
+                       adjust_y = 1,
+                       point_alpha = 0.5,
+                       contour = FALSE) {
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   if(!(smoothmethod %in% c('auto','loess','gam','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
@@ -96,10 +101,13 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
 
   # scatterplot of x and y
   plot_center = ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar,y=yvar)) +
-    ggplot2::geom_point(alpha=0.5) +
+    ggplot2::geom_point(alpha=point_alpha) +
     ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   if(!is.null(gSmooth)) {
     plot_center = plot_center + gSmooth
+  }
+  if(contour) {
+    plot_center = plot_center + ggplot2::geom_density2d()
   }
 
   # get the data range, to help align plots

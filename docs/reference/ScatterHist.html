@@ -104,7 +104,8 @@
 
     <pre class="usage"><span class='fu'>ScatterHist</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
   <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+  <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +158,14 @@
       <th>adjust_y</th>
       <td><p>numeric adjust y density plot</p></td>
     </tr>
+    <tr>
+      <th>point_alpha</th>
+      <td><p>numeric opaqueness of the plot points</p></td>
+    </tr>
+    <tr>
+      <th>contour</th>
+      <td><p>logical if TRUE add a 2d contour plot</p></td>
+    </tr>
     </table>
     
 
@@ -166,7 +175,8 @@
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>)
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist'>ScatterHist</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Fit"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist'>ScatterHist</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Fit"</span>,
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
