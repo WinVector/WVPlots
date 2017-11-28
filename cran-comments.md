@@ -6,6 +6,9 @@
   * using platform: x86_64-apple-darwin15.6.0 (64-bit)
  
   * Windows
+  * using R Under development (unstable) (2017-09-12 r73242)
+  * using platform: x86_64-w64-mingw32 (64-bit)
+  * using session charset: ISO8859-1
 
 ## R CMD check --as-cran WVPlots_0.2.7.tar.gz
 
