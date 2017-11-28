@@ -13,7 +13,7 @@ Maintainer: John Mount <jmount@win-vector.com>
 BugReports: https://github.com/WinVector/WVPlots/issues
 Description: Select data analysis plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'.  
    Plots of interest include: 'ROC', gain curve, scatter plot with marginal distributions, 
-   conditioned scatter plot with marginal densities.
+   conditioned scatter plot with marginal densities,
    box and stem with matching theoretical distribution, and density with matching theoretical distribution.
 License: GPL-3
 VignetteBuilder: knitr
@@ -27,7 +27,6 @@ Imports:
     wrapr (>= 1.0.1),
     cdata (>= 0.5.0),
     mgcv,
-    reshape2,
     graphics,
     plotly
 Suggests:
