@@ -1,8 +1,9 @@
 
-# WVPlots 0.2.7 2017-11-27
+# WVPlots 0.2.7 2017-12-14
 
  * Fix documentation fixes.
- * Swtich from reshape2 to cdata.
+ * Switch from reshape2 to cdata.
+ * Move to wrapr 1.0.2.
  
 # WVPlots 0.2.6 2017-08-28
 
