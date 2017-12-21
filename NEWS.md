@@ -1,5 +1,9 @@
 
-# WVPlots 0.2.7 2017-12-14
+# WVPlots 0.2.8 2017-12-21
+
+ * Add new performance plot.
+
+# WVPlots 0.2.7 2017-11-28
 
  * Fix documentation fixes.
  * Switch from reshape2 to cdata.
