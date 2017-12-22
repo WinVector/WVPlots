@@ -60,10 +60,16 @@ plot_fit_trajectory <- function(d,
   if(length(list(...))>0) {
     stop("WVPlots::plot_fit_trajectory unexpected arguments")
   }
+  # make sure measure is first column for moveValuesToRowsD()
+  column_description <- column_description[,
+                                           c("measure", "training", "validation"),
+                                           drop = FALSE]
   discounted <- NULL # don't look like an unbound variable
   training <- NULL # don't look like an unbound variable
   cols_to_flip <-
-    column_description[column_description$measure %in% needs_flip, , drop = FALSE]
+    column_description[column_description$measure %in% needs_flip,
+                       ,
+                       drop = FALSE]
   cols_to_flip$measure <- NULL
   cols_to_flip <- unique(as.character(unlist(cols_to_flip)))
   for(ci in cols_to_flip) {
