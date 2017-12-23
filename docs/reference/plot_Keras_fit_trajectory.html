@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the distribution of a variable with a tail shaded — ShadedDensity • WVPlots</title>
+<title>Plot the trajectory of a Keras model fit. — plot_Keras_fit_trajectory • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -95,60 +95,77 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the distribution of a variable with a tail shaded</h1>
+    <h1>Plot the trajectory of a Keras model fit.</h1>
     </div>
 
     
-    <p>Plot the distribution of a variable with a tail shaded</p>
+    <p>Plot a history of fit over a trajetory of times.  Example below gives
+a fit plot for a history report from Keras R package.
+Please see <a href='http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html'>http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html</a>
+for some details.</p>
     
 
-    <pre class="usage"><span class='fu'>ShadedDensity</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>threshold</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>tail</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_Keras_fit_trajectory</span>(<span class='no'>d</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
+  <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>frame</th>
-      <td><p>data frame to get values from</p></td>
-    </tr>
-    <tr>
-      <th>xvar</th>
-      <td><p>name of the variable to be density plotted</p></td>
-    </tr>
-    <tr>
-      <th>threshold</th>
-      <td><p>boundary value for the tail</p></td>
+      <th>d</th>
+      <td><p>data frame to get values from.</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>title to place on plot</p></td>
+      <td><p>character title for plot.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
+      <td><p>force later arguments to be bound by name</p></td>
     </tr>
     <tr>
-      <th>tail</th>
-      <td><p>which tail to shade, 'left' (default) or 'right'</p></td>
+      <th>epoch_name</th>
+      <td><p>name for epoch or trajectory column.</p></td>
+    </tr>
+    <tr>
+      <th>pick_metric</th>
+      <td><p>character metric to maximize.</p></td>
+    </tr>
+    <tr>
+      <th>discount_rate</th>
+      <td><p>numeric what fraction of over-fit to subtract from validation performance.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>ggplot2 plot</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>set.seed</span>(<span class='fl'>52523</span>)
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>meas</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>100</span>))
-<span class='no'>threshold</span> <span class='kw'>=</span> -<span class='fl'>1.5</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ShadedDensity'>ShadedDensity</a></span>(<span class='no'>d</span>, <span class='st'>"meas"</span>, <span class='no'>threshold</span>,
-                       <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example shaded density plot, left tail"</span>)</div><div class='img'><img src='ShadedDensity-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ShadedDensity'>ShadedDensity</a></span>(<span class='no'>d</span>, <span class='st'>"meas"</span>, -<span class='no'>threshold</span>, <span class='kw'>tail</span><span class='kw'>=</span><span class='st'>"right"</span>,
-                       <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example shaded density plot, right tail"</span>)</div><div class='img'><img src='ShadedDensity-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='co'># example data (from Keras)</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
+  <span class='kw'>epoch</span>    <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,         <span class='fl'>2</span>,         <span class='fl'>3</span>,         <span class='fl'>4</span>,         <span class='fl'>5</span>),
+  <span class='kw'>val_loss</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.3769818</span>, <span class='fl'>0.2996994</span>, <span class='fl'>0.2963943</span>, <span class='fl'>0.2779052</span>, <span class='fl'>0.2842501</span>),
+  <span class='kw'>val_acc</span>  <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.8722000</span>, <span class='fl'>0.8895000</span>, <span class='fl'>0.8822000</span>, <span class='fl'>0.8899000</span>, <span class='fl'>0.8861000</span>),
+  <span class='kw'>loss</span>     <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.5067290</span>, <span class='fl'>0.3002033</span>, <span class='fl'>0.2165675</span>, <span class='fl'>0.1738829</span>, <span class='fl'>0.1410933</span>),
+  <span class='kw'>acc</span>      <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.7852000</span>, <span class='fl'>0.9040000</span>, <span class='fl'>0.9303333</span>, <span class='fl'>0.9428000</span>, <span class='fl'>0.9545333</span>) )
+
+<span class='no'>plt</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_Keras_fit_trajectory</span>(
+  <span class='no'>d</span>,
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"model performance by epoch, dataset, and measure"</span>)
+
+<span class='fu'>suppressWarnings</span>(<span class='fu'>print</span>(<span class='no'>plt</span>)) <span class='co'># too few points for loess</span></div><div class='img'><img src='plot_Keras_fit_trajectory-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
