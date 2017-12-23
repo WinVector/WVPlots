@@ -2,7 +2,8 @@
 #' Plot the trajectory of a model fit.
 #'
 #' Plot a history of fit over a trajetory of times.  Example below gives
-#' a fit plot for a history report from Keras R package.  Please see \url{http://winvector.github.io/FluidData/PlotExample/PlotExample.html}
+#' a fit plot for a history report from Keras R package.
+#' Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
 #' for some details.
 #'
 #' @param d data frame to get values from.
