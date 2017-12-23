@@ -30,8 +30,8 @@ ggplot2 plot
 \description{
 Plot a history of fit over a trajetory of times.  Example below gives
 a fit plot for a history report from Keras R package.
-Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
-for some details.
+Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
+for some examples and details.
 }
 \examples{
 
