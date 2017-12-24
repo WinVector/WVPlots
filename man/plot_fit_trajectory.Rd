@@ -60,3 +60,6 @@ plt <- plot_fit_trajectory(
 suppressWarnings(print(plt)) # too few points for loess
 
 }
+\seealso{
+\link{plot_Keras_fit_trajectory}
+}

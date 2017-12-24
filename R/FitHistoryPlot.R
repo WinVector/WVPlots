@@ -6,6 +6,8 @@
 #' Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
 #' for some examples and details.
 #'
+#' @seealso \link{plot_Keras_fit_trajectory}
+#'
 #' @param d data frame to get values from.
 #' @param column_description description of column measures (data.frame with columns measure, validation, and training).
 #' @param title character title for plot.
@@ -152,6 +154,8 @@ plot_fit_trajectory <- function(d,
 #' @param pick_metric character metric to maximize.
 #' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
 #' @return ggplot2 plot
+#'
+#' @seealso \link{plot_fit_trajectory}
 #'
 #' @examples
 #'
