@@ -81,17 +81,11 @@ plot_fit_trajectory <- function(d,
     d[[ci]] <- -d[[ci]]
   }
 
-  if(utils::packageVersion("cdata")=='0.5.0') {
-    d <- cdata::moveValuesToRowsD(
-      d,
-      controlTable = column_description,
-      columnsToCopy = epoch_name)
-  } else {
-    d <- cdata::rowrecs_to_blocks(
-      d,
-      controlTable = column_description,
-      columnsToCopy = epoch_name)
-  }
+  # TODO: move to newer cdata API when it is on CRAN
+  d <- cdata::moveValuesToRowsD(
+    d,
+    controlTable = column_description,
+    columnsToCopy = epoch_name)
 
   # get factors into user order
   d$measure <- factor(d$measure,

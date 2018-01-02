@@ -2,7 +2,7 @@
 ## Test environments
 
   * OSX
-  * using R version 3.4.2 (2017-09-28)
+  * using R version 3.4.3 (2017-11-30)
   * using platform: x86_64-apple-darwin15.6.0 (64-bit)
  
   * Windows
@@ -10,15 +10,10 @@
   * using platform: x86_64-w64-mingw32 (64-bit)
   * using session charset: ISO8859-1
 
-## R CMD check --as-cran WVPlots_0.2.7.tar.gz
+## R CMD check --as-cran WVPlots_0.2.8.tar.gz
 
-  * using session charset: UTF-8
-  * using option ‘--as-cran’
-  * checking for file ‘WVPlots/DESCRIPTION’ ... OK
-  * checking extension type ... Package
-  * this is package ‘WVPlots’ version ‘0.2.7’
-
-
+  * this is package ‘WVPlots’ version ‘0.2.8’
+  * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 
 One NOTE:
 
@@ -30,7 +25,6 @@ No WARNINGs or ERRORs.
 R CMD check results
 
 Status: OK
-
 
 ## Downstream dependencies
 
