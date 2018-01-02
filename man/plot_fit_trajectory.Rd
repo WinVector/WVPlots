@@ -5,7 +5,8 @@
 \title{Plot the trajectory of a model fit.}
 \usage{
 plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
-  needs_flip = c(), pick_metric = NULL, discount_rate = NULL)
+  needs_flip = c(), pick_metric = NULL, discount_rate = NULL,
+  draw_segments = TRUE)
 }
 \arguments{
 \item{d}{data frame to get values from.}
@@ -23,6 +24,8 @@ plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
 \item{pick_metric}{character metric to maximize.}
 
 \item{discount_rate}{numeric what fraction of over-fit to subtract from validation performance.}
+
+\item{draw_segments}{logical if TRUE draw over-fit/under-fit segments.}
 }
 \value{
 ggplot2 plot

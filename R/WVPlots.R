@@ -22,6 +22,9 @@ NULL
 #' @importFrom wrapr :=
 NULL
 
+#' @importFrom utils packageVersion
+NULL
+
 
 # re-export so old code and demos work (from when functions were here)
 

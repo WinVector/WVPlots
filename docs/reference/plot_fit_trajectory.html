@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -106,7 +106,8 @@ for some examples and details.</p>
     
 
     <pre class="usage"><span class='fu'>plot_fit_trajectory</span>(<span class='no'>d</span>, <span class='no'>column_description</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
-  <span class='kw'>needs_flip</span> <span class='kw'>=</span> <span class='fu'>c</span>(), <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>needs_flip</span> <span class='kw'>=</span> <span class='fu'>c</span>(), <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>draw_segments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +143,10 @@ for some examples and details.</p>
     <tr>
       <th>discount_rate</th>
       <td><p>numeric what fraction of over-fit to subtract from validation performance.</p></td>
+    </tr>
+    <tr>
+      <th>draw_segments</th>
+      <td><p>logical if TRUE draw over-fit/under-fit segments.</p></td>
     </tr>
     </table>
     

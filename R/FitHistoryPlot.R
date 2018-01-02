@@ -16,6 +16,7 @@
 #' @param needs_flip charater array of measures that need to be flipped.
 #' @param pick_metric character metric to maximize.
 #' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
+#' @param draw_segments logical if TRUE draw over-fit/under-fit segments.
 #' @return ggplot2 plot
 #'
 #' @examples
@@ -53,7 +54,8 @@ plot_fit_trajectory <- function(d,
                                 epoch_name = "epoch",
                                 needs_flip = c(),
                                 pick_metric = NULL,
-                                discount_rate = NULL) {
+                                discount_rate = NULL,
+                                draw_segments = TRUE) {
   if(!is.data.frame(d)) {
     stop("WVPlots::plot_fit_trajectory d must be a data.frame")
   }
@@ -79,10 +81,17 @@ plot_fit_trajectory <- function(d,
     d[[ci]] <- -d[[ci]]
   }
 
-  d <- cdata::moveValuesToRowsD(
-    d,
-    controlTable = column_description,
-    columnsToCopy = epoch_name)
+  if(utils::packageVersion("cdata")=='0.5.0') {
+    d <- cdata::moveValuesToRowsD(
+      d,
+      controlTable = column_description,
+      columnsToCopy = epoch_name)
+  } else {
+    d <- cdata::rowrecs_to_blocks(
+      d,
+      controlTable = column_description,
+      columnsToCopy = epoch_name)
+  }
 
   # get factors into user order
   d$measure <- factor(d$measure,
@@ -96,17 +105,17 @@ plot_fit_trajectory <- function(d,
                            d$validation)
   }
 
-  plt <- ggplot2::ggplot(data = d,
-                  ggplot2::aes_string(x = epoch_name,
-                               xend = epoch_name,
-                               y = "validation",
-                               yend = "training",
-                               ymin = "rmin",
-                               ymax = "rmax")) +
-    ggplot2::geom_segment(alpha = 0.5) +
+  plt <- ggplot2::ggplot(
+    data = d,
+    ggplot2::aes_string(x = epoch_name,
+                        xend = epoch_name,
+                        y = "validation",
+                        yend = "training",
+                        ymin = "rmin",
+                        ymax = "rmax")) +
     ggplot2::geom_point() +
-    ggplot2::geom_point( ggplot2::aes(y = training),
-                         shape = 3, alpha = 0.5) +
+    ggplot2::geom_point(ggplot2::aes(y = training),
+                        shape = 3, alpha = 0.5) +
     ggplot2::stat_smooth(geom = "line",
                          se = FALSE,
                          color  = "#d95f02",
@@ -116,6 +125,10 @@ plot_fit_trajectory <- function(d,
     ggplot2::facet_wrap(~measure, ncol=1, scales = 'free_y') +
     ggplot2::ylab("performance") +
     ggplot2::ggtitle(title)
+  if(draw_segments) {
+    plt <- plt +
+      ggplot2::geom_segment(alpha = 0.5)
+  }
   if(!is.null(pick_metric)) {
     pd <- d[d$measure == pick_metric, , drop = FALSE]
     if(!is.null(discount_rate)) {
