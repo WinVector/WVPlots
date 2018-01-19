@@ -183,7 +183,7 @@ plot_fit_trajectory <- function(d,
 #' @param epoch_name name for epoch or trajectory column.
 #' @param lossname name of training loss column (default 'loss')
 #' @param loss_pretty_name  name for loss on graph (default 'minus binary cross entropy')
-#' @param perfname name for training performance column (default 'acc')
+#' @param perfname name of training performance column (default 'acc')
 #' @param perf_pretty_name name for performance metric on graph (default 'accuracy')
 #' @param pick_metric character: metric to maximize (NULL for no pick line - default loss_pretty_name)
 #' @param fliploss flip the loss so that "larger is better"? (default TRUE)

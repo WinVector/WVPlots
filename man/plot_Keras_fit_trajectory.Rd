@@ -23,7 +23,7 @@ plot_Keras_fit_trajectory(d, title, ..., epoch_name = "epoch",
 
 \item{loss_pretty_name}{name for loss on graph (default 'minus binary cross entropy')}
 
-\item{perfname}{name for training performance column (default 'acc')}
+\item{perfname}{name of training performance column (default 'acc')}
 
 \item{perf_pretty_name}{name for performance metric on graph (default 'accuracy')}
 
