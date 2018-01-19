@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -106,7 +106,10 @@ for some details.</p>
     
 
     <pre class="usage"><span class='fu'>plot_Keras_fit_trajectory</span>(<span class='no'>d</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
-  <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
+  <span class='kw'>lossname</span> <span class='kw'>=</span> <span class='st'>"loss"</span>, <span class='kw'>loss_pretty_name</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>,
+  <span class='kw'>perfname</span> <span class='kw'>=</span> <span class='st'>"acc"</span>, <span class='kw'>perf_pretty_name</span> <span class='kw'>=</span> <span class='st'>"accuracy"</span>,
+  <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='no'>loss_pretty_name</span>, <span class='kw'>fliploss</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -128,18 +131,51 @@ for some details.</p>
       <td><p>name for epoch or trajectory column.</p></td>
     </tr>
     <tr>
+      <th>lossname</th>
+      <td><p>name of training loss column (default 'loss')</p></td>
+    </tr>
+    <tr>
+      <th>loss_pretty_name</th>
+      <td><p>name for loss on graph (default 'minus binary cross entropy')</p></td>
+    </tr>
+    <tr>
+      <th>perfname</th>
+      <td><p>name of training performance column (default 'acc')</p></td>
+    </tr>
+    <tr>
+      <th>perf_pretty_name</th>
+      <td><p>name for performance metric on graph (default 'accuracy')</p></td>
+    </tr>
+    <tr>
       <th>pick_metric</th>
-      <td><p>character metric to maximize.</p></td>
+      <td><p>character: metric to maximize (NULL for no pick line - default loss_pretty_name)</p></td>
+    </tr>
+    <tr>
+      <th>fliploss</th>
+      <td><p>flip the loss so that "larger is better"? (default TRUE)</p></td>
     </tr>
     <tr>
       <th>discount_rate</th>
-      <td><p>numeric what fraction of over-fit to subtract from validation performance.</p></td>
+      <td><p>numeric: what fraction of over-fit to subtract from validation performance.</p></td>
+    </tr>
+    <tr>
+      <th>draw_ribbon</th>
+      <td><p>present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>ggplot2 plot</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Assumes a performance matrix that carries information for both training and validation loss,
+and an additional training and validation performance metric, in the format that
+a Keras history object returns.</p>
+<p>By default, flips the loss so that better performance is larger for both the loss and the performance metric,
+and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
+If you choose not to flip the loss, you should not use the loss as the pick_metric.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -157,9 +193,8 @@ for some details.</p>
 
 <span class='no'>plt</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_Keras_fit_trajectory</span>(
   <span class='no'>d</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"model performance by epoch, dataset, and measure"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'moveValuesToRowsD' is deprecated.</span>
-#&gt; <span class='warning'>Use 'rowrecs_to_blocks' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='input'>
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"model performance by epoch, dataset, and measure"</span>)
+
 <span class='fu'>suppressWarnings</span>(<span class='fu'>print</span>(<span class='no'>plt</span>)) <span class='co'># too few points for loess</span></div><div class='img'><img src='plot_Keras_fit_trajectory-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
@@ -169,6 +204,8 @@ for some details.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

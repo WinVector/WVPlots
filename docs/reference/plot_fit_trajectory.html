@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -107,7 +107,7 @@ for some examples and details.</p>
 
     <pre class="usage"><span class='fu'>plot_fit_trajectory</span>(<span class='no'>d</span>, <span class='no'>column_description</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
   <span class='kw'>needs_flip</span> <span class='kw'>=</span> <span class='fu'>c</span>(), <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>draw_segments</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>draw_segments</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +143,10 @@ for some examples and details.</p>
     <tr>
       <th>discount_rate</th>
       <td><p>numeric what fraction of over-fit to subtract from validation performance.</p></td>
+    </tr>
+    <tr>
+      <th>draw_ribbon</th>
+      <td><p>present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)</p></td>
     </tr>
     <tr>
       <th>draw_segments</th>
@@ -181,9 +185,8 @@ for some examples and details.</p>
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"model performance by epoch, dataset, and measure"</span>,
   <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
   <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>,
-  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'moveValuesToRowsD' is deprecated.</span>
-#&gt; <span class='warning'>Use 'rowrecs_to_blocks' instead.</span>
-#&gt; <span class='warning'>See help("Deprecated")</span></div><div class='input'>
+  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
+
 <span class='fu'>suppressWarnings</span>(<span class='fu'>print</span>(<span class='no'>plt</span>)) <span class='co'># too few points for loess</span></div><div class='img'><img src='plot_fit_trajectory-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>

@@ -16,6 +16,7 @@
 #' @param needs_flip charater array of measures that need to be flipped.
 #' @param pick_metric character metric to maximize.
 #' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
+#' @param draw_ribbon present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)
 #' @param draw_segments logical if TRUE draw over-fit/under-fit segments.
 #' @return ggplot2 plot
 #'

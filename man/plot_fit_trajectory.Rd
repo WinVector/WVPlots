@@ -25,6 +25,8 @@ plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
 
 \item{discount_rate}{numeric what fraction of over-fit to subtract from validation performance.}
 
+\item{draw_ribbon}{present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)}
+
 \item{draw_segments}{logical if TRUE draw over-fit/under-fit segments.}
 }
 \value{
