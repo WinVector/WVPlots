@@ -5,7 +5,10 @@
 \title{Plot the trajectory of a Keras model fit.}
 \usage{
 plot_Keras_fit_trajectory(d, title, ..., epoch_name = "epoch",
-  pick_metric = "minus binary cross entropy", discount_rate = 0.1)
+  lossname = "loss", loss_pretty_name = "minus binary cross entropy",
+  perfname = "acc", perf_pretty_name = "accuracy",
+  pick_metric = loss_pretty_name, fliploss = TRUE, discount_rate = NULL,
+  draw_ribbon = FALSE)
 }
 \arguments{
 \item{d}{data frame to get values from.}
@@ -16,9 +19,21 @@ plot_Keras_fit_trajectory(d, title, ..., epoch_name = "epoch",
 
 \item{epoch_name}{name for epoch or trajectory column.}
 
-\item{pick_metric}{character metric to maximize.}
+\item{lossname}{name of training loss column (default 'loss')}
 
-\item{discount_rate}{numeric what fraction of over-fit to subtract from validation performance.}
+\item{loss_pretty_name}{name for loss on graph (default 'minus binary cross entropy')}
+
+\item{perfname}{name for training performance column (default 'acc')}
+
+\item{perf_pretty_name}{name for performance metric on graph (default 'accuracy')}
+
+\item{pick_metric}{character: metric to maximize (NULL for no pick line - default loss_pretty_name)}
+
+\item{fliploss}{flip the loss so that "larger is better"? (default TRUE)}
+
+\item{discount_rate}{numeric: what fraction of over-fit to subtract from validation performance.}
+
+\item{draw_ribbon}{present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)}
 }
 \value{
 ggplot2 plot
@@ -28,6 +43,15 @@ Plot a history of fit over a trajetory of times.  Example below gives
 a fit plot for a history report from Keras R package.
 Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
 for some details.
+}
+\details{
+Assumes a performance matrix that carries information for both training and validation loss,
+and an additional training and validation performance metric, in the format that
+a Keras history object returns.
+
+By default, flips the loss so that better performance is larger for both the loss and the performance metric,
+and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
+If you choose not to flip the loss, you should not use the loss as the pick_metric.
 }
 \examples{
 

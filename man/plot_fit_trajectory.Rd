@@ -6,7 +6,7 @@
 \usage{
 plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
   needs_flip = c(), pick_metric = NULL, discount_rate = NULL,
-  draw_segments = TRUE)
+  draw_ribbon = FALSE, draw_segments = FALSE)
 }
 \arguments{
 \item{d}{data frame to get values from.}

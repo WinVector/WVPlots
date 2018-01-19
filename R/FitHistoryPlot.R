@@ -55,7 +55,8 @@ plot_fit_trajectory <- function(d,
                                 needs_flip = c(),
                                 pick_metric = NULL,
                                 discount_rate = NULL,
-                                draw_segments = TRUE) {
+                                draw_ribbon = FALSE,
+                                draw_segments = FALSE) {
   if(!is.data.frame(d)) {
     stop("WVPlots::plot_fit_trajectory d must be a data.frame")
   }
@@ -98,6 +99,11 @@ plot_fit_trajectory <- function(d,
                            d$validation)
   }
 
+
+  valCol = "#d95f02"
+  trainCol = "#1b9e77"
+  pickCol = '#e6ab02'
+
   plt <- ggplot2::ggplot(
     data = d,
     ggplot2::aes_string(x = epoch_name,
@@ -106,18 +112,36 @@ plot_fit_trajectory <- function(d,
                         yend = "training",
                         ymin = "rmin",
                         ymax = "rmax")) +
-    ggplot2::geom_point() +
-    ggplot2::geom_point(ggplot2::aes(y = training),
-                        shape = 3, alpha = 0.5) +
-    ggplot2::stat_smooth(geom = "line",
-                         se = FALSE,
-                         color  = "#d95f02",
-                         alpha = 0.8,
-                         method = "loess") +
-    ggplot2::geom_ribbon(alpha=0.2, fill = "#1b9e77") +
+    ggplot2::geom_point(color=valCol) +
+    ggplot2::geom_point(ggplot2::aes(y = training), color=trainCol)
+
+  if(draw_ribbon) {
+    plt = plt + ggplot2::stat_smooth(geom = "line",
+                                     se = FALSE,
+                                     color  = valCol,
+                                     alpha = 0.8,
+                                     method = "loess") +
+      ggplot2::geom_ribbon(alpha=0.2, fill = trainCol)
+    subtitle = NULL
+  } else {
+    plt = plt + ggplot2::stat_smooth(geom = "line",
+                                     se = FALSE,
+                                     color  = valCol,
+                                     method = "loess") +
+      ggplot2::stat_smooth(ggplot2::aes(y = training),
+                           geom = "line",
+                           se = FALSE,
+                           color  =  trainCol,
+                           alpha = 0.8,
+                           linetype = 3,
+                           method = "loess")
+    subtitle = "Validation curve solid, training curve dashed"
+  }
+
+  plt = plt +
     ggplot2::facet_wrap(~measure, ncol=1, scales = 'free_y') +
     ggplot2::ylab("performance") +
-    ggplot2::ggtitle(title)
+    ggplot2::ggtitle(title, subtitle=subtitle)
   if(draw_segments) {
     plt <- plt +
       ggplot2::geom_segment(alpha = 0.5)
@@ -130,15 +154,15 @@ plot_fit_trajectory <- function(d,
       pick <- pd[[epoch_name]][[which.max(pd$validation)]]
     }
     plt <- plt +
-      ggplot2::geom_vline(xintercept = pick, alpha=0.7, color='#e6ab02')
+      ggplot2::geom_vline(xintercept = pick, alpha=0.7, color=pickCol)
   }
   if(!is.null(discount_rate)) {
     plt <- plt +
       ggplot2::stat_smooth(geom = "line",
                 aes(y = discounted),
                 se = FALSE,
-                color  = "#d95f02",
-                alpha = 0.2,
+                color  = valCol,
+                alpha = 0.5,
                 method = "loess",
                 linetype = 2)
   }
@@ -157,9 +181,25 @@ plot_fit_trajectory <- function(d,
 #' @param title character title for plot.
 #' @param ... force later arguments to be bound by name
 #' @param epoch_name name for epoch or trajectory column.
-#' @param pick_metric character metric to maximize.
-#' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
+#' @param lossname name of training loss column (default 'loss')
+#' @param loss_pretty_name  name for loss on graph (default 'minus binary cross entropy')
+#' @param perfname name for training performance column (default 'acc')
+#' @param perf_pretty_name name for performance metric on graph (default 'accuracy')
+#' @param pick_metric character: metric to maximize (NULL for no pick line - default loss_pretty_name)
+#' @param fliploss flip the loss so that "larger is better"? (default TRUE)
+#' @param discount_rate numeric: what fraction of over-fit to subtract from validation performance.
+#' @param draw_ribbon present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)
 #' @return ggplot2 plot
+#'
+#' @details
+#'
+#' Assumes a performance matrix that carries information for both training and validation loss,
+#' and an additional training and validation performance metric, in the format that
+#' a Keras history object returns.
+#'
+#' By default, flips the loss so that better performance is larger for both the loss and the performance metric,
+#' and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
+#' If you choose not to flip the loss, you should not use the loss as the pick_metric.
 #'
 #' @seealso \link{plot_fit_trajectory}
 #'
@@ -184,20 +224,34 @@ plot_Keras_fit_trajectory <- function(d,
                                 title,
                                 ...,
                                 epoch_name = "epoch",
-                                pick_metric = "minus binary cross entropy",
-                                discount_rate = 0.1) {
+                                lossname = "loss",
+                                loss_pretty_name = "minus binary cross entropy",
+                                perfname = "acc",
+                                perf_pretty_name = "accuracy",
+                                pick_metric = loss_pretty_name,
+                                fliploss = TRUE,
+                                discount_rate = NULL,
+                                draw_ribbon = FALSE)
+{
   d[[epoch_name]] <- seq_len(nrow(d))
+  val_loss_name = paste("val", lossname, sep="_")
+  val_perf_name = paste("val", perfname, sep="_")
   column_description <-  data.frame(
-       measure =    c("minus binary cross entropy", "accuracy"),
-       training =   c("loss",                       "acc"),
-       validation = c("val_loss",                   "val_acc"),
-       stringsAsFactors = FALSE)
-  needs_flip <- "minus binary cross entropy"
+    measure =    c(loss_pretty_name, perf_pretty_name),
+    training =   c(lossname,         perfname),
+    validation = c(val_loss_name,     val_perf_name),
+    stringsAsFactors = FALSE)
+  if(fliploss)
+   needs_flip <- loss_pretty_name
+  else
+    needs_flip = list()
   plot_fit_trajectory(d = d,
                       title = title,
                       column_description = column_description,
                       needs_flip = needs_flip,
                       epoch_name = epoch_name,
                       pick_metric = pick_metric,
-                      discount_rate = discount_rate)
+                      discount_rate = discount_rate,
+                      draw_ribbon = draw_ribbon)
 }
+
