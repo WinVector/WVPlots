@@ -102,12 +102,11 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
   giniScore = modelArea / idealArea # actually, normalized gini score
 
   # transform the frame into the tall form, for plotting
-  # TODO: move to newer cdata API when it is on CRAN
   results <-
-    cdata::unpivotValuesToRows(results,
-                               nameForNewKeyColumn = 'sort_criterion',
-                               nameForNewValueColumn = 'pct_outcome',
-                               columnsToTakeFrom = c('model', 'wizard'))
+    cdata::unpivot_to_blocks(results,
+                             nameForNewKeyColumn = 'sort_criterion',
+                             nameForNewValueColumn = 'pct_outcome',
+                             columnsToTakeFrom = c('model', 'wizard'))
   # rename sort_criterion
   sortKeyM <- c('model' = paste('model: sort by', xvar),
                'wizard' = paste('wizard: sort by', truthVar))

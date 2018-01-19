@@ -65,7 +65,7 @@ plot_fit_trajectory <- function(d,
   if(length(list(...))>0) {
     stop("WVPlots::plot_fit_trajectory unexpected arguments")
   }
-  # make sure measure is first column for moveValuesToRowsD()
+  # make sure measure is first column for rowrecs_to_blocks()
   column_description <- column_description[,
                                            c("measure", "training", "validation"),
                                            drop = FALSE]
@@ -81,8 +81,7 @@ plot_fit_trajectory <- function(d,
     d[[ci]] <- -d[[ci]]
   }
 
-  # TODO: move to newer cdata API when it is on CRAN
-  d <- cdata::moveValuesToRowsD(
+  d <- cdata::rowrecs_to_blocks(
     d,
     controlTable = column_description,
     columnsToCopy = epoch_name)

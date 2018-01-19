@@ -1,5 +1,5 @@
 
-# WVPlots 0.2.8 2018-01-02
+# WVPlots 0.2.8 2018-01-18
 
  * Add new performance plot.
  * Start switching to new cdata signatures.
