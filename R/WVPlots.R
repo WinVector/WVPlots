@@ -25,6 +25,11 @@ NULL
 #' @importFrom utils packageVersion
 NULL
 
+#' @importFrom mgcv gam
+NULL
+
+#' @importFrom seplyr novelName
+NULL
 
 # re-export so old code and demos work (from when functions were here)
 
