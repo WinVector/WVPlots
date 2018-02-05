@@ -38,24 +38,22 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
         mult = 2.0
       }
 
-      can_scale_x = TRUE
-      can_scale_y = TRUE
       # mini plots to get default ticks
       # working around: https://github.com/tidyverse/ggplot2/issues/2439
       linplt <- ggplot2::ggplot(frame,
                                 ggplot2::aes(x = XVAR, y = YVAR)) +
         ggplot2::geom_point()
-      linybrks <- getYLabs(linplt)
-      linxbrks <- getXLabs(linplt)
+      linybrks <- as.numeric(getYLabs(linplt))
+      linxbrks <- as.numeric(getXLabs(linplt))
       logplt <- linplt +
         ggplot2::scale_y_log10() +
         ggplot2::scale_x_log10()
-      logybrks <- getYLabs(logplt)
-      logxbrks <- getYLabs(logplt)
-      if(length(logybrks)<=2) {
+      logybrks <- as.numeric(getYLabs(logplt))
+      logxbrks <- as.numeric(getXLabs(logplt))
+      if(length(logybrks)<2) {
         logybrks <- linybrks
       }
-      if(length(logxbrks)<=2) {
+      if(length(logxbrks)<2) {
         logxbrks <- linxbrks
       }
       plt <- ggplot2::ggplot(frame,
