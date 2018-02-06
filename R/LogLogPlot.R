@@ -38,24 +38,6 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
         mult = 2.0
       }
 
-      # mini plots to get default ticks
-      # working around: https://github.com/tidyverse/ggplot2/issues/2439
-      linplt <- ggplot2::ggplot(frame,
-                                ggplot2::aes(x = XVAR, y = YVAR)) +
-        ggplot2::geom_point()
-      linybrks <- as.numeric(getYLabs(linplt))
-      linxbrks <- as.numeric(getXLabs(linplt))
-      logplt <- linplt +
-        ggplot2::scale_y_log10() +
-        ggplot2::scale_x_log10()
-      logybrks <- as.numeric(getYLabs(logplt))
-      logxbrks <- as.numeric(getXLabs(logplt))
-      if(length(logybrks)<2) {
-        logybrks <- linybrks
-      }
-      if(length(logxbrks)<2) {
-        logxbrks <- linxbrks
-      }
       plt <- ggplot2::ggplot(frame,
                       ggplot2::aes(x = XVAR, y = YVAR)) +
         ggplot2::geom_smooth(se = FALSE) +
@@ -72,8 +54,8 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
                   linetype = 2, color = "red", alpha=0.5) +
         ggplot2::geom_line(ggplot2::aes(y = mult*quadratic_trend),
                   linetype = 2, color = "red", alpha=0.5) +
-        ggplot2::scale_x_log10(breaks = logxbrks) +
-        ggplot2::scale_y_log10(breaks = logybrks) +
+        ggplot2::scale_x_log10() +
+        ggplot2::scale_y_log10() +
         ggplot2::ggtitle(title,
                          subtitle = paste0("significance of positive quadratic trend component: ",
                                          ps))
