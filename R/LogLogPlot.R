@@ -30,7 +30,8 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
       if(cq<=0) {
         pq = NA
       }
-      ps <- sigr::render(sigr::wrapSignificance(pq))
+      ps <- sigr::render(sigr::wrapSignificance(pq),
+                         format = "ascii")
       mlinear <- lm(YVAR ~ 0 + XVAR, data = frame)
       frame$linear_trend <- predict(mlinear, newdata = frame)
       mquad <- lm(YVAR ~ 0 + I(XVAR*XVAR), data = frame)
