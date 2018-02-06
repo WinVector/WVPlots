@@ -2,6 +2,13 @@
 
 #' Plot a trend on log-log paper.
 #'
+#' This plot is intended for ploting functions that are observed costs
+#' or durations as a function of problem size.  In this case we expect
+#' the ideal or expected cost function to be non-decreasing.
+#' Any negative trends are assumed to arise from the noise model.
+#' The graph is specialized to compare non-decreasing linear and
+#' non-decreasing quadratic growth.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param yvar name of the dependent (output or result to be modeled) column in frame

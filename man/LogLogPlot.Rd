@@ -18,7 +18,12 @@ LogLogPlot(frame, xvar, yvar, title, ...)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
-Plot a trend on log-log paper.
+This plot is intended for ploting functions that are observed costs
+or durations as a function of problem size.  In this case we expect
+the ideal or expected cost function to be non-decreasing.
+Any negative trends are assumed to arise from the noise model.
+The graph is specialized to compare non-decreasing linear and
+non-decreasing quadratic growth.
 }
 \examples{
 
