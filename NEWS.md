@@ -1,4 +1,8 @@
 
+# WVPlots 0.2.9 2018-02-06
+
+ * Add LogLogPlot.
+
 # WVPlots 0.2.8 2018-01-19
 
  * Add new performance plot.

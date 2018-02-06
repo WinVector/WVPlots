@@ -16,12 +16,16 @@
 #'
 #' @export
 LogLogPlot <- function(frame, xvar, yvar, title, ...) {
+  XVAR <- NULL # don't look like an unbound variable
+  YVAR <- NULL # don't look like an unbound variable
+  linear_trend <- NULL # don't look like an unbound variable
+  quadratic_trend <- NULL # don't look like an unbound variable
   wrapr::let(
     c(XVAR = xvar, YVAR = yvar),
     {
       mfull <- lm(YVAR ~ XVAR + I(XVAR*XVAR), data = frame)
       sfull <- summary(mfull)
-      cq <- sfull$coefficients[1, 'Pr(>|t|)']
+      cq <- sfull$coefficients[3, 'Estimate']
       pq <- sfull$coefficients[3, 'Pr(>|t|)']
       if(cq<=0) {
         pq = NA
