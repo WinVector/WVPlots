@@ -69,7 +69,9 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
         ggplot2::scale_x_log10() +
         ggplot2::scale_y_log10() +
         ggplot2::ggtitle(title,
-                         subtitle = paste0("significance of positive quadratic trend component: ",
+                         subtitle = paste0(
+                           "linear and quadtratic growth rates shown as dashed lines",
+                           "\nsignificance of positive quadratic trend component: ",
                                          ps))
       plt
     })
