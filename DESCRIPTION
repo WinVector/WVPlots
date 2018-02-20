@@ -22,10 +22,9 @@ Imports:
     grid,
     gridExtra,
     sigr (>= 0.2.3),
-    replyr (>= 0.9.1),
-    seplyr (>= 0.5.3),
-    wrapr (>= 1.1.1),
     cdata (>= 0.5.2),
+    replyr (>= 0.9.1),
+    wrapr (>= 1.2.0),
     mgcv,
     graphics,
     plotly,
@@ -35,3 +34,4 @@ Suggests:
     testthat
 RoxygenNote: 6.0.1
 ByteCompile: true
+Remotes: github::WinVector/wrapr

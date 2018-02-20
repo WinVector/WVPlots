@@ -5,8 +5,6 @@
 #' conditioned scatter plot with marginal densities.
 #' box and stem with matching theoretical distribution, density with matching theoretical distribution.
 #'
-#' To learn more about replyr, please start with the vignette:
-#' \code{vignette('replyr','replyr')}
 #'
 #'
 #'For more information:
@@ -28,8 +26,6 @@ NULL
 #' @importFrom mgcv gam
 NULL
 
-#' @importFrom seplyr novelName
-NULL
 
 # re-export so old code and demos work (from when functions were here)
 

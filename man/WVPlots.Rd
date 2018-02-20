@@ -12,9 +12,6 @@ conditioned scatter plot with marginal densities.
 box and stem with matching theoretical distribution, density with matching theoretical distribution.
 }
 \details{
-To learn more about replyr, please start with the vignette:
-\code{vignette('replyr','replyr')}
-
 For more information:
 \itemize{
   \item \code{vignette(package='WVPlots')}
