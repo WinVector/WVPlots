@@ -9,11 +9,18 @@
 #' The graph is specialized to compare non-decreasing linear and
 #' non-decreasing quadratic growth.
 #'
+#' Some care must be taken in drawing conclusions from log-log plots,
+#' as the transform is fairly violent.  Please see:
+#' "(Mar's Law) Everything is linear if plotted log-log with a fat magic marker"
+#' (from Akin's Laws of Spacecraft Design \url{http://spacecraft.ssl.umd.edu/akins_laws.html}),
+#' and "So You Think You Have a Power Law" \url{http://bactra.org/weblog/491.html}.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param use_coord_trans logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_yu_log10()} (useful when there is not enough range to show ticks).
 #' @examples
 #'
 #' set.seed(5326)
@@ -22,7 +29,9 @@
 #' WVPlots::LogLogPlot(frm, "x", "y", title="Example Trend")
 #'
 #' @export
-LogLogPlot <- function(frame, xvar, yvar, title, ...) {
+LogLogPlot <- function(frame, xvar, yvar, title,
+                       ...,
+                       use_coord_trans = FALSE) {
   XVAR <- NULL # don't look like an unbound variable
   YVAR <- NULL # don't look like an unbound variable
   linear_trend <- NULL # don't look like an unbound variable
@@ -39,40 +48,59 @@ LogLogPlot <- function(frame, xvar, yvar, title, ...) {
       }
       ps <- sigr::render(sigr::wrapSignificance(pq),
                          format = "ascii")
-      mlinear <- lm(YVAR ~ 0 + XVAR, data = frame)
-      frame$linear_trend <- predict(mlinear, newdata = frame)
-      mquad <- lm(YVAR ~ 0 + I(XVAR*XVAR), data = frame)
-      frame$quadratic_trend <- predict(mquad, newdata = frame)
-
       qs <- as.numeric(quantile(frame$YVAR, probs=c(0.25,0.75)))
       mult <- sqrt(qs[[2]]/qs[[1]])
       if(is.na(mult)||is.nan(mult)||is.infinite(mult)||mult<=0) {
         mult = 2.0
       }
+      mlinear <- lm(YVAR ~ 0 + XVAR, data = frame)
+      mquad <- lm(YVAR ~ 0 + I(XVAR*XVAR), data = frame)
+      # more eval points to work around visible kinks in coord_trans()
+      # lines
+      mn <- min(frame$XVAR, na.rm = TRUE)
+      mx <- max(frame$XVAR, na.rm = TRUE)
+      tframe <- data.frame(XVAR = sort(unique(c(
+        frame$XVAR,
+        seq(mn, mx, length.out = 201),
+        exp(seq(log(mn), log(mx), length.out = 201))))))
+      tframe$linear_trend <- predict(mlinear, newdata = tframe)
+      tframe$quadratic_trend <- predict(mquad, newdata = tframe)
 
-      plt <- ggplot2::ggplot(frame,
+      plt <- ggplot2::ggplot(data = frame,
                       ggplot2::aes(x = XVAR, y = YVAR)) +
         ggplot2::geom_smooth(se = FALSE) +
         ggplot2::geom_point() +
-        ggplot2::geom_line(ggplot2::aes(y = linear_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = linear_trend),
                   linetype = 2, color = "green", alpha=0.5) +
-        ggplot2::geom_line(ggplot2::aes(y = (1/mult)*linear_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = (1/mult)*linear_trend),
                   linetype = 2, color = "green", alpha=0.5) +
-        ggplot2::geom_line(ggplot2::aes(y = mult*linear_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = mult*linear_trend),
                   linetype = 2, color = "green", alpha=0.5) +
-        ggplot2::geom_line(ggplot2::aes(y = quadratic_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = quadratic_trend),
                   linetype = 2, color = "red", alpha=0.5) +
-        ggplot2::geom_line(ggplot2::aes(y = (1/mult)*quadratic_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = (1/mult)*quadratic_trend),
                   linetype = 2, color = "red", alpha=0.5) +
-        ggplot2::geom_line(ggplot2::aes(y = mult*quadratic_trend),
+        ggplot2::geom_line(data = tframe,
+                           ggplot2::aes(y = mult*quadratic_trend),
                   linetype = 2, color = "red", alpha=0.5) +
-        ggplot2::scale_x_log10() +
-        ggplot2::scale_y_log10() +
         ggplot2::ggtitle(title,
                          subtitle = paste0(
                            "linear and quadtratic growth rates shown as dashed lines",
                            "\nsignificance of positive quadratic trend component: ",
                                          ps))
+      if(use_coord_trans) {
+        plt <- plt +
+          ggplot2::coord_trans(x = "log10", y = "log10")
+      } else {
+        plt <- plt +
+          ggplot2::scale_x_log10() +
+          ggplot2::scale_y_log10()
+      }
       plt
     })
 }

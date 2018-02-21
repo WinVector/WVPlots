@@ -4,7 +4,7 @@
 \alias{LogLogPlot}
 \title{Plot a trend on log-log paper.}
 \usage{
-LogLogPlot(frame, xvar, yvar, title, ...)
+LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -16,6 +16,8 @@ LogLogPlot(frame, xvar, yvar, title, ...)
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{use_coord_trans}{logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_yu_log10()} (useful when there is not enough range to show ticks).}
 }
 \description{
 This plot is intended for ploting functions that are observed costs
@@ -24,6 +26,13 @@ the ideal or expected cost function to be non-decreasing.
 Any negative trends are assumed to arise from the noise model.
 The graph is specialized to compare non-decreasing linear and
 non-decreasing quadratic growth.
+}
+\details{
+Some care must be taken in drawing conclusions from log-log plots,
+as the transform is fairly violent.  Please see:
+"(Mar's Law) Everything is linear if plotted log-log with a fat magic marker"
+(from Akin's Laws of Spacecraft Design \url{http://spacecraft.ssl.umd.edu/akins_laws.html}),
+and "So You Think You Have a Power Law" \url{http://bactra.org/weblog/491.html}.
 }
 \examples{
 

@@ -1,10 +1,10 @@
 
-# WVPlots 0.2.9 2018-02-06
+# WVPlots 0.2.9 2018-02-21
 
  * Add LogLogPlot.
  * Lower dependencies.
 
-# WVPlots 0.2.8 2018-01-19
+# WVPlots 0.2.8 2018-01-20
 
  * Add new performance plot.
  * Switch to new cdata signatures.
