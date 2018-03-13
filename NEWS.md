@@ -1,5 +1,5 @@
 
-# WVPlots 0.2.9 2018-03-12
+# WVPlots 0.2.9 2018-03-13
 
  * Add LogLogPlot.
  * Lower dependencies.
