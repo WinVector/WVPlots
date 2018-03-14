@@ -28,7 +28,7 @@ DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)
-  pf <- replyr::gapply(df,'y',
+  pf <- wv_gapply(df,'y',
                     partitionMethod='split',
                     function(sf) {
                       uvals <- unique(sf[['x']])

@@ -2,6 +2,7 @@
 # WVPlots 0.2.91 2018-03-14
 
  * Attempt work around dependency errors.
+ * Further lower dependencies.
 
 # WVPlots 0.2.9 2018-03-13
 

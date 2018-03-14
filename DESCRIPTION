@@ -25,7 +25,6 @@ Imports:
     gridExtra,
     sigr (>= 0.2.4),
     cdata (>= 0.6.0),
-    replyr (>= 0.9.1),
     wrapr (>= 1.3.0),
     mgcv,
     graphics,

@@ -1,6 +1,4 @@
 
-#' @importFrom replyr gapply
-NULL
 
 #' Plot two histograms conditioned on truthVar.
 #'
@@ -37,7 +35,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   yVals <- sort(unique(df[['y']]))
   signs <- (-1)^seq_len(length(yVals))
   names(signs) <- yVals
-  pf <- replyr::gapply(df,'y',
+  pf <- wv_gapply(df,'y',
                        partitionMethod='split',
                        function(sf) {
                          yGroup <- sf$y[[1]]
@@ -64,7 +62,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   # display.brewer.all()
   palletName <- "Dark2"
   # build a net effect curve
-  netF <- replyr::gapply(pf,xvar,partitionMethod = 'split',
+  netF <- wv_gapply(pf,xvar,partitionMethod = 'split',
                          function(fi) {
                            di <- data.frame(count=sum(fi$count))
                            di[[xvar]] <- fi[[xvar]][[1]]
