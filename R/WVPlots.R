@@ -23,33 +23,3 @@ NULL
 #' @importFrom utils packageVersion
 NULL
 
-#' @importFrom mgcv gam
-NULL
-
-
-# re-export so old code and demos work (from when functions were here)
-
-
-#' @importFrom wrapr DebugFn
-#' @export
-wrapr::DebugFn
-
-#' @importFrom wrapr DebugFnE
-#' @export
-wrapr::DebugFnE
-
-#' @importFrom wrapr DebugFnW
-#' @export
-wrapr::DebugFnW
-
-#' @importFrom wrapr DebugFnWE
-#' @export
-wrapr::DebugFnWE
-
-#' @importFrom wrapr DebugPrintFn
-#' @export
-wrapr::DebugPrintFn
-
-#' @importFrom wrapr DebugPrintFnE
-#' @export
-wrapr::DebugPrintFnE

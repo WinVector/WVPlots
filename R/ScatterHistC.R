@@ -26,6 +26,10 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                         colorPalette="Dark2",
                        adjust_x = 1,
                        adjust_y = 1) {
+  if((!requireNamespace("grid", quietly = TRUE)) ||
+     (!requireNamespace("gridExtra", quietly = TRUE))) {
+    return("WVPlots::ScatterHistC requires the grid and gridExtra packages be installed")
+  }
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   minimal_labels = TRUE
 
@@ -188,6 +192,10 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
                         nclus=3,
                         adjust_x = 1,
                         adjust_y = 1) {
+  if((!requireNamespace("grid", quietly = TRUE)) ||
+     (!requireNamespace("gridExtra", quietly = TRUE))) {
+    return("WVPlots::ScatterHistN requires the grid and gridExtra packages be installed")
+  }
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   q <- sort(unique(quantile(frame[[zvar]],seq(0, 1, 1/nclus))))
   yC <- cut(frame[[zvar]],q,include.lowest=TRUE)

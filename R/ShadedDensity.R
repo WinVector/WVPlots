@@ -43,8 +43,8 @@ ShadedDensity <- function(frame, xvar, threshold,title,..., tail="left") {
   textx = threshold + sign*0.01*xrange
 
   ggplot2::ggplot() +
-    ggplot2::geom_line(data=densityframe, aes(x=x, y=density), color="darkgray") +
-    ggplot2::geom_ribbon(data=densityframe, aes(x=x, ymin=0, ymax=tail), fill="darkblue", alpha=0.5) +
+    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color="darkgray") +
+    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=tail), fill="darkblue", alpha=0.5) +
     ggplot2::geom_vline(xintercept=threshold, color="darkblue",  linetype=2) +
     ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +

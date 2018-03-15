@@ -383,6 +383,9 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #'
 plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                       ...) {
+  if(!(requireNamespace("plotly", quietly = TRUE))) {
+    return("WVPlots::plotlyROC requires the plotly package be installed")
+  }
   checkArgs(frame=d,xvar=predCol,yvar=outcomeCol,title=title,...)
   prediction <- d[[predCol]]
   if(!is.numeric(prediction)) {

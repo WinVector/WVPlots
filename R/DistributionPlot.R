@@ -106,7 +106,7 @@ PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
   # plot
   ggplot2::ggplot(data=dHist,
                   mapping=ggplot2::aes_string(x=xvar,y='count',ymax='count')) +
-    ggplot2::geom_linerange(data=dTheory,aes(ymin=0),size=4,alpha=0.5,color='blue') +
+    ggplot2::geom_linerange(data=dTheory,ggplot2::aes(ymin=0),size=4,alpha=0.5,color='blue') +
     ggplot2::geom_point(size=4) +
     ggplot2::geom_linerange(ggplot2::aes(ymin=0),size=2) +
     ggplot2::geom_line(data=dDist,color='blue',linetype=2) +

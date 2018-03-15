@@ -21,16 +21,16 @@ Depends:
     R (>= 3.4.0)
 Imports:
     ggplot2 (>= 2.2.0),
-    grid,
-    gridExtra,
+    wrapr (>= 1.3.0),
     sigr (>= 0.2.4),
     cdata (>= 0.6.0),
-    wrapr (>= 1.3.0),
-    mgcv,
-    graphics,
-    plotly,
     utils
 Suggests:
+    grid,
+    gridExtra,
+    graphics,
+    plotly,
+    mgcv,
     knitr,
     testthat
 RoxygenNote: 6.0.1

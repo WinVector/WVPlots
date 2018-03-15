@@ -24,8 +24,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
   checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
   if(!requireNamespace('graphics',quietly = TRUE)) {
-    warning("DoubleHistogramPlot needs graphics")
-    return(NULL)
+    return("WVPlots::DoubleHistogramPlot needs graphics")
   }
   count <- NULL # used as a symbol, declare not an unbound variable
   df <- data.frame(x=as.numeric(frame[[xvar]]),

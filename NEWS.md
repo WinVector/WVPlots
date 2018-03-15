@@ -3,6 +3,7 @@
 
  * Attempt work around dependency errors.
  * Further lower dependencies.
+ * Stop re-exporting wrapr functions.
 
 # WVPlots 0.2.9 2018-03-13
 

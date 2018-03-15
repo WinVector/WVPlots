@@ -39,6 +39,10 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
                        adjust_y = 1,
                        point_alpha = 0.5,
                        contour = FALSE) {
+  if((!requireNamespace("grid", quietly = TRUE)) ||
+     (!requireNamespace("gridExtra", quietly = TRUE))) {
+    return("WVPlots::ScatterHist requires the grid and gridExtra packages be installed")
+  }
   checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
   if(!(smoothmethod %in% c('auto','loess','gam','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
