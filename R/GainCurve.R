@@ -67,6 +67,10 @@ relativeGiniScore <- function(modelValues, yValues) {
 #'
 #' @export
 GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
+  if( (!requireNamespace("cdata", quietly = TRUE)) ||
+      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
+    return("WVPlots::GainCurvePlot requires the cdata and RSQLite packages for data shaping")
+  }
   checkArgs(
     frame = frame,
     xvar = xvar,

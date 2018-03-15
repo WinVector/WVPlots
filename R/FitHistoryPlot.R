@@ -58,6 +58,10 @@ plot_fit_trajectory <- function(d,
                                 discount_rate = NULL,
                                 draw_ribbon = FALSE,
                                 draw_segments = FALSE) {
+  if( (!requireNamespace("cdata", quietly = TRUE)) ||
+      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
+    return("WVPlots::plot_fit_trajectory requires the cdata and RSQLite packages for data shaping")
+  }
   if(!is.data.frame(d)) {
     stop("WVPlots::plot_fit_trajectory d must be a data.frame")
   }
