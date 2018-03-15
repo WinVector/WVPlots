@@ -263,6 +263,10 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #'
 #' @export
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title, ...) {
+  if( (!requireNamespace("cdata", quietly = TRUE)) ||
+      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
+    return("WVPlots::GainCurvePlotC requires the cdata and RSQLite packages for data shaping")
+  }
   checkArgs(
     frame = frame,
     xvar = xvar,
@@ -449,6 +453,10 @@ GainCurvePlotWithNotation = function(frame,
                                      gainx,
                                      labelfun,
                                      ...) {
+  if( (!requireNamespace("cdata", quietly = TRUE)) ||
+      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
+    return("WVPlots::GainCurvePlotWithNotation requires the cdata and RSQLite packages for data shaping")
+  }
   checkArgs(
     frame = frame,
     xvar = xvar,
