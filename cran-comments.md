@@ -29,7 +29,7 @@ To try and expedite fixing I have greatly lowered WVPlots dependency pattern
     * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 
     * Windows
-    * using R Under development (unstable) (2018-03-12 r74391)
+    * using R Under development (unstable) (2018-03-15 r74413)
     * using platform: x86_64-w64-mingw32 (64-bit)
 
 
@@ -42,7 +42,7 @@ To try and expedite fixing I have greatly lowered WVPlots dependency pattern
     * checking CRAN incoming feasibility ... NOTE
     Maintainer: ‘John Mount <jmount@win-vector.com>’
 
-    Days since last update: 2
+    Days since last update: 3
 
 No other notes, warnings, or errors.
 
