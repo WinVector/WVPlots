@@ -1,5 +1,9 @@
 
 
+#' @importFrom graphics hist
+NULL
+
+
 #' Plot two histograms conditioned on truthVar.
 #'
 #' @param frame data frame to get values from

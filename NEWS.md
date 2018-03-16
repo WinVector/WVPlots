@@ -1,8 +1,8 @@
 
-# WVPlots 0.3.0 2018-03-15
+# WVPlots 0.3.0 2018-03-16
 
- * Attempt work around dependency errors.
- * Further lower dependencies.
+ * Make dependencies more flexible.
+ * Remove replyr dependency.
  * Stop re-exporting wrapr functions.
 
 # WVPlots 0.2.9 2018-03-13

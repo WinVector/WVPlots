@@ -1,4 +1,9 @@
 
+#' @importFrom plotly plot_ly
+NULL
+
+
+
 novelPointPositionsL <- function(x) {
   len <- length(x)
   if(len<=1) {

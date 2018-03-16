@@ -1,5 +1,7 @@
 
-
+#' @importFrom cdata unpivot_to_blocks
+#' @importFrom RSQLite initExtension
+NULL
 
 # define some helper and reporting functions
 # calculate area under the curve of numeric vectors x,y

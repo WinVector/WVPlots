@@ -1,6 +1,9 @@
 
 #' @importFrom sigr wrapFTest render
 #' @importFrom stats complete.cases
+#' @importFrom grid unit
+#' @importFrom gridExtra grid.arrange
+#' @importFrom mgcv gam
 NULL
 
 #' Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable
