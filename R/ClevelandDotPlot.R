@@ -1,3 +1,4 @@
+
 # move this to sharedFunctions if someone else needs it
 isScalar = function(x) {
   return (is.numeric(x) && length(x)==1)

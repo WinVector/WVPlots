@@ -1,3 +1,4 @@
+
 is_integral = function(x) {
   if(!is.numeric(x)) return(FALSE)
   if(is.integer(x)) return(TRUE)
