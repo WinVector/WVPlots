@@ -1,26 +1,5 @@
 
-Note to CRAN: please consider accepting this (too soon) update as it 
-may simplify solving some package problems.
-
-Fix release.  Trying to fix WVPlots CRAN Package Check Results 
-by lowering dependencies.  
-The previously required package replyr is having trouble with 
-CRAN Package Check Results:
-
-> Error in namespaceExport(ns, exports) : 
-  undefined exports: Module, Rcpp.package.skeleton, populate, loadRcppModules, setRcppClass, loadRcppClass, loadModule, cppFunction, exposeClass, evalCpp, sourceCpp, compileAttributes, registerPlugin, RcppLdFlags, LdFlags, demangle, sizeof, cpp_object_initializer, cpp_object_dummy, Rcpp.plugin.maker
-> ERROR: lazy loading failed for package 'replyr'
-
-I believe the above errors are spurious, as replyr does not use C/C++/Rcpp in any manner
-and they are occuring on the two archichtures we direclty checked in the
-last submission (r-release-osx-x86_64 and r-devel-windows-ix86+x86_64).
-However, these issues seem to be triggering 
-"Packages required and available but unsuitable versions" errors for WVPlots.
-To try and expedite fixing I have greatly lowered WVPlots dependency pattern
-(including removing the dependency on replyr).
-
-
-
+Maintinance upate.
 
 ## Test environments
 
