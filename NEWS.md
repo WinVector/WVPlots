@@ -1,5 +1,5 @@
 
-# WVPlots 0.3.0 2018-03-16
+# WVPlots 0.3.0 2018-03-20
 
  * Make dependencies more flexible.
  * Remove replyr dependency.
