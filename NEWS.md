@@ -1,4 +1,8 @@
 
+# WVPlots 0.3.1 2018-03-23
+
+ * Remove R version dependence
+
 # WVPlots 0.3.0 2018-03-20
 
  * Make dependencies more flexible.
