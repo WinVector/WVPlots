@@ -5,7 +5,7 @@
 \title{Take the standard WVPlots gain curve and add extra notation}
 \usage{
 GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...,
-  compute_sig = TRUE)
+  compute_sig = TRUE, large_count = 1000)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -23,6 +23,8 @@ GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...,
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
 \item{compute_sig}{logical, if TRUE compute significance}
+
+\item{large_count}{numeric, number of plotting points to consider large (and cut down).}
 }
 \description{
 Take the standard WVPlots gain curve and add extra notation

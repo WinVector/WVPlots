@@ -103,7 +103,7 @@
     
 
     <pre class="usage"><span class='fu'>GainCurvePlotWithNotation</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>title</span>, <span class='no'>gainx</span>, <span class='no'>labelfun</span>, <span class='no'>...</span>,
-  <span class='kw'>compute_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>compute_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +140,10 @@
       <th>compute_sig</th>
       <td><p>logical, if TRUE compute significance</p></td>
     </tr>
+    <tr>
+      <th>large_count</th>
+      <td><p>numeric, number of plotting points to consider large (and cut down).</p></td>
+    </tr>
     </table>
     
 
@@ -164,7 +168,7 @@
 }
 <span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/GainCurvePlotWithNotation'>GainCurvePlotWithNotation</a></span>(<span class='no'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
    <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Gain Curve with annotation"</span>,
-   <span class='kw'>gainx</span><span class='kw'>=</span><span class='no'>gainx</span>,<span class='kw'>labelfun</span><span class='kw'>=</span><span class='no'>labelfun</span>)</div><div class='output co'>#&gt; <span class='error'>Error in grid.Call.graphics(C_setviewport, vp, TRUE): non-finite location and/or size for viewport</span></div><div class='img'><img src='GainCurvePlotWithNotation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+   <span class='kw'>gainx</span><span class='kw'>=</span><span class='no'>gainx</span>,<span class='kw'>labelfun</span><span class='kw'>=</span><span class='no'>labelfun</span>)</div><div class='img'><img src='GainCurvePlotWithNotation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

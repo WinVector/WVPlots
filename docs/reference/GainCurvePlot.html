@@ -102,7 +102,8 @@
     <p>Plot the gain curve of a sort-order.</p>
     
 
-    <pre class="usage"><span class='fu'>GainCurvePlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>compute_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>GainCurvePlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>compute_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -129,7 +130,11 @@
     </tr>
     <tr>
       <th>compute_sig</th>
-      <td><p>logical, if TRUE compute significance</p></td>
+      <td><p>logical, if TRUE compute significance.</p></td>
+    </tr>
+    <tr>
+      <th>large_count</th>
+      <td><p>numeric, number of plotting points to consider large (and cut down).</p></td>
     </tr>
     </table>
     

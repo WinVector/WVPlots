@@ -52,7 +52,8 @@ relativeGiniScore <- function(modelValues, yValues) {
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param compute_sig logical, if TRUE compute significance
+#' @param compute_sig logical, if TRUE compute significance.
+#' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
 #' set.seed(34903490)
@@ -69,7 +70,8 @@ relativeGiniScore <- function(modelValues, yValues) {
 #' @export
 GainCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
-                         compute_sig = TRUE) {
+                         compute_sig = TRUE,
+                         large_count = 1000) {
   checkArgs(
     frame = frame,
     xvar = xvar,
@@ -97,11 +99,6 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
     model = cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']]),
     wizard = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']])
   )
-  # cut down the number of points
-  if(nrow(results)>2000) {
-    results <-
-      results[seq(1, nrow(results), length.out=1000), , drop= FALSE]
-  }
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)
@@ -140,6 +137,12 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
              xvar,
              ')>permuted relGini, ',
              pString)
+  }
+
+  # cut down the number of points
+  if(nrow(results)>2*large_count) {
+    results <-
+      results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
   }
 
   # plot
@@ -257,6 +260,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param compute_sig logical, if TRUE compute significance
+#' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
 #' set.seed(34903490)
@@ -273,7 +277,8 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @export
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
                           ...,
-                          compute_sig = TRUE) {
+                          compute_sig = TRUE,
+                          large_count = 1000) {
   checkArgs(
     frame = frame,
     xvar = xvar,
@@ -338,6 +343,12 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
              xvar,
              ')>permuted relGini, ',
              pString)
+  }
+
+  # cut down the number of points
+  if(nrow(results)>2*large_count) {
+    results <-
+      results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
   }
 
   # plot
@@ -430,6 +441,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param labelfun a function to return a label for the marked point
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
 #' @param compute_sig logical, if TRUE compute significance
+#' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
 #' set.seed(34903490)
@@ -461,7 +473,8 @@ GainCurvePlotWithNotation = function(frame,
                                      gainx,
                                      labelfun,
                                      ...,
-                                     compute_sig = TRUE) {
+                                     compute_sig = TRUE,
+                                     large_count = 1000) {
    checkArgs(
     frame = frame,
     xvar = xvar,
@@ -472,7 +485,8 @@ GainCurvePlotWithNotation = function(frame,
   gainy = get_gainy(frame, xvar, truthVar, gainx)
   label = labelfun(gainx, gainy)
   gp = GainCurvePlot(frame, xvar, truthVar, title,
-                     compute_sig = compute_sig) +
+                     compute_sig = compute_sig,
+                     large_count = large_count) +
     ggplot2::geom_vline(xintercept = gainx,
                         color = "red",
                         alpha = 0.5) +
