@@ -24,8 +24,13 @@ areaCalc <- function(x, y) {
 
 relativeGiniScore <- function(modelValues, yValues) {
   d = data.frame(predcol = modelValues, truthcol = yValues)
-  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']], decreasing = TRUE)
+  n <- nrow(d)
+  predord = order(d[['predcol']],
+                  sample.int(n, n, replace = FALSE),
+                  decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']],
+                 sample.int(n, n, replace = FALSE),
+                 decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
@@ -52,7 +57,9 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
   }
   takes <- c()
   for(ci in cols) {
-    ordi <- order(d[[groupcol]], d[[ci]])
+    ordi <- order(d[[groupcol]],
+                  d[[ci]],
+                  sample.int(n, n, replace = FALSE))
     takesi <- seq(1, n, length.out = large_count)
     sg <- d[[groupcol]][ordi]
     deltas <- which(sg[-1]!=sg[-n])
@@ -114,8 +121,13 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions
   d = data.frame(predcol = predcol, truthcol = truthcol)
-  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']], decreasing = TRUE)
+  n <- nrow(d)
+  predord = order(d[['predcol']],
+                  sample.int(n, n, replace = FALSE),
+                  decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']],
+                 sample.int(n, n, replace = FALSE),
+                 decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
@@ -245,8 +257,13 @@ makeRelativeGiniCostScorer <- function(costcol) {
     d = data.frame(predcol = predcol,
                    truthcol = truthcol,
                    costcol = costcol)
-    predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
-    wizard = order(d[['truthcol']] / d[['costcol']], decreasing = TRUE)
+    n <- nrow(d)
+    predord = order(d[['predcol']],
+                    sample.int(n, n, replace = FALSE),
+                    decreasing = TRUE) # reorder, with highest first
+    wizard = order(d[['truthcol']] / d[['costcol']],
+                   sample.int(n, n, replace = FALSE),
+                   decreasing = TRUE)
     npop = dim(d)[1]
 
     # data frame the cumulative prediction/truth as a function
@@ -324,8 +341,13 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
   d = data.frame(predcol = predcol,
                  truthcol = truthcol,
                  costcol = costcol)
-  predord = order(d[['predcol']], decreasing = TRUE) # reorder, with highest first
-  wizard = order(d[['truthcol']] / d[['costcol']], decreasing = TRUE)
+  n <- nrow(d)
+  predord = order(d[['predcol']],
+                  sample.int(n, n, replace = FALSE),
+                  decreasing = TRUE) # reorder, with highest first
+  wizard = order(d[['truthcol']] / d[['costcol']],
+                 sample.int(n, n, replace = FALSE),
+                 decreasing = TRUE)
   npop = dim(d)[1]
 
   # data frame the cumulative prediction/truth as a function
@@ -446,7 +468,10 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
 # find the y value that approximately corresponds to an x value on the gain curve
 get_gainy = function(frame, xvar, truthVar, gainx) {
   # The sort order for predicted salary, decreasing
-  ord = order(frame[[xvar]], decreasing = TRUE)
+  n <- nrow(frame)
+  ord = order(frame[[xvar]],
+              sample.int(n, n, replace = FALSE),
+              decreasing = TRUE)
 
   # top 25 predicted salaries
   n = round(nrow(frame) * gainx)
