@@ -1,7 +1,5 @@
 
-#' @importFrom cdata unpivot_to_blocks
-#' @importFrom RSQLite initExtension
-NULL
+
 
 # define some helper and reporting functions
 # calculate area under the curve of numeric vectors x,y
@@ -54,6 +52,7 @@ relativeGiniScore <- function(modelValues, yValues) {
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param compute_sig logical, if TRUE compute significance
 #' @examples
 #'
 #' set.seed(34903490)
@@ -68,11 +67,9 @@ relativeGiniScore <- function(modelValues, yValues) {
 #'    title="Example Continuous Gain Curve")
 #'
 #' @export
-GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
-  if( (!requireNamespace("cdata", quietly = TRUE)) ||
-      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
-    return("WVPlots::GainCurvePlot requires the cdata and RSQLite packages for data shaping")
-  }
+GainCurvePlot = function(frame, xvar, truthVar, title,
+                         ...,
+                         compute_sig = TRUE) {
   checkArgs(
     frame = frame,
     xvar = xvar,
@@ -100,6 +97,11 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
     model = cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']]),
     wizard = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']])
   )
+  # cut down the number of points
+  if(nrow(results)>2000) {
+    results <-
+      results[seq(1, nrow(results), length.out=1000), , drop= FALSE]
+  }
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)
@@ -108,11 +110,15 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
   giniScore = modelArea / idealArea # actually, normalized gini score
 
   # transform the frame into the tall form, for plotting
-  results <-
-    cdata::unpivot_to_blocks(results,
-                             nameForNewKeyColumn = 'sort_criterion',
-                             nameForNewValueColumn = 'pct_outcome',
-                             columnsToTakeFrom = c('model', 'wizard'))
+  r1 <- data.frame(pctpop = results$pctpop,
+                   pct_outcome = results$model,
+                   sort_criterion = "model",
+                   stringsAsFactors = FALSE)
+  r2 <- data.frame(pctpop = results$pctpop,
+                   pct_outcome = results$wizard,
+                   sort_criterion = "wizard",
+                   stringsAsFactors = FALSE)
+  results <- rbind(r1, r2)
   # rename sort_criterion
   sortKeyM <- c('model' = paste('model: sort by', xvar),
                'wizard' = paste('wizard: sort by', truthVar))
@@ -124,7 +130,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title, ...) {
   modelKey = names(colorKey)[[1]]
 
   pString <- ''
-  if (requireNamespace('sigr', quietly = TRUE)) {
+  if(compute_sig && requireNamespace('sigr', quietly = TRUE)) {
     sp <-
       sigr::permutationScoreModel(predcol, truthcol, relativeGiniScore)
     pString <-
@@ -250,6 +256,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param compute_sig logical, if TRUE compute significance
 #' @examples
 #'
 #' set.seed(34903490)
@@ -264,11 +271,9 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #'    title="Example Continuous Gain CurveC")
 #'
 #' @export
-GainCurvePlotC = function(frame, xvar, costVar, truthVar, title, ...) {
-  if( (!requireNamespace("cdata", quietly = TRUE)) ||
-      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
-    return("WVPlots::GainCurvePlotC requires the cdata and RSQLite packages for data shaping")
-  }
+GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
+                          ...,
+                          compute_sig = TRUE) {
   checkArgs(
     frame = frame,
     xvar = xvar,
@@ -322,7 +327,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title, ...) {
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
-  if (requireNamespace('sigr', quietly = TRUE)) {
+  if (compute_sig && requireNamespace('sigr', quietly = TRUE)) {
     relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
     sp <-
       sigr::permutationScoreModel(predcol, truthcol, relativeGiniCostScorer)
@@ -424,6 +429,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param gainx the point on the x axis corresponding to the desired label
 #' @param labelfun a function to return a label for the marked point
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param compute_sig logical, if TRUE compute significance
 #' @examples
 #'
 #' set.seed(34903490)
@@ -454,12 +460,9 @@ GainCurvePlotWithNotation = function(frame,
                                      title,
                                      gainx,
                                      labelfun,
-                                     ...) {
-  if( (!requireNamespace("cdata", quietly = TRUE)) ||
-      (!requireNamespace("RSQLite", quietly = TRUE)) ) {
-    return("WVPlots::GainCurvePlotWithNotation requires the cdata and RSQLite packages for data shaping")
-  }
-  checkArgs(
+                                     ...,
+                                     compute_sig = TRUE) {
+   checkArgs(
     frame = frame,
     xvar = xvar,
     yvar = truthVar,
@@ -468,7 +471,8 @@ GainCurvePlotWithNotation = function(frame,
   )
   gainy = get_gainy(frame, xvar, truthVar, gainx)
   label = labelfun(gainx, gainy)
-  gp = GainCurvePlot(frame, xvar, truthVar, title) +
+  gp = GainCurvePlot(frame, xvar, truthVar, title,
+                     compute_sig = compute_sig) +
     ggplot2::geom_vline(xintercept = gainx,
                         color = "red",
                         alpha = 0.5) +

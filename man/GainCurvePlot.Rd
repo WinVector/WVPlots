@@ -4,7 +4,7 @@
 \alias{GainCurvePlot}
 \title{Plot the gain curve of a sort-order.}
 \usage{
-GainCurvePlot(frame, xvar, truthVar, title, ...)
+GainCurvePlot(frame, xvar, truthVar, title, ..., compute_sig = TRUE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -16,6 +16,8 @@ GainCurvePlot(frame, xvar, truthVar, title, ...)
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{compute_sig}{logical, if TRUE compute significance}
 }
 \description{
 Plot the gain curve of a sort-order.

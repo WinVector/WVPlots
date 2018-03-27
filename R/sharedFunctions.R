@@ -7,8 +7,8 @@
 NULL
 
 # check the arguments are the types our functions commonly expect
-checkArgs <- function(frame,xvar,yvar,title,...) {
-  args <- list(...)
+checkArgs <- function(frame,xvar,yvar,title, ...) {
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots")
   if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
     stop("frame must be a non-empty data frame")
   }
@@ -26,13 +26,6 @@ checkArgs <- function(frame,xvar,yvar,title,...) {
   }
   if(!(yvar %in% colnames(frame))) {
     stop("yvar must be the name of a column in frame")
-  }
-  if(length(args)!=0) {
-    nm <- names(args)
-    if(length(nm)>0) {
-      stop(paste("unexpected named arguments",paste(nm,collapse = ', ')))
-    }
-    stop(paste("saw",length(args),"unexpected argument values: ",paste(args,collapse=', ')))
   }
 }
 

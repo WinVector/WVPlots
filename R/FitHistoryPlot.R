@@ -1,4 +1,10 @@
 
+
+#' @importFrom cdata unpivot_to_blocks
+#' @importFrom RSQLite initExtension
+NULL
+
+
 #' Plot the trajectory of a model fit.
 #'
 #' Plot a history of fit over a trajetory of times.  Example below gives

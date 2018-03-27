@@ -4,7 +4,8 @@
 \alias{GainCurvePlotWithNotation}
 \title{Take the standard WVPlots gain curve and add extra notation}
 \usage{
-GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...)
+GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...,
+  compute_sig = TRUE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -20,6 +21,8 @@ GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...)
 \item{labelfun}{a function to return a label for the marked point}
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
+
+\item{compute_sig}{logical, if TRUE compute significance}
 }
 \description{
 Take the standard WVPlots gain curve and add extra notation
