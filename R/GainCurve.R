@@ -44,6 +44,32 @@ relativeGiniScore <- function(modelValues, yValues) {
   giniScore
 }
 
+# sample with respect to multiple orders to get smooth sampling
+thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
+  n <- nrow(d)
+  if(n<=(length(cols)+1)*large_count) {
+    return(d)
+  }
+  takes <- c()
+  for(ci in cols) {
+    ordi <- order(d[[groupcol]], d[[ci]])
+    takesi <- seq(1, n, length.out = large_count)
+    sg <- d[[groupcol]][ordi]
+    deltas <- which(sg[-1]!=sg[-n])
+    boundsi <- NULL
+    if(length(deltas>1)) {
+      boundsi <- pmin(n, c(deltas, 1+deltas))
+    }
+    invperm <- wrapr::invert_perm(ordi)
+    takes <- sort(unique(c(takes,
+                           invperm[takesi],
+                           invperm[boundsi])))
+  }
+  if(2*length(takes)>=n) {
+    return(d)
+  }
+  d[takes, , drop = FALSE]
+}
 
 #' Plot the gain curve of a sort-order.
 #'
@@ -140,11 +166,10 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
   }
 
   # cut down the number of points
-  if(nrow(results)>2*large_count) {
-    results <- results[order(results$pctpop), , drop = FALSE]
-    results <-
-      results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
-  }
+  results <- thin_frame_by_orders(results,
+                                  c("pctpop", "pct_outcome"),
+                                  "sort_criterion",
+                                  large_count)
 
   # plot
   gplot = ggplot2::ggplot(data = results) +
@@ -347,11 +372,10 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
   }
 
   # cut down the number of points
-  if(nrow(results)>2*large_count) {
-    results <- results[order(results$pctpop), , drop = FALSE]
-    results <-
-      results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
-  }
+  results <- thin_frame_by_orders(results,
+                                  c("pctpop", "pct_outcome"),
+                                  "sort_criterion",
+                                  large_count)
 
   # plot
   gplot = ggplot2::ggplot(data = results) +
