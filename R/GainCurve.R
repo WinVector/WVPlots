@@ -141,6 +141,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
 
   # cut down the number of points
   if(nrow(results)>2*large_count) {
+    results <- results[order(results$pctpop), , drop = FALSE]
     results <-
       results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
   }
@@ -347,6 +348,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
 
   # cut down the number of points
   if(nrow(results)>2*large_count) {
+    results <- results[order(results$pctpop), , drop = FALSE]
     results <-
       results[seq(1, nrow(results), length.out=large_count), , drop= FALSE]
   }
