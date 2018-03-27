@@ -45,8 +45,7 @@ relativeGiniScore <- function(modelValues, yValues) {
   # gini score is 2* (area - 0.5)
   idealArea = areaCalc(results$pctpop, results$wizard) - 0.5
   modelArea = areaCalc(results$pctpop, results$model) - 0.5
-  giniScore = modelArea / idealArea # actually, normalized gini score
-  giniScore
+  modelArea / idealArea # actually, normalized gini score
 }
 
 # sample with respect to multiple orders to get smooth sampling
@@ -142,7 +141,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
   # gini score is 2* (area - 0.5)
   idealArea = areaCalc(results$pctpop, results$wizard) - 0.5
   modelArea = areaCalc(results$pctpop, results$model) - 0.5
-  giniScore = modelArea / idealArea # actually, normalized gini score
+  relGiniScore = modelArea / idealArea # actually, normalized gini score
 
   # transform the frame into the tall form, for plotting
   r1 <- data.frame(pctpop = results$pctpop,
@@ -232,8 +231,10 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
         '~',
         xvar),
       subtitle=paste0(
-        'relative Gini score: ',
-        format(giniScore, digits = 2),
+        'Gini score: ',
+        format(idealArea, digits = 2),
+        ', relative Gini score: ',
+        format(relGiniScore, digits = 2),
         pString
       )
     ) +
@@ -288,8 +289,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
     # gini score is 2* (area - 0.5)
     idealArea = areaCalc(resultsW$pctpop, resultsW$pct_outcome) - 0.5
     modelArea = areaCalc(resultsM$pctpop, resultsM$pct_outcome) - 0.5
-    giniScore = modelArea / idealArea # actually, normalized gini score
-    giniScore
+    modelArea / idealArea # actually, normalized gini score
   }
 }
 
@@ -370,7 +370,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
   # gini score is 2* (area - 0.5)
   idealArea = areaCalc(resultsW$pctpop, resultsW$pct_outcome) - 0.5
   modelArea = areaCalc(resultsM$pctpop, resultsM$pct_outcome) - 0.5
-  giniScore = modelArea / idealArea # actually, normalized gini score
+  relGiniScore = modelArea / idealArea # actually, normalized gini score
 
 
   # rename levels of sort criterion
@@ -448,8 +448,10 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
         '~',
         xvar),
       subtitle=paste0(
-        'relative Gini score: ',
-        format(giniScore, digits = 2),
+        'Gini score: ',
+        format(idealArea, digits = 2),
+        ', relative Gini score: ',
+        format(relGiniScore, digits = 2),
         pString
       )
     ) +
