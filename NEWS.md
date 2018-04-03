@@ -1,8 +1,9 @@
 
-# WVPlots 0.3.1 2018-03-27
+# WVPlots 0.3.1 2018-04-03
 
  * Remove R version dependence.
  * Speed up gain curve.
+ * Make heavy weight packages suggested.
 
 # WVPlots 0.3.0 2018-03-20
 

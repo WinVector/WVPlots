@@ -1,8 +1,5 @@
 
 
-#' @importFrom cdata unpivot_to_blocks
-#' @importFrom RSQLite initExtension
-NULL
 
 
 #' Plot the trajectory of a model fit.

@@ -2,7 +2,7 @@ Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
 Version: 0.3.1
-Date: 2018-03-27
+Date: 2018-04-03
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -25,12 +25,12 @@ Imports:
     grid,
     gridExtra,
     graphics,
-    plotly,
-    mgcv,
-    cdata (>= 0.6.0),
-    RSQLite
+    mgcv
 Suggests:
     knitr,
     testthat,
+    cdata (>= 0.6.0),
+    RSQLite,
+    plotly
 RoxygenNote: 6.0.1
 ByteCompile: true

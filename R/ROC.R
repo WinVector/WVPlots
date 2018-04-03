@@ -1,6 +1,4 @@
 
-#' @importFrom plotly plot_ly
-NULL
 
 
 
