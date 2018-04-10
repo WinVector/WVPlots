@@ -1,4 +1,8 @@
 
+# WVPlots 0.3.2 2018-04-10
+
+ * Remove RSQLite dependence.
+ 
 # WVPlots 0.3.1 2018-04-03
 
  * Remove R version dependence.
