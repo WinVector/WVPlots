@@ -1,5 +1,5 @@
 
-# WVPlots 0.3.2 2018-04-10
+# WVPlots 0.3.2 2018-04-24
 
  * Remove RSQLite dependence.
  
