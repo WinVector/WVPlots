@@ -1,7 +1,8 @@
 
-# WVPlots 0.3.2 2018-04-24
+# WVPlots 0.3.2 2018-04-26
 
  * Remove RSQLite dependence.
+ * Report F-test on linear fit in more case in ScaterHist.
  
 # WVPlots 0.3.1 2018-04-03
 

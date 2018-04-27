@@ -18,13 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +35,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +52,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">WVPlots</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">WVPlots</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -73,10 +82,13 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
+    <li>
+      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
+    </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -85,6 +97,7 @@
   <a href="http://www.win-vector.com/">Sponsor: Win-Vector LLC</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,217 +105,212 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.3.2</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="BinaryYScatterPlot.html">BinaryYScatterPlot</a></code> </p>
-          </td>
-          <td><p>Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calcPR.html">calcPR</a></code> </p>
-          </td>
-          <td><p>calculate precision/recall curve.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ClevelandDotPlot.html">ClevelandDotPlot</a></code> </p>
-          </td>
-          <td><p>Plot a Cleveland dot plot.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></code> </p>
-          </td>
-          <td><p>Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="BinaryYScatterPlot.html">BinaryYScatterPlot()</a></code> </p>
+        </td>
+        <td><p>Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ClevelandDotPlot.html">ClevelandDotPlot()</a></code> </p>
+        </td>
+        <td><p>Plot a Cleveland dot plot.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot()</a></code> </p>
+        </td>
+        <td><p>Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
       xvar is the continuous independent variable and yvar is the dependent binary variable.
       Smoothing is by a square window of width k</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="DiscreteDistribution.html">DiscreteDistribution</a></code> </p>
-          </td>
-          <td><p>Plot distribution of a single continuous variable.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="DoubleDensityPlot.html">DoubleDensityPlot</a></code> </p>
-          </td>
-          <td><p>Plot two density plots conditioned on truthVar.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="DoubleHistogramPlot.html">DoubleHistogramPlot</a></code> </p>
-          </td>
-          <td><p>Plot two histograms conditioned on truthVar.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GainCurvePlot.html">GainCurvePlot</a></code> </p>
-          </td>
-          <td><p>Plot the gain curve of a sort-order.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GainCurvePlotC.html">GainCurvePlotC</a></code> </p>
-          </td>
-          <td><p>Plot the gain curve of a sort-order with costs.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="GainCurvePlotWithNotation.html">GainCurvePlotWithNotation</a></code> </p>
-          </td>
-          <td><p>Take the standard WVPlots gain curve and add extra notation</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="graphROC.html">graphROC</a></code> </p>
-          </td>
-          <td><p>calculate AUC.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="LogLogPlot.html">LogLogPlot</a></code> </p>
-          </td>
-          <td><p>Plot a trend on log-log paper.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_fit_trajectory.html">plot_fit_trajectory</a></code> </p>
-          </td>
-          <td><p>Plot the trajectory of a model fit.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot_Keras_fit_trajectory.html">plot_Keras_fit_trajectory</a></code> </p>
-          </td>
-          <td><p>Plot the trajectory of a Keras model fit.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PlotDistCountNormal.html">PlotDistCountNormal</a></code> </p>
-          </td>
-          <td><p>plot distribution details as a histogram plus matching normal</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PlotDistDensityBeta.html">PlotDistDensityBeta</a></code> </p>
-          </td>
-          <td><p>plot distribution details as a density plus matching beta</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PlotDistDensityNormal.html">PlotDistDensityNormal</a></code> </p>
-          </td>
-          <td><p>plot distribution details as a density plus matching normal</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PlotDistHistBeta.html">PlotDistHistBeta</a></code> </p>
-          </td>
-          <td><p>plot distribution details as a density plus matching beta</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plotlyROC.html">plotlyROC</a></code> </p>
-          </td>
-          <td><p>Use <code>plotly</code> to produce a ROC plot.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PRPlot.html">PRPlot</a></code> </p>
-          </td>
-          <td><p>Plot Precision-Recall plot.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ROCPlot.html">ROCPlot</a></code> </p>
-          </td>
-          <td><p>Plot receiver operating characteristic plot.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ROCPlotPair.html">ROCPlotPair</a></code> </p>
-          </td>
-          <td><p>Plot two receiver operating characteristic from the same data.frame.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ROCPlotPair2.html">ROCPlotPair2</a></code> </p>
-          </td>
-          <td><p>Plot two receiver operating characteristic plots from unrelated frames.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScatterBoxPlot.html">ScatterBoxPlot</a></code> </p>
-          </td>
-          <td><p>Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScatterBoxPlotH.html">ScatterBoxPlotH</a></code> </p>
-          </td>
-          <td><p>Plot a scatter plot in horizontal mode.
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="DiscreteDistribution.html">DiscreteDistribution()</a></code> </p>
+        </td>
+        <td><p>Plot distribution of a single continuous variable.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="DoubleDensityPlot.html">DoubleDensityPlot()</a></code> </p>
+        </td>
+        <td><p>Plot two density plots conditioned on truthVar.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="DoubleHistogramPlot.html">DoubleHistogramPlot()</a></code> </p>
+        </td>
+        <td><p>Plot two histograms conditioned on truthVar.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="GainCurvePlot.html">GainCurvePlot()</a></code> </p>
+        </td>
+        <td><p>Plot the gain curve of a sort-order.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="GainCurvePlotC.html">GainCurvePlotC()</a></code> </p>
+        </td>
+        <td><p>Plot the gain curve of a sort-order with costs.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="GainCurvePlotWithNotation.html">GainCurvePlotWithNotation()</a></code> </p>
+        </td>
+        <td><p>Take the standard WVPlots gain curve and add extra notation</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="LogLogPlot.html">LogLogPlot()</a></code> </p>
+        </td>
+        <td><p>Plot a trend on log-log paper.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="PRPlot.html">PRPlot()</a></code> </p>
+        </td>
+        <td><p>Plot Precision-Recall plot.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="PlotDistCountNormal.html">PlotDistCountNormal()</a></code> </p>
+        </td>
+        <td><p>plot distribution details as a histogram plus matching normal</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="PlotDistDensityBeta.html">PlotDistDensityBeta()</a></code> </p>
+        </td>
+        <td><p>plot distribution details as a density plus matching beta</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="PlotDistDensityNormal.html">PlotDistDensityNormal()</a></code> </p>
+        </td>
+        <td><p>plot distribution details as a density plus matching normal</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="PlotDistHistBeta.html">PlotDistHistBeta()</a></code> </p>
+        </td>
+        <td><p>plot distribution details as a density plus matching beta</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ROCPlot.html">ROCPlot()</a></code> </p>
+        </td>
+        <td><p>Plot receiver operating characteristic plot.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ROCPlotPair.html">ROCPlotPair()</a></code> </p>
+        </td>
+        <td><p>Plot two receiver operating characteristic from the same data.frame.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ROCPlotPair2.html">ROCPlotPair2()</a></code> </p>
+        </td>
+        <td><p>Plot two receiver operating characteristic plots from unrelated frames.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScatterBoxPlot.html">ScatterBoxPlot()</a></code> </p>
+        </td>
+        <td><p>Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScatterBoxPlotH.html">ScatterBoxPlotH()</a></code> </p>
+        </td>
+        <td><p>Plot a scatter plot in horizontal mode.
 xvar is the continuous variable and yvar is the discrete variable (input or model) and</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScatterHist.html">ScatterHist</a></code> </p>
-          </td>
-          <td><p>Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScatterHistC.html">ScatterHistC</a></code> </p>
-          </td>
-          <td><p>Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScatterHistN.html">ScatterHistN</a></code> </p>
-          </td>
-          <td><p>Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ShadedDensity.html">ShadedDensity</a></code> </p>
-          </td>
-          <td><p>Plot the distribution of a variable with a tail shaded</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="WVPlots.html">WVPlots</a></code> </p>
-          </td>
-          <td><p>WVPlots: Common Plots for Analysis</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScatterHist.html">ScatterHist()</a></code> </p>
+        </td>
+        <td><p>Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScatterHistC.html">ScatterHistC()</a></code> </p>
+        </td>
+        <td><p>Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScatterHistN.html">ScatterHistN()</a></code> </p>
+        </td>
+        <td><p>Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ShadedDensity.html">ShadedDensity()</a></code> </p>
+        </td>
+        <td><p>Plot the distribution of a variable with a tail shaded</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="WVPlots.html">WVPlots</a></code> </p>
+        </td>
+        <td><p>WVPlots: Common Plots for Analysis</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="calcPR.html">calcPR()</a></code> </p>
+        </td>
+        <td><p>calculate precision/recall curve.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="graphROC.html">graphROC()</a></code> </p>
+        </td>
+        <td><p>calculate AUC.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plot_Keras_fit_trajectory.html">plot_Keras_fit_trajectory()</a></code> </p>
+        </td>
+        <td><p>Plot the trajectory of a Keras model fit.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plot_fit_trajectory.html">plot_fit_trajectory()</a></code> </p>
+        </td>
+        <td><p>Plot the trajectory of a model fit.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="plotlyROC.html">plotlyROC()</a></code> </p>
+        </td>
+        <td><p>Use <code>plotly</code> to produce a ROC plot.</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -319,11 +327,14 @@ xvar is the continuous variable and yvar is the discrete variable (input or mode
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

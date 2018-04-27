@@ -18,13 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height. — ScatterHistN" />
+
+<meta property="og:description" content="Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +38,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +55,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">WVPlots</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">WVPlots</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -73,10 +85,13 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
+    <li>
+      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
+    </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -85,6 +100,7 @@
   <a href="http://www.win-vector.com/">Sponsor: Win-Vector LLC</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,10 +108,12 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.</h1>
+    <small>Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ScatterHistC.R'><code>R/ScatterHistC.R</code></a></small>
+    <div class="hidden name"><code>ScatterHistN.Rd</code></div>
     </div>
 
     
@@ -105,7 +123,7 @@
     <pre class="usage"><span class='fu'>ScatterHistN</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>zvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>colorPalette</span> <span class='kw'>=</span> <span class='st'>"RdYlBu"</span>, <span class='kw'>nclus</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -160,7 +178,7 @@
 <span class='fu'>set.seed</span>(<span class='fl'>34903490</span>)
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>50</span>),<span class='kw'>y</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>50</span>))
 <span class='no'>frm</span>$<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='no'>frm</span>$<span class='no'>x</span>+<span class='no'>frm</span>$<span class='no'>y</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHistN'>ScatterHistN</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Joint Distribution"</span>)</div><div class='img'><img src='ScatterHistN-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHistN'>ScatterHistN</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Joint Distribution"</span>)</div><div class='img'><img src='ScatterHistN-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -180,11 +198,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

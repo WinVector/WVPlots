@@ -76,9 +76,13 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
                    sigr::render(sigr::wrapFTest(frame,xvar,yvar),format='ascii'))
   }
   gSmooth = NULL
-  if(smoothmethod %in%  c('auto','loess','gam')) {
-    gSmooth = ggplot2::geom_smooth(method=smoothmethod)
-  } else if(smoothmethod=="lm") {
+  if(smoothmethod=='identity') {
+    meanY = mean(frame[[yvar]])
+    rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
+    fitstring = paste("R-squared = ", format(rsqr, digits=3))
+
+    gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
+  } else {
     tryCatch({
       # get goodness of linear relation
       model = lm(paste(yvar,"~",xvar), data=frame)
@@ -98,12 +102,6 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
       title <- paste0(origTitle,'\nlm: ',
                       sigr::render(sigr::wrapFTest(model),format='ascii'))
     }
-  } else if(smoothmethod=='identity') {
-    meanY = mean(frame[[yvar]])
-    rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
-    fitstring = paste("R-squared = ", format(rsqr, digits=3))
-
-    gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
   }
 
   # scatterplot of x and y
