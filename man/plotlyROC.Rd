@@ -27,8 +27,7 @@ Use \code{plotly} to produce a ROC plot.
 }
 \examples{
 
-
-d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-plotlyROC(d, 'x', 'y', TRUE, 'example plot')
+# d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
+# plotlyROC(d, 'x', 'y', TRUE, 'example plot')
 
 }

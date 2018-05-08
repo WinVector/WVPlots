@@ -378,9 +378,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #'
 #' @examples
 #'
-#'
-#' d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-#' plotlyROC(d, 'x', 'y', TRUE, 'example plot')
+#' # d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
+#' # plotlyROC(d, 'x', 'y', TRUE, 'example plot')
 #'
 #' @export
 #'
