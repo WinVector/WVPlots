@@ -71,10 +71,6 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
 
   # if we are showing a linear fit, print the fit's parameters
   origTitle <- title
-  if(requireNamespace('sigr',quietly = TRUE)) {
-    title <- paste0(origTitle,'\nData: ',
-                   sigr::render(sigr::wrapFTest(frame,xvar,yvar),format='ascii'))
-  }
   gSmooth = NULL
   if(smoothmethod=='identity') {
     meanY = mean(frame[[yvar]])
@@ -98,10 +94,6 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
     )
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
     title <- origTitle
-    if(requireNamespace('sigr',quietly = TRUE)) {
-      title <- paste0(origTitle,'\nlm: ',
-                      sigr::render(sigr::wrapFTest(model),format='ascii'))
-    }
   }
 
   # scatterplot of x and y
