@@ -7,20 +7,20 @@
 ShadowPlot(frm, condvar, refinevar, title, ..., ncol = 1)
 }
 \arguments{
-\item{frm}{data frame to get values from}
+\item{frm}{data frame to get values from.}
 
-\item{condvar}{name of the factor variable (a categorical variable)}
+\item{condvar}{name of the primary conditioning variable (a categorical variable, controls x-axis).}
 
-\item{refinevar}{name of the conditioning variable (also a categorical variable)}
+\item{refinevar}{name of the second or refining conditioning variable (also a categorical variable, controls faceting).}
 
-\item{title}{title to place on plot}
+\item{title}{title to place on plot.}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{ncol}{numeric: number of columns in facet_wrap.}
 }
 \value{
-a ggplot2 bar chart counting examples grouped by condvar, conditioned by refinevar
+a ggplot2 bar chart counting examples grouped by condvar, faceted by refinevar.
 }
 \description{
 Plot a bar chart of row counts conditioned on the categorical variable \code{condvar},

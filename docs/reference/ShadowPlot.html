@@ -131,19 +131,19 @@ also shows a "shadow plot" of the totals conditioned on <code>condvar</code> alo
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>frm</th>
-      <td><p>data frame to get values from</p></td>
+      <td><p>data frame to get values from.</p></td>
     </tr>
     <tr>
       <th>condvar</th>
-      <td><p>name of the factor variable (a categorical variable)</p></td>
+      <td><p>name of the primary conditioning variable (a categorical variable, controls x-axis).</p></td>
     </tr>
     <tr>
       <th>refinevar</th>
-      <td><p>name of the conditioning variable (also a categorical variable)</p></td>
+      <td><p>name of the second or refining conditioning variable (also a categorical variable, controls faceting).</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>title to place on plot</p></td>
+      <td><p>title to place on plot.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -157,7 +157,7 @@ also shows a "shadow plot" of the totals conditioned on <code>condvar</code> alo
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a ggplot2 bar chart counting examples grouped by condvar, conditioned by refinevar</p>
+    <p>a ggplot2 bar chart counting examples grouped by condvar, faceted by refinevar.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

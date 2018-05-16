@@ -11,13 +11,13 @@
 #' By default, the facet plots are arranged in a single column. This can be changed
 #' with the optional \code{ncol} argument.
 #'
-#' @param frm data frame to get values from
-#' @param condvar name of the factor variable (a categorical variable)
-#' @param refinevar name of the conditioning variable (also a categorical variable)
-#' @param title title to place on plot
+#' @param frm data frame to get values from.
+#' @param condvar name of the primary conditioning variable (a categorical variable, controls x-axis).
+#' @param refinevar name of the second or refining conditioning variable (also a categorical variable, controls faceting).
+#' @param title title to place on plot.
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param ncol numeric: number of columns in facet_wrap.
-#' @return a ggplot2 bar chart counting examples grouped by condvar, conditioned by refinevar
+#' @return a ggplot2 bar chart counting examples grouped by condvar, faceted by refinevar.
 #'
 #' @examples
 #'
