@@ -26,7 +26,7 @@ frm$posY = frm$y > 0
 
 ## Scatterplots
 
-Scatterplot with smoothing line through points. Reports the square of the correlation between x and y (R-squared) and its significance.
+Scatterplot with smoothing line through points. 
 
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
@@ -180,6 +180,33 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-styl
 WVPlots::ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most frequent letters")
 WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=0, title="Example Cleveland-style dot plot, unsorted")
 WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Example with increasing sort order + coord_flip, no stem") + ggplot2::coord_flip()
+
+```
+
+
+## Shadow Plots
+
+Plot a bar chart of row counts conditioned on the categorical variable `condvar`,
+faceted on a second categorical variable, `refinevar`. Each faceted plot
+also shows a "shadow plot" of the totals conditioned on `condvar` alone.
+
+This plot enables comparisons of subpopulation totals across both
+`condvar` and `refinevar` simultaneously.
+
+```{r}
+set.seed(354534)
+N = 100
+
+# rough proportions of eye colors
+eprobs = c(0.37, 0.36, 0.16, 0.11)
+
+eye_color  = sample(c("Brown", "Blue", "Hazel", "Green"), size = N, replace = TRUE, prob = eprobs)
+sex = sample(c("Male", "Female"), size = N, replace = TRUE)
+
+# A data frame of eye color by sex
+dframe = data.frame(eye_color = eye_color, sex = sex)
+
+WVPlots::ShadowPlot(dframe, "eye_color", "sex", title = "Shadow plot of eye colors by sex")
 
 ```
 

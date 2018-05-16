@@ -30,12 +30,7 @@
 
 <meta property="og:title" content="Plot a Cleveland dot plot. — ClevelandDotPlot" />
 
-<meta property="og:description" content="assumes that xvar is a factor variable
-sort &lt; 0 sorts the factor levels in decreasing order (most frequent level first)
-sort &gt; 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels" />
+<meta property="og:description" content="Plot counts of a categorical variable." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +58,7 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.3</span>
       </span>
     </div>
 
@@ -90,9 +85,6 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
     </li>
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
-    </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
@@ -124,12 +116,7 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
 
     <div class="ref-description">
     
-    <p>assumes that xvar is a factor variable
-sort &lt; 0 sorts the factor levels in decreasing order (most frequent level first)
-sort &gt; 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels</p>
+    <p>Plot counts of a categorical variable.</p>
     
     </div>
 
@@ -169,6 +156,16 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Assumes that <code>xvar</code> is a factor or character variable.</p><ul>
+<li><p>sort &lt; 0 sorts the factor levels in decreasing order (most frequent level first)</p></li>
+<li><p>sort &gt; 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())</p></li>
+<li><p>sort = 0 leaves the factor levels in "natural order" -- usually alphabetical</p></li>
+<li><p>stem = FALSE will plot only the dots, without the stem to the y=0 line.</p></li>
+<li><p>limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels</p></li>
+</ul>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -194,7 +191,9 @@ limit_n = NULL plots all the levels, N an integer limits to the top N most popul
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

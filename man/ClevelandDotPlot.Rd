@@ -23,12 +23,17 @@ ClevelandDotPlot(frm, xvar, title, ..., sort = -1, limit_n = NULL,
 \item{stem}{if TRUE add stems/whiskers to plot}
 }
 \description{
-assumes that xvar is a factor variable
-sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+Plot counts of a categorical variable.
+}
+\details{
+Assumes that \code{xvar} is a factor or character variable.
+\itemize{
+\item sort < 0 sorts the factor levels in decreasing order (most frequent level first)
+\item sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
+\item sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
+\item stem = FALSE will plot only the dots, without the stem to the y=0 line.
+\item limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+}
 }
 \examples{
 

@@ -1,7 +1,8 @@
 
-# WVPlots 0.3.3 2018-05-15
+# WVPlots 0.3.3 2018-05-16
 
  * Remove F-test from ScatterHist.
+ * Added shadow plot.
  
 # WVPlots 0.3.2 2018-05-07
 
