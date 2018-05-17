@@ -17,6 +17,8 @@ Description: Select data analysis plots, under a standardized calling interface 
    box and stem with matching theoretical distribution, and density with matching theoretical distribution.
 License: GPL-3
 VignetteBuilder: knitr
+Depends:
+    R (>= 3.0.0)
 Imports:
     ggplot2 (>= 2.2.0),
     wrapr (>= 1.4.0),

@@ -7,7 +7,7 @@
 NULL
 
 # check the arguments are the types our functions commonly expect
-# OLD version use check_args_list
+# OLD version use check_frame_args_list
 checkArgs <- function(frame, xvar, yvar, title,
                       ...,
                       funname = "WVPlots") {
@@ -36,7 +36,17 @@ checkArgs <- function(frame, xvar, yvar, title,
   }
 }
 
-check_args_list <- function(...,
+#' Check arguments are good for plotting and narrow data frame to only named columns.
+#'
+#' @param ... should be empty, force later arguments to bind by name.
+#' @param frame data.frame to work with.
+#' @param name_var_list named list, mapping expected columns to column names used by user.
+#' @param title character title for plot.
+#' @param funname name of function to use in error messages.
+#' @return narrowed data.frame
+#'
+#' @noRd
+check_frame_args_list <- function(...,
                             frame, name_var_list, title,
                             funname = "WVPlots") {
   wrapr::stop_if_dot_args(substitute(list(...)), funname)
@@ -45,7 +55,7 @@ check_args_list <- function(...,
   yvar_name <- deparse(substitute(yvar))
   title_name <- deparse(substitute(title))
   if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
-    stop(paste0(funname, ": argument ", frame_name, " must be a non-empty data frame"))
+    stop(paste0(funname, ": data.frame argument ", frame_name, " must be a non-empty data frame"))
   }
   if(missing(title)||(!is.character(title))||(length(title)!=1)) {
     stop(paste0(funname, ": argument ", title_name, " must be set and a length 1 character vector"))
@@ -59,6 +69,8 @@ check_args_list <- function(...,
       stop(paste0(funname, ": ", ni, " argument (value: \"", vi ,"\") must be the name of a column in data.frame ", frame_name))
     }
   }
+  # return frame narrowed to named columns
+  as.data.frame(frame[, as.character(name_var_list), drop = FALSE])
 }
 
 
