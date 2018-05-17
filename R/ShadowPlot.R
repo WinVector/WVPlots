@@ -27,7 +27,8 @@
 #' @export
 ShadowPlot = function(frm, condvar, refinevar, title, ...,
                       ncol = 1) {
-  checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadowPlot")
+  checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title)
 
   if(is.numeric(frm[[condvar]])) {
     frm[[condvar]] = as.factor(as.character(frm[[condvar]]))
