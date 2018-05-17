@@ -210,6 +210,26 @@ WVPlots::ShadowPlot(dframe, "eye_color", "sex", title = "Shadow plot of eye colo
 
 ```
 
+## Shadow Histogram
+
+Plot a histogram of a continuous variable `xvar`,
+faceted on a categorical conditioning variable, `condvar`. Each faceted plot
+also shows a "shadow plot" of the unconditioned histogram for comparison.
+
+```{r}
+set.seed(354534)
+N = 100
+
+dframe = data.frame(x = rnorm(N), gp = "region 2", stringsAsFactors = FALSE)
+dframe$gp = with(dframe, ifelse(x < -0.5, "region 1", 
+                                ifelse(x > 0.5, "region 3", gp)))
+
+WVPlots::ShadowHist(dframe, "x", "gp", title = "X values by region")
+
+```
+
+
+
 ## ScatterBox Plots
 
 ```{r}

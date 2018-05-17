@@ -43,34 +43,23 @@ ShadowPlot = function(frm, condvar, refinevar, title, ...,
     frm[[refinevar]] = as.factor(as.character(frm[[refinevar]]))
   }
 
-  df = tapply(rep(1, nrow(frm)),
-              list(frm[[condvar]], frm[[refinevar]]),
-              FUN = sum,
-              simplify = TRUE,
-              default = 0)
-  df = as.data.frame(df)
-  df$total = rowSums(df)
-  df[[condvar]] = rownames(df)
-
-  cols = as.character(unique(frm[[refinevar]]))
-
-  df = cdata::unpivot_to_blocks(df,
-                                nameForNewKeyColumn = refinevar,
-                                nameForNewValueColumn = "count",
-                                columnsToTakeFrom = cols)
+  frmthin = frm
+  frmthin[[refinevar]] = NULL
 
   CVAR = NULL # make sure this does not look like an unbound reference
   FVAR = NULL # make sure this does not look like an unbound reference
   total = NULL # make sure this does not look like an unbound reference
   count = NULL # make sure this does not look like an unbound reference
+
   p = wrapr::let(
     c(FVAR = condvar,
       CVAR = refinevar),
-    ggplot2::ggplot(df, ggplot2::aes(x=FVAR)) +
-      ggplot2::geom_col(ggplot2::aes(y=total), fill="lightgray", color = "lightgray", alpha = 0.5) +
-      ggplot2::geom_col(ggplot2::aes(y=count), fill="darkblue") +
+    ggplot2::ggplot(frm, ggplot2::aes(x=FVAR)) +
+      ggplot2::geom_bar(data = frmthin, fill="lightgray", color = "lightgray", alpha = 0.5) +
+      ggplot2::geom_bar(data = frm, fill="darkblue") +
       ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both)
   )
+
 
   p + ggplot2::ggtitle(title)
 }

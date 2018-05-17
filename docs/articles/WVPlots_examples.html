@@ -57,9 +57,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -255,6 +252,20 @@ dframe =<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ShadowPlot">ShadowPlot</a></span>(dframe, <span class="st">"eye_color"</span>, <span class="st">"sex"</span>, <span class="dt">title =</span> <span class="st">"Shadow plot of eye colors by sex"</span>)</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
 </div>
+<div id="shadow-histogram" class="section level2">
+<h2 class="hasAnchor">
+<a href="#shadow-histogram" class="anchor"></a>Shadow Histogram</h2>
+<p>Plot a histogram of a continuous variable <code>xvar</code>, faceted on a categorical conditioning variable, <code>condvar</code>. Each faceted plot also shows a “shadow plot” of the unconditioned histogram for comparison.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">354534</span>)
+N =<span class="st"> </span><span class="dv">100</span>
+
+dframe =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(N), <span class="dt">gp =</span> <span class="st">"region 2"</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+dframe<span class="op">$</span>gp =<span class="st"> </span><span class="kw">with</span>(dframe, <span class="kw">ifelse</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="fl">0.5</span>, <span class="st">"region 1"</span>, 
+                                <span class="kw">ifelse</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span>, <span class="st">"region 3"</span>, gp)))
+
+WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ShadowHist">ShadowHist</a></span>(dframe, <span class="st">"x"</span>, <span class="st">"gp"</span>, <span class="dt">title =</span> <span class="st">"X values by region"</span>)</code></pre></div>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+</div>
 <div id="scatterbox-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scatterbox-plots" class="anchor"></a>ScatterBox Plots</h2>
@@ -267,16 +278,16 @@ frm2 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="d
                   <span class="dt">meas =</span> meas)
 
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ScatterBoxPlot">ScatterBoxPlot</a></span>(frm2, <span class="st">"label"</span>, <span class="st">"meas"</span>, <span class="dt">pt_alpha=</span><span class="fl">0.2</span>, <span class="dt">title=</span><span class="st">"Example Scatter/Box plot"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ScatterBoxPlotH">ScatterBoxPlotH</a></span>(frm2, <span class="st">"meas"</span>, <span class="st">"label"</span>,  <span class="dt">pt_alpha=</span><span class="fl">0.2</span>, <span class="dt">title=</span><span class="st">"Example Scatter/Box plot"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-20-2.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-21-2.png" width="576"></p>
 </div>
 <div id="discrete-distribution-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#discrete-distribution-plot" class="anchor"></a>Discrete Distribution Plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frmx =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rbinom</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="fl">0.5</span>))
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/DiscreteDistribution">DiscreteDistribution</a></span>(frmx, <span class="st">"x"</span>,<span class="st">"Discrete example"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 </div>
 <div id="distribution-and-count-plot" class="section level2">
 <h2 class="hasAnchor">
@@ -284,9 +295,9 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">52523</span>)
 d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">wt=</span><span class="dv">100</span><span class="op">*</span><span class="kw">rnorm</span>(<span class="dv">100</span>))
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/PlotDistCountNormal">PlotDistCountNormal</a></span>(d,<span class="st">'wt'</span>,<span class="st">'example'</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/PlotDistDensityNormal">PlotDistDensityNormal</a></span>(d,<span class="st">'wt'</span>,<span class="st">'example'</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-22-2.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-2.png" width="576"></p>
 </div>
 <div id="smoothed-scatterplots" class="section level2">
 <h2 class="hasAnchor">
@@ -296,22 +307,22 @@ x =<span class="st"> </span><span class="kw">seq_len</span>(<span class="kw">len
 df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)
 
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="ot">NULL</span>, <span class="dt">title=</span><span class="st">"centered smooth, one group"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="ot">NULL</span>, <span class="dt">title=</span><span class="st">"left smooth, one group"</span>, <span class="dt">align=</span><span class="st">"left"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-2.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-2.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="ot">NULL</span>, <span class="dt">title=</span><span class="st">"right smooth, one group"</span>, <span class="dt">align=</span><span class="st">"right"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-3.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-3.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="kw">length</span>(x)
 df =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y<span class="op">+</span><span class="kw">rnorm</span>(n), <span class="dt">gp=</span><span class="st">"times 1"</span>),
            <span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">y=</span><span class="fl">0.5</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n), <span class="dt">gp=</span><span class="st">"times 1/2"</span>),
            <span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">y=</span><span class="dv">2</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n), <span class="dt">gp=</span><span class="st">"times 2"</span>))
 
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="dt">title=</span><span class="st">"centered smooth, multigroup"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-4.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-4.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="dt">title=</span><span class="st">"left smooth, multigroup"</span>, <span class="dt">align=</span><span class="st">"left"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-5.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-5.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot">ConditionalSmoothedScatterPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="dt">title=</span><span class="st">"right smooth, multigroup"</span>, <span class="dt">align=</span><span class="st">"right"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-6.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-6.png" width="576"></p>
 </div>
 <div id="density-plot-with-shaded-tail" class="section level2">
 <h2 class="hasAnchor">
@@ -321,10 +332,10 @@ d =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">
 threshold =<span class="st"> </span><span class="op">-</span><span class="fl">1.5</span>
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ShadedDensity">ShadedDensity</a></span>(d, <span class="st">"meas"</span>, threshold, 
                        <span class="dt">title=</span><span class="st">"Example shaded density plot, left tail"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ShadedDensity">ShadedDensity</a></span>(d, <span class="st">"meas"</span>, <span class="op">-</span>threshold, <span class="dt">tail=</span><span class="st">"right"</span>, 
                        <span class="dt">title=</span><span class="st">"Example shaded density plot, right tail"</span>)</code></pre></div>
-<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-2.png" width="576"></p>
+<p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-25-2.png" width="576"></p>
 </div>
   </div>
 
@@ -341,6 +352,7 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
       <li><a href="#double-histogram-plot">Double Histogram Plot</a></li>
       <li><a href="#cleveland-style-dotplots">Cleveland Style Dotplots</a></li>
       <li><a href="#shadow-plots">Shadow Plots</a></li>
+      <li><a href="#shadow-histogram">Shadow Histogram</a></li>
       <li><a href="#scatterbox-plots">ScatterBox Plots</a></li>
       <li><a href="#discrete-distribution-plot">Discrete Distribution Plot</a></li>
       <li><a href="#distribution-and-count-plot">Distribution and Count Plot</a></li>
