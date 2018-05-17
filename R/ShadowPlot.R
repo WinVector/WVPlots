@@ -28,7 +28,12 @@
 ShadowPlot = function(frm, condvar, refinevar, title, ...,
                       ncol = 1) {
   wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadowPlot")
-  checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title)
+  # checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title,
+  #           funname = "WVPlots::ShadowPlot")
+  check_args_list(frame = frm,
+                  name_var_list = list(condvar = condvar, refinevar = refinevar),
+                  title = title,
+                  funname = "WVPlots::ShadowPlot")
 
   if(is.numeric(frm[[condvar]])) {
     frm[[condvar]] = as.factor(as.character(frm[[condvar]]))

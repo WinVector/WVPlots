@@ -7,27 +7,60 @@
 NULL
 
 # check the arguments are the types our functions commonly expect
-checkArgs <- function(frame,xvar,yvar,title, ...) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots")
+# OLD version use check_args_list
+checkArgs <- function(frame, xvar, yvar, title,
+                      ...,
+                      funname = "WVPlots") {
+  wrapr::stop_if_dot_args(substitute(list(...)), funname)
+  frame_name <- deparse(substitute(frame))
+  xvar_name <- deparse(substitute(xvar))
+  yvar_name <- deparse(substitute(yvar))
+  title_name <- deparse(substitute(title))
   if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
-    stop("frame must be a non-empty data frame")
+    stop(paste0(funname, ": ", frame_name, " must be a non-empty data frame"))
   }
   if(missing(title)||(!is.character(title))||(length(title)!=1)) {
-    stop("title must be a length 1 character vector")
+    stop(paste0(funname, ": ", title_name, " must be set and a length 1 character vector"))
   }
   if(missing(xvar)||(!is.character(xvar))||(length(xvar)!=1)) {
-    stop("xvar must be a length 1 character vector")
+    stop(paste0(funname, ": ", xvar_name, " must be set and a length 1 character vector"))
   }
   if(missing(yvar)||(!is.character(yvar))||(length(yvar)!=1)) {
-    stop("yvar must be a length 1 character vector")
+    stop(paste0(funname, ": ", yvar_name, " must be set and a length 1 character vector"))
   }
   if(!(xvar %in% colnames(frame))) {
-    stop("xvar must be the name of a column in frame")
+    stop(paste0(funname, ": ", xvar_name, " (value: \"", xvar ,"\") must be the name of a column in ", frame_name))
   }
   if(!(yvar %in% colnames(frame))) {
-    stop("yvar must be the name of a column in frame")
+    stop(paste0(funname, ": ", yvar_name, " (value: \"", yvar ,"\") must be the name of a column in ", frame_name))
   }
 }
+
+check_args_list <- function(...,
+                            frame, name_var_list, title,
+                            funname = "WVPlots") {
+  wrapr::stop_if_dot_args(substitute(list(...)), funname)
+  frame_name <- deparse(substitute(frame))
+  xvar_name <- deparse(substitute(xvar))
+  yvar_name <- deparse(substitute(yvar))
+  title_name <- deparse(substitute(title))
+  if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
+    stop(paste0(funname, ": argument ", frame_name, " must be a non-empty data frame"))
+  }
+  if(missing(title)||(!is.character(title))||(length(title)!=1)) {
+    stop(paste0(funname, ": argument ", title_name, " must be set and a length 1 character vector"))
+  }
+  for(ni in names(name_var_list)) {
+    vi <- name_var_list[[ni]]
+    if((!is.character(vi))||(length(vi)!=1)) {
+      stop(paste0(funname, ": ", ni, " argument must be set and a length 1 character vector"))
+    }
+    if(!(vi %in% colnames(frame))) {
+      stop(paste0(funname, ": ", ni, " argument (value: \"", vi ,"\") must be the name of a column in data.frame ", frame_name))
+    }
+  }
+}
+
 
 # Curry without leaking
 padToK <- function(k) {
