@@ -35,8 +35,6 @@ ShadowHist = function(frm, xvar, condvar, title, ...,
                       ncol = 1, palette = "Dark2",
                       bins = 30, binwidth = NULL) {
   wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadowHist")
-  # checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title,
-  #           funname = "WVPlots::ShadowPlot")
   frm <- check_frame_args_list(frame = frm,
                                name_var_list = list(xvar = xvar, condvar = condvar),
                                title = title,
