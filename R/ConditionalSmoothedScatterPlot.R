@@ -60,7 +60,8 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @export
 ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ...,
                                           k=3, align="center") {
-  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ConditionalSmoothedScatterPlot")
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title)
   if(!is.null(groupvar)) {
     if(!isDiscrete(frame[[groupvar]])) {
       stop(paste(groupvar, "should be discrete (factor, character, integer, or logical)"))

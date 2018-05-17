@@ -114,7 +114,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     returnScores=FALSE,
                     nrep=100,
                     parallelCluster=NULL) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlot")
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title)
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
@@ -197,8 +198,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         returnScores=FALSE,
                         nrep=100,
                         parallelCluster=NULL) {
-  checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title,...)
-  checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlotPair")
+  checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title)
+  checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title)
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
@@ -296,8 +298,9 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                          returnScores=FALSE,
                          nrep=100,
                          parallelCluster=NULL) {
-  checkArgs(frame=frame1,xvar=xvar1,yvar=truthVar1,title=title,...)
-  checkArgs(frame=frame2,xvar=xvar2,yvar=truthVar2,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlotPair2")
+  checkArgs(frame=frame1,xvar=xvar1,yvar=truthVar1,title=title)
+  checkArgs(frame=frame2,xvar=xvar2,yvar=truthVar2,title=title)
   test <- NULL # used as a symbol, declare not an unbound variable
   outcol1 <- frame1[[truthVar1]]==truthTarget1
   if(length(unique(outcol1))!=2) {
@@ -388,7 +391,8 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
   if(!(requireNamespace("plotly", quietly = TRUE))) {
     return("WVPlots::plotlyROC requires the plotly package be installed")
   }
-  checkArgs(frame=d,xvar=predCol,yvar=outcomeCol,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plotlyROC")
+  checkArgs(frame=d,xvar=predCol,yvar=outcomeCol,title=title)
   prediction <- d[[predCol]]
   if(!is.numeric(prediction)) {
     stop("WVPlots:plotlyROC prediction must be numeric")

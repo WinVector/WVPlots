@@ -26,7 +26,8 @@ NULL
 #' @export
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::DoubleHistogramPlot")
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title)
   if(!requireNamespace('graphics',quietly = TRUE)) {
     return("WVPlots::DoubleHistogramPlot needs graphics")
   }

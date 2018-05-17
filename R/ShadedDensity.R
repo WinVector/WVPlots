@@ -19,7 +19,8 @@
 #'
 #' @export
 ShadedDensity <- function(frame, xvar, threshold,title,..., tail="left") {
-  checkArgs(frame=frame,xvar=xvar,yvar=xvar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadedDensity")
+  checkArgs(frame=frame,xvar=xvar,yvar=xvar,title=title)
   x <- NULL # used as a symbol, declare not an unbound variable
 
   # calculate the distribution by hand

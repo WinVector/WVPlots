@@ -4,7 +4,7 @@
 \alias{PlotDistHistBeta}
 \title{plot distribution details as a density plus matching beta}
 \usage{
-PlotDistHistBeta(frm, xvar, title, ...)
+PlotDistHistBeta(frm, xvar, title)
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -12,8 +12,6 @@ PlotDistHistBeta(frm, xvar, title, ...)
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{title}{title to place on plot}
-
-\item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
 assumes that xvar is a factor variable

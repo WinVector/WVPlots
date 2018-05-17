@@ -13,7 +13,6 @@ NULL
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(52523)
@@ -21,7 +20,8 @@ NULL
 #' PlotDistDensityNormal(d,'wt','example')
 #'
 #' @export
-PlotDistDensityNormal <- function(frm,xvar,title,...) {
+PlotDistDensityNormal <- function(frm, xvar, title) {
+  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -68,6 +68,8 @@ PlotDistDensityNormal <- function(frm,xvar,title,...) {
 #'
 #' @export
 PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::PlotDistCountNormal")
+  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
   x <- frm[[xvar]]
   if(is.null(binWidth)) {
     range <- max(x)-min(x)
@@ -128,7 +130,6 @@ PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
 #'
 #' set.seed(52523)
@@ -136,7 +137,8 @@ PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
 #' PlotDistDensityBeta(d,'wt','example')
 #'
 #' @export
-PlotDistDensityBeta <- function(frm,xvar,title,...) {
+PlotDistDensityBeta <- function(frm,xvar,title) {
+  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -177,7 +179,7 @@ PlotDistDensityBeta <- function(frm,xvar,title,...) {
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#'
 #' @examples
 #'
 #' set.seed(52523)
@@ -185,7 +187,8 @@ PlotDistDensityBeta <- function(frm,xvar,title,...) {
 #' PlotDistHistBeta(d,'wt','example')
 #'
 #' @export
-PlotDistHistBeta <- function(frm,xvar,title,...) {
+PlotDistHistBeta <- function(frm,xvar,title) {
+  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar

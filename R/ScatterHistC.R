@@ -30,7 +30,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistC requires the grid and gridExtra packages be installed")
   }
-  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ScatterHistC")
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title)
   minimal_labels = TRUE
 
   # Use this plot to print the legend.
@@ -196,7 +197,8 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistN requires the grid and gridExtra packages be installed")
   }
-  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ScatterHistN")
+  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title)
   q <- sort(unique(quantile(frame[[zvar]],seq(0, 1, 1/nclus))))
   yC <- cut(frame[[zvar]],q,include.lowest=TRUE)
   if(length(unique(yC))<=1) {

@@ -61,6 +61,8 @@ plot_fit_trajectory <- function(d,
                                 discount_rate = NULL,
                                 draw_ribbon = FALSE,
                                 draw_segments = FALSE) {
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plot_fit_trajectory")
+  checkArgs(frame=d,xvar=epoch_name,yvar=epoch_name,title=title)
   if( (!requireNamespace("cdata", quietly = TRUE)) ) {
     return("WVPlots::plot_fit_trajectory requires the cdata package for data shaping")
   }
@@ -240,6 +242,8 @@ plot_Keras_fit_trajectory <- function(d,
                                 discount_rate = NULL,
                                 draw_ribbon = FALSE)
 {
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plot_Keras_fit_trajectory")
+  checkArgs(frame=d,xvar=perfname,yvar=lossname,title=title)
   d[[epoch_name]] <- seq_len(nrow(d))
   val_loss_name = paste("val", lossname, sep="_")
   val_perf_name = paste("val", perfname, sep="_")

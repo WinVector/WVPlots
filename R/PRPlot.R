@@ -70,7 +70,8 @@ calcPR <- function(modelPredictions,yValues) {
 #'
 #' @export
 PRPlot <- function(frame, xvar, truthVar, truthTarget, title,...) {
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title,...)
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::PRPlot")
+  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title)
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
