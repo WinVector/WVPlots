@@ -56,7 +56,7 @@ ShadowHist = function(frm, xvar, condvar, title, ...,
     ggplot2::ggplot(frm, ggplot2::aes(x=XVAR)) +
       ggplot2::geom_histogram(data = frmthin, bins = bins, binwidth = binwidth,
                               fill="lightgray", color = "lightgray", alpha = 0.5) +
-      ggplot2::geom_histogram(data = frm, ggplot2::aes(fill=CVAR),
+      ggplot2::geom_histogram(data = frm, ggplot2::aes(fill=CVAR), color = NA,
                               bins = bins, binwidth = binwidth) +
       ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both) +
       ggplot2::guides(fill = FALSE)

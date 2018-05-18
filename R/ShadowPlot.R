@@ -56,7 +56,7 @@ ShadowPlot = function(frm, condvar, refinevar, title, ...,
       CVAR = refinevar),
     ggplot2::ggplot(frm, ggplot2::aes(x=FVAR)) +
       ggplot2::geom_bar(data = frmthin, fill="lightgray", color = "lightgray", alpha = 0.5) +
-      ggplot2::geom_bar(data = frm, fill="darkblue") +
+      ggplot2::geom_bar(data = frm, fill="darkblue", color=NA) +
       ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both)
   )
 
