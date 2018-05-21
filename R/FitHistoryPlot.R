@@ -61,8 +61,12 @@ plot_fit_trajectory <- function(d,
                                 discount_rate = NULL,
                                 draw_ribbon = FALSE,
                                 draw_segments = FALSE) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plot_fit_trajectory")
-  checkArgs(frame=d,xvar=epoch_name,yvar=epoch_name,title=title)
+  vlist <- unique(c(epoch_name, as.character(as.matrix(column_description[-1]))))
+  d <- check_frame_args_list(...,
+                        frame = d,
+                        name_var_list = vlist,
+                        title = title,
+                        funname = "WVPlots::plot_fit_trajectory")
   if( (!requireNamespace("cdata", quietly = TRUE)) ) {
     return("WVPlots::plot_fit_trajectory requires the cdata package for data shaping")
   }
@@ -230,27 +234,30 @@ plot_fit_trajectory <- function(d,
 #' @export
 #'
 plot_Keras_fit_trajectory <- function(d,
-                                title,
-                                ...,
-                                epoch_name = "epoch",
-                                lossname = "loss",
-                                loss_pretty_name = "minus binary cross entropy",
-                                perfname = "acc",
-                                perf_pretty_name = "accuracy",
-                                pick_metric = loss_pretty_name,
-                                fliploss = TRUE,
-                                discount_rate = NULL,
-                                draw_ribbon = FALSE)
-{
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plot_Keras_fit_trajectory")
-  checkArgs(frame=d,xvar=perfname,yvar=lossname,title=title)
-  d[[epoch_name]] <- seq_len(nrow(d))
+                                      title,
+                                      ...,
+                                      epoch_name = "epoch",
+                                      lossname = "loss",
+                                      loss_pretty_name = "minus binary cross entropy",
+                                      perfname = "acc",
+                                      perf_pretty_name = "accuracy",
+                                      pick_metric = loss_pretty_name,
+                                      fliploss = TRUE,
+                                      discount_rate = NULL,
+                                      draw_ribbon = FALSE) {
   val_loss_name = paste("val", lossname, sep="_")
   val_perf_name = paste("val", perfname, sep="_")
+  d[[epoch_name]] <- seq_len(nrow(d))
+  vlist <- unique(c(epoch_name, lossname, perfname, val_loss_name, val_perf_name))
+  d <- check_frame_args_list(...,
+                             frame = d,
+                             name_var_list = vlist,
+                             title = title,
+                             funname = "WVPlots::plot_Keras_fit_trajectory")
   column_description <-  data.frame(
     measure =    c(loss_pretty_name, perf_pretty_name),
     training =   c(lossname,         perfname),
-    validation = c(val_loss_name,     val_perf_name),
+    validation = c(val_loss_name,    val_perf_name),
     stringsAsFactors = FALSE)
   if(fliploss)
    needs_flip <- loss_pretty_name

@@ -6,35 +6,6 @@
 #' @importFrom wrapr DebugPrintFn let
 NULL
 
-# check the arguments are the types our functions commonly expect
-# OLD version move all use to: check_frame_args_list
-checkArgs <- function(frame, xvar, yvar, title,
-                      ...,
-                      funname = "WVPlots") {
-  wrapr::stop_if_dot_args(substitute(list(...)), funname)
-  frame_name <- deparse(substitute(frame))
-  xvar_name <- deparse(substitute(xvar))
-  yvar_name <- deparse(substitute(yvar))
-  title_name <- deparse(substitute(title))
-  if(missing(frame)||(!is.data.frame(frame))||(nrow(frame)<0)||(ncol(frame)<=0)) {
-    stop(paste0(funname, ": ", frame_name, " must be a non-empty data frame"))
-  }
-  if(missing(title)||(!is.character(title))||(length(title)!=1)) {
-    stop(paste0(funname, ": ", title_name, " must be set and a length 1 character vector"))
-  }
-  if(missing(xvar)||(!is.character(xvar))||(length(xvar)!=1)) {
-    stop(paste0(funname, ": ", xvar_name, " must be set and a length 1 character vector"))
-  }
-  if(missing(yvar)||(!is.character(yvar))||(length(yvar)!=1)) {
-    stop(paste0(funname, ": ", yvar_name, " must be set and a length 1 character vector"))
-  }
-  if(!(xvar %in% colnames(frame))) {
-    stop(paste0(funname, ": ", xvar_name, " (value: \"", xvar ,"\") must be the name of a column in ", frame_name))
-  }
-  if(!(yvar %in% colnames(frame))) {
-    stop(paste0(funname, ": ", yvar_name, " (value: \"", yvar ,"\") must be the name of a column in ", frame_name))
-  }
-}
 
 #' Check arguments are good for plotting and narrow data frame to only named columns.
 #'
