@@ -54,8 +54,11 @@ stemdotstats = function(ycol) {
 #' @export
 ClevelandDotPlot = function(frm, xvar, title, ...,
                             sort=-1, limit_n = NULL, stem=TRUE) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ClevelandDotPlot")
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+  frm <- check_frame_args_list(...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar),
+                               title = title,
+                               funname = "WVPlots::ClevelandDotPlot")
   if(!(is.null(limit_n) || isScalar(limit_n))) {
     stop("parameter limit_n must either be null or a numeric scalar")
   }

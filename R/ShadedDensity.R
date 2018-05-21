@@ -18,9 +18,14 @@
 #'                        title="Example shaded density plot, right tail")
 #'
 #' @export
-ShadedDensity <- function(frame, xvar, threshold,title,..., tail="left") {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadedDensity")
-  checkArgs(frame=frame,xvar=xvar,yvar=xvar,title=title)
+ShadedDensity <- function(frame, xvar, threshold, title,
+                          ...,
+                          tail="left") {
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar),
+                                 title = title,
+                                 funname = "WVPlots::ShadedDensity")
   x <- NULL # used as a symbol, declare not an unbound variable
 
   # calculate the distribution by hand

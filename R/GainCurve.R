@@ -104,12 +104,11 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
                          compute_sig = TRUE,
                          large_count = 1000) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::GainCurvePlot")
-  checkArgs(
-    frame = frame,
-    xvar = xvar,
-    yvar = truthVar,
-    title = title)
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::GainCurvePlot")
   pctpop <- NULL # used as a symbol, declare not an unbound variable
   pct_outcome <-
     NULL # used as a symbol, declare not an unbound variable
@@ -321,12 +320,11 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
                           ...,
                           compute_sig = TRUE,
                           large_count = 1000) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::GainCurvePlotC")
-  checkArgs(
-    frame = frame,
-    xvar = xvar,
-    yvar = truthVar,
-    title = title)
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, costVar= costVar, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::GainCurvePlotC")
   pctpop <- NULL # used as a symbol, declare not an unbound variable
   pct_outcome <-
     NULL # used as a symbol, declare not an unbound variable
@@ -526,12 +524,11 @@ GainCurvePlotWithNotation = function(frame,
                                      ...,
                                      compute_sig = TRUE,
                                      large_count = 1000) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::GainCurvePlotWithNotation")
-   checkArgs(
-    frame = frame,
-    xvar = xvar,
-    yvar = truthVar,
-    title = title)
+   frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::GainCurvePlotWithNotation")
   gainy = get_gainy(frame, xvar, truthVar, gainx)
   label = labelfun(gainx, gainy)
   gp = GainCurvePlot(frame, xvar, truthVar, title,

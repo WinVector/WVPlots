@@ -32,8 +32,11 @@
 LogLogPlot <- function(frame, xvar, yvar, title,
                        ...,
                        use_coord_trans = FALSE) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::LogLogPlot")
-  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title)
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, yvar = yvar),
+                                 title = title,
+                                 funname = "WVPlots::LogLogPlot")
   XVAR <- NULL # don't look like an unbound variable
   YVAR <- NULL # don't look like an unbound variable
   linear_trend <- NULL # don't look like an unbound variable

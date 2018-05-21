@@ -2,9 +2,7 @@
 % Please edit documentation in R/ConditionalSmoothedScatterPlot.R
 \name{ConditionalSmoothedScatterPlot}
 \alias{ConditionalSmoothedScatterPlot}
-\title{Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
-      xvar is the continuous independent variable and yvar is the dependent binary variable.
-      Smoothing is by a square window of width k}
+\title{Plot a scatter plot with smoothing line.}
 \usage{
 ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ..., k = 3,
   align = "center")
@@ -27,7 +25,7 @@ ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ..., k = 3,
 \item{align}{smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'}
 }
 \description{
-Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
+Plot a scatter plot with smoothing line with smoothing window aligned either left, center or right,
       xvar is the continuous independent variable and yvar is the dependent binary variable.
       Smoothing is by a square window of width k
 }
@@ -35,8 +33,10 @@ Plot a scatter plot with smoothing line, with smoothing window aligned either le
 
 y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
-df = data.frame(x=x,y=y)
+df = data.frame(x=x, y=y, group=x>5)
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL,
-   title="left smooth, one group", align="left")
+   title="left smooth, one groups", align="left")
+WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "group",
+   title="left smooth, two groups", align="left")
 
 }

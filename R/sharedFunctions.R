@@ -7,7 +7,7 @@
 NULL
 
 # check the arguments are the types our functions commonly expect
-# OLD version use check_frame_args_list
+# OLD version move all use to: check_frame_args_list
 checkArgs <- function(frame, xvar, yvar, title,
                       ...,
                       funname = "WVPlots") {

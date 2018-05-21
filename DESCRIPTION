@@ -2,7 +2,7 @@ Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
 Version: 0.3.3
-Date: 2018-05-18
+Date: 2018-05-21
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -23,6 +23,7 @@ Imports:
     ggplot2 (>= 2.2.0),
     wrapr (>= 1.4.1),
     sigr (>= 0.2.5),
+    cdata (>= 0.7.0),
     utils,
     grid,
     gridExtra,
@@ -31,7 +32,6 @@ Imports:
 Suggests:
     knitr,
     testthat,
-    cdata (>= 0.7.0),
     plotly
 RoxygenNote: 6.0.1
 ByteCompile: true

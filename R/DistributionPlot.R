@@ -21,7 +21,11 @@ NULL
 #'
 #' @export
 PlotDistDensityNormal <- function(frm, xvar, title) {
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+  frm <- check_frame_args_list(# ...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar),
+                               title = title,
+                               funname = "WVPlots::PlotDistDensityNormal")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -67,9 +71,14 @@ PlotDistDensityNormal <- function(frm, xvar, title) {
 #' PlotDistCountNormal(d,'wt','example')
 #'
 #' @export
-PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::PlotDistCountNormal")
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+PlotDistCountNormal <- function(frm, xvar, title,
+                                ...,
+                                binWidth=c()) {
+  frm <- check_frame_args_list(...,
+    frame = frm,
+    name_var_list = list(xvar = xvar),
+    title = title,
+    funname = "WVPlots::PlotDistCountNormal")
   x <- frm[[xvar]]
   if(is.null(binWidth)) {
     range <- max(x)-min(x)
@@ -137,8 +146,12 @@ PlotDistCountNormal <- function(frm,xvar,title,...,binWidth=c()) {
 #' PlotDistDensityBeta(d,'wt','example')
 #'
 #' @export
-PlotDistDensityBeta <- function(frm,xvar,title) {
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+PlotDistDensityBeta <- function(frm, xvar, title) {
+  frm <- check_frame_args_list(#...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar),
+                               title = title,
+                               funname = "WVPlots::PlotDistDensityBeta")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -157,7 +170,9 @@ PlotDistDensityBeta <- function(frm,xvar,title) {
   ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
                           mapping=ggplot2::aes_string(x=xvar),
-                          adjust=0.5) +
+                          adjust=0.5,
+                          fill = "lightgray",
+                          color = NA) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='density'),
                        color='blue',linetype=2) +
@@ -176,9 +191,15 @@ PlotDistDensityBeta <- function(frm,xvar,title) {
 #' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
 #' stem = FALSE will plot only the dots, without the stem to the y=0 line.
 #' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#'
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
+#' @param ... force later arguments to bind by name
+#' @param binwidth passed to geom_histogram()
+#' @param bins passed to geom_histogram()
+#' @return ggplot2 plot
+#'
 #'
 #' @examples
 #'
@@ -187,8 +208,14 @@ PlotDistDensityBeta <- function(frm,xvar,title) {
 #' PlotDistHistBeta(d,'wt','example')
 #'
 #' @export
-PlotDistHistBeta <- function(frm,xvar,title) {
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+PlotDistHistBeta <- function(frm, xvar, title,
+                             ...,
+                             binwidth = NULL, bins = 30) {
+  frm <- check_frame_args_list(...,
+    frame = frm,
+    name_var_list = list(xvar = xvar),
+    title = title,
+    funname = "WVPlots::PlotDistHistBeta")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -207,7 +234,8 @@ PlotDistHistBeta <- function(frm,xvar,title) {
   dDist$count <- length(x)*dDist$density/sum(dDist$densit)
   ggplot2::ggplot() +
     ggplot2::geom_histogram(data=dPlot,
-                          mapping=ggplot2::aes_string(x=xvar)) +
+                          mapping=ggplot2::aes_string(x=xvar),
+                          binwidth = binwidth, bins = bins) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='count'),
                        color='blue',linetype=2) +

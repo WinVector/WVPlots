@@ -96,6 +96,7 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
@@ -111,11 +112,16 @@ graphROC <- function(modelPredictions, yValues) {
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     ...,
-                    returnScores=FALSE,
-                    nrep=100,
-                    parallelCluster=NULL) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlot")
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title)
+                    estimate_sig = TRUE,
+                    returnScores = FALSE,
+                    nrep = 100,
+                    parallelCluster = NULL) {
+  # check and narrow frame
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::ROCPlot")
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
@@ -130,8 +136,15 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                                         nRep=nrep,
                                         parallelCluster=parallelCluster)
   palletName = "Dark2"
-  pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
-  aucString <- sprintf('%.2g',auc)
+  subtitle <- NULL
+  if(estimate_sig) {
+    pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
+    aucString <- sprintf('%.2g',auc)
+    subtitle <- paste0(
+      'AUC=',aucString,
+      '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
+      pString)
+  }
   plot <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes_string(x='FalsePositiveRate',
@@ -155,10 +168,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                             truthVar, '==', truthTarget, ' ~ ', xvar, ', '),
-                     subtitle = paste0(
-                            'AUC=',aucString,
-                            '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
-                            pString)) +
+                     subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,rocList=rocList,aucsig=aucsig,pString=pString))
@@ -198,9 +208,11 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         returnScores=FALSE,
                         nrep=100,
                         parallelCluster=NULL) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlotPair")
-  checkArgs(frame=frame,xvar=xvar1,yvar=truthVar,title=title)
-  checkArgs(frame=frame,xvar=xvar2,yvar=truthVar,title=title)
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar1 = xvar1, xvar2 = xvar2, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::ROCPlotPair")
   outcol <- frame[[truthVar]]==truthTarget
   if(length(unique(outcol))!=2) {
     return(NULL)
@@ -249,8 +261,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                   subtitle = paste0(
                   'testing: AUC(1)>AUC(2)\n on same data\n ',
                   eString)) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
-    ggplot2::theme(legend.position="bottom", legend.direction="vertical")
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
@@ -298,9 +309,16 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                          returnScores=FALSE,
                          nrep=100,
                          parallelCluster=NULL) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ROCPlotPair2")
-  checkArgs(frame=frame1,xvar=xvar1,yvar=truthVar1,title=title)
-  checkArgs(frame=frame2,xvar=xvar2,yvar=truthVar2,title=title)
+  frame1 <- check_frame_args_list(...,
+                                  frame = frame1,
+                                  name_var_list = list(xvar1 = xvar1, truthVar1 = truthVar1),
+                                  title = title,
+                                  funname = "WVPlots::ROCPlotPair2")
+  frame2 <- check_frame_args_list(...,
+                                  frame = frame2,
+                                  name_var_list = list(xvar2 = xvar2, truthVar2 = truthVar2),
+                                  title = title,
+                                  funname = "WVPlots::ROCPlotPair2")
   test <- NULL # used as a symbol, declare not an unbound variable
   outcol1 <- frame1[[truthVar1]]==truthTarget1
   if(length(unique(outcol1))!=2) {
@@ -353,8 +371,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                      subtitle = paste0(
                             'testing: AUC(1)>AUC(2)\n on different data\n ',
                             eString)) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
-    ggplot2::theme(legend.position="bottom", legend.direction="vertical")
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
@@ -391,8 +408,11 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
   if(!(requireNamespace("plotly", quietly = TRUE))) {
     return("WVPlots::plotlyROC requires the plotly package be installed")
   }
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::plotlyROC")
-  checkArgs(frame=d,xvar=predCol,yvar=outcomeCol,title=title)
+  d <- check_frame_args_list(...,
+                             frame = d,
+                             name_var_list = list(predCol = predCol, outcomeCol = outcomeCol),
+                             title = title,
+                             funname = "WVPlots::plotlyROC")
   prediction <- d[[predCol]]
   if(!is.numeric(prediction)) {
     stop("WVPlots:plotlyROC prediction must be numeric")

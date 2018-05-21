@@ -23,9 +23,12 @@
 #' WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 #'
 #' @export
-DoubleDensityPlot <- function(frame, xvar, truthVar,title,...) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::DoubleDensityPlot")
-  checkArgs(frame=frame,xvar=xvar,yvar=truthVar,title=title)
+DoubleDensityPlot <- function(frame, xvar, truthVar, title,...) {
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::DoubleDensityPlot")
   df <- data.frame(x=as.numeric(frame[[xvar]]),
                    y=as.character(frame[[truthVar]]),
                    stringsAsFactors=FALSE)

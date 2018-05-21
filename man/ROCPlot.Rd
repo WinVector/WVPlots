@@ -4,8 +4,8 @@
 \alias{ROCPlot}
 \title{Plot receiver operating characteristic plot.}
 \usage{
-ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., returnScores = FALSE,
-  nrep = 100, parallelCluster = NULL)
+ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = TRUE,
+  returnScores = FALSE, nrep = 100, parallelCluster = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -19,6 +19,8 @@ ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., returnScores = FALSE,
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{estimate_sig}{logical, if TRUE estimate and display significance of difference from AUC 0.5.}
 
 \item{returnScores}{logical if TRUE return detailed permutedScores}
 

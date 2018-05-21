@@ -32,7 +32,7 @@ NULL
 #'   contour = TRUE)
 #'
 #' @export
-ScatterHist = function(frame, xvar, yvar,title, ...,
+ScatterHist = function(frame, xvar, yvar, title, ...,
                        smoothmethod="auto", # only works for 'auto', 'loess', 'gam', 'lm', and 'identity'
                        annot_size=5,
                        minimal_labels = TRUE,
@@ -46,8 +46,11 @@ ScatterHist = function(frame, xvar, yvar,title, ...,
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHist requires the grid and gridExtra packages be installed")
   }
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ScatterHist")
-  checkArgs(frame=frame,xvar=xvar,yvar=yvar,title=title)
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar, yvar = yvar),
+                                 title = title,
+                                 funname = "WVPlots::ScatterHist")
   if(!(smoothmethod %in% c('auto','loess','gam','lm','identity'))) {
     stop("smoothed method must be one of 'auto','lm', or 'identity'")
   }

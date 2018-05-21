@@ -4,7 +4,7 @@
 \alias{PlotDistHistBeta}
 \title{plot distribution details as a density plus matching beta}
 \usage{
-PlotDistHistBeta(frm, xvar, title)
+PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30)
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -12,6 +12,15 @@ PlotDistHistBeta(frm, xvar, title)
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{title}{title to place on plot}
+
+\item{...}{force later arguments to bind by name}
+
+\item{binwidth}{passed to geom_histogram()}
+
+\item{bins}{passed to geom_histogram()}
+}
+\value{
+ggplot2 plot
 }
 \description{
 assumes that xvar is a factor variable

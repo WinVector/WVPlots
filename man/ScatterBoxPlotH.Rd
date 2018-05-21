@@ -5,16 +5,14 @@
 \title{Plot a scatter plot in horizontal mode.
 xvar is the continuous variable and yvar is the discrete variable (input or model) and}
 \usage{
-ScatterBoxPlotH(frm, xvar, yvar, title = "", ..., pt_alpha = 0.3)
+ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 }
 \arguments{
 \item{frm}{data frame to get values from}
 
 \item{xvar}{name of the continuous column in frame}
 
-\item{yvar}{name of the independent column in frame; assumed discrete.
-if frm[[yvar]] is an integer column, it will be converted to a factor. This means that
-additional layers that rely on continuous x scales (like geom_smooth) won't work}
+\item{yvar}{name of the independent column in frame; assumed discrete (if frm[[yvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).}
 
 \item{title}{plot title}
 

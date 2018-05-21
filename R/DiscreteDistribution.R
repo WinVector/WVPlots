@@ -22,8 +22,11 @@ is_integral = function(x) {
 #' @export
 DiscreteDistribution = function(frm, xvar, title, ...,
                                 stem=TRUE) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::DiscreteDistribution")
-  checkArgs(frame=frm,xvar=xvar,yvar=xvar,title=title)
+  frm <- check_frame_args_list(...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar),
+                               title = title,
+                               funname = "WVPlots::DiscreteDistribution")
   if(!is_integral(frm[[xvar]])) {
     stop(paste("Column", xvar, "must have integer values"))
   }

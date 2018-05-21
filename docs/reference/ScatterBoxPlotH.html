@@ -89,6 +89,9 @@ xvar is the continuous variable and yvar is the discrete variable (input or mode
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
+    <li>
+      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -125,7 +128,7 @@ xvar is the continuous variable and yvar is the discrete variable (input or mode
     
     </div>
 
-    <pre class="usage"><span class='fu'>ScatterBoxPlotH</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>, <span class='kw'>pt_alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</pre>
+    <pre class="usage"><span class='fu'>ScatterBoxPlotH</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>pt_alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,9 +143,7 @@ xvar is the continuous variable and yvar is the discrete variable (input or mode
     </tr>
     <tr>
       <th>yvar</th>
-      <td><p>name of the independent column in frame; assumed discrete.
-if frm[[yvar]] is an integer column, it will be converted to a factor. This means that
-additional layers that rely on continuous x scales (like geom_smooth) won't work</p></td>
+      <td><p>name of the independent column in frame; assumed discrete (if frm[[yvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).</p></td>
     </tr>
     <tr>
       <th>title</th>

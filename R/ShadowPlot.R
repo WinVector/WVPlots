@@ -27,10 +27,8 @@
 #' @export
 ShadowPlot = function(frm, condvar, refinevar, title, ...,
                       ncol = 1) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ShadowPlot")
-  # checkArgs(frame=frm,xvar=condvar,yvar=refinevar,title=title,
-  #           funname = "WVPlots::ShadowPlot")
-  frm <- check_frame_args_list(frame = frm,
+  frm <- check_frame_args_list(...,
+                               frame = frm,
                                name_var_list = list(condvar = condvar, refinevar = refinevar),
                                title = title,
                                funname = "WVPlots::ShadowPlot")

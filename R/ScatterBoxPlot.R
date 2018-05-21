@@ -3,9 +3,7 @@
 #' Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.
 #'
 #' @param frm data frame to get values from
-#' @param xvar name of the independent column in frame; assumed discrete.
-#' if frm[[xvar]] is an integer column, it will be converted to a factor. This means that
-#' additional layers that rely on continuous x scales (like geom_smooth) won't work
+#' @param xvar name of the independent column in frame; assumed discrete (if frm[[xvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).
 #' @param yvar name of the continuous column in frame
 #' @param title plot title
 #' @param ... (doesn't take additional arguments, used to force later arguments by name)
@@ -24,8 +22,11 @@
 #' @export
 ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
                           pt_alpha=0.3) {
-  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots::ScatterBoxPlot")
-  checkArgs(frame=frm,xvar=xvar,yvar=yvar,title=title)
+  frm <- check_frame_args_list(...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar, yvar = yvar),
+                               title = title,
+                               funname = "WVPlots::ScatterBoxPlot")
   if(!isDiscrete(frm[[xvar]])) {
     stop(paste(xvar, "should be discrete (factor, character, integer, or logical)"))
   }
@@ -44,9 +45,7 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 #' xvar is the continuous variable and yvar is the discrete variable (input or model) and
 #' @param frm data frame to get values from
 #' @param xvar name of the continuous column in frame
-#' @param yvar name of the independent column in frame; assumed discrete.
-#' if frm[[yvar]] is an integer column, it will be converted to a factor. This means that
-#' additional layers that rely on continuous x scales (like geom_smooth) won't work
+#' @param yvar name of the independent column in frame; assumed discrete (if frm[[yvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).
 #' @param title plot title
 #' @param ... (doesn't take additional arguments, used to force later arguments by name)
 #' @param pt_alpha transparency of points in scatter plot
@@ -63,8 +62,14 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 #'
 #'
 #' @export
-ScatterBoxPlotH = function(frm, xvar, yvar, title='', ...,
-                          pt_alpha=0.3) {
+ScatterBoxPlotH = function(frm, xvar, yvar, title,
+                           ...,
+                           pt_alpha=0.3) {
+  frm <- check_frame_args_list(...,
+                               frame = frm,
+                               name_var_list = list(xvar = xvar, yvar = yvar),
+                               title = title,
+                               funname = "WVPlots::ScatterBoxPlotH")
   ScatterBoxPlot(frm, yvar, xvar, title=title, ...,
-                            pt_alpha=pt_alpha) + ggplot2::coord_flip()
+                 pt_alpha=pt_alpha) + ggplot2::coord_flip()
 }

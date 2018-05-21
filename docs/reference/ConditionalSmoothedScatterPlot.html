@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
-      xvar is the continuous independent variable and yvar is the dependent binary variable.
-      Smoothing is by a square window of width k — ConditionalSmoothedScatterPlot • WVPlots</title>
+<title>Plot a scatter plot with smoothing line. — ConditionalSmoothedScatterPlot • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +28,9 @@
 
 
 
-<meta property="og:title" content="Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
-      xvar is the continuous independent variable and yvar is the dependent binary variable.
-      Smoothing is by a square window of width k — ConditionalSmoothedScatterPlot" />
+<meta property="og:title" content="Plot a scatter plot with smoothing line. — ConditionalSmoothedScatterPlot" />
 
-<meta property="og:description" content="Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
+<meta property="og:description" content="Plot a scatter plot with smoothing line with smoothing window aligned either left, center or right,
       xvar is the continuous independent variable and yvar is the dependent binary variable.
       Smoothing is by a square window of width k" />
 <meta name="twitter:card" content="summary" />
@@ -92,6 +88,9 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
+    <li>
+      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -115,16 +114,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
-      xvar is the continuous independent variable and yvar is the dependent binary variable.
-      Smoothing is by a square window of width k</h1>
+    <h1>Plot a scatter plot with smoothing line.</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ConditionalSmoothedScatterPlot.R'><code>R/ConditionalSmoothedScatterPlot.R</code></a></small>
     <div class="hidden name"><code>ConditionalSmoothedScatterPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot a scatter plot with smoothing line, with smoothing window aligned either left, center or right,
+    <p>Plot a scatter plot with smoothing line with smoothing window aligned either left, center or right,
       xvar is the continuous independent variable and yvar is the dependent binary variable.
       Smoothing is by a square window of width k</p>
     
@@ -175,9 +172,10 @@
     <pre class="examples"><div class='input'>
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>15</span>,<span class='fl'>18</span>,<span class='fl'>20</span>,<span class='fl'>25</span>)
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>seq_len</span>(<span class='fu'>length</span>(<span class='no'>y</span>))
-<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>)
+<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>group</span><span class='kw'>=</span><span class='no'>x</span><span class='kw'>&gt;</span><span class='fl'>5</span>)
 <span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot'>ConditionalSmoothedScatterPlot</a></span>(<span class='no'>df</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>NULL</span>,
-   <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"left smooth, one group"</span>, <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"left"</span>)</div><div class='img'><img src='ConditionalSmoothedScatterPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+   <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"left smooth, one groups"</span>, <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"left"</span>)</div><div class='img'><img src='ConditionalSmoothedScatterPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ConditionalSmoothedScatterPlot'>ConditionalSmoothedScatterPlot</a></span>(<span class='no'>df</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"group"</span>,
+   <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"left smooth, two groups"</span>, <span class='kw'>align</span><span class='kw'>=</span><span class='st'>"left"</span>)</div><div class='img'><img src='ConditionalSmoothedScatterPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
