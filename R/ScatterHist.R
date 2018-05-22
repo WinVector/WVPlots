@@ -74,7 +74,6 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
           plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
-  origTitle <- title
   gSmooth = NULL
   if(smoothmethod=='identity') {
     meanY = mean(frame[[yvar]])
@@ -97,7 +96,6 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
     error=function(x){}
     )
     gSmooth = ggplot2::geom_smooth(method=smoothmethod)
-    title <- origTitle
   }
 
   # scatterplot of x and y
