@@ -47,7 +47,10 @@ set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y)
-WVPlots::ScatterHist(frm, "x", "y", title="Example Fit",
+sig <- sigr::wrapFTest(frm, "x", "y",
+  format = "ascii")
+WVPlots::ScatterHist(frm, "x", "y",
+  title= paste("Example Fit\\n identity ", format(sig)),
   contour = TRUE)
 
 }
