@@ -123,7 +123,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotlyROC</span>(<span class='no'>d</span>, <span class='no'>predCol</span>, <span class='no'>outcomeCol</span>, <span class='no'>outcomeTarget</span>, <span class='no'>title</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotlyROC</span>(<span class='no'>d</span>, <span class='no'>predCol</span>, <span class='no'>outcomeCol</span>, <span class='no'>outcomeTarget</span>, <span class='no'>title</span>, <span class='no'>...</span>,
+  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +152,10 @@
     <tr>
       <th>...</th>
       <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
+    </tr>
+    <tr>
+      <th>estimate_sig</th>
+      <td><p>logical, if TRUE estimate and display significance of difference from AUC 0.5.</p></td>
     </tr>
     </table>
     

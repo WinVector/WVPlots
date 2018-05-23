@@ -5,8 +5,8 @@
 \title{Plot two receiver operating characteristic plots from unrelated frames.}
 \usage{
 ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
-  truthVar2, truthTarget2, title, ..., returnScores = FALSE, nrep = 100,
-  parallelCluster = NULL)
+  truthVar2, truthTarget2, title, ..., estimate_sig = TRUE,
+  returnScores = FALSE, nrep = 100, parallelCluster = NULL)
 }
 \arguments{
 \item{nm1}{name of first model}
@@ -32,6 +32,8 @@ ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{estimate_sig}{logical, if TRUE estimate and display significance of difference from AUC 0.5.}
 
 \item{returnScores}{logical if TRUE return detailed permutedScores}
 

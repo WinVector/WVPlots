@@ -4,7 +4,8 @@
 \alias{plotlyROC}
 \title{Use \code{plotly} to produce a ROC plot.}
 \usage{
-plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...)
+plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...,
+  estimate_sig = TRUE)
 }
 \arguments{
 \item{d}{dataframe}
@@ -18,6 +19,8 @@ plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...)
 \item{title}{character title for plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{estimate_sig}{logical, if TRUE estimate and display significance of difference from AUC 0.5.}
 }
 \value{
 plotly plot

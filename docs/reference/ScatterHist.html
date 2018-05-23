@@ -196,7 +196,10 @@
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>)
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist'>ScatterHist</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Fit"</span>,
+<span class='no'>sig</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sigr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/sigr/topics/wrapFTest'>wrapFTest</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
+  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ascii"</span>)
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist'>ScatterHist</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
+  <span class='kw'>title</span><span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"Example Fit\n identity "</span>, <span class='fu'>format</span>(<span class='no'>sig</span>)),
   <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

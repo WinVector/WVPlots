@@ -37,7 +37,7 @@ novelPointPositionsR <- function(x) {
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
 #' WVPlots::graphROC(frm$x, frm$yC)
 #'
-#' @export
+#' @noRd
 #'
 graphROC <- function(modelPredictions, yValues) {
   if(!is.numeric(modelPredictions)) {
@@ -129,15 +129,17 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   predcol <- frame[[xvar]]
   rocList <- graphROC(predcol,outcol)
   auc <- rocList$area
-  aucsig <- sigr::permutationScoreModel(modelValues=predcol,
-                                        yValues=outcol,
-                                        scoreFn=sigr::calcAUC,
-                                        returnScores=returnScores,
-                                        nRep=nrep,
-                                        parallelCluster=parallelCluster)
   palletName = "Dark2"
+  aucsig <- NULL
+  pString <- NULL
   subtitle <- NULL
   if(estimate_sig) {
+    aucsig <- sigr::permutationScoreModel(modelValues=predcol,
+                                          yValues=outcol,
+                                          scoreFn=sigr::calcAUC,
+                                          returnScores=returnScores,
+                                          nRep=nrep,
+                                          parallelCluster=parallelCluster)
     pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
     aucString <- sprintf('%.2g',auc)
     subtitle <- paste0(
@@ -187,6 +189,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
@@ -205,6 +208,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @export
 ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         ...,
+                        estimate_sig=TRUE,
                         returnScores=FALSE,
                         nrep=100,
                         parallelCluster=NULL) {
@@ -219,23 +223,35 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   }
   rocList1 <- graphROC(frame[[xvar1]],outcol)
   rocList2 <- graphROC(frame[[xvar2]],outcol)
+  aucsig <- NULL
+  eString <- NULL
+  nm1 <- paste0('1: ',xvar1)
+  nm2 <- paste0('2: ',xvar2)
+  subtitle <- NULL
 
-  aucsig <- sigr::resampleScoreModelPair(frame[[xvar1]],
-                                         frame[[xvar2]],
-                                         frame[[truthVar]]==truthTarget,
-                                         scoreFn=sigr::calcAUC,
-                                         returnScores=returnScores,
-                                         nRep=nrep,
-                                         parallelCluster=parallelCluster)
-  eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol = 'e'),
-                          format='ascii',
-                          pLargeCutoff=2.0)
-  nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
-  nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
+  if(estimate_sig) {
+    aucsig <- sigr::resampleScoreModelPair(frame[[xvar1]],
+                                           frame[[xvar2]],
+                                           frame[[truthVar]]==truthTarget,
+                                           scoreFn=sigr::calcAUC,
+                                           returnScores=returnScores,
+                                           nRep=nrep,
+                                           parallelCluster=parallelCluster)
+    eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol = 'e'),
+                            format='ascii',
+                            pLargeCutoff=2.0)
+    nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
+    nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
+    subtitle <- paste0(
+      'testing: AUC(1)>AUC(2)\n on same data\n ',
+      eString)
+  }
+
   rocList1$pointGraph$model <- nm1
   rocList1$lineGraph$model <- nm1
   rocList2$pointGraph$model <- nm2
   rocList2$lineGraph$model <- nm2
+
   pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
   lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
   palletName = "Dark2"
@@ -258,9 +274,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                   truthVar, '==', truthTarget, ' ~ model'),
-                  subtitle = paste0(
-                  'testing: AUC(1)>AUC(2)\n on same data\n ',
-                  eString)) +
+                  subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
@@ -285,6 +299,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @param truthTarget2 value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
@@ -306,9 +321,10 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                          nm2, frame2, xvar2, truthVar2, truthTarget2,
                          title,
                          ...,
-                         returnScores=FALSE,
-                         nrep=100,
-                         parallelCluster=NULL) {
+                         estimate_sig= TRUE,
+                         returnScores= FALSE,
+                         nrep= 100,
+                         parallelCluster= NULL) {
   frame1 <- check_frame_args_list(...,
                                   frame = frame1,
                                   name_var_list = list(xvar1 = xvar1, truthVar1 = truthVar1),
@@ -331,17 +347,28 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   rocList1 <- graphROC(frame1[[xvar1]],outcol1)
   rocList2 <- graphROC(frame2[[xvar2]],outcol2)
 
-  d1 <- sigr::resampleTestAUC(frame1,xvar1,truthVar1,truthTarget1,
+  aucsig <- NULL
+  eString <- NULL
+  nm1 <- paste0('1: ',nm1)
+  nm2 <- paste0('2: ',nm2)
+  subtitle <- NULL
+  if(estimate_sig) {
+    d1 <- sigr::resampleTestAUC(frame1,xvar1,truthVar1,truthTarget1,
                                 nrep=nrep,returnScores = TRUE)
-  d2 <- sigr::resampleTestAUC(frame2,xvar2,truthVar2,truthTarget2,
+    d2 <- sigr::resampleTestAUC(frame2,xvar2,truthVar2,truthTarget2,
                                 nrep=nrep,returnScores = TRUE)
-  aucsig <- sigr::estimateDifferenceZeroCrossing(d1$eScore$resampledScores -
-                                                 d2$eScore$resampledScores)
-  eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
-                                            format='ascii',
-                                            pLargeCutoff=0.5)
-  nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
-  nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
+    aucsig <- sigr::estimateDifferenceZeroCrossing(d1$eScore$resampledScores -
+                                                     d2$eScore$resampledScores)
+    eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
+                            format='ascii',
+                            pLargeCutoff=0.5)
+    nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
+    nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
+    subtitle <- paste0(
+      'testing: AUC(1)>AUC(2)\n on different data\n ',
+      eString)
+  }
+
   rocList1$pointGraph$dataset <- nm1
   rocList1$lineGraph$dataset <- nm1
   rocList2$pointGraph$dataset <- nm2
@@ -368,9 +395,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(title,
-                     subtitle = paste0(
-                            'testing: AUC(1)>AUC(2)\n on different data\n ',
-                            eString)) +
+                     subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
@@ -394,6 +419,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @param outcomeTarget value considred true
 #' @param title character title for plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @return plotly plot
 #'
 #' @examples
@@ -404,7 +430,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @export
 #'
 plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
-                      ...) {
+                      ...,
+                      estimate_sig = TRUE) {
   if(!(requireNamespace("plotly", quietly = TRUE))) {
     return("WVPlots::plotlyROC requires the plotly package be installed")
   }
@@ -418,26 +445,32 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
     stop("WVPlots:plotlyROC prediction must be numeric")
   }
   outcome <- d[[outcomeCol]]==outcomeTarget
-  rocFrame <- WVPlots::graphROC(prediction,
-                                outcome)
+  rocFrame <- graphROC(prediction, outcome)
+
+  palletName = "Dark2"
 
   auc <- rocFrame$area
   returnScores=FALSE
   nrep=100
   parallelCluster=NULL
-  aucsig <- sigr::permutationScoreModel(modelValues=prediction,
-                                        yValues=outcome,
-                                        scoreFn=sigr::calcAUC,
-                                        returnScores=returnScores,
-                                        nRep=nrep,
-                                        parallelCluster=parallelCluster)
-  palletName = "Dark2"
-  pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
-  aucString <- sprintf('%.2g',auc)
-  subtitle = paste0(
-    'AUC=',aucString,
-    '\n</br>alt. hyp.: AUC(',predCol,')>permuted AUC, ',
-    pString)
+  aucsig <- NULL
+  pString <- NULL
+  aucString <- NULL
+  subtitle <- NULL
+  if(estimate_sig) {
+    aucsig <- sigr::permutationScoreModel(modelValues=prediction,
+                                          yValues=outcome,
+                                          scoreFn=sigr::calcAUC,
+                                          returnScores=returnScores,
+                                          nRep=nrep,
+                                          parallelCluster=parallelCluster)
+    pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
+    aucString <- sprintf('%.2g',auc)
+    subtitle = paste0(
+      'AUC=',aucString,
+      '\n</br>alt. hyp.: AUC(',predCol,')>permuted AUC, ',
+      pString)
+  }
 
   # see https://plot.ly/r/text-and-annotations/
   plotly::plot_ly(rocFrame$pointGraph,
@@ -451,7 +484,7 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                                 '</br>True Positive Rate:', TruePositiveRate)) ->.;
     plotly::layout(., title = paste(title,
                                     '\n</br>',
-                                    outcomeCol, '==', outcomeTarget, ' ~ ', predCol, ', ',
+                                    outcomeCol, '==', outcomeTarget, ' ~ ', predCol,
                                     '\n</br>', subtitle))
 }
 

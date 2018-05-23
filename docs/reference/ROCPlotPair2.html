@@ -124,8 +124,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>ROCPlotPair2</span>(<span class='no'>nm1</span>, <span class='no'>frame1</span>, <span class='no'>xvar1</span>, <span class='no'>truthVar1</span>, <span class='no'>truthTarget1</span>, <span class='no'>nm2</span>, <span class='no'>frame2</span>, <span class='no'>xvar2</span>,
-  <span class='no'>truthVar2</span>, <span class='no'>truthTarget2</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='no'>truthVar2</span>, <span class='no'>truthTarget2</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,6 +177,10 @@
     <tr>
       <th>...</th>
       <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
+    </tr>
+    <tr>
+      <th>estimate_sig</th>
+      <td><p>logical, if TRUE estimate and display significance of difference from AUC 0.5.</p></td>
     </tr>
     <tr>
       <th>returnScores</th>
