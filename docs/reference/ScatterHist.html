@@ -123,10 +123,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ScatterHist</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>ScatterHist</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"lm"</span>,
+  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +154,10 @@
     <tr>
       <th>smoothmethod</th>
       <td><p>(optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.</p></td>
+    </tr>
+    <tr>
+      <th>estimate_sig</th>
+      <td><p>logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.</p></td>
     </tr>
     <tr>
       <th>annot_size</th>
@@ -196,11 +200,10 @@
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>)
-<span class='no'>sig</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sigr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/sigr/topics/wrapFTest'>wrapFTest</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
-  <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"ascii"</span>)
 <span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist'>ScatterHist</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
-  <span class='kw'>title</span><span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"Example Fit\n identity "</span>, <span class='fu'>format</span>(<span class='no'>sig</span>)),
-  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='kw'>title</span><span class='kw'>=</span> <span class='st'>"Example Fit"</span>,
+  <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"gam"</span>,
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -84,7 +84,7 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param compute_sig logical, if TRUE compute significance.
+#' @param estimate_sig logical, if TRUE compute significance.
 #' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
@@ -102,7 +102,7 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' @export
 GainCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
-                         compute_sig = TRUE,
+                         estimate_sig = FALSE,
                          large_count = 1000) {
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -162,7 +162,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
   modelKey = names(colorKey)[[1]]
 
   pString <- ''
-  if(compute_sig && requireNamespace('sigr', quietly = TRUE)) {
+  if(estimate_sig && requireNamespace('sigr', quietly = TRUE)) {
     sp <-
       sigr::permutationScoreModel(predcol, truthcol, relativeGiniScore)
     pString <-
@@ -300,7 +300,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param compute_sig logical, if TRUE compute significance
+#' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
@@ -318,7 +318,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @export
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
                           ...,
-                          compute_sig = TRUE,
+                          estimate_sig = FALSE,
                           large_count = 1000) {
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -376,7 +376,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
-  if (compute_sig && requireNamespace('sigr', quietly = TRUE)) {
+  if (estimate_sig && requireNamespace('sigr', quietly = TRUE)) {
     relativeGiniCostScorer <- makeRelativeGiniCostScorer(costcol)
     sp <-
       sigr::permutationScoreModel(predcol, truthcol, relativeGiniCostScorer)
@@ -489,7 +489,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param gainx the point on the x axis corresponding to the desired label
 #' @param labelfun a function to return a label for the marked point
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param compute_sig logical, if TRUE compute significance
+#' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, number of plotting points to consider large (and cut down).
 #' @examples
 #'
@@ -522,7 +522,7 @@ GainCurvePlotWithNotation = function(frame,
                                      gainx,
                                      labelfun,
                                      ...,
-                                     compute_sig = TRUE,
+                                     estimate_sig = FALSE,
                                      large_count = 1000) {
    frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -532,7 +532,7 @@ GainCurvePlotWithNotation = function(frame,
   gainy = get_gainy(frame, xvar, truthVar, gainx)
   label = labelfun(gainx, gainy)
   gp = GainCurvePlot(frame, xvar, truthVar, title,
-                     compute_sig = compute_sig,
+                     estimate_sig = estimate_sig,
                      large_count = large_count) +
     ggplot2::geom_vline(xintercept = gainx,
                         color = "red",

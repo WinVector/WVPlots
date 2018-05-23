@@ -14,6 +14,7 @@ NULL
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param smoothmethod (optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.
+#' @param estimate_sig logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.
 #' @param annot_size numeric scale annotation text (if present)
 #' @param minimal_labels logical drop some annotations
 #' @param binwidth_x  numeric binwidth for x histogram
@@ -28,15 +29,15 @@ NULL
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,y=y)
-#' sig <- sigr::wrapFTest(frm, "x", "y",
-#'   format = "ascii")
 #' WVPlots::ScatterHist(frm, "x", "y",
-#'   title= paste("Example Fit\n identity ", format(sig)),
+#'   title= "Example Fit",
+#'   smoothmethod = "gam",
 #'   contour = TRUE)
 #'
 #' @export
 ScatterHist = function(frame, xvar, yvar, title, ...,
-                       smoothmethod="auto", # only works for 'auto', 'loess', 'gam', 'lm', and 'identity'
+                       smoothmethod="lm", # only works for 'auto', 'loess', 'gam', 'lm', and 'identity'
+                       estimate_sig=FALSE,
                        annot_size=5,
                        minimal_labels = TRUE,
                        binwidth_x = NULL,
@@ -61,6 +62,19 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   frame <- frame[complete.cases(frame), , drop=FALSE]
   ..density.. <- NULL # used as a symbol, declare not an unbound variable
 
+  if(estimate_sig && (smoothmethod %in% c("identity", "lm"))) {
+    if(smoothmethod=='identity') {
+      sig <- sigr::wrapFTest(frame, xvar, yvar, format = "ascii")
+      title <- paste0(title, "\nidentity relation: ", format(sig))
+    }
+    if(smoothmethod=='lm') {
+      f <- paste(xvar, "~", yvar)
+      lmm <- lm(as.formula(f), data = frame)
+      sig <- sigr::wrapFTest(lmm, format = "ascii")
+      title <- paste0(title, "\nlinear relation: ", format(sig))
+    }
+  }
+
   # placeholder plot - prints nothing at all
   empty =  ggplot2::ggplot() +
     ggplot2::geom_point(ggplot2::aes(c(0,1), c(0,1)), colour = "white") +
@@ -79,26 +93,9 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # if we are showing a linear fit, print the fit's parameters
   gSmooth = NULL
   if(smoothmethod=='identity') {
-    meanY = mean(frame[[yvar]])
-    rsqr = 1 - sum((frame[[yvar]]-frame[[xvar]])^2)/sum((frame[[yvar]]-meanY)^2)
-    fitstring = paste("R-squared = ", format(rsqr, digits=3))
-
     gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
   } else {
-    tryCatch({
-      # get goodness of linear relation
-      model = lm(paste(yvar,"~",xvar), data=frame)
-      fstat = summary(model)$fstatistic
-      rsqr = summary(model)$r.squared
-      pval = pf(fstat[["value"]], fstat[["numdf"]], fstat[["dendf"]], lower.tail=FALSE)
-
-      # print(summary(model))
-      fitstring = paste("R-squared = ", format(rsqr, digits=3))
-      sigstring = paste("Significance = ", format(pval, digits=3))
-    },
-    error=function(x){}
-    )
-    gSmooth = ggplot2::geom_smooth(method=smoothmethod)
+    gSmooth = ggplot2::geom_smooth(method=smoothmethod, se=FALSE)
   }
 
   # scatterplot of x and y

@@ -1,11 +1,11 @@
 
 # WVPlots 1.0.0 2018-05-23
 
- * Remove F-test from ScatterHist.
  * Added shadow plot.
  * Improve argument checking.
  * Add frame narrowing.
- * Make significance tests user delectable.
+ * Make significance tests user selectable.
+ * Clean up F-test in ScatterHist.
  
 # WVPlots 0.3.2 2018-05-07
 

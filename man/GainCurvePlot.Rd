@@ -4,7 +4,7 @@
 \alias{GainCurvePlot}
 \title{Plot the gain curve of a sort-order.}
 \usage{
-GainCurvePlot(frame, xvar, truthVar, title, ..., compute_sig = TRUE,
+GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
   large_count = 1000)
 }
 \arguments{
@@ -18,7 +18,7 @@ GainCurvePlot(frame, xvar, truthVar, title, ..., compute_sig = TRUE,
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{compute_sig}{logical, if TRUE compute significance.}
+\item{estimate_sig}{logical, if TRUE compute significance.}
 
 \item{large_count}{numeric, number of plotting points to consider large (and cut down).}
 }

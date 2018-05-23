@@ -5,7 +5,7 @@
 \title{Use \code{plotly} to produce a ROC plot.}
 \usage{
 plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...,
-  estimate_sig = TRUE)
+  estimate_sig = FALSE)
 }
 \arguments{
 \item{d}{dataframe}
@@ -31,6 +31,6 @@ Use \code{plotly} to produce a ROC plot.
 \examples{
 
 # d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-# plotlyROC(d, 'x', 'y', TRUE, 'example plot')
+# plotlyROC(d, 'x', 'y', TRUE, 'example plot', estimate_sig = TRUE)
 
 }

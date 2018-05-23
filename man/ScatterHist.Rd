@@ -4,10 +4,10 @@
 \alias{ScatterHist}
 \title{Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable}
 \usage{
-ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
-  annot_size = 5, minimal_labels = TRUE, binwidth_x = NULL,
-  binwidth_y = NULL, adjust_x = 1, adjust_y = 1, point_alpha = 0.5,
-  contour = FALSE)
+ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
+  estimate_sig = FALSE, annot_size = 5, minimal_labels = TRUE,
+  binwidth_x = NULL, binwidth_y = NULL, adjust_x = 1, adjust_y = 1,
+  point_alpha = 0.5, contour = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,8 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "auto",
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{smoothmethod}{(optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.}
+
+\item{estimate_sig}{logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.}
 
 \item{annot_size}{numeric scale annotation text (if present)}
 
@@ -47,10 +49,9 @@ set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,y=y)
-sig <- sigr::wrapFTest(frm, "x", "y",
-  format = "ascii")
 WVPlots::ScatterHist(frm, "x", "y",
-  title= paste("Example Fit\\n identity ", format(sig)),
+  title= "Example Fit",
+  smoothmethod = "gam",
   contour = TRUE)
 
 }

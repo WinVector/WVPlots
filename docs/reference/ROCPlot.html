@@ -123,7 +123,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>ROCPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>truthTarget</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>ROCPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>truthTarget</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,7 +178,7 @@
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>yC</span><span class='kw'>=</span><span class='no'>y</span><span class='kw'>&gt;=</span><span class='fu'>as.numeric</span>(<span class='fu'>quantile</span>(<span class='no'>y</span>,<span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ROCPlot'>ROCPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"yC"</span>, <span class='fl'>TRUE</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example ROC plot"</span>)</div><div class='img'><img src='ROCPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ROCPlot'>ROCPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"yC"</span>, <span class='fl'>TRUE</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example ROC plot"</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ROCPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

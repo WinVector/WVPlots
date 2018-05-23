@@ -35,7 +35,7 @@ novelPointPositionsR <- function(x) {
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::graphROC(frm$x, frm$yC)
+#' WVPlots::graphROC(frm$x, frm$yC, estimate_sig = TRUE)
 #'
 #' @noRd
 #'
@@ -107,12 +107,12 @@ graphROC <- function(modelPredictions, yValues) {
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
+#' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
 #'
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     ...,
-                    estimate_sig = TRUE,
+                    estimate_sig = FALSE,
                     returnScores = FALSE,
                     nrep = 100,
                     parallelCluster = NULL) {
@@ -203,12 +203,12 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' # WVPlots::ROCPlot(frm, "x1", "yC", TRUE, title="Example ROC plot")
 #' # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
 #' WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE,
-#'    title="Example ROC pair plot")
+#'    title="Example ROC pair plot", estimate_sig = TRUE)
 #'
 #' @export
 ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         ...,
-                        estimate_sig=TRUE,
+                        estimate_sig=FALSE,
                         returnScores=FALSE,
                         nrep=100,
                         parallelCluster=NULL) {
@@ -314,7 +314,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
 #' WVPlots::ROCPlotPair2('train',frm, "x1", "yC", TRUE,
 #'                       'test', frm, "x2", "yC", TRUE,
-#'                       title="Example ROC pair plot")
+#'                       title="Example ROC pair plot", estimate_sig = TRUE)
 #'
 #' @export
 ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
@@ -425,13 +425,13 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @examples
 #'
 #' # d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-#' # plotlyROC(d, 'x', 'y', TRUE, 'example plot')
+#' # plotlyROC(d, 'x', 'y', TRUE, 'example plot', estimate_sig = TRUE)
 #'
 #' @export
 #'
 plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                       ...,
-                      estimate_sig = TRUE) {
+                      estimate_sig = FALSE) {
   if(!(requireNamespace("plotly", quietly = TRUE))) {
     return("WVPlots::plotlyROC requires the plotly package be installed")
   }

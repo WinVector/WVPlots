@@ -4,7 +4,7 @@
 \alias{PRPlot}
 \title{Plot Precision-Recall plot.}
 \usage{
-PRPlot(frame, xvar, truthVar, truthTarget, title, ..., compute_sig = FALSE)
+PRPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -19,7 +19,7 @@ PRPlot(frame, xvar, truthVar, truthTarget, title, ..., compute_sig = FALSE)
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{compute_sig}{logical, if TRUE compute significance}
+\item{estimate_sig}{logical, if TRUE compute significance}
 }
 \description{
 See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html

@@ -57,7 +57,7 @@ calcPR <- function(modelPredictions,yValues) {
 #' @param truthTarget value we consider to be positive
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param compute_sig logical, if TRUE compute significance
+#' @param estimate_sig logical, if TRUE compute significance
 #' @examples
 #'
 #' set.seed(34903490)
@@ -72,7 +72,7 @@ calcPR <- function(modelPredictions,yValues) {
 #' @export
 PRPlot <- function(frame, xvar, truthVar, truthTarget, title,
                    ...,
-                   compute_sig = FALSE) {
+                   estimate_sig = FALSE) {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -100,7 +100,7 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,
   #f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
 
   pString <- ''
-  if(compute_sig && requireNamespace('sigr',quietly = TRUE)) {
+  if(estimate_sig && requireNamespace('sigr',quietly = TRUE)) {
     sp <- sigr::permutationScoreModel(predcol,outcol,
                                       function(modelValues,yValues) {
                                         calcPR(modelValues,yValues)$bestF1

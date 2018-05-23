@@ -5,7 +5,7 @@
 \title{Plot two receiver operating characteristic from the same data.frame.}
 \usage{
 ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
-  estimate_sig = TRUE, returnScores = FALSE, nrep = 100,
+  estimate_sig = FALSE, returnScores = FALSE, nrep = 100,
   parallelCluster = NULL)
 }
 \arguments{
@@ -44,6 +44,6 @@ frm = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
 # WVPlots::ROCPlot(frm, "x1", "yC", TRUE, title="Example ROC plot")
 # WVPlots::ROCPlot(frm, "x2", "yC", TRUE, title="Example ROC plot")
 WVPlots::ROCPlotPair(frm, "x1", "x2", "yC", TRUE,
-   title="Example ROC pair plot")
+   title="Example ROC pair plot", estimate_sig = TRUE)
 
 }

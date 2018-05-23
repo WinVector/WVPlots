@@ -4,7 +4,7 @@
 \alias{ROCPlot}
 \title{Plot receiver operating characteristic plot.}
 \usage{
-ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = TRUE,
+ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE,
   returnScores = FALSE, nrep = 100, parallelCluster = NULL)
 }
 \arguments{
@@ -37,6 +37,6 @@ set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot")
+WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
 
 }

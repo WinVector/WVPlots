@@ -4,8 +4,8 @@
 \alias{GainCurvePlotC}
 \title{Plot the gain curve of a sort-order with costs.}
 \usage{
-GainCurvePlotC(frame, xvar, costVar, truthVar, title, ..., compute_sig = TRUE,
-  large_count = 1000)
+GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...,
+  estimate_sig = FALSE, large_count = 1000)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -20,7 +20,7 @@ GainCurvePlotC(frame, xvar, costVar, truthVar, title, ..., compute_sig = TRUE,
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{compute_sig}{logical, if TRUE compute significance}
+\item{estimate_sig}{logical, if TRUE compute significance}
 
 \item{large_count}{numeric, number of plotting points to consider large (and cut down).}
 }
