@@ -2,7 +2,7 @@
 % Please edit documentation in R/LogLogPlot.R
 \name{LogLogPlot}
 \alias{LogLogPlot}
-\title{Plot a trend on log-log paper.}
+\title{Log-log plot}
 \usage{
 LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE)
 }
@@ -17,17 +17,19 @@ LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE)
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{use_coord_trans}{logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_yu_log10()} (useful when there is not enough range to show ticks).}
+\item{use_coord_trans}{logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_y_log10()} (useful when there is not enough range to show ticks).}
 }
 \description{
-This plot is intended for ploting functions that are observed costs
+Plot a trend on log-log paper.
+}
+\details{
+This plot is intended for plotting functions that are observed costs
 or durations as a function of problem size.  In this case we expect
 the ideal or expected cost function to be non-decreasing.
 Any negative trends are assumed to arise from the noise model.
 The graph is specialized to compare non-decreasing linear and
 non-decreasing quadratic growth.
-}
-\details{
+
 Some care must be taken in drawing conclusions from log-log plots,
 as the transform is fairly violent.  Please see:
 "(Mar's Law) Everything is linear if plotted log-log with a fat magic marker"

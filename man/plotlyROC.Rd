@@ -30,7 +30,16 @@ Use \code{plotly} to produce a ROC plot.
 }
 \examples{
 
-# d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-# plotlyROC(d, 'x', 'y', TRUE, 'example plot', estimate_sig = TRUE)
+if(requireNamespace("plotly", quietly = TRUE)) {
+   set.seed(34903490)
+   x = rnorm(50)
+   y = 0.5*x^2 + 2*x + rnorm(length(x))
+   frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
+   plotlyROC(frm, 'x', 'yC', TRUE, 'example plot', estimate_sig = TRUE)
+}
 
+
+}
+\seealso{
+\code{\link{ROCPlot}}
 }

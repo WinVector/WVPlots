@@ -9,7 +9,7 @@ DiscreteDistribution(frm, xvar, title, ..., stem = TRUE)
 \arguments{
 \item{frm}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{numeric: name of the variable whose distribution is to be plotted}
 
 \item{title}{title to place on plot}
 
@@ -18,7 +18,7 @@ DiscreteDistribution(frm, xvar, title, ..., stem = TRUE)
 \item{stem}{if TRUE add whisker/stems to plot}
 }
 \description{
-Similar to calling \code{ClevelandDotPlot} with \code{sort = 0} on a numerical *x* variable that
+Similar to calling \code{ClevelandDotPlot} with \code{sort = 0} on a numerical x variable that
 takes on a discrete set of values.
 }
 \examples{

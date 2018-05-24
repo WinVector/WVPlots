@@ -31,6 +31,11 @@ ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE,
 \description{
 Plot receiver operating characteristic plot.
 }
+\details{
+See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of
+true positive and false positive rates,
+and how the ROC plot relates to the precision/recall plot.
+}
 \examples{
 
 set.seed(34903490)
@@ -39,4 +44,7 @@ y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
 WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
 
+}
+\seealso{
+\code{\link{PRPlot}}
 }

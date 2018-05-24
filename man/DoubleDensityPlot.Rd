@@ -21,8 +21,9 @@ DoubleDensityPlot(frame, xvar, truthVar, title, ...)
 Plot two density plots conditioned on a binary outcome variable.
 }
 \details{
-The use case for this visualization is to plot a predictive model score (usually the predicted probability
-of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
+The use case for this visualization is to plot the distribution of a predictive model score
+(usually the predicted probability
+of a desired outcome) conditioned on the actual outcome. However, you can use it to compare the distribution of any
 numerical quantity conditioned on a binary feature. See the examples.
 
 The plot will degrade gracefully in degenerate conditions, for example when only

@@ -134,7 +134,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   plot_right <- ggplot2::ggplot(frame,
                                 ggplot2::aes_string(x=yvar,color=cvar)) +
     ggplot2::geom_line(stat='density', adjust=adjust_y) +
-    ggplot2::coord_cartesian(xlim=ylims) +
+   #  ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_flip(xlim=ylims, expand=0)
   if(minimal_labels) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ROC.R
 \name{ROCPlotPair2}
 \alias{ROCPlotPair2}
-\title{Plot two receiver operating characteristic plots from unrelated frames.}
+\title{Compare two ROC plots.}
 \usage{
 ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
   truthVar2, truthTarget2, title, ..., estimate_sig = TRUE,
@@ -42,7 +42,11 @@ ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
 }
 \description{
-Plot two receiver operating characteristic plots from unrelated frames.
+Plot two receiver operating characteristic curves from different data frames.
+}
+\details{
+Use this curve to compare model predictions to true outcome from two
+data frames, each of which has its own model predictions and true outcome columns.
 }
 \examples{
 
@@ -57,4 +61,7 @@ WVPlots::ROCPlotPair2('train',frm, "x1", "yC", TRUE,
                       'test', frm, "x2", "yC", TRUE,
                       title="Example ROC pair plot", estimate_sig = TRUE)
 
+}
+\seealso{
+\code{\link{ROCPlot}}
 }

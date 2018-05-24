@@ -27,10 +27,7 @@ To distinguish the two conditions, one histogram is plotted upside-down.
 
 The use case for this visualization is to plot a predictive model score (usually the predicted probability
 of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
-numerical quantity conditioned on a binary feature. See the examples.
-
-The plot will degrade gracefully in degenerate conditions, for example when only
-one category is present.
+numerical quantity conditioned on a binary feature.
 }
 \examples{
 

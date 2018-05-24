@@ -2,7 +2,7 @@
 % Please edit documentation in R/BinaryYScatterPlot.R
 \name{BinaryYScatterPlot}
 \alias{BinaryYScatterPlot}
-\title{Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable}
+\title{Plot a scatter plot of a binary variable with smoothing curve.}
 \usage{
 BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
   use_glm = TRUE)
@@ -23,7 +23,14 @@ BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
 \item{use_glm}{if TRUE, "smooths" with a one-variable logistic regression (defaults to TRUE)}
 }
 \description{
-Plot a scatter plot of a binary variable.  xvar is the continuous independent variable and yvar is the dependent binary variable
+Plot the scatter plot of a binary variable with a smoothing curve.
+}
+\details{
+The points are jittered for legibility. By default, a logistic regression fit is
+used, so that the smoothing curve represents the probability of y == 1 (as fit by
+the logistic regression). If
+\code{use_glm} is set to FALSE, a standard smoothing curve (either loess or a
+spline fit) is used.
 }
 \examples{
 
