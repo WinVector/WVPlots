@@ -66,22 +66,56 @@ padToK <- function(k) {
 # get the y lables from a ready to go ggplot2
 getYLabs <- function(p) {
   info <- ggplot2::ggplot_build(p)
-  origlabs <- info$panel$ranges[[1]]$y.labels  # worked prior to ggplot2.2.0
+  origlabs <- NULL
+  tryCatch(
+    # ggplot2 version 2.2.1.9000
+    origlabs <- info$layout$panel_params[[1]]$y.label,
+    error = function(e) {NULL}
+  )
   if(!is.null(origlabs)) {
     return(origlabs)
   }
-  origlabs <- info$layout$panel_ranges[[1]]$y.labels
+  tryCatch(
+    # ggplot2 version 2.2.0
+    origlabs <- info$layout$panel_ranges[[1]]$y.labels,
+    error = function(e) {NULL}
+  )
+  if(!is.null(origlabs)) {
+    return(origlabs)
+  }
+  tryCatch(
+    # ggplot2 prior to version 2.2.0
+    origlabs <- info$panel$ranges[[1]]$y.labels,
+    error = function(e) {NULL}
+  )
   origlabs
 }
 
 # get the x lables from a ready to go ggplot2
 getXLabs <- function(p) {
   info <- ggplot2::ggplot_build(p)
-  origlabs <- info$panel$ranges[[1]]$x.labels  # worked prior to ggplot2.2.0
+  origlabs <- NULL
+  tryCatch(
+    # ggplot2 version 2.2.1.9000
+    origlabs <- info$layout$panel_params[[1]]$x.label,
+    error = function(e) {NULL}
+  )
   if(!is.null(origlabs)) {
     return(origlabs)
   }
-  origlabs <- info$layout$panel_ranges[[1]]$x.labels
+  tryCatch(
+    # ggplot2 version 2.2.0
+    origlabs <- info$layout$panel_ranges[[1]]$x.labels,
+    error = function(e) {NULL}
+  )
+  if(!is.null(origlabs)) {
+    return(origlabs)
+  }
+  tryCatch(
+    # ggplot2 prior to version 2.2.0
+    origlabs <- info$panel$ranges[[1]]$x.labels,
+    error = function(e) {NULL}
+  )
   origlabs
 }
 
