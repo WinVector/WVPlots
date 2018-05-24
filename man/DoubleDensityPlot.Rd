@@ -2,7 +2,7 @@
 % Please edit documentation in R/DoubleDensity.R
 \name{DoubleDensityPlot}
 \alias{DoubleDensityPlot}
-\title{Plot two density plots conditioned on truthVar.}
+\title{Plot two density plots conditioned on an outcome variable.}
 \usage{
 DoubleDensityPlot(frame, xvar, truthVar, title, ...)
 }
@@ -18,9 +18,21 @@ DoubleDensityPlot(frame, xvar, truthVar, title, ...)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 }
 \description{
-Plot two density plots conditioned on truthVar.
+Plot two density plots conditioned on a binary outcome variable.
+}
+\details{
+The use case for this visualization is to plot a predictive model score (usually the predicted probability
+of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
+numerical quantity conditioned on a binary feature. See the examples.
+
+The plot will degrade gracefully in degenerate conditions, for example when only
+one category is present.
 }
 \examples{
+
+mpg = ggplot2::mpg
+mpg$trans = gsub("\\\\(.*$", '', mpg$trans)
+WVPlots::DoubleDensityPlot(mpg, "cty", "trans", "City driving mpg by transmission type")
 
 set.seed(34903490)
 x = rnorm(50)

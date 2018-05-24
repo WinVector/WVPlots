@@ -2,7 +2,7 @@
 % Please edit documentation in R/DistributionPlot.R
 \name{PlotDistCountNormal}
 \alias{PlotDistCountNormal}
-\title{plot distribution details as a histogram plus matching normal}
+\title{Plot distribution details as a histogram plus matching normal}
 \usage{
 PlotDistCountNormal(frm, xvar, title, ..., binWidth = c())
 }
@@ -15,15 +15,18 @@ PlotDistCountNormal(frm, xvar, title, ..., binWidth = c())
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
-\item{binWidth}{with of histogram bins}
+\item{binWidth}{width of histogram bins}
 }
 \description{
-assumes that xvar is a factor variable
-sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+Compares empirical data to a normal distribution with the same mean and standard deviation.
+}
+\details{
+Plots the histograms of the empirical distribution and of the matching normal distribution.
+Also plots the mean and plus/minus one standard deviation.
+
+Bin width for the histogram is calculated automatically to yield approximately 50 bins across the
+range of the data, unless the \code{binWidth} argument is explicitly passed in. \code{binWidth} is reported
+in the subtitle of the plot.
 }
 \examples{
 

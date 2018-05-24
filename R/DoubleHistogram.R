@@ -3,8 +3,15 @@
 #' @importFrom graphics hist
 NULL
 
-
-#' Plot two histograms conditioned on truthVar.
+#' Plot two histograms conditioned on an outcome variable.
+#'
+#' Plot two histograms conditioned on a binary outcome variable.
+#'
+#' To distinguish the two conditions, one histogram is plotted upside-down.
+#'
+#' The use case for this visualization is to plot a predictive model score (usually the predicted probability
+#' of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
+#' numerical quantity conditioned on a binary feature.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame

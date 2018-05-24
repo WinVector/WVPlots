@@ -16,7 +16,7 @@ stemdotstats = function(ycol) {
 #'
 #' Plot counts of a categorical variable.
 #'
-#' Assumes that \code{xvar} is a factor or character variable.
+#' Assumes that \code{xvar} is a factor or can be coerced to one (character or integral).
 #' \itemize{
 #' \item sort < 0 sorts the factor levels in decreasing order (most frequent level first)
 #' \item sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
@@ -51,6 +51,9 @@ stemdotstats = function(ycol) {
 #' WVPlots::ClevelandDotPlot(randomDraws, "letter",
 #'   title = "Example Cleveland-style dot plot")
 #'
+#' # Note the use of sort = 0, and that the graph correctly includes counts
+#' # with no occurrences (5, and 7)
+#' WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")
 #' @export
 ClevelandDotPlot = function(frm, xvar, title, ...,
                             sort=-1, limit_n = NULL, stem=TRUE) {

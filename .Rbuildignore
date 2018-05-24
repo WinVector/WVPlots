@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^cran-comments.md$
+^cran-comments\.md$
 ^revdep$
 ^README\.Rmd$
 ^README\.html$
@@ -12,8 +12,8 @@
 ^\.git.*$
 ^html$
 ^.*rsconnect.*$
-^README.Rmd$
-^WVPlots.png$
-
+^README\.Rmd$
+^WVPlots\.png$
+^\.gitignore$
 ^docs$
 ^_pkgdown\.yml$

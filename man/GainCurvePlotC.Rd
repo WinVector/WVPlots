@@ -2,7 +2,7 @@
 % Please edit documentation in R/GainCurve.R
 \name{GainCurvePlotC}
 \alias{GainCurvePlotC}
-\title{Plot the gain curve of a sort-order with costs.}
+\title{Plot the cumulative gain curve of a sort-order with costs.}
 \usage{
 GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...,
   estimate_sig = FALSE, large_count = 1000)
@@ -10,7 +10,7 @@ GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...,
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{name of the independent (input or model score) column in frame}
 
 \item{costVar}{cost of each item (drives x-axis sum)}
 
@@ -22,10 +22,23 @@ GainCurvePlotC(frame, xvar, costVar, truthVar, title, ...,
 
 \item{estimate_sig}{logical, if TRUE compute significance}
 
-\item{large_count}{numeric, number of plotting points to consider large (and cut down).}
+\item{large_count}{numeric, upper bound target for number of plotting points}
 }
 \description{
-Plot the gain curve of a sort-order with costs.
+Plot the cumulative gain curve of a sort-order with costs.
+}
+\details{
+\code{GainCurvePlotC} plots a cumulative gain curve for the case where
+items have an additional cost, in addition to an outcome value.
+
+The x-axis represents the fraction of total cost experienced when items are sorted by score, and the
+y-axis represents the cumulative summed true outcome represented by the items seen so far.
+
+For comparison, \code{GainCurvePlotC} also plots the "wizard curve": the gain curve when the
+data is sorted according to its true outcome/cost (the optimal sort order).
+
+To improve presentation quality, the plot is limited to approximately \code{large_count} points (default: 1000).
+For larger data sets, the data is appropriately randomly sampled down before plotting.
 }
 \examples{
 
@@ -40,4 +53,7 @@ frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
 WVPlots::GainCurvePlotC(frm, "model", "costs", "value",
    title="Example Continuous Gain CurveC")
 
+}
+\seealso{
+\code{\link{GainCurvePlot}}
 }

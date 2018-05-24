@@ -2,7 +2,7 @@
 % Please edit documentation in R/GainCurve.R
 \name{GainCurvePlot}
 \alias{GainCurvePlot}
-\title{Plot the gain curve of a sort-order.}
+\title{Plot the cumulative gain curve of a sort-order.}
 \usage{
 GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
   large_count = 1000)
@@ -10,7 +10,7 @@ GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{name of the independent (input or model score) column in frame}
 
 \item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
 
@@ -20,10 +20,27 @@ GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
 
 \item{estimate_sig}{logical, if TRUE compute significance.}
 
-\item{large_count}{numeric, number of plotting points to consider large (and cut down).}
+\item{large_count}{numeric, upper bound target for number of plotting points}
 }
 \description{
-Plot the gain curve of a sort-order.
+Plot the cumulative gain curve of a sort-order.
+}
+\details{
+The use case for this visualization is to compare a predictive model
+score to an actual outcome (either binary (0/1) or continuous). In this case the
+gain curve plot measures how well the model score sorts the data compared
+to the true outcome value.
+
+The x-axis represents the fraction of items seen when sorted by score, and the
+y-axis represents the cumulative summed true outcome represented by the items seen so far.
+See, for example,
+\url{https://www.ibm.com/support/knowledgecenter/SSLVMB_24.0.0/spss/tutorials/mlp_bankloan_outputtype_02.html}.
+
+For comparison, \code{GainCurvePlot} also plots the "wizard curve": the gain curve when the
+data is sorted according to its true outcome.
+
+To improve presentation quality, the plot is limited to approximately \code{large_count} points (default: 1000).
+For larger data sets, the data is appropriately randomly sampled down before plotting.
 }
 \examples{
 

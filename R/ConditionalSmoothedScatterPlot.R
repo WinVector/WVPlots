@@ -39,9 +39,10 @@ smoothing = function(frm, xvar, yvar, k, align) {
 
 #' Plot a scatter plot with smoothing line.
 #'
-#' Plot a scatter plot with smoothing line with smoothing window aligned either left, center or right,
-#'       xvar is the continuous independent variable and yvar is the dependent binary variable.
-#'       Smoothing is by a square window of width k
+#' Plot a scatter plot with a smoothing line; the smoothing window is aligned either left, center or right.
+#'
+#' \code{xvar} is the continuous independent variable and \code{yvar} is the dependent binary variable.
+#' Smoothing is by a square window of width \code{k}.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent column in frame. Assumed to be regularly spaced

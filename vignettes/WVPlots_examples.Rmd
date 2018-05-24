@@ -183,6 +183,20 @@ WVPlots::ClevelandDotPlot(randomDraws, "letter", sort=1, stem=FALSE, title="Exam
 
 ```
 
+`ClevelandDotPlot` also accepts an integral *x* variable. You probably want `sort = 0` in this case.
+
+```{r}
+set.seed(34903490)
+N = 1000
+ncar_vec = 0:5
+prob = c(1.5, 3, 3.5, 2, 1, 0.75); prob = prob/sum(prob)
+
+df = data.frame(num_cars = sample(ncar_vec, size = N, replace = TRUE, prob=prob))
+WVPlots::ClevelandDotPlot(df, "num_cars", sort = 0, title = "Distribution of household vehicle ownership")
+              
+
+```
+
 
 ## Shadow Plots
 

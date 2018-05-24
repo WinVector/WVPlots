@@ -2,7 +2,7 @@
 % Please edit documentation in R/DistributionPlot.R
 \name{PlotDistHistBeta}
 \alias{PlotDistHistBeta}
-\title{plot distribution details as a density plus matching beta}
+\title{Plot distribution details as a histogram plus matching beta}
 \usage{
 PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30)
 }
@@ -15,20 +15,22 @@ PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30)
 
 \item{...}{force later arguments to bind by name}
 
-\item{binwidth}{passed to geom_histogram()}
+\item{binwidth}{passed to geom_histogram(). If passed in, overrides bins.}
 
-\item{bins}{passed to geom_histogram()}
+\item{bins}{passed to geom_histogram(). Default: 30}
 }
 \value{
 ggplot2 plot
 }
 \description{
-assumes that xvar is a factor variable
-sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+Compares empirical data to a beta distribution with the same mean and standard deviation.
+}
+\details{
+Plots the histogram of the empirical distribution and the density of the matching beta distribution.
+Also plots the mean and plus/minus one standard deviation.
+
+The number of bins for the histogram defaults to 30.
+The binwidth can also be passed in instead of the number of bins.
 }
 \examples{
 

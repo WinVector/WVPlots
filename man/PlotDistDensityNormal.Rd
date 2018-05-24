@@ -2,7 +2,7 @@
 % Please edit documentation in R/DistributionPlot.R
 \name{PlotDistDensityNormal}
 \alias{PlotDistDensityNormal}
-\title{plot distribution details as a density plus matching normal}
+\title{Plot an empirical density with the matching normal distribution}
 \usage{
 PlotDistDensityNormal(frm, xvar, title)
 }
@@ -14,12 +14,11 @@ PlotDistDensityNormal(frm, xvar, title)
 \item{title}{title to place on plot}
 }
 \description{
-assumes that xvar is a factor variable
-sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-stem = FALSE will plot only the dots, without the stem to the y=0 line.
-limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+Compares empirical data to a normal distribution with the same mean and standard deviation.
+}
+\details{
+Plots the empirical density, the theoretical matching normal, the mean value,
+and plus/minus one standard deviation from the mean.
 }
 \examples{
 

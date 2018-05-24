@@ -2,14 +2,12 @@
 #' @importFrom stats dbeta
 NULL
 
-#' plot distribution details as a density plus matching normal
+#' Plot an empirical density with the matching normal distribution
 #'
-#' assumes that xvar is a factor variable
-#' sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-#' sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-#' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-#' stem = FALSE will plot only the dots, without the stem to the y=0 line.
-#' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' Compares empirical data to a normal distribution with the same mean and standard deviation.
+#'
+#' Plots the empirical density, the theoretical matching normal, the mean value,
+#' and plus/minus one standard deviation from the mean.
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
@@ -51,19 +49,22 @@ PlotDistDensityNormal <- function(frm, xvar, title) {
 }
 
 
-#' plot distribution details as a histogram plus matching normal
+#' Plot distribution details as a histogram plus matching normal
 #'
-#' assumes that xvar is a factor variable
-#' sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-#' sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-#' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-#' stem = FALSE will plot only the dots, without the stem to the y=0 line.
-#' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' Compares empirical data to a normal distribution with the same mean and standard deviation.
+#'
+#' Plots the histograms of the empirical distribution and of the matching normal distribution.
+#' Also plots the mean and plus/minus one standard deviation.
+#'
+#' Bin width for the histogram is calculated automatically to yield approximately 50 bins across the
+#' range of the data, unless the \code{binWidth} argument is explicitly passed in. \code{binWidth} is reported
+#' in the subtitle of the plot.
+#'
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param binWidth with of histogram bins
+#' @param binWidth width of histogram bins
 #' @examples
 #'
 #' set.seed(52523)
@@ -83,7 +84,7 @@ PlotDistCountNormal <- function(frm, xvar, title,
   if(is.null(binWidth)) {
     range <- max(x)-min(x)
     if(range<=0) {
-      binWith <- 1
+      binWidth <- 1
     } else {
       binWidth <- 10^ceiling(log(range,10))/50
     }
@@ -115,6 +116,9 @@ PlotDistCountNormal <- function(frm, xvar, title,
   # plotted area is going to be re-scale by both number of observations and binWidth
   dDist$count <- length(x)*binWidth*dnorm(dDist[[xvar]],mean=meanx,sd=sdx)
   # plot
+
+  subtitle = paste('binWidth =', format(binWidth))
+
   ggplot2::ggplot(data=dHist,
                   mapping=ggplot2::aes_string(x=xvar,y='count',ymax='count')) +
     ggplot2::geom_linerange(data=dTheory,ggplot2::aes(ymin=0),size=4,alpha=0.5,color='blue') +
@@ -124,18 +128,16 @@ PlotDistCountNormal <- function(frm, xvar, title,
     ggplot2::geom_vline(xintercept=meanx,color='blue',linetype=2) +
     ggplot2::geom_vline(xintercept=meanx+sdx,color='blue',linetype=2) +
     ggplot2::geom_vline(xintercept=meanx-sdx,color='blue',linetype=2) +
-    ggplot2::ggtitle(paste(title,'\n','binWidth=',format(binWidth)))
+    ggplot2::ggtitle(title, subtitle=subtitle)
 }
 
-
-#' plot distribution details as a density plus matching beta
+#' Plot an empirical density with the matching beta distribution
 #'
-#' assumes that xvar is a factor variable
-#' sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-#' sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-#' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-#' stem = FALSE will plot only the dots, without the stem to the y=0 line.
-#' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' Compares empirical data to a beta distribution with the same mean and standard deviation.
+#'
+#' Plots the empirical density, the theoretical matching beta, the mean value,
+#' and plus/minus one standard deviation from the mean.
+#'
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
@@ -182,22 +184,22 @@ PlotDistDensityBeta <- function(frm, xvar, title) {
     ggplot2::ggtitle(title)
 }
 
-
-#' plot distribution details as a density plus matching beta
+#' Plot distribution details as a histogram plus matching beta
 #'
-#' assumes that xvar is a factor variable
-#' sort < 0 sorts the factor levels in decreasing order (most frequent level first)
-#' sort > 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())
-#' sort = 0 leaves the factor levels in "natural order" -- usually alphabetical
-#' stem = FALSE will plot only the dots, without the stem to the y=0 line.
-#' limit_n = NULL plots all the levels, N an integer limits to the top N most populous levels
+#' Compares empirical data to a beta distribution with the same mean and standard deviation.
+#'
+#' Plots the histogram of the empirical distribution and the density of the matching beta distribution.
+#' Also plots the mean and plus/minus one standard deviation.
+#'
+#' The number of bins for the histogram defaults to 30.
+#' The binwidth can also be passed in instead of the number of bins.
 #'
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
 #' @param ... force later arguments to bind by name
-#' @param binwidth passed to geom_histogram()
-#' @param bins passed to geom_histogram()
+#' @param binwidth passed to geom_histogram(). If passed in, overrides bins.
+#' @param bins passed to geom_histogram(). Default: 30
 #' @return ggplot2 plot
 #'
 #'

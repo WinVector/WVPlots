@@ -90,6 +90,12 @@ graphROC <- function(modelPredictions, yValues) {
 
 #' Plot receiver operating characteristic plot.
 #'
+#' Plot receiver operating characteristic plot.
+#'
+#' See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of
+#' true positive and false positive rates,
+#' and how the ROC plot relates to the precision/recall plot.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
@@ -100,6 +106,8 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#'
+#' @seealso \code{\link{PRPlot}}
 #'
 #' @examples
 #'
@@ -143,9 +151,12 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     pString <- sigr::render(sigr::wrapSignificance(aucsig$pValue),format='ascii')
     aucString <- sprintf('%.2g',auc)
     subtitle <- paste0(
-      'AUC=',aucString,
+      'AUC = ',aucString,
       '\nalt. hyp.: AUC(',xvar,')>permuted AUC, ',
       pString)
+  } else {
+    aucString <- sprintf('%.2g',auc)
+    subtitle <- paste('AUC =', aucString)
   }
   plot <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
@@ -169,7 +180,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
-                            truthVar, '==', truthTarget, ' ~ ', xvar, ', '),
+                            truthVar, '==', truthTarget, ' ~ ', xvar),
                      subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
@@ -180,7 +191,14 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 
 
 
-#' Plot two receiver operating characteristic from the same data.frame.
+
+#' Compare two ROC plots.
+#'
+#' Plot two receiver operating characteristic curves from the same data.frame.
+#'
+#' The use case for this function is to compare the performance of two
+#' models when applied to a data set, where the predictions from both models
+#' are columns of the same data frame.
 #'
 #' @param frame data frame to get values from
 #' @param xvar1 name of the first independent (input or model) column in frame
@@ -193,6 +211,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#'
+#' @seealso \code{\link{ROCPlot}}
+#'
 #' @examples
 #'
 #' set.seed(34903490)
@@ -225,8 +246,10 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   rocList2 <- graphROC(frame[[xvar2]],outcol)
   aucsig <- NULL
   eString <- NULL
-  nm1 <- paste0('1: ',xvar1)
-  nm2 <- paste0('2: ',xvar2)
+
+  nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
+  nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
+
   subtitle <- NULL
 
   if(estimate_sig) {
@@ -240,8 +263,6 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol = 'e'),
                             format='ascii',
                             pLargeCutoff=2.0)
-    nm1 <- paste0('1: ',xvar1,', AUC=',sprintf('%.2g',aucsig$observedScore1))
-    nm2 <- paste0('2: ',xvar2,', AUC=',sprintf('%.2g',aucsig$observedScore2))
     subtitle <- paste0(
       'testing: AUC(1)>AUC(2)\n on same data\n ',
       eString)
@@ -285,7 +306,12 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 }
 
 
-#' Plot two receiver operating characteristic plots from unrelated frames.
+#' Compare two ROC plots.
+#'
+#' Plot two receiver operating characteristic curves from different data frames.
+#'
+#' Use this curve to compare model predictions to true outcome from two
+#' data frames, each of which has its own model predictions and true outcome columns.
 #'
 #' @param nm1 name of first model
 #' @param frame1 data frame to get values from
@@ -303,6 +329,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repititions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#'
+#' @seealso \code{\link{ROCPlot}}
+#'
 #' @examples
 #'
 #' set.seed(34903490)
@@ -349,8 +378,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 
   aucsig <- NULL
   eString <- NULL
-  nm1 <- paste0('1: ',nm1)
-  nm2 <- paste0('2: ',nm2)
+  nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
+  nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
   subtitle <- NULL
   if(estimate_sig) {
     d1 <- sigr::resampleTestAUC(frame1,xvar1,truthVar1,truthTarget1,
@@ -362,8 +391,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
     eString <- sigr::render(sigr::wrapSignificance(aucsig$eValue,symbol='e'),
                             format='ascii',
                             pLargeCutoff=0.5)
-    nm1 <- paste0('1: ',nm1,' ',xvar1,', AUC=',sprintf('%.2g',rocList1$area))
-    nm2 <- paste0('2: ',nm2,' ',xvar2,', AUC=',sprintf('%.2g',rocList2$area))
+
     subtitle <- paste0(
       'testing: AUC(1)>AUC(2)\n on different data\n ',
       eString)
@@ -412,6 +440,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 
 #' Use \code{plotly} to produce a ROC plot.
 #'
+#' Use \code{plotly} to produce a ROC plot.
+#'
 #'
 #' @param d dataframe
 #' @param predCol name of column with numeric predictions
@@ -422,10 +452,18 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @return plotly plot
 #'
+#' @seealso \code{\link{ROCPlot}}
+#'
 #' @examples
 #'
-#' # d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-#' # plotlyROC(d, 'x', 'y', TRUE, 'example plot', estimate_sig = TRUE)
+#' if(requireNamespace("plotly", quietly = TRUE)) {
+#'    set.seed(34903490)
+#'    x = rnorm(50)
+#'    y = 0.5*x^2 + 2*x + rnorm(length(x))
+#'    frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
+#'    plotlyROC(frm, 'x', 'yC', TRUE, 'example plot', estimate_sig = TRUE)
+#' }
+#'
 #'
 #' @export
 #'
@@ -433,7 +471,7 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                       ...,
                       estimate_sig = FALSE) {
   if(!(requireNamespace("plotly", quietly = TRUE))) {
-    return("WVPlots::plotlyROC requires the plotly package be installed")
+    stop("WVPlots::plotlyROC requires the plotly package be installed")
   }
   d <- check_frame_args_list(...,
                              frame = d,
@@ -470,6 +508,9 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
       'AUC=',aucString,
       '\n</br>alt. hyp.: AUC(',predCol,')>permuted AUC, ',
       pString)
+  } else {
+    aucString <- sprintf('%.2g',auc)
+    subtitle <- paste0('AUC=', aucString)
   }
 
   # see https://plot.ly/r/text-and-annotations/

@@ -1,8 +1,10 @@
 
 
+#' Log-log plot
+#'
 #' Plot a trend on log-log paper.
 #'
-#' This plot is intended for ploting functions that are observed costs
+#' This plot is intended for plotting functions that are observed costs
 #' or durations as a function of problem size.  In this case we expect
 #' the ideal or expected cost function to be non-decreasing.
 #' Any negative trends are assumed to arise from the noise model.
@@ -20,7 +22,7 @@
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param use_coord_trans logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_yu_log10()} (useful when there is not enough range to show ticks).
+#' @param use_coord_trans logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_y_log10()} (useful when there is not enough range to show ticks).
 #' @examples
 #'
 #' set.seed(5326)

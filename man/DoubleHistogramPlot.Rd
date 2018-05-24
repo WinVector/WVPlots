@@ -2,7 +2,7 @@
 % Please edit documentation in R/DoubleHistogram.R
 \name{DoubleHistogramPlot}
 \alias{DoubleHistogramPlot}
-\title{Plot two histograms conditioned on truthVar.}
+\title{Plot two histograms conditioned on an outcome variable.}
 \usage{
 DoubleHistogramPlot(frame, xvar, truthVar, title, ..., breaks = 40)
 }
@@ -20,7 +20,17 @@ DoubleHistogramPlot(frame, xvar, truthVar, title, ..., breaks = 40)
 \item{breaks}{breaks to pass to histogram}
 }
 \description{
-Plot two histograms conditioned on truthVar.
+Plot two histograms conditioned on a binary outcome variable.
+}
+\details{
+To distinguish the two conditions, one histogram is plotted upside-down.
+
+The use case for this visualization is to plot a predictive model score (usually the predicted probability
+of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
+numerical quantity conditioned on a binary feature. See the examples.
+
+The plot will degrade gracefully in degenerate conditions, for example when only
+one category is present.
 }
 \examples{
 

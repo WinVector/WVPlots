@@ -1,7 +1,17 @@
 
 
 
-#' Plot two density plots conditioned on truthVar.
+#' Plot two density plots conditioned on an outcome variable.
+#'
+#' Plot two density plots conditioned on a binary outcome variable.
+#'
+#' The use case for this visualization is to plot the distribution of a predictive model score
+#' (usually the predicted probability
+#' of a desired outcome) conditioned on the actual outcome. However, you can use it to compare the distribution of any
+#' numerical quantity conditioned on a binary feature. See the examples.
+#'
+#' The plot will degrade gracefully in degenerate conditions, for example when only
+#' one category is present.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
@@ -9,6 +19,10 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @examples
+#'
+#' mpg = ggplot2::mpg
+#' mpg$trans = gsub("\\(.*$", '', mpg$trans)
+#' WVPlots::DoubleDensityPlot(mpg, "cty", "trans", "City driving mpg by transmission type")
 #'
 #' set.seed(34903490)
 #' x = rnorm(50)
