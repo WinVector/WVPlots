@@ -170,7 +170,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
                             color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
-    ggplot2::coord_cartesian(xlim=ylims) +
+    # ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
     ggplot2::scale_x_continuous(expand = c(0,0)) + # , breaks= yBreaks) +
     ggplot2::coord_flip(xlim=ylims, expand = 0) # see: https://github.com/tidyverse/ggplot2/issues/2013
   if(minimal_labels) {
