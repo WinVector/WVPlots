@@ -1,5 +1,7 @@
 
 
+Major documentation improvements and fixes.  Also proactively fix issues associated with upcoming ggplot2 release.
+
 ## Test environments
 
     * OSX
@@ -19,6 +21,7 @@
     * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
     Maintainer: ‘John Mount <jmount@win-vector.com>’
     Status: OK
+
 
 ## Downstream dependencies
 
