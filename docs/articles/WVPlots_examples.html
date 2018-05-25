@@ -82,7 +82,7 @@
       <h1>Example WVPlots</h1>
                         <h4 class="author">Win-Vector LLC</h4>
             
-            <h4 class="date">2018-05-25</h4>
+            <h4 class="date">2018-05-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_examples.Rmd"><code>vignettes/WVPlots_examples.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_examples.Rmd</code></div>
@@ -136,13 +136,14 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <div id="hexbin-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hexbin-plot" class="anchor"></a>Hexbin Plot</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">5353636</span>)
-
-df =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">1</span>), <span class="dt">y=</span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span> )),
-           <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>), <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)))
-
-WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/HexBinPlot">HexBinPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"Two gaussians"</span>) </code></pre></div>
-<pre><code>## Warning: package 'hexbin' was built under R version 3.4.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="kw">requireNamespace</span>(<span class="st">"hexbin"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {
+  <span class="kw">set.seed</span>(<span class="dv">5353636</span>)
+  
+  df =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">1</span>), <span class="dt">y=</span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span> )),
+             <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>), <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="op">-</span><span class="dv">1</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)))
+  
+  <span class="kw">print</span>(WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/HexBinPlot">HexBinPlot</a></span>(df, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"Two gaussians"</span>))
+}</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 </div>
 <div id="gain-curves" class="section level2">
