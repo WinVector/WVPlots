@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.1 2018-05-25
+
+ * narrow interface to sigr.
+
 # WVPlots 1.0.0 2018-05-24
 
  * Added hexbin plot

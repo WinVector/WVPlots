@@ -87,14 +87,14 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
 
   if(estimate_sig && (smoothmethod %in% c("identity", "lm"))) {
     if(smoothmethod=='identity') {
-      sig <- sigr::wrapFTest(frame, xvar, yvar, format = "ascii")
-      title <- paste0(title, "\nidentity relation: ", format(sig))
+      sig <- sigr::wrapFTest(frame, xvar, yvar)
+      title <- paste0(title, "\nidentity relation: ", render(sig, format = "ascii"))
     }
     if(smoothmethod=='lm') {
       f <- paste(xvar, "~", yvar)
       lmm <- lm(as.formula(f), data = frame)
-      sig <- sigr::wrapFTest(lmm, format = "ascii")
-      title <- paste0(title, "\nlinear relation: ", format(sig))
+      sig <- sigr::wrapFTest(lmm)
+      title <- paste0(title, "\nlinear relation: ", render(sig, format = "ascii"))
     }
   }
 
