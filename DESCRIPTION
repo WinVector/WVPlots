@@ -2,7 +2,7 @@ Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
 Version: 1.0.0
-Date: 2018-05-23
+Date: 2018-05-24He
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -32,6 +32,7 @@ Imports:
 Suggests:
     knitr,
     testthat,
-    plotly
+    plotly,
+    hexbin
 RoxygenNote: 6.0.1
 ByteCompile: true

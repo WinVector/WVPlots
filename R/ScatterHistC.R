@@ -1,17 +1,22 @@
 
 
-#' Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code
+#' Plot a conditional scatter plot with marginals.
+#'
+#' Plot a scatter plot conditioned on a discrete variable, with marginal conditional density plots.
+#'
+#' \code{xvar} and \code{yvar} are the coordinates of the points, and \code{cvar} is the
+#' discrete conditioning variable that indicates which category each point (x,y) belongs to.
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the independent (input or model) column in frame
-#' @param yvar name of the dependent (output or result to be modeled) column in frame
+#' @param xvar name of the x variable
+#' @param yvar name of the y variable
 #' @param cvar name of condition variable
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param annot_size numeric scale annotation text (if present)
 #' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
-#' @param adjust_x  numeric adjust x density plot
-#' @param adjust_y  numeric adjust y density plot
+#' @param adjust_x  numeric: adjust x density plot
+#' @param adjust_y  numeric: adjust y density plot
 #' @examples
 #'
 #' set.seed(34903490)
@@ -169,19 +174,29 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                           ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }
 
-#' Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.
+#' Plot a height scatter plot with marginals.
+#'
+#' Plot a scatter plot conditioned on a continuous variable, with marginal conditional density plots.
+#'
+#' \code{xvar} and \code{yvar} are the coordinates of the points, and \code{zvar} is the
+#' continuous conditioning variable. \code{zvar} is partitioned into \code{nclus} disjoint
+#' ranges (by default, 3), which are then treated as discrete categories.The scatterplot and marginal density plots
+#' are color-coded by these categories.
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the independent (input or model) column in frame
-#' @param yvar name of the dependent (output or result to be modeled) column in frame
+#' @param xvar name of the x variable
+#' @param yvar name of the y variable
 #' @param zvar name of height variable
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param annot_size numeric scale annotation text (if present)
+#' @param annot_size numeric: scale annotation text (if present)
 #' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
-#' @param nclus scalar number of z-clusters to plot
-#' @param adjust_x  numeric adjust x density plot
-#' @param adjust_y  numeric adjust y density plot
+#' @param nclus scalar: number of z-clusters to plot
+#' @param adjust_x  numeric: adjust x density plot
+#' @param adjust_y  numeric: adjust y density plot
+#'
+#' @seealso \code{\link{ScatterHistC}}
+#'
 #' @examples
 #'
 #' set.seed(34903490)

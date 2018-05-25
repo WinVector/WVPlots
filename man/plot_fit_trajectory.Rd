@@ -33,7 +33,14 @@ plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
 ggplot2 plot
 }
 \description{
-Plot a history of fit over a trajetory of times.  Example below gives
+Plot a history of model fit performance over the a trajectory of times.
+}
+\details{
+This visualization can be applied to any staged machine learning algorithm. For example one could
+plot the performance of a gradient boosting machine as a function of the number of trees added. The
+fit history data should be in the form given in the example below.
+
+The example below gives
 a fit plot for a history report from Keras R package.
 Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
 for some examples and details.

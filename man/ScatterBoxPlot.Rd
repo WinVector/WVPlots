@@ -2,14 +2,14 @@
 % Please edit documentation in R/ScatterBoxPlot.R
 \name{ScatterBoxPlot}
 \alias{ScatterBoxPlot}
-\title{Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.}
+\title{Plot a scatter box plot.}
 \usage{
 ScatterBoxPlot(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 }
 \arguments{
 \item{frm}{data frame to get values from}
 
-\item{xvar}{name of the independent column in frame; assumed discrete (if frm[[xvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).}
+\item{xvar}{name of the independent column in frame; assumed discrete}
 
 \item{yvar}{name of the continuous column in frame}
 
@@ -20,7 +20,12 @@ ScatterBoxPlot(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 \item{pt_alpha}{transparency of points in scatter plot}
 }
 \description{
-Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.
+Plot a boxplot with the data points superimposed.
+}
+\details{
+\code{xvar} is a discrete variable and \code{yvar} is a continuous variable.
+If \code{frm[[xvar]]} is an integer column, it will be converted to a factor.
+This means that additional layers that rely on continuous x scales (like geom_smooth) won't work.
 }
 \examples{
 
@@ -33,4 +38,7 @@ frm2 = data.frame(label=label,
                   meas = meas)
 WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 
+}
+\seealso{
+\code{\link{ScatterBoxPlotH}}
 }

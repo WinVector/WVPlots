@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable — ScatterHist • WVPlots</title>
+<title>Plot a scatter plot with marginals. — ScatterHist • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable — ScatterHist" />
+<meta property="og:title" content="Plot a scatter plot with marginals. — ScatterHist" />
 
-<meta property="og:description" content="Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable" />
+<meta property="og:description" content="Plot a scatter plot with optional smoothing curves or contour lines, and marginal histogram/density plots." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,9 +86,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -112,21 +109,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable</h1>
+    <h1>Plot a scatter plot with marginals.</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ScatterHist.R'><code>R/ScatterHist.R</code></a></small>
     <div class="hidden name"><code>ScatterHist.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot a scatter plot with marginals.  xvar is the independent variable (input or model) and yvar is the dependent variable</p>
+    <p>Plot a scatter plot with optional smoothing curves or contour lines, and marginal histogram/density plots.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>ScatterHist</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"lm"</span>,
-  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,15 +150,11 @@
     </tr>
     <tr>
       <th>smoothmethod</th>
-      <td><p>(optional) one of 'auto' (the default), 'loess', 'gam', 'lm', or 'identity'.  If smoothmethod is 'auto' or 'lm' a smoothing curve or line (respectively) is added and R-squared of the best linear fit of xvar to yvar is reported.  If smoothmethod is 'identity' then the y=x line is added and the R-squared of xvar to yvar (without the linear transform used in the other smoothmethod modes) is reported.</p></td>
+      <td><p>(optional) one of 'auto', 'loess', 'gam', 'lm', or 'identity'.</p></td>
     </tr>
     <tr>
       <th>estimate_sig</th>
       <td><p>logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.</p></td>
-    </tr>
-    <tr>
-      <th>annot_size</th>
-      <td><p>numeric scale annotation text (if present)</p></td>
     </tr>
     <tr>
       <th>minimal_labels</th>
@@ -193,6 +186,25 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>smoothmethod</code> is:</p><ul>
+<li><p>'auto', 'loess' or 'gam':  the appropriate smoothing curve is added to the scatterplot.</p></li>
+<li><p>'lm' (the default): the best fit line is added to the scatterplot.</p></li>
+<li><p>'identity':  the line x = y is added to the scatterplot. This is useful for comparing model predictions to true outcome.</p></li>
+<li><p>'none': no smoothing line is added to the scatterplot.</p></li>
+</ul>
+    <p>If <code>estimate_sig</code> is TRUE and <code>smoothmethod</code> is:</p><ul>
+<li><p>'lm': the R-squared of the linear fit is reported.</p></li>
+<li><p>'identity': the R-squared of the exact relation between <code>xvar</code> and <code>yvar</code> is reported.</p></li>
+</ul>
+    <p>Note that the identity R-squared is NOT the square of the correlation between <code>xvar</code> and <code>yvar</code>
+(which includes an implicit shift and scale). It is the coefficient of determination between <code>xvar</code> and
+<code>yvar</code>, and can be negative. See <a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>https://en.wikipedia.org/wiki/Coefficient_of_determination</a> for more details.
+If <code>xvar</code> is the output of a model to predict <code>yvar</code>, then the identity R-squared, not the lm R-squared,
+is the correct measure.</p>
+<p>If <code>smoothmethod</code> is neither 'lm' or 'identity' then <code>estimate_sig</code> is ignored.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -210,7 +222,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

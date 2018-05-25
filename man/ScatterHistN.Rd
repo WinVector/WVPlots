@@ -2,7 +2,7 @@
 % Please edit documentation in R/ScatterHistC.R
 \name{ScatterHistN}
 \alias{ScatterHistN}
-\title{Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.}
+\title{Plot a height scatter plot with marginals.}
 \usage{
 ScatterHistN(frame, xvar, yvar, zvar, title, ..., annot_size = 3,
   colorPalette = "RdYlBu", nclus = 3, adjust_x = 1, adjust_y = 1)
@@ -10,9 +10,9 @@ ScatterHistN(frame, xvar, yvar, zvar, title, ..., annot_size = 3,
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{name of the x variable}
 
-\item{yvar}{name of the dependent (output or result to be modeled) column in frame}
+\item{yvar}{name of the y variable}
 
 \item{zvar}{name of height variable}
 
@@ -20,18 +20,24 @@ ScatterHistN(frame, xvar, yvar, zvar, title, ..., annot_size = 3,
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{annot_size}{numeric scale annotation text (if present)}
+\item{annot_size}{numeric: scale annotation text (if present)}
 
 \item{colorPalette}{name of a Brewer palette (see http://colorbrewer2.org/ )}
 
-\item{nclus}{scalar number of z-clusters to plot}
+\item{nclus}{scalar: number of z-clusters to plot}
 
-\item{adjust_x}{numeric adjust x density plot}
+\item{adjust_x}{numeric: adjust x density plot}
 
-\item{adjust_y}{numeric adjust y density plot}
+\item{adjust_y}{numeric: adjust y density plot}
 }
 \description{
-Plot a height scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and zvar is the condition height.
+Plot a scatter plot conditioned on a continuous variable, with marginal conditional density plots.
+}
+\details{
+\code{xvar} and \code{yvar} are the coordinates of the points, and \code{zvar} is the
+continuous conditioning variable. \code{zvar} is partitioned into \code{nclus} disjoint
+ranges (by default, 3), which are then treated as discrete categories.The scatterplot and marginal density plots
+are color-coded by these categories.
 }
 \examples{
 
@@ -40,4 +46,7 @@ frm = data.frame(x=rnorm(50),y=rnorm(50))
 frm$z <- frm$x+frm$y
 WVPlots::ScatterHistN(frm, "x", "y", "z", title="Example Joint Distribution")
 
+}
+\seealso{
+\code{\link{ScatterHistC}}
 }

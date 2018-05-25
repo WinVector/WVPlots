@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a trend on log-log paper. — LogLogPlot • WVPlots</title>
+<title>Log-log plot — LogLogPlot • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,14 +28,9 @@
 
 
 
-<meta property="og:title" content="Plot a trend on log-log paper. — LogLogPlot" />
+<meta property="og:title" content="Log-log plot — LogLogPlot" />
 
-<meta property="og:description" content="This plot is intended for ploting functions that are observed costs
-or durations as a function of problem size.  In this case we expect
-the ideal or expected cost function to be non-decreasing.
-Any negative trends are assumed to arise from the noise model.
-The graph is specialized to compare non-decreasing linear and
-non-decreasing quadratic growth." />
+<meta property="og:description" content="Plot a trend on log-log paper." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -91,9 +86,6 @@ non-decreasing quadratic growth." />
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -117,19 +109,14 @@ non-decreasing quadratic growth." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a trend on log-log paper.</h1>
+    <h1>Log-log plot</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/LogLogPlot.R'><code>R/LogLogPlot.R</code></a></small>
     <div class="hidden name"><code>LogLogPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This plot is intended for ploting functions that are observed costs
-or durations as a function of problem size.  In this case we expect
-the ideal or expected cost function to be non-decreasing.
-Any negative trends are assumed to arise from the noise model.
-The graph is specialized to compare non-decreasing linear and
-non-decreasing quadratic growth.</p>
+    <p>Plot a trend on log-log paper.</p>
     
     </div>
 
@@ -160,13 +147,19 @@ non-decreasing quadratic growth.</p>
     </tr>
     <tr>
       <th>use_coord_trans</th>
-      <td><p>logical if TRUE, use coord_trans instead of <code>coord_trans(x = "log10", y = "log10")</code> instead of <code>scale_x_log10() + scale_yu_log10()</code> (useful when there is not enough range to show ticks).</p></td>
+      <td><p>logical if TRUE, use coord_trans instead of <code>coord_trans(x = "log10", y = "log10")</code> instead of <code>scale_x_log10() + scale_y_log10()</code> (useful when there is not enough range to show ticks).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Some care must be taken in drawing conclusions from log-log plots,
+    <p>This plot is intended for plotting functions that are observed costs
+or durations as a function of problem size.  In this case we expect
+the ideal or expected cost function to be non-decreasing.
+Any negative trends are assumed to arise from the noise model.
+The graph is specialized to compare non-decreasing linear and
+non-decreasing quadratic growth.</p>
+<p>Some care must be taken in drawing conclusions from log-log plots,
 as the transform is fairly violent.  Please see:
 "(Mar's Law) Everything is linear if plotted log-log with a fat magic marker"
 (from Akin's Laws of Spacecraft Design <a href='http://spacecraft.ssl.umd.edu/akins_laws.html'>http://spacecraft.ssl.umd.edu/akins_laws.html</a>),

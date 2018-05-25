@@ -57,9 +57,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -85,7 +82,7 @@
       <h1>WVPlots concept</h1>
                         <h4 class="author">Win-Vector LLC</h4>
             
-            <h4 class="date">2018-05-23</h4>
+            <h4 class="date">2018-05-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_concept.Rmd"><code>vignettes/WVPlots_concept.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_concept.Rmd</code></div>
@@ -125,7 +122,7 @@ frm =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt
 frm<span class="op">$</span>absY &lt;-<span class="st"> </span><span class="kw">abs</span>(frm<span class="op">$</span>y)
 frm<span class="op">$</span>posY =<span class="st"> </span>frm<span class="op">$</span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist">ScatterHist</a></span>(frm, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="dt">smoothmethod=</span><span class="st">"lm"</span>, 
-                     <span class="dt">title=</span><span class="st">"Example Linear Fit"</span>, <span class="dt">annot_size=</span><span class="dv">2</span>)</code></pre></div>
+                     <span class="dt">title=</span><span class="st">"Example Linear Fit"</span>)</code></pre></div>
 <p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">34903490</span>)
 y =<span class="st"> </span><span class="kw">abs</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span>

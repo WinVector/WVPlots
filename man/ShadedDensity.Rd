@@ -20,7 +20,7 @@ ShadedDensity(frame, xvar, threshold, title, ..., tail = "left")
 \item{tail}{which tail to shade, 'left' (default) or 'right'}
 }
 \description{
-Plot the distribution of a variable with a tail shaded
+Plot the distribution of a variable with a tail shaded.
 }
 \examples{
 

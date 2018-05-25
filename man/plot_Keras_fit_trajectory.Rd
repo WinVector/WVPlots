@@ -39,10 +39,7 @@ plot_Keras_fit_trajectory(d, title, ..., epoch_name = "epoch",
 ggplot2 plot
 }
 \description{
-Plot a history of fit over a trajetory of times.  Example below gives
-a fit plot for a history report from Keras R package.
-Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
-for some details.
+Plot a history of model fit performance over the number of training epochs.
 }
 \details{
 Assumes a performance matrix that carries information for both training and validation loss,
@@ -52,6 +49,11 @@ a Keras history object returns.
 By default, flips the loss so that better performance is larger for both the loss and the performance metric,
 and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
 If you choose not to flip the loss, you should not use the loss as the pick_metric.
+
+The example below gives
+a fit plot for a history report from Keras R package.
+Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
+for some details.
 }
 \examples{
 

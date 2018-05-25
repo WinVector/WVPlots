@@ -86,9 +86,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -161,7 +158,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Assumes that <code>xvar</code> is a factor or character variable.</p><ul>
+    <p>Assumes that <code>xvar</code> is a factor or can be coerced to one (character or integral).</p><ul>
 <li><p>sort &lt; 0 sorts the factor levels in decreasing order (most frequent level first)</p></li>
 <li><p>sort &gt; 0 sorts the factor levels in increasing order (good when used in conjunction with coord_flip())</p></li>
 <li><p>sort = 0 leaves the factor levels in "natural order" -- usually alphabetical</p></li>
@@ -188,7 +185,9 @@
   <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>prob</span><span class='kw'>=</span><span class='no'>letterFrame</span>$<span class='no'>freq</span>))
 <span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ClevelandDotPlot'>ClevelandDotPlot</a></span>(<span class='no'>randomDraws</span>, <span class='st'>"letter"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Example Cleveland-style dot plot"</span>)</div><div class='img'><img src='ClevelandDotPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='co'># Note the use of sort = 0, and that the graph correctly includes counts</span>
+<span class='co'># with no occurrences (5, and 7)</span>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ClevelandDotPlot'>ClevelandDotPlot</a></span>(<span class='no'>mtcars</span>, <span class='st'>"carb"</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='st'>"Example of counting integer values"</span>)</div><div class='img'><img src='ClevelandDotPlot-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

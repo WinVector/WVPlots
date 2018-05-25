@@ -1,13 +1,22 @@
 
 
-#' Plot a scatter box plot.  xvar is the discrete variable (input or model) and yvar is the continuous variable.
+#' Plot a scatter box plot.
+#'
+#' Plot a boxplot with the data points superimposed.
+#'
+#' \code{xvar} is a discrete variable and \code{yvar} is a continuous variable.
+#' If \code{frm[[xvar]]} is an integer column, it will be converted to a factor.
+#' This means that additional layers that rely on continuous x scales (like geom_smooth) won't work.
 #'
 #' @param frm data frame to get values from
-#' @param xvar name of the independent column in frame; assumed discrete (if frm[[xvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).
+#' @param xvar name of the independent column in frame; assumed discrete
 #' @param yvar name of the continuous column in frame
 #' @param title plot title
 #' @param ... (doesn't take additional arguments, used to force later arguments by name)
 #' @param pt_alpha transparency of points in scatter plot
+#'
+#' @seealso \code{\link{ScatterBoxPlotH}}
+#'
 #' @examples
 #'
 #' classes = c("a", "b", "c")
@@ -41,14 +50,24 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 }
 
 
-#' Plot a scatter plot in horizontal mode.
-#' xvar is the continuous variable and yvar is the discrete variable (input or model) and
+#' Plot a scatter box plot in horizontal mode.
+#'
+#' Plot a boxplot with the data points superimposed. Box plots are aligned horizontally.
+#'
+#' \code{xvar} is a continuous variable and \code{yvar} is a discrete variable.
+#' If frm[[yvar]] is an integer column, it will be converted to a factor.
+#' This means that additional layers that rely on continuous y scales won't work.
+#'
+#'
 #' @param frm data frame to get values from
 #' @param xvar name of the continuous column in frame
-#' @param yvar name of the independent column in frame; assumed discrete (if frm[[yvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).
+#' @param yvar name of the independent column in frame; assumed discrete
 #' @param title plot title
 #' @param ... (doesn't take additional arguments, used to force later arguments by name)
 #' @param pt_alpha transparency of points in scatter plot
+#'
+#' @seealso \code{\link{ScatterBoxPlot}}
+#'
 #' @examples
 #'
 #' classes = c("a", "b", "c")

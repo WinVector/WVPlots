@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot two density plots conditioned on truthVar. — DoubleDensityPlot • WVPlots</title>
+<title>Plot two density plots conditioned on an outcome variable. — DoubleDensityPlot • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Plot two density plots conditioned on truthVar. — DoubleDensityPlot" />
+<meta property="og:title" content="Plot two density plots conditioned on an outcome variable. — DoubleDensityPlot" />
 
-<meta property="og:description" content="Plot two density plots conditioned on truthVar." />
+<meta property="og:description" content="Plot two density plots conditioned on a binary outcome variable." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,9 +86,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -112,14 +109,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot two density plots conditioned on truthVar.</h1>
+    <h1>Plot two density plots conditioned on an outcome variable.</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/DoubleDensity.R'><code>R/DoubleDensity.R</code></a></small>
     <div class="hidden name"><code>DoubleDensityPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot two density plots conditioned on truthVar.</p>
+    <p>Plot two density plots conditioned on a binary outcome variable.</p>
     
     </div>
 
@@ -150,9 +147,21 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The use case for this visualization is to plot the distribution of a predictive model score
+(usually the predicted probability
+of a desired outcome) conditioned on the actual outcome. However, you can use it to compare the distribution of any
+numerical quantity conditioned on a binary feature. See the examples.</p>
+<p>The plot will degrade gracefully in degenerate conditions, for example when only
+one category is present.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='no'>mpg</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/mpg'>mpg</a></span>
+<span class='no'>mpg</span>$<span class='no'>trans</span> <span class='kw'>=</span> <span class='fu'>gsub</span>(<span class='st'>"\\(.*$"</span>, <span class='st'>''</span>, <span class='no'>mpg</span>$<span class='no'>trans</span>)
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>mpg</span>, <span class='st'>"cty"</span>, <span class='st'>"trans"</span>, <span class='st'>"City driving mpg by transmission type"</span>)</div><div class='img'><img src='DoubleDensityPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>set.seed</span>(<span class='fl'>34903490</span>)
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
@@ -161,14 +170,16 @@
    <span class='kw'>stuck</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
    <span class='kw'>rare</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>frm</span>[<span class='fl'>1</span>,<span class='st'>'rare'</span>] <span class='kw'>=</span> <span class='fl'>TRUE</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"truth"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='img'><img src='DoubleDensityPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"stuck"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='img'><img src='DoubleDensityPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"rare"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 512 rows containing missing values (geom_vline).</span></div><div class='img'><img src='DoubleDensityPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"truth"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='img'><img src='DoubleDensityPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"stuck"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='img'><img src='DoubleDensityPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/DoubleDensityPlot'>DoubleDensityPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"rare"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example double density plot"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 512 rows containing missing values (geom_vline).</span></div><div class='img'><img src='DoubleDensityPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

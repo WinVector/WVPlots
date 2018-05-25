@@ -56,7 +56,7 @@ frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
 frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm", 
-                     title="Example Linear Fit", annot_size=2)
+                     title="Example Linear Fit")
 ```
 
 ```{r}

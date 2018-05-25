@@ -2,7 +2,7 @@
 % Please edit documentation in R/ScatterHistC.R
 \name{ScatterHistC}
 \alias{ScatterHistC}
-\title{Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code}
+\title{Plot a conditional scatter plot with marginals.}
 \usage{
 ScatterHistC(frame, xvar, yvar, cvar, title, ..., annot_size = 3,
   colorPalette = "Dark2", adjust_x = 1, adjust_y = 1)
@@ -10,9 +10,9 @@ ScatterHistC(frame, xvar, yvar, cvar, title, ..., annot_size = 3,
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{name of the x variable}
 
-\item{yvar}{name of the dependent (output or result to be modeled) column in frame}
+\item{yvar}{name of the y variable}
 
 \item{cvar}{name of condition variable}
 
@@ -24,12 +24,16 @@ ScatterHistC(frame, xvar, yvar, cvar, title, ..., annot_size = 3,
 
 \item{colorPalette}{name of a Brewer palette (see http://colorbrewer2.org/ )}
 
-\item{adjust_x}{numeric adjust x density plot}
+\item{adjust_x}{numeric: adjust x density plot}
 
-\item{adjust_y}{numeric adjust y density plot}
+\item{adjust_y}{numeric: adjust y density plot}
 }
 \description{
-Plot a conditional scatter plot with marginals.  xvar is the independent variable (input or model), and yvar is the dependent variable, and cvar is the condition code
+Plot a scatter plot conditioned on a discrete variable, with marginal conditional density plots.
+}
+\details{
+\code{xvar} and \code{yvar} are the coordinates of the points, and \code{cvar} is the
+discrete conditioning variable that indicates which category each point (x,y) belongs to.
 }
 \examples{
 

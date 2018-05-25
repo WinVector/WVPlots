@@ -1,6 +1,8 @@
 
 #' Plot the distribution of a variable with a tail shaded
 #'
+#' Plot the distribution of a variable with a tail shaded.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the variable to be density plotted
 #' @param threshold boundary value for the tail

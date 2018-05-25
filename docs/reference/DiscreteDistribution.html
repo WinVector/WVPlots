@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot distribution of a single continuous variable. — DiscreteDistribution • WVPlots</title>
+<title>Plot distribution of a single discrete numerical variable. — DiscreteDistribution • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,10 @@
 
 
 
-<meta property="og:title" content="Plot distribution of a single continuous variable. — DiscreteDistribution" />
+<meta property="og:title" content="Plot distribution of a single discrete numerical variable. — DiscreteDistribution" />
 
-<meta property="og:description" content="Plot distribution of a single continuous variable." />
+<meta property="og:description" content="Similar to calling ClevelandDotPlot with sort = 0 on a numerical x variable that
+takes on a discrete set of values." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,9 +87,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -112,14 +110,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot distribution of a single continuous variable.</h1>
+    <h1>Plot distribution of a single discrete numerical variable.</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/DiscreteDistribution.R'><code>R/DiscreteDistribution.R</code></a></small>
     <div class="hidden name"><code>DiscreteDistribution.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot distribution of a single continuous variable.</p>
+    <p>Similar to calling <code>ClevelandDotPlot</code> with <code>sort = 0</code> on a numerical x variable that
+takes on a discrete set of values.</p>
     
     </div>
 
@@ -134,7 +133,7 @@
     </tr>
     <tr>
       <th>xvar</th>
-      <td><p>name of the independent (input or model) column in frame</p></td>
+      <td><p>numeric: name of the variable whose distribution is to be plotted</p></td>
     </tr>
     <tr>
       <th>title</th>

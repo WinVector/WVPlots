@@ -32,19 +32,19 @@ Scatterplot with smoothing line through points.
 WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
 ```
 
-Scatterplot with best linear fit through points. Reports the R-squared and significance of the linear fit.
+Scatterplot with best linear fit through points. Also report the R-squared and significance of the linear fit.
 
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm", 
-                     title="Example Linear Fit", annot_size=2)
+                     title="Example Linear Fit", estimate_sig = TRUE)
 ```
 
-Scatterplot compared to the line `x = y`. Reports the square of the correlation between x and y (R-squared)
-and its significance.
+Scatterplot compared to the line `x = y`. Also report the coeffient of determination between `x` and `y` (where `y` is
+"true outcome" and `x` is "predicted outcome").
 
 ```{r}
 WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity", 
-                     title="Example Relation Plot", annot_size=2)
+                     title="Example Relation Plot", estimate_sig = TRUE)
 ```
 
 Scatterplot of *(x, y)* color-coded by category/group, with marginal distributions of *x* and *y* conditioned on group.
@@ -71,6 +71,21 @@ WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=FALSE,
 
 WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE, 
                             title="Example 'Probability of Y' Plot (GLM smoothing)")
+```
+
+
+## Hexbin Plot
+
+```{r}
+if(requireNamespace("hexbin", quietly = TRUE)) {
+  set.seed(5353636)
+  
+  df = rbind(data.frame(x=rnorm(1000, mean = 1), y=rnorm(1000, mean = 1, sd = 0.5 )),
+             data.frame(x = rnorm(1000, mean = -1, sd = 0.5), y = rnorm(1000, mean = -1, sd = 0.5)))
+  
+  print(WVPlots::HexBinPlot(df, "x", "y", "Two gaussians"))
+}
+
 ```
 
 ## Gain Curves

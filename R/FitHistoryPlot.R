@@ -4,7 +4,13 @@
 
 #' Plot the trajectory of a model fit.
 #'
-#' Plot a history of fit over a trajetory of times.  Example below gives
+#' Plot a history of model fit performance over the a trajectory of times.
+#'
+#' This visualization can be applied to any staged machine learning algorithm. For example one could
+#' plot the performance of a gradient boosting machine as a function of the number of trees added. The
+#' fit history data should be in the form given in the example below.
+#'
+#' The example below gives
 #' a fit plot for a history report from Keras R package.
 #' Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
 #' for some examples and details.
@@ -185,10 +191,7 @@ plot_fit_trajectory <- function(d,
 
 #' Plot the trajectory of a Keras model fit.
 #'
-#' Plot a history of fit over a trajetory of times.  Example below gives
-#' a fit plot for a history report from Keras R package.
-#' Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
-#' for some details.
+#' Plot a history of model fit performance over the number of training epochs.
 #'
 #' @param d data frame to get values from.
 #' @param title character title for plot.
@@ -213,6 +216,11 @@ plot_fit_trajectory <- function(d,
 #' By default, flips the loss so that better performance is larger for both the loss and the performance metric,
 #' and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
 #' If you choose not to flip the loss, you should not use the loss as the pick_metric.
+#'
+#' The example below gives
+#' a fit plot for a history report from Keras R package.
+#' Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
+#' for some details.
 #'
 #' @seealso \link{plot_fit_trajectory}
 #'

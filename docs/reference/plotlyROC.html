@@ -86,9 +86,6 @@
     <li>
       <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
     </li>
-    <li>
-      <a href="../articles/rsconnect/documents/WVPlots_examples.html">UNKNOWN TITLE</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -163,11 +160,20 @@
 
     <p>plotly plot</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ROCPlot.html'>ROCPlot</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# d <- data.frame(x= 1:5, y= c(TRUE, FALSE , TRUE, TRUE, TRUE))
-# plotlyROC(d, 'x', 'y', TRUE, 'example plot', estimate_sig = TRUE)
+<span class='kw'>if</span>(<span class='fu'>requireNamespace</span>(<span class='st'>"plotly"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+   <span class='fu'>set.seed</span>(<span class='fl'>34903490</span>)
+   <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>50</span>)
+   <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'>rnorm</span>(<span class='fu'>length</span>(<span class='no'>x</span>))
+   <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>yC</span><span class='kw'>=</span><span class='no'>y</span><span class='kw'>&gt;=</span><span class='fu'>as.numeric</span>(<span class='fu'>quantile</span>(<span class='no'>y</span>,<span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
+   <span class='fu'>plotlyROC</span>(<span class='no'>frm</span>, <span class='st'>'x'</span>, <span class='st'>'yC'</span>, <span class='fl'>TRUE</span>, <span class='st'>'example plot'</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+}</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘bindrcpp’ was built under R version 3.4.4</span></div><div class='input'>
 
 </div></pre>
   </div>
@@ -177,6 +183,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

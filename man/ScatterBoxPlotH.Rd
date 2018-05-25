@@ -2,8 +2,7 @@
 % Please edit documentation in R/ScatterBoxPlot.R
 \name{ScatterBoxPlotH}
 \alias{ScatterBoxPlotH}
-\title{Plot a scatter plot in horizontal mode.
-xvar is the continuous variable and yvar is the discrete variable (input or model) and}
+\title{Plot a scatter box plot in horizontal mode.}
 \usage{
 ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 }
@@ -12,7 +11,7 @@ ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 
 \item{xvar}{name of the continuous column in frame}
 
-\item{yvar}{name of the independent column in frame; assumed discrete (if frm[[yvar]] is an integer column, it will be converted to a factor. This means that additional layers that rely on continuous x scales (like geom_smooth) won't work).}
+\item{yvar}{name of the independent column in frame; assumed discrete}
 
 \item{title}{plot title}
 
@@ -21,8 +20,12 @@ ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 \item{pt_alpha}{transparency of points in scatter plot}
 }
 \description{
-Plot a scatter plot in horizontal mode.
-xvar is the continuous variable and yvar is the discrete variable (input or model) and
+Plot a boxplot with the data points superimposed. Box plots are aligned horizontally.
+}
+\details{
+\code{xvar} is a continuous variable and \code{yvar} is a discrete variable.
+If frm[[yvar]] is an integer column, it will be converted to a factor.
+This means that additional layers that rely on continuous y scales won't work.
 }
 \examples{
 
@@ -36,4 +39,7 @@ frm2 = data.frame(label=label,
 WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
 
 
+}
+\seealso{
+\code{\link{ScatterBoxPlot}}
 }
