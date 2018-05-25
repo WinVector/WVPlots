@@ -22,7 +22,7 @@ Depends:
 Imports:
     ggplot2 (>= 2.2.0),
     wrapr (>= 1.4.1),
-    sigr (>= 0.2.5),
+    sigr (>= 0.2.6),
     cdata (>= 0.7.0),
     utils,
     grid,
