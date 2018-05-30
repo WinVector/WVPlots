@@ -4,7 +4,8 @@
 \alias{ShadedDensity}
 \title{Plot the distribution of a variable with a tail shaded}
 \usage{
-ShadedDensity(frame, xvar, threshold, title, ..., tail = "left")
+ShadedDensity(frame, xvar, threshold, title, ..., tail = "left",
+  linecolor = "darkgray", shading = "darkblue")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -18,6 +19,10 @@ ShadedDensity(frame, xvar, threshold, title, ..., tail = "left")
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{tail}{which tail to shade, 'left' (default) or 'right'}
+
+\item{linecolor}{color of density curve}
+
+\item{shading}{color of shaded region and boundaries}
 }
 \description{
 Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region.

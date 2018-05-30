@@ -4,7 +4,8 @@
 \alias{ShadedDensityCenter}
 \title{Plot the distribution of a variable with a center region shaded}
 \usage{
-ShadedDensityCenter(frame, xvar, boundaries, title, ..., tail = "left")
+ShadedDensityCenter(frame, xvar, boundaries, title, ...,
+  linecolor = "darkgray", shading = "darkblue")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -16,6 +17,10 @@ ShadedDensityCenter(frame, xvar, boundaries, title, ..., tail = "left")
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{linecolor}{color of density curve}
+
+\item{shading}{color of shaded region and boundaries}
 }
 \description{
 Plot the distribution of a variable with a center region shaded. Annotate with the area of the shaded region.

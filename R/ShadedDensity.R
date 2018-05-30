@@ -9,6 +9,8 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param tail which tail to shade, 'left' (default) or 'right'
+#' @param linecolor color of density curve
+#' @param shading color of shaded region and boundaries
 #'
 #' @seealso \code{\link{ShadedDensityCenter}}
 #'
@@ -25,7 +27,9 @@
 #' @export
 ShadedDensity <- function(frame, xvar, threshold, title,
                           ...,
-                          tail="left") {
+                          tail="left",
+                          linecolor = "darkgray",
+                          shading = "darkblue") {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar),
@@ -54,9 +58,9 @@ ShadedDensity <- function(frame, xvar, threshold, title,
   textx = threshold + sign*0.01*xrange
 
   ggplot2::ggplot() +
-    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color="darkgray") +
-    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=tail), fill="darkblue", alpha=0.5) +
-    ggplot2::geom_vline(xintercept=threshold, color="darkblue",  linetype=2) +
+    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
+    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=tail), fill=shading, alpha=0.5) +
+    ggplot2::geom_vline(xintercept=threshold, color=shading,  linetype=2) +
     ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
@@ -71,6 +75,8 @@ ShadedDensity <- function(frame, xvar, threshold, title,
 #' @param boundaries vector of the min and max boundaries of the shaded region
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param linecolor color of density curve
+#' @param shading color of shaded region and boundaries
 #'
 #' @seealso \code{\link{ShadedDensity}}
 #' @examples
@@ -84,7 +90,8 @@ ShadedDensity <- function(frame, xvar, threshold, title,
 #' @export
 ShadedDensityCenter <- function(frame, xvar, boundaries, title,
                           ...,
-                          tail="left") {
+                          linecolor = "darkgray",
+                          shading = "darkblue") {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar),
@@ -119,9 +126,9 @@ ShadedDensityCenter <- function(frame, xvar, boundaries, title,
   bframe = data.frame(boundaries = boundaries)
 
   ggplot2::ggplot() +
-    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color="darkgray") +
-    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill="darkblue", alpha=0.5) +
-    ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color="darkblue",  linetype=2) +
+    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
+    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill=shading, alpha=0.5) +
+    ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color=shading,  linetype=2) +
     ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
