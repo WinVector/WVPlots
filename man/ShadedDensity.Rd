@@ -20,7 +20,7 @@ ShadedDensity(frame, xvar, threshold, title, ..., tail = "left")
 \item{tail}{which tail to shade, 'left' (default) or 'right'}
 }
 \description{
-Plot the distribution of a variable with a tail shaded.
+Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region.
 }
 \examples{
 
@@ -32,4 +32,7 @@ WVPlots::ShadedDensity(d, "meas", threshold,
 WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
                        title="Example shaded density plot, right tail")
 
+}
+\seealso{
+\code{\link{ShadedDensityCenter}}
 }

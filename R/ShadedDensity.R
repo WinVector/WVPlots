@@ -1,7 +1,7 @@
 
 #' Plot the distribution of a variable with a tail shaded
 #'
-#' Plot the distribution of a variable with a tail shaded.
+#' Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the variable to be density plotted
@@ -9,6 +9,9 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param tail which tail to shade, 'left' (default) or 'right'
+#'
+#' @seealso \code{\link{ShadedDensityCenter}}
+#'
 #' @examples
 #'
 #' set.seed(52523)
@@ -59,5 +62,69 @@ ShadedDensity <- function(frame, xvar, threshold, title,
     ggplot2::xlab(xvar)
 }
 
+#' Plot the distribution of a variable with a center region shaded
+#'
+#' Plot the distribution of a variable with a center region shaded. Annotate with the area of the shaded region.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the variable to be density plotted
+#' @param boundaries vector of the min and max boundaries of the shaded region
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#'
+#' @seealso \code{\link{ShadedDensity}}
+#' @examples
+#'
+#' set.seed(52523)
+#' d = data.frame(meas=rnorm(100))
+#' boundaries = c(-1.5, 1.5)
+#' WVPlots::ShadedDensityCenter(d, "meas", boundaries,
+#'                        title="Example center-shaded density plot")
+#'
+#' @export
+ShadedDensityCenter <- function(frame, xvar, boundaries, title,
+                          ...,
+                          tail="left") {
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = list(xvar = xvar),
+                                 title = title,
+                                 funname = "WVPlots::ShadedDensity")
+  if(length(boundaries) != 2) {
+    stop("The argument boundaries must be exactly length 2: c(min, max).")
+  }
+  if(boundaries[1] >= boundaries[2] ) {
+    stop("The maximum boundary must be strictly larger than the minimum boundary.")
+  }
+
+  x <- NULL # used as a symbol, declare not an unbound variable
+
+  # calculate the distribution by hand
+  dens = density(frame[[xvar]], adjust=0.5)
+  densityframe = data.frame(x=dens$x, density=dens$y)
+
+  # ecdf returns a FUNCTION that computes the empirical cdf
+  densityfun = ecdf(frame[[xvar]])
+
+  densityframe$shaded = numeric(nrow(densityframe))
+  densityframe$shaded = ifelse(boundaries[1] < densityframe$x & densityframe$x < boundaries[2],
+                               densityframe$density, 0)
+
+  area = densityfun(boundaries[2]) - densityfun(boundaries[1])
+  text = paste("shaded area = ", format(area, digits=2))
+  texty = 0.1*max(dens$y)
+  xrange = max(dens$x)-min(dens$x)
+  textx = boundaries[1] + 0.01*xrange
+
+  bframe = data.frame(boundaries = boundaries)
+
+  ggplot2::ggplot() +
+    ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color="darkgray") +
+    ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill="darkblue", alpha=0.5) +
+    ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color="darkblue",  linetype=2) +
+    ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
+    ggplot2::ggtitle(title) +
+    ggplot2::xlab(xvar)
+}
 
 

@@ -330,3 +330,14 @@ WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
                        title="Example shaded density plot, right tail")
 
 ```
+
+## Density Plot with Shaded Central Region
+```{r}
+set.seed(52523)
+d = data.frame(meas=rnorm(100))
+# first and third quartiles of the data (central 50%)
+boundaries = quantile(d$meas, c(0.25, 0.75))
+WVPlots::ShadedDensityCenter(d, "meas", boundaries, 
+                       title="Example center-shaded density plot")
+
+```
