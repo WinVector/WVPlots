@@ -60,7 +60,7 @@ ShadedDensity <- function(frame, xvar, threshold, title,
   ggplot2::ggplot() +
     ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
     ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=tail), fill=shading, alpha=0.5) +
-    ggplot2::geom_vline(xintercept=threshold, color=shading,  linetype=2) +
+    ggplot2::geom_vline(xintercept=threshold, color=shading,  linetype=3) +
     ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
@@ -128,7 +128,7 @@ ShadedDensityCenter <- function(frame, xvar, boundaries, title,
   ggplot2::ggplot() +
     ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
     ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill=shading, alpha=0.5) +
-    ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color=shading,  linetype=2) +
+    ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color=shading,  linetype=3) +
     ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
