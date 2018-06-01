@@ -18,7 +18,7 @@ Description: Select data analysis plots, under a standardized calling interface 
 License: GPL-3
 VignetteBuilder: knitr
 Depends:
-    R (>= 3.0.0)
+    R (>= 3.2.1)
 Imports:
     ggplot2 (>= 2.2.0),
     wrapr (>= 1.4.1),
