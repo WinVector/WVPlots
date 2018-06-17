@@ -125,6 +125,8 @@ ShadedDensityCenter <- function(frame, xvar, boundaries, title,
 
   bframe = data.frame(boundaries = boundaries)
 
+  shaded <- NULL # don't look like an unbound reference
+
   ggplot2::ggplot() +
     ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
     ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill=shading, alpha=0.5) +
