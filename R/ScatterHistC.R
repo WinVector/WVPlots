@@ -17,6 +17,10 @@
 #' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
 #' @param adjust_x  numeric: adjust x density plot
 #' @param adjust_y  numeric: adjust y density plot
+#' @return plot grid
+#'
+#' @seealso \code{\link{ScatterHist}}
+#'
 #' @examples
 #'
 #' set.seed(34903490)

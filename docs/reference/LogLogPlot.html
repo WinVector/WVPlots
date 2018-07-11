@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:description" content="Plot a trend on log-log paper." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -58,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.1</span>
       </span>
     </div>
 
@@ -171,7 +174,7 @@ and "So You Think You Have a Power Law" <a href='http://bactra.org/weblog/491.ht
 <span class='fu'>set.seed</span>(<span class='fl'>5326</span>)
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>)
 <span class='no'>frm</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span> + <span class='no'>frm</span>$<span class='no'>x</span> + <span class='fl'>0.2</span> * <span class='no'>frm</span>$<span class='no'>x</span> * <span class='no'>frm</span>$<span class='no'>x</span> + <span class='fl'>0.1</span>*<span class='fu'>abs</span>(<span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>frm</span>)))
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/LogLogPlot'>LogLogPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Trend"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess'</span></div><div class='img'><img src='LogLogPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/LogLogPlot'>LogLogPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Trend"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='LogLogPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

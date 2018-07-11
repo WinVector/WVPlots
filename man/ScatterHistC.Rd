@@ -28,6 +28,9 @@ ScatterHistC(frame, xvar, yvar, cvar, title, ..., annot_size = 3,
 
 \item{adjust_y}{numeric: adjust y density plot}
 }
+\value{
+plot grid
+}
 \description{
 Plot a scatter plot conditioned on a discrete variable, with marginal conditional density plots.
 }
@@ -43,4 +46,7 @@ frm$cat <- frm$x+frm$y>0
 WVPlots::ScatterHistC(frm, "x", "y", "cat",
                       title="Example Conditional Distribution")
 
+}
+\seealso{
+\code{\link{ScatterHist}}
 }

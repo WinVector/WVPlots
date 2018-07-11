@@ -38,8 +38,13 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
 
 \item{contour}{logical if TRUE add a 2d contour plot}
 }
+\value{
+plot grid
+}
 \description{
 Plot a scatter plot with optional smoothing curves or contour lines, and marginal histogram/density plots.
+Based on \url{http://www.win-vector.com/blog/2015/06/wanted-a-perfect-scatterplot-with-marginals/}.
+See also \code{ggExtra::ggMarginal}.
 }
 \details{
 If \code{smoothmethod} is:
@@ -75,4 +80,7 @@ WVPlots::ScatterHist(frm, "x", "y",
   smoothmethod = "gam",
   contour = TRUE)
 
+}
+\seealso{
+\code{\link{ScatterHistC}}
 }

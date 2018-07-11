@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • WVPlots</title>
+<title>Plot the distribution of a variable with a center region shaded — ShadedDensityCenter • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Plot the distribution of a variable with a center region shaded — ShadedDensityCenter" />
+
+<meta property="og:description" content="Plot the distribution of a variable with a center region shaded. Annotate with the area of the shaded region." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -46,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,18 +112,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Plot the distribution of a variable with a center region shaded</h1>
+    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ShadedDensity.R'><code>R/ShadedDensity.R</code></a></small>
+    <div class="hidden name"><code>ShadedDensityCenter.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="WVPlots_concept.html">WVPlots concept</a></li>
-        <li><a href="WVPlots_examples.html">Example WVPlots</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p>Plot the distribution of a variable with a center region shaded. Annotate with the area of the shaded region.</p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>ShadedDensityCenter</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>boundaries</span>, <span class='no'>title</span>, <span class='no'>...</span>,
+  <span class='kw'>linecolor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>shading</span> <span class='kw'>=</span> <span class='st'>"darkblue"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>frame</th>
+      <td><p>data frame to get values from</p></td>
+    </tr>
+    <tr>
+      <th>xvar</th>
+      <td><p>name of the variable to be density plotted</p></td>
+    </tr>
+    <tr>
+      <th>boundaries</th>
+      <td><p>vector of the min and max boundaries of the shaded region</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>title to place on plot</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
+    </tr>
+    <tr>
+      <th>linecolor</th>
+      <td><p>color of density curve</p></td>
+    </tr>
+    <tr>
+      <th>shading</th>
+      <td><p>color of shaded region and boundaries</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ShadedDensity.html'>ShadedDensity</a></code></p></div>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'>set.seed</span>(<span class='fl'>52523</span>)
+<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>meas</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>100</span>))
+<span class='no'>boundaries</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>1.5</span>, <span class='fl'>1.5</span>)
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/WVPlots/topics/ShadedDensityCenter'>ShadedDensityCenter</a></span>(<span class='no'>d</span>, <span class='st'>"meas"</span>, <span class='no'>boundaries</span>,
+                       <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example center-shaded density plot"</span>)</div><div class='img'><img src='ShadedDensityCenter-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
