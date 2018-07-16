@@ -39,7 +39,7 @@ WVPlots::ScatterHist(frm, "x", "y", smoothmethod="lm",
                      title="Example Linear Fit", estimate_sig = TRUE)
 ```
 
-Scatterplot compared to the line `x = y`. Also report the coeffient of determination between `x` and `y` (where `y` is
+Scatterplot compared to the line `x = y`. Also report the coefficient of determination between `x` and `y` (where `y` is
 "true outcome" and `x` is "predicted outcome").
 
 ```{r}
@@ -219,7 +219,7 @@ Plot a bar chart of row counts conditioned on the categorical variable `condvar`
 faceted on a second categorical variable, `refinevar`. Each faceted plot
 also shows a "shadow plot" of the totals conditioned on `condvar` alone.
 
-This plot enables comparisons of subpopulation totals across both
+This plot enables comparisons of sub-population totals across both
 `condvar` and `refinevar` simultaneously.
 
 ```{r}

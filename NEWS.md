@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.2 2018-07-16
+
+ * Documentation fixes.
+ 
 # WVPlots 1.0.1 2018-07-11
 
  * narrow interface to sigr.

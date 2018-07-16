@@ -3,7 +3,7 @@
 WVPlots
 =======
 
-Common plots we use for analysis and presentation (on top of ggplot2 in [R](https://cran.r-project.org)). For an introduction see: <http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/>
+Common plots we use for analysis and presentation (on top of ggplot2 in [R](https://cran.r-project.org)). For an introduction please see: [here](http://www.win-vector.com/blog/2016/04/wvplots-example-plots-in-r-using-ggplot2/)
 
 Website: <https://github.com/WinVector/WVPlots>
 

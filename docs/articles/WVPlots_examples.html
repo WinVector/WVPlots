@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1>Example WVPlots</h1>
                         <h4 class="author">Win-Vector LLC</h4>
             
-            <h4 class="date">2018-07-11</h4>
+            <h4 class="date">2018-07-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_examples.Rmd"><code>vignettes/WVPlots_examples.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_examples.Rmd</code></div>
@@ -108,7 +108,7 @@ frm<span class="op">$</span>posY =<span class="st"> </span>frm<span class="op">$
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist">ScatterHist</a></span>(frm, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="dt">smoothmethod=</span><span class="st">"lm"</span>, 
                      <span class="dt">title=</span><span class="st">"Example Linear Fit"</span>, <span class="dt">estimate_sig =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<p>Scatterplot compared to the line <code>x = y</code>. Also report the coeffient of determination between <code>x</code> and <code>y</code> (where <code>y</code> is “true outcome” and <code>x</code> is “predicted outcome”).</p>
+<p>Scatterplot compared to the line <code>x = y</code>. Also report the coefficient of determination between <code>x</code> and <code>y</code> (where <code>y</code> is “true outcome” and <code>x</code> is “predicted outcome”).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ScatterHist">ScatterHist</a></span>(frm, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="dt">smoothmethod=</span><span class="st">"identity"</span>, 
                      <span class="dt">title=</span><span class="st">"Example Relation Plot"</span>, <span class="dt">estimate_sig =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
@@ -256,7 +256,7 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <h2 class="hasAnchor">
 <a href="#shadow-plots" class="anchor"></a>Shadow Plots</h2>
 <p>Plot a bar chart of row counts conditioned on the categorical variable <code>condvar</code>, faceted on a second categorical variable, <code>refinevar</code>. Each faceted plot also shows a “shadow plot” of the totals conditioned on <code>condvar</code> alone.</p>
-<p>This plot enables comparisons of subpopulation totals across both <code>condvar</code> and <code>refinevar</code> simultaneously.</p>
+<p>This plot enables comparisons of sub-population totals across both <code>condvar</code> and <code>refinevar</code> simultaneously.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">354534</span>)
 N =<span class="st"> </span><span class="dv">100</span>
 
