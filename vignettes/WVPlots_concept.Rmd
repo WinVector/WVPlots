@@ -44,7 +44,7 @@ Switching the chosen plot simultaneously changes many of the details of the pres
   * title: text title for the plot.
 
 
-This rigid calling interface is easy to remember and makes switching between plot types very easy.  We have also make <code>title</code> a required argument, as we feel all plots should be labeled.
+This intentionally rigid calling interface is easy to remember and makes switching between plot types very easy.  We have also make <code>title</code> a required argument, as we feel all plots should be labeled.
 
 What we are trying to do is separate the specification of exactly what plot we want from the details of how to produce it.  We find this separation of concerns and encapsulation of implementation allows us to routinely use rich annotated graphics.  Below are a few more examples:
 
