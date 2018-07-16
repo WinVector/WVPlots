@@ -37,7 +37,7 @@ ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
 
 \item{returnScores}{logical if TRUE return detailed permutedScores}
 
-\item{nrep}{number of permutation repititions to estimate p values.}
+\item{nrep}{number of permutation repetitions to estimate p values.}
 
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
 }

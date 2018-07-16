@@ -113,7 +113,7 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <li>yvar: name of the y variable column in the data frame (not part of the shown density plots!).</li>
 <li>title: text title for the plot.</li>
 </ul>
-<p>This rigid calling interface is easy to remember and makes switching between plot types very easy. We have also make <code>title</code> a required argument, as we feel all plots should be labeled.</p>
+<p>This intentionally rigid calling interface is easy to remember and makes switching between plot types very easy. We have also make <code>title</code> a required argument, as we feel all plots should be labeled.</p>
 <p>What we are trying to do is separate the specification of exactly what plot we want from the details of how to produce it. We find this separation of concerns and encapsulation of implementation allows us to routinely use rich annotated graphics. Below are a few more examples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">34903490</span>)
 x =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">50</span>)

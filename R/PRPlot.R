@@ -9,7 +9,7 @@
 #'  See also https://github.com/WinVector/sigr
 #'
 #' @param modelPredictions numeric predictions (not empty)
-#' @param yValues logical truth (not empty, same lenght as model predictions)
+#' @param yValues logical truth (not empty, same length as model predictions)
 #' @return line graph, point graph, and summaries
 #'
 #' @noRd

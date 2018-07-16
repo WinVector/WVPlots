@@ -22,7 +22,7 @@
 #' @param title character title for plot.
 #' @param ... force later arguments to be bound by name
 #' @param epoch_name name for epoch or trajectory column.
-#' @param needs_flip charater array of measures that need to be flipped.
+#' @param needs_flip character array of measures that need to be flipped.
 #' @param pick_metric character metric to maximize.
 #' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
 #' @param draw_ribbon present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)
@@ -214,7 +214,7 @@ plot_fit_trajectory <- function(d,
 #' a Keras history object returns.
 #'
 #' By default, flips the loss so that better performance is larger for both the loss and the performance metric,
-#' and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
+#' and then draws a vertical line at the minimum validation loss (maximum flipped validation loss).
 #' If you choose not to flip the loss, you should not use the loss as the pick_metric.
 #'
 #' The example below gives

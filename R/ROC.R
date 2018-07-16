@@ -18,7 +18,7 @@ novelPointPositionsR <- function(x) {
   c(abs(x[-1]-x[-len])>1.0e-6,TRUE)
 }
 
-#' calculate AUC.
+#' Graph AUC.
 #'
 #' Based on:
 #'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
@@ -26,7 +26,7 @@ novelPointPositionsR <- function(x) {
 #'  See also https://github.com/WinVector/sigr
 #
 #' @param modelPredictions numeric predictions (not empty)
-#' @param yValues logical truth (not empty, same lenght as model predictions)
+#' @param yValues logical truth (not empty, same length as model predictions)
 #' @return line graph, point graph, and area under curve
 #'
 #' @examples
@@ -104,7 +104,7 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
-#' @param nrep number of permutation repititions to estimate p values.
+#' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #'
 #' @seealso \code{\link{PRPlot}}
@@ -209,7 +209,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
-#' @param nrep number of permutation repititions to estimate p values.
+#' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #'
 #' @seealso \code{\link{ROCPlot}}
@@ -327,7 +327,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.
 #' @param returnScores logical if TRUE return detailed permutedScores
-#' @param nrep number of permutation repititions to estimate p values.
+#' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
 #'
 #' @seealso \code{\link{ROCPlot}}
@@ -446,7 +446,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @param d dataframe
 #' @param predCol name of column with numeric predictions
 #' @param outcomeCol name of column with truth
-#' @param outcomeTarget value considred true
+#' @param outcomeTarget value considered true
 #' @param title character title for plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE estimate and display significance of difference from AUC 0.5.

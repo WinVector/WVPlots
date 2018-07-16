@@ -19,7 +19,7 @@ plot_fit_trajectory(d, column_description, title, ..., epoch_name = "epoch",
 
 \item{epoch_name}{name for epoch or trajectory column.}
 
-\item{needs_flip}{charater array of measures that need to be flipped.}
+\item{needs_flip}{character array of measures that need to be flipped.}
 
 \item{pick_metric}{character metric to maximize.}
 

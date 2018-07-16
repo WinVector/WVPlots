@@ -47,7 +47,7 @@ and an additional training and validation performance metric, in the format that
 a Keras history object returns.
 
 By default, flips the loss so that better performance is larger for both the loss and the performance metric,
-and then draws a vertical line at the minumum validation loss (maximum flipped validation loss).
+and then draws a vertical line at the minimum validation loss (maximum flipped validation loss).
 If you choose not to flip the loss, you should not use the loss as the pick_metric.
 
 The example below gives

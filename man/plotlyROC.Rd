@@ -14,7 +14,7 @@ plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...,
 
 \item{outcomeCol}{name of column with truth}
 
-\item{outcomeTarget}{value considred true}
+\item{outcomeTarget}{value considered true}
 
 \item{title}{character title for plot}
 

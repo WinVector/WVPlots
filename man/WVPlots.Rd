@@ -6,8 +6,9 @@
 \alias{WVPlots-package}
 \title{WVPlots: Common Plots for Analysis}
 \description{
-Select data analysis plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'.
-Plots of interest include: 'ROC', gain curve, scatter plot with marginal distributions,
+Select data analysis plots, under a standardized calling interface implemented
+on top of \code{ggplot2} and \code{plotly}.
+Plots of interest include: \code{ROC}, gain curve, scatter plot with marginal distributions,
 conditioned scatter plot with marginal densities.
 box and stem with matching theoretical distribution, density with matching theoretical distribution.
 }
