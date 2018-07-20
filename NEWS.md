@@ -1,5 +1,5 @@
 
-# WVPlots 1.0.2 2018-07-16
+# WVPlots 1.0.2 2018-07-20
 
  * Documentation fixes.
  
