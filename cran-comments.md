@@ -6,7 +6,8 @@
     * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 
     * Windows
-
+    * using R Under development (unstable) (2018-07-19 r74981)
+    * using platform: x86_64-w64-mingw32 (64-bit)
 
 ## R CMD check --as-cran WVPlots_1.0.2.tar.gz 
 
