@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.3 2018-08-03
+
+ * Start removing effect where not needed.
+ 
 # WVPlots 1.0.2 2018-07-20
 
  * Documentation fixes.
