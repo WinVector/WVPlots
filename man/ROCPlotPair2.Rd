@@ -4,8 +4,8 @@
 \alias{ROCPlotPair2}
 \title{Compare two ROC plots.}
 \usage{
-ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2, xvar2,
-  truthVar2, truthTarget2, title, ..., estimate_sig = TRUE,
+ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2,
+  xvar2, truthVar2, truthTarget2, title, ..., estimate_sig = TRUE,
   returnScores = FALSE, nrep = 100, parallelCluster = NULL)
 }
 \arguments{

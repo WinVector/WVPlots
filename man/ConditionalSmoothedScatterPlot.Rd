@@ -4,8 +4,8 @@
 \alias{ConditionalSmoothedScatterPlot}
 \title{Plot a scatter plot with smoothing line.}
 \usage{
-ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ..., k = 3,
-  align = "center")
+ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ...,
+  k = 3, align = "center")
 }
 \arguments{
 \item{frame}{data frame to get values from}

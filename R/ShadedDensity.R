@@ -30,11 +30,12 @@ ShadedDensity <- function(frame, xvar, threshold, title,
                           tail="left",
                           linecolor = "darkgray",
                           shading = "darkblue") {
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar),
-                                 title = title,
-                                 funname = "WVPlots::ShadedDensity")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar),
+                        title = title,
+                        funname = "WVPlots::ShadedDensity")
   x <- NULL # used as a symbol, declare not an unbound variable
 
   # calculate the distribution by hand
@@ -89,14 +90,15 @@ ShadedDensity <- function(frame, xvar, threshold, title,
 #'
 #' @export
 ShadedDensityCenter <- function(frame, xvar, boundaries, title,
-                          ...,
-                          linecolor = "darkgray",
-                          shading = "darkblue") {
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar),
-                                 title = title,
-                                 funname = "WVPlots::ShadedDensity")
+                                ...,
+                                linecolor = "darkgray",
+                                shading = "darkblue") {
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar),
+                        title = title,
+                        funname = "WVPlots::ShadedDensity")
   if(length(boundaries) != 2) {
     stop("The argument boundaries must be exactly length 2: c(min, max).")
   }

@@ -1,7 +1,7 @@
 
-# WVPlots 1.0.3 2018-08-03
+# WVPlots 1.0.3 2018-08-05
 
- * Start removing effect where not needed.
+ * Start removing frame narrowing effect where not needed.
  
 # WVPlots 1.0.2 2018-07-20
 

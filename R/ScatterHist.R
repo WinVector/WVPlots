@@ -80,11 +80,12 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHist requires the grid and gridExtra packages be installed")
   }
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, yvar = yvar),
-                                 title = title,
-                                 funname = "WVPlots::ScatterHist")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, yvar = yvar),
+                        title = title,
+                        funname = "WVPlots::ScatterHist")
   if(!(smoothmethod %in% c('auto','loess','gam','lm', 'none', 'identity'))) {
     stop("smoothed method must be one of 'auto','lm','none', or 'identity'")
   }
@@ -109,16 +110,16 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   empty =  ggplot2::ggplot() +
     ggplot2::geom_point(ggplot2::aes(c(0,1), c(0,1)), colour = "white") +
     ggplot2::theme(plot.background = ggplot2::element_blank(),
-          panel.grid.major = ggplot2::element_blank(),
-          panel.grid.minor = ggplot2::element_blank(),
-          panel.border = ggplot2::element_blank(),
-          panel.background = ggplot2::element_blank(),
-          axis.title.x = ggplot2::element_blank(),
-          axis.title.y = ggplot2::element_blank(),
-          axis.text.x = ggplot2::element_blank(),
-          axis.text.y = ggplot2::element_blank(),
-          axis.ticks = ggplot2::element_blank(),
-          plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
+                   panel.grid.major = ggplot2::element_blank(),
+                   panel.grid.minor = ggplot2::element_blank(),
+                   panel.border = ggplot2::element_blank(),
+                   panel.background = ggplot2::element_blank(),
+                   axis.title.x = ggplot2::element_blank(),
+                   axis.title.y = ggplot2::element_blank(),
+                   axis.text.x = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   axis.ticks = ggplot2::element_blank(),
+                   plot.margin = grid::unit(c(1, 1, 0, 0), "lines"))
 
   # if we are showing a linear fit, print the fit's parameters
   gSmooth = NULL
@@ -166,7 +167,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   #
   plot_top <- ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
-                   color="white", binwidth=binwidth_x, bins=30) +
+                            color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
     ggplot2::coord_cartesian(xlim=xlims) +
     ggplot2::scale_x_continuous(expand = c(0,0))
@@ -174,9 +175,9 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
     plot_top = plot_top +
       ggplot2::theme(legend.position = "none",
                      axis.title.x = ggplot2::element_blank(),
-            axis.text.x = ggplot2::element_blank(),
-            axis.ticks.x = ggplot2::element_blank(),
-            plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
+                     axis.text.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
   } else {
     plot_top = plot_top +
       ggplot2::theme(plot.margin = grid::unit(c(1, 0, 0, 0), "lines"))
@@ -221,6 +222,6 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # for each row and column
 
   gridExtra::grid.arrange(plot_top, empty, plot_center, plot_right,
-               top=grid::textGrob(title),
-               ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
+                          top=grid::textGrob(title),
+                          ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }

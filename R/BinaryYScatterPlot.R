@@ -34,11 +34,12 @@
 #' @export
 BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
                               se=FALSE, use_glm=TRUE) {
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, yvar = yvar),
-                                 title = title,
-                                 funname = "WVPlots::BinaryYScatterPlot")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, yvar = yvar),
+                        title = title,
+                        funname = "WVPlots::BinaryYScatterPlot")
   frame[[yvar]] = as.numeric(frame[[yvar]])
   if(length(unique(frame[[yvar]])) != 2) stop(paste("outcome column", yvar, "not a binary variable"))
 

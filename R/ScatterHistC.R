@@ -33,17 +33,18 @@
 ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                         annot_size=3,
                         colorPalette="Dark2",
-                       adjust_x = 1,
-                       adjust_y = 1) {
+                        adjust_x = 1,
+                        adjust_y = 1) {
   if((!requireNamespace("grid", quietly = TRUE)) ||
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistC requires the grid and gridExtra packages be installed")
   }
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, yvar = yvar, cvar = cvar),
-                                 title = title,
-                                 funname = "WVPlots::ScatterHistC")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, yvar = yvar, cvar = cvar),
+                        title = title,
+                        funname = "WVPlots::ScatterHistC")
   minimal_labels = TRUE
 
   # Use this plot to print the legend.
@@ -84,7 +85,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                    axis.ticks = ggplot2::element_blank(),
                    plot.margin = grid::unit(c(1, 1, 0, 0), "lines"),
                    legend.position="none") +
-   ggplot2:: scale_color_brewer(palette=colorPalette)
+    ggplot2:: scale_color_brewer(palette=colorPalette)
 
 
   # scatterplot of x and y
@@ -123,7 +124,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                               ggplot2::aes_string(x=xvar,color=cvar)) +
     ggplot2::geom_line(stat='density',adjust=adjust_x) +
     ggplot2::coord_cartesian(xlim=xlims) +
-     ggplot2::scale_x_continuous(expand = c(0,0))
+    ggplot2::scale_x_continuous(expand = c(0,0))
   if(minimal_labels) {
     plot_top = plot_top +
       ggplot2::theme(legend.position = "none",
@@ -143,7 +144,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   plot_right <- ggplot2::ggplot(frame,
                                 ggplot2::aes_string(x=yvar,color=cvar)) +
     ggplot2::geom_line(stat='density', adjust=adjust_y) +
-   #  ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
+    #  ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::coord_flip(xlim=ylims, expand=0)
   if(minimal_labels) {
@@ -219,11 +220,12 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistN requires the grid and gridExtra packages be installed")
   }
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, yvar = yvar, zvar = zvar),
-                                 title = title,
-                                 funname = "WVPlots::ScatterHistN")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, yvar = yvar, zvar = zvar),
+                        title = title,
+                        funname = "WVPlots::ScatterHistN")
   q <- sort(unique(quantile(frame[[zvar]],seq(0, 1, 1/nclus))))
   yC <- cut(frame[[zvar]],q,include.lowest=TRUE)
   if(length(unique(yC))<=1) {

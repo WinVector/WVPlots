@@ -4,8 +4,9 @@
 \alias{ROCPlot}
 \title{Plot receiver operating characteristic plot.}
 \usage{
-ROCPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE,
-  returnScores = FALSE, nrep = 100, parallelCluster = NULL)
+ROCPlot(frame, xvar, truthVar, truthTarget, title, ...,
+  estimate_sig = FALSE, returnScores = FALSE, nrep = 100,
+  parallelCluster = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}

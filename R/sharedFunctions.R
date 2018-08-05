@@ -18,8 +18,8 @@ NULL
 #'
 #' @noRd
 check_frame_args_list <- function(...,
-                            frame, name_var_list, title,
-                            funname = "WVPlots") {
+                                  frame, name_var_list, title,
+                                  funname = "WVPlots") {
   wrapr::stop_if_dot_args(substitute(list(...)), funname)
   frame_name <- deparse(substitute(frame))
   xvar_name <- deparse(substitute(xvar))

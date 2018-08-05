@@ -31,6 +31,7 @@
 #' @export
 ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
                           pt_alpha=0.3) {
+  frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
                         name_var_list = list(xvar = xvar, yvar = yvar),
@@ -84,6 +85,7 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
 ScatterBoxPlotH = function(frm, xvar, yvar, title,
                            ...,
                            pt_alpha=0.3) {
+  frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
                         name_var_list = list(xvar = xvar, yvar = yvar),

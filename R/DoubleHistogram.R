@@ -33,11 +33,12 @@ NULL
 #' @export
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                                 breaks=40) {
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, truthVar = truthVar),
-                                 title = title,
-                                 funname = "WVPlots::DoubleHistogramPlot")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, truthVar = truthVar),
+                        title = title,
+                        funname = "WVPlots::DoubleHistogramPlot")
   if(!requireNamespace('graphics',quietly = TRUE)) {
     return("WVPlots::DoubleHistogramPlot needs graphics")
   }
@@ -50,50 +51,50 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   signs <- (-1)^seq_len(length(yVals))
   names(signs) <- yVals
   pf <- wv_gapply(df,'y',
-                       partitionMethod='split',
-                       function(sf) {
-                         yGroup <- sf$y[[1]]
-                         si <- signs[[yGroup]]
-                         counts <- graphics::hist(sf[['x']],breaks=breaksV,plot=FALSE)
-                         rf <- data.frame(count=counts$counts,
-                                          stringsAsFactors=FALSE)
-                         rf[[xvar]] <- counts$mids
-                         rf[[truthVar]] <- yGroup
-                         sm <- tryCatch({
-                           smf <- loess(paste('count','~',xvar),rf)
-                           sm <- pmax(0,predict(smf,rf,se=FALSE))
-                         },
-                         error = function(e) { NA }
-                         )
-                         rf$smooth <- sm
-                         # crudely match areas
-                         scale <- sum(rf$count)/sum(rf$smooth)
-                         rf$smooth <- si*rf$smooth*scale
-                         rf[['count']] <- si*rf[['count']]
-                         rf
-                       })
+                  partitionMethod='split',
+                  function(sf) {
+                    yGroup <- sf$y[[1]]
+                    si <- signs[[yGroup]]
+                    counts <- graphics::hist(sf[['x']],breaks=breaksV,plot=FALSE)
+                    rf <- data.frame(count=counts$counts,
+                                     stringsAsFactors=FALSE)
+                    rf[[xvar]] <- counts$mids
+                    rf[[truthVar]] <- yGroup
+                    sm <- tryCatch({
+                      smf <- loess(paste('count','~',xvar),rf)
+                      sm <- pmax(0,predict(smf,rf,se=FALSE))
+                    },
+                    error = function(e) { NA }
+                    )
+                    rf$smooth <- sm
+                    # crudely match areas
+                    scale <- sum(rf$count)/sum(rf$smooth)
+                    rf$smooth <- si*rf$smooth*scale
+                    rf[['count']] <- si*rf[['count']]
+                    rf
+                  })
   # library(RColorBrewer)
   # display.brewer.all()
   palletName <- "Dark2"
   # build a net effect curve
   netF <- wv_gapply(pf,xvar,partitionMethod = 'split',
-                         function(fi) {
-                           di <- data.frame(count=sum(fi$count))
-                           di[[xvar]] <- fi[[xvar]][[1]]
-                           di
-                         })
+                    function(fi) {
+                      di <- data.frame(count=sum(fi$count))
+                      di[[xvar]] <- fi[[xvar]][[1]]
+                      di
+                    })
   netF <- netF[order(netF[[xvar]]),,drop=FALSE]
   sm <- tryCatch({
     smf <- loess(paste('count','~',xvar),netF)
     sm <- predict(smf,pf,se=FALSE)
   },
-    error = function(e) { NA }
+  error = function(e) { NA }
   )
   pf$net <- sm
   plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes_string(x=xvar,
-                                    color=truthVar,fill=truthVar,linetype=truthVar)) +
+                                                              color=truthVar,fill=truthVar,linetype=truthVar)) +
     ggplot2::geom_bar(mapping=ggplot2::aes_string(y='count'),
-             stat='identity',alpha=0.5,position='identity')
+                      stat='identity',alpha=0.5,position='identity')
   if(sum(!is.na(pf$smooth))>1) {
     plot <- plot +
       ggplot2::geom_line(mapping=ggplot2::aes_string(y='smooth'))

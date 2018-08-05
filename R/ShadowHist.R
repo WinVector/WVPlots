@@ -34,11 +34,12 @@
 ShadowHist = function(frm, xvar, condvar, title, ...,
                       ncol = 1, palette = "Dark2",
                       bins = 30, binwidth = NULL) {
-  frm <- check_frame_args_list(...,
-                               frame = frm,
-                               name_var_list = list(xvar = xvar, condvar = condvar),
-                               title = title,
-                               funname = "WVPlots::ShadowHist")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(...,
+                        frame = frm,
+                        name_var_list = list(xvar = xvar, condvar = condvar),
+                        title = title,
+                        funname = "WVPlots::ShadowHist")
 
   if(is.numeric(frm[[condvar]])) {
     frm[[condvar]] = as.factor(as.character(frm[[condvar]]))

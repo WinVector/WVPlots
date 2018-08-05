@@ -69,11 +69,12 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
   if(!is.null(groupvar)) {
     vlist$groupvar <- groupvar
   }
-  frame <- check_frame_args_list(...,
-                               frame = frame,
-                               name_var_list = vlist,
-                               title = title,
-                               funname = "WVPlots::ConditionalSmoothedScatterPlot")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = vlist,
+                        title = title,
+                        funname = "WVPlots::ConditionalSmoothedScatterPlot")
   if(!is.null(groupvar)) {
     if(!isDiscrete(frame[[groupvar]])) {
       stop(paste(groupvar, "should be discrete (factor, character, integer, or logical)"))

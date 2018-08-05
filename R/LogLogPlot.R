@@ -34,11 +34,12 @@
 LogLogPlot <- function(frame, xvar, yvar, title,
                        ...,
                        use_coord_trans = FALSE) {
-  frame <- check_frame_args_list(...,
-                                 frame = frame,
-                                 name_var_list = list(xvar = xvar, yvar = yvar),
-                                 title = title,
-                                 funname = "WVPlots::LogLogPlot")
+  frame <- as.data.frame(frame)
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar, yvar = yvar),
+                        title = title,
+                        funname = "WVPlots::LogLogPlot")
   XVAR <- NULL # don't look like an unbound variable
   YVAR <- NULL # don't look like an unbound variable
   linear_trend <- NULL # don't look like an unbound variable
@@ -74,32 +75,32 @@ LogLogPlot <- function(frame, xvar, yvar, title,
       tframe$quadratic_trend <- predict(mquad, newdata = tframe)
 
       plt <- ggplot2::ggplot(data = frame,
-                      ggplot2::aes(x = XVAR, y = YVAR)) +
+                             ggplot2::aes(x = XVAR, y = YVAR)) +
         ggplot2::geom_smooth(se = FALSE) +
         ggplot2::geom_point() +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = linear_trend),
-                  linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = "green", alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = (1/mult)*linear_trend),
-                  linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = "green", alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = mult*linear_trend),
-                  linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = "green", alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = quadratic_trend),
-                  linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = "red", alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = (1/mult)*quadratic_trend),
-                  linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = "red", alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = mult*quadratic_trend),
-                  linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = "red", alpha=0.5) +
         ggplot2::ggtitle(title,
                          subtitle = paste0(
                            "linear and quadtratic growth rates shown as dashed lines",
                            "\nsignificance of positive quadratic trend component: ",
-                                         ps))
+                           ps))
       if(use_coord_trans) {
         plt <- plt +
           ggplot2::coord_trans(x = "log10", y = "log10")

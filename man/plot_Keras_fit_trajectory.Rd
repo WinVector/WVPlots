@@ -7,8 +7,8 @@
 plot_Keras_fit_trajectory(d, title, ..., epoch_name = "epoch",
   lossname = "loss", loss_pretty_name = "minus binary cross entropy",
   perfname = "acc", perf_pretty_name = "accuracy",
-  pick_metric = loss_pretty_name, fliploss = TRUE, discount_rate = NULL,
-  draw_ribbon = FALSE)
+  pick_metric = loss_pretty_name, fliploss = TRUE,
+  discount_rate = NULL, draw_ribbon = FALSE)
 }
 \arguments{
 \item{d}{data frame to get values from.}

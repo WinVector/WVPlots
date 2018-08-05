@@ -4,8 +4,8 @@
 \alias{GainCurvePlotWithNotation}
 \title{Plot the cumulative gain curve of a sort-order with extra notation}
 \usage{
-GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun, ...,
-  estimate_sig = FALSE, large_count = 1000)
+GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun,
+  ..., estimate_sig = FALSE, large_count = 1000)
 }
 \arguments{
 \item{frame}{data frame to get values from}

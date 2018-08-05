@@ -27,11 +27,12 @@
 #' @export
 ShadowPlot = function(frm, condvar, refinevar, title, ...,
                       ncol = 1) {
-  frm <- check_frame_args_list(...,
-                               frame = frm,
-                               name_var_list = list(condvar = condvar, refinevar = refinevar),
-                               title = title,
-                               funname = "WVPlots::ShadowPlot")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(...,
+                        frame = frm,
+                        name_var_list = list(condvar = condvar, refinevar = refinevar),
+                        title = title,
+                        funname = "WVPlots::ShadowPlot")
 
   if(is.numeric(frm[[condvar]])) {
     frm[[condvar]] = as.factor(as.character(frm[[condvar]]))

@@ -19,11 +19,12 @@ NULL
 #'
 #' @export
 PlotDistDensityNormal <- function(frm, xvar, title) {
-  frm <- check_frame_args_list(# ...,
-                               frame = frm,
-                               name_var_list = list(xvar = xvar),
-                               title = title,
-                               funname = "WVPlots::PlotDistDensityNormal")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(# ...,
+    frame = frm,
+    name_var_list = list(xvar = xvar),
+    title = title,
+    funname = "WVPlots::PlotDistDensityNormal")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -75,11 +76,12 @@ PlotDistDensityNormal <- function(frm, xvar, title) {
 PlotDistCountNormal <- function(frm, xvar, title,
                                 ...,
                                 binWidth=c()) {
-  frm <- check_frame_args_list(...,
-    frame = frm,
-    name_var_list = list(xvar = xvar),
-    title = title,
-    funname = "WVPlots::PlotDistCountNormal")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(...,
+                        frame = frm,
+                        name_var_list = list(xvar = xvar),
+                        title = title,
+                        funname = "WVPlots::PlotDistCountNormal")
   x <- frm[[xvar]]
   if(is.null(binWidth)) {
     range <- max(x)-min(x)
@@ -149,11 +151,12 @@ PlotDistCountNormal <- function(frm, xvar, title,
 #'
 #' @export
 PlotDistDensityBeta <- function(frm, xvar, title) {
-  frm <- check_frame_args_list(#...,
-                               frame = frm,
-                               name_var_list = list(xvar = xvar),
-                               title = title,
-                               funname = "WVPlots::PlotDistDensityBeta")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(#...,
+    frame = frm,
+    name_var_list = list(xvar = xvar),
+    title = title,
+    funname = "WVPlots::PlotDistDensityBeta")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -213,11 +216,12 @@ PlotDistDensityBeta <- function(frm, xvar, title) {
 PlotDistHistBeta <- function(frm, xvar, title,
                              ...,
                              binwidth = NULL, bins = 30) {
-  frm <- check_frame_args_list(...,
-    frame = frm,
-    name_var_list = list(xvar = xvar),
-    title = title,
-    funname = "WVPlots::PlotDistHistBeta")
+  frm <- as.data.frame(frm)
+  check_frame_args_list(...,
+                        frame = frm,
+                        name_var_list = list(xvar = xvar),
+                        title = title,
+                        funname = "WVPlots::PlotDistHistBeta")
   x <- frm[[xvar]]
   dPlot <- data.frame(x=x)
   colnames(dPlot) <- xvar
@@ -236,8 +240,8 @@ PlotDistHistBeta <- function(frm, xvar, title,
   dDist$count <- length(x)*dDist$density/sum(dDist$densit)
   ggplot2::ggplot() +
     ggplot2::geom_histogram(data=dPlot,
-                          mapping=ggplot2::aes_string(x=xvar),
-                          binwidth = binwidth, bins = bins) +
+                            mapping=ggplot2::aes_string(x=xvar),
+                            binwidth = binwidth, bins = bins) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='count'),
                        color='blue',linetype=2) +
