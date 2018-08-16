@@ -11,6 +11,7 @@
 #' @param tail which tail to shade, 'left' (default) or 'right'
 #' @param linecolor color of density curve
 #' @param shading color of shaded region and boundaries
+#' @param annotate_area if TRUE (default), report the area of the shaded region
 #'
 #' @seealso \code{\link{ShadedDensityCenter}}
 #'
@@ -58,13 +59,18 @@ ShadedDensity <- function(frame, xvar, threshold, title,
   xrange = max(dens$x)-min(dens$x)
   textx = threshold + sign*0.01*xrange
 
-  ggplot2::ggplot() +
+  plt = ggplot2::ggplot() +
     ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
     ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=tail), fill=shading, alpha=0.5) +
     ggplot2::geom_vline(xintercept=threshold, color=shading,  linetype=3) +
-    ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
+
+  if(annotate_area) {
+    plt = plt + ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom")
+  }
+
+  plt
 }
 
 #' Plot the distribution of a variable with a center region shaded
@@ -78,6 +84,7 @@ ShadedDensity <- function(frame, xvar, threshold, title,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param linecolor color of density curve
 #' @param shading color of shaded region and boundaries
+#' @param annotate_area if TRUE (default), report the area of the shaded region
 #'
 #' @seealso \code{\link{ShadedDensity}}
 #' @examples
@@ -92,7 +99,8 @@ ShadedDensity <- function(frame, xvar, threshold, title,
 ShadedDensityCenter <- function(frame, xvar, boundaries, title,
                                 ...,
                                 linecolor = "darkgray",
-                                shading = "darkblue") {
+                                shading = "darkblue",
+                                annotate_area = TRUE) {
   frame <- as.data.frame(frame)
   check_frame_args_list(...,
                         frame = frame,
@@ -129,13 +137,18 @@ ShadedDensityCenter <- function(frame, xvar, boundaries, title,
 
   shaded <- NULL # don't look like an unbound reference
 
-  ggplot2::ggplot() +
+  plt =  ggplot2::ggplot() +
     ggplot2::geom_line(data=densityframe, ggplot2::aes(x=x, y=density), color=linecolor) +
     ggplot2::geom_ribbon(data=densityframe, ggplot2::aes(x=x, ymin=0, ymax=shaded), fill=shading, alpha=0.5) +
     ggplot2::geom_vline(data=bframe, aes(xintercept=boundaries), color=shading,  linetype=3) +
-    ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom") +
     ggplot2::ggtitle(title) +
     ggplot2::xlab(xvar)
+
+  if(annotate_area) {
+    plt = plt + ggplot2::annotate("text", x=textx, y=texty, label=text, size=5, hjust="inward", vjust="bottom")
+  }
+
+ plt
 }
 
 

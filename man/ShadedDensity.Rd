@@ -23,6 +23,8 @@ ShadedDensity(frame, xvar, threshold, title, ..., tail = "left",
 \item{linecolor}{color of density curve}
 
 \item{shading}{color of shaded region and boundaries}
+
+\item{annotate_area}{if TRUE (default), report the area of the shaded region}
 }
 \description{
 Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region.

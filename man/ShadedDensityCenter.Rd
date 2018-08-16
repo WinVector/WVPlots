@@ -5,7 +5,7 @@
 \title{Plot the distribution of a variable with a center region shaded}
 \usage{
 ShadedDensityCenter(frame, xvar, boundaries, title, ...,
-  linecolor = "darkgray", shading = "darkblue")
+  linecolor = "darkgray", shading = "darkblue", annotate_area = TRUE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,8 @@ ShadedDensityCenter(frame, xvar, boundaries, title, ...,
 \item{linecolor}{color of density curve}
 
 \item{shading}{color of shaded region and boundaries}
+
+\item{annotate_area}{if TRUE (default), report the area of the shaded region}
 }
 \description{
 Plot the distribution of a variable with a center region shaded. Annotate with the area of the shaded region.
