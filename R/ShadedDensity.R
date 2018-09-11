@@ -30,7 +30,8 @@ ShadedDensity <- function(frame, xvar, threshold, title,
                           ...,
                           tail="left",
                           linecolor = "darkgray",
-                          shading = "darkblue") {
+                          shading = "darkblue",
+                          annotate_area = TRUE) {
   frame <- as.data.frame(frame)
   check_frame_args_list(...,
                         frame = frame,

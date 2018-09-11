@@ -5,7 +5,7 @@
 \title{Plot the distribution of a variable with a tail shaded}
 \usage{
 ShadedDensity(frame, xvar, threshold, title, ..., tail = "left",
-  linecolor = "darkgray", shading = "darkblue")
+  linecolor = "darkgray", shading = "darkblue", annotate_area = TRUE)
 }
 \arguments{
 \item{frame}{data frame to get values from}
