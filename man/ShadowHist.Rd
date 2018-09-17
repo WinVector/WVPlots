@@ -43,6 +43,8 @@ with the optional \code{ncol} argument.
 
 If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
 allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+
+Please see here for some interesting discussion \url{https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2}.
 }
 \examples{
 
