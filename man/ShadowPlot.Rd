@@ -33,6 +33,8 @@ This plot enables comparisons of subpopulation totals across both
 
 By default, the facet plots are arranged in a single column. This can be changed
 with the optional \code{ncol} argument.
+
+Please see here for some interesting discussion \url{https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2}.
 }
 \examples{
 

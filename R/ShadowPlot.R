@@ -11,6 +11,8 @@
 #' By default, the facet plots are arranged in a single column. This can be changed
 #' with the optional \code{ncol} argument.
 #'
+#' Please see here for some interesting discussion \url{https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2}.
+#'
 #' @param frm data frame to get values from.
 #' @param condvar name of the primary conditioning variable (a categorical variable, controls x-axis).
 #' @param refinevar name of the second or refining conditioning variable (also a categorical variable, controls faceting).

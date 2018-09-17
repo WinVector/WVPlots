@@ -1,3 +1,6 @@
+# WVPlots 1.0.4 2018-09-17
+
+ * Documentation improvements.
 
 # WVPlots 1.0.3 2018-09-17
 
