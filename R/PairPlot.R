@@ -55,6 +55,7 @@ PairPlot <- function(d, meas_vars,  title,
   d_aug$yv <- factor(as.character(d_aug$yv),
                      meas_vars)
 
+  x <- y <- NULL # don't look like unbound references to checker
 
   plt = ggplot2::ggplot(d_aug, ggplot2::aes(x=x, y=y))
 
