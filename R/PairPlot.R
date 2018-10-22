@@ -53,14 +53,25 @@ PairPlot <- function(d, meas_vars,  title,
                      meas_vars)
 
 
-  ggplot2::ggplot(d_aug, ggplot2::aes(x=x, y=y)) +
-    ggplot2::geom_point(ggplot2::aes_string(color=group_var, shape=group_var)) +
-    ggplot2::facet_grid(yv~xv, labeller = ggplot2::label_both, scale = "free") +
+  plt = ggplot2::ggplot(d_aug, ggplot2::aes(x=x, y=y))
+
+  if(length(group_var) == 1) {
+    plt = plt +
+      ggplot2::geom_point(ggplot2::aes_string(color=group_var))
+  } else {
+    plt = plt + ggplot2::geom_point()
+  }
+
+  plt = plt +
+    ggplot2::facet_grid(yv~xv, scale = "free") +
     ggplot2::ggtitle(title) +
-    ggplot2::scale_color_brewer(palette = palette) +
     ggplot2::ylab(NULL) +
     ggplot2::xlab(NULL)
 
+  if(length(palette) == 1) {
+    plt = plt + ggplot2::scale_color_brewer(palette = palette)
+  }
 
+  plt
 }
 
