@@ -1,4 +1,5 @@
-# WVPlots 1.0.5 2018-10-21
+
+# WVPlots 1.0.5 2018-10-22
 
  * Add PairPlot
 

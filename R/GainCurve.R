@@ -175,7 +175,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
                'wizard' = paste('wizard: sort by', truthVar))
   results$sort_criterion <- sortKeyM[results$sort_criterion]
   # rename levels of sort criterion
-  colorKey = as.character(sortKeyM) := c('darkblue', 'darkgreen')
+  colorKey = as.character(sortKeyM) %:=% c('darkblue', 'darkgreen')
   names(colorKey) = c(paste('model: sort by', xvar),
                       paste('wizard: sort by', truthVar))
   modelKey = names(colorKey)[[1]]

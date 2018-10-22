@@ -18,7 +18,7 @@
 #' @name WVPlots
 NULL
 
-#' @importFrom wrapr :=
+#' @importFrom wrapr %:=%
 NULL
 
 #' @importFrom utils packageVersion
