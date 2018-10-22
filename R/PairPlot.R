@@ -13,6 +13,9 @@
 #'
 #' PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
 #'
+#' # no color-coding
+#' PairPlot(iris, colnames(iris)[1:4], "Example plot")
+#'
 #' @export
 #'
 PairPlot <- function(d, meas_vars,  title,

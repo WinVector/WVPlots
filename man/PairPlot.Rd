@@ -29,4 +29,7 @@ Build a pair plot
 
 PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
 
+# no color-coding
+PairPlot(iris, colnames(iris)[1:4], "Example plot")
+
 }
