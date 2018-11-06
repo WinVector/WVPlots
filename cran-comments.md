@@ -29,10 +29,6 @@
     Maintainer: 'John Mount <jmount@win-vector.com>'
     Status: OK
  
-## Linux
-
-    rhub::check_for_cran()
-
 
 ## Downstream dependencies
 
