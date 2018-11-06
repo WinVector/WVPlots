@@ -185,10 +185,6 @@ of a label and returns a string (the label).</p>
 <span class='no'>y</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='fu'>rnorm</span>(<span class='fl'>20</span>)) + <span class='fl'>0.1</span>
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>abs</span>(<span class='no'>y</span> + <span class='fl'>0.5</span>*<span class='fu'>rnorm</span>(<span class='fl'>20</span>))
 <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'>data.frame</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>value</span><span class='kw'>=</span><span class='no'>y</span>)
-<span class='no'>frm</span>$<span class='no'>costs</span><span class='kw'>=</span><span class='fl'>1</span>
-<span class='no'>frm</span>$<span class='no'>costs</span>[<span class='fl'>1</span>]<span class='kw'>=</span><span class='fl'>5</span>
-<span class='no'>frm</span>$<span class='no'>rate</span> <span class='kw'>=</span> <span class='fu'>with</span>(<span class='no'>frm</span>, <span class='no'>value</span>/<span class='no'>costs</span>)
-<span class='no'>frm</span>$<span class='no'>isValuable</span> <span class='kw'>=</span> (<span class='no'>frm</span>$<span class='no'>value</span> <span class='kw'>&gt;=</span> <span class='fu'>as.numeric</span>(<span class='fu'>quantile</span>(<span class='no'>frm</span>$<span class='no'>value</span>, <span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
 <span class='no'>gainx</span> <span class='kw'>=</span> <span class='fl'>0.10</span>  <span class='co'># get the top 10% most valuable points as sorted by the model</span>
 <span class='co'># make a function to calculate the label for the annotated point</span>
 <span class='no'>labelfun</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>gx</span>, <span class='no'>gy</span>) {

@@ -48,8 +48,6 @@ x = abs(y + 0.5*rnorm(20))
 frm = data.frame(model=x, value=y)
 frm$costs=1
 frm$costs[1]=5
-frm$rate = with(frm, value/costs)
-frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
 WVPlots::GainCurvePlotC(frm, "model", "costs", "value",
    title="Example Continuous Gain CurveC")
 

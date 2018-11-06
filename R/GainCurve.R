@@ -111,10 +111,6 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' y = abs(rnorm(20)) + 0.1
 #' x = abs(y + 0.5*rnorm(20))
 #' frm = data.frame(model=x, value=y)
-#' frm$costs=1
-#' frm$costs[1]=5
-#' frm$rate = with(frm, value/costs)
-#' frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
 #' WVPlots::GainCurvePlot(frm, "model", "value",
 #'    title="Example Continuous Gain Curve")
 #'
@@ -346,8 +342,6 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' frm = data.frame(model=x, value=y)
 #' frm$costs=1
 #' frm$costs[1]=5
-#' frm$rate = with(frm, value/costs)
-#' frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
 #' WVPlots::GainCurvePlotC(frm, "model", "costs", "value",
 #'    title="Example Continuous Gain CurveC")
 #'
@@ -513,7 +507,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 
   truth_topN = sum(frame[topN, truthVar])
   totalY = sum(frame[[truthVar]])
-  round(100 * truth_topN / totalY) / 100  # two sig figs
+  truth_topN / totalY
 }
 
 #' Plot the cumulative gain curve of a sort-order with extra notation
@@ -543,10 +537,6 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' y = abs(rnorm(20)) + 0.1
 #' x = abs(y + 0.5*rnorm(20))
 #' frm = data.frame(model=x, value=y)
-#' frm$costs=1
-#' frm$costs[1]=5
-#' frm$rate = with(frm, value/costs)
-#' frm$isValuable = (frm$value >= as.numeric(quantile(frm$value, probs=0.8)))
 #' gainx = 0.10  # get the top 10% most valuable points as sorted by the model
 #' # make a function to calculate the label for the annotated point
 #' labelfun = function(gx, gy) {
@@ -576,7 +566,8 @@ GainCurvePlotWithNotation = function(frame,
                                  title = title,
                                  funname = "WVPlots::GainCurvePlotWithNotation")
   gainy = get_gainy(frame, xvar, truthVar, gainx)
-  label = labelfun(gainx, gainy)
+  gainy_p = round(100 * gainy) / 100  # two sig figs
+  label = labelfun(gainx, gainy_p)
   gp = GainCurvePlot(frame, xvar, truthVar, title,
                      estimate_sig = estimate_sig,
                      large_count = large_count) +
