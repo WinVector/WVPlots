@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.6 2018-11-06
+
+ * Add LiftCurvePlot
+ 
 # WVPlots 1.0.5 2018-10-22
 
  * Add PairPlot

@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.5</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.6</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1>Example WVPlots</h1>
                         <h4 class="author">Win-Vector LLC</h4>
             
-            <h4 class="date">2018-10-22</h4>
+            <h4 class="date">2018-11-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_examples.Rmd"><code>vignettes/WVPlots_examples.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_examples.Rmd</code></div>
@@ -240,7 +240,7 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-2.png" width="576"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ClevelandDotPlot">ClevelandDotPlot</a></span>(randomDraws, <span class="st">"letter"</span>, <span class="dt">sort=</span><span class="dv">0</span>, <span class="dt">title=</span><span class="st">"Example Cleveland-style dot plot, unsorted"</span>)</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-3.png" width="576"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ClevelandDotPlot">ClevelandDotPlot</a></span>(randomDraws, <span class="st">"letter"</span>, <span class="dt">sort=</span><span class="dv">1</span>, <span class="dt">stem=</span><span class="ot">FALSE</span>, <span class="dt">title=</span><span class="st">"Example with increasing sort order + coord_flip, no stem"</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/coord_flip">coord_flip</a></span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ClevelandDotPlot">ClevelandDotPlot</a></span>(randomDraws, <span class="st">"letter"</span>, <span class="dt">sort=</span><span class="dv">1</span>, <span class="dt">stem=</span><span class="ot">FALSE</span>, <span class="dt">title=</span><span class="st">"Example with increasing sort order + coord_flip, no stem"</span>) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw"><a href="ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>()</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-4.png" width="576"></p>
 <p><code>ClevelandDotPlot</code> also accepts an integral <em>x</em> variable. You probably want <code>sort = 0</code> in this case.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">34903490</span>)
@@ -289,7 +289,7 @@ WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ngp =<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(dframe<span class="op">$</span>gp))
 
 WVPlots<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/WVPlots/topics/ShadowHist">ShadowHist</a></span>(dframe, <span class="st">"x"</span>, <span class="st">"gp"</span>, <span class="dt">title =</span> <span class="st">"X values by region"</span>, <span class="dt">palette =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual">scale_fill_manual</a></span>(<span class="dt">values =</span> <span class="kw">rep</span>(<span class="st">"darkblue"</span>, ngp))</code></pre></div>
+<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span>(<span class="dt">values =</span> <span class="kw">rep</span>(<span class="st">"darkblue"</span>, ngp))</code></pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 </div>
 <div id="scatterbox-plots" class="section level2">
