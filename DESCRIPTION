@@ -34,5 +34,5 @@ Suggests:
     testthat,
     plotly,
     hexbin
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 ByteCompile: true
