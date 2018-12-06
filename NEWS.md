@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.7 2018-12-06
+
+ * Add PRTPlot.
+ 
 # WVPlots 1.0.6 2018-11-06
 
  * Add LiftCurvePlot

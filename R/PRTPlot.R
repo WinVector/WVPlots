@@ -79,6 +79,9 @@ PRTPlot <- function(frame, xvar, truthVar, truthTarget, title,
   predcol <- frame[[xvar]]
   prtFrame <- calcPRT(predcol,outcol)
 
+  # mark not unbound
+  threshold <- value <- NULL
+
   thresholds = with(prtFrame, thresholdrange[1] <= threshold & threshold <= thresholdrange[2])
   toPlot = prtFrame[thresholds, c("threshold", plotvars)]
 
