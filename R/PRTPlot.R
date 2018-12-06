@@ -7,7 +7,7 @@
 #'
 #'  See also https://github.com/WinVector/sigr
 #'
-#' @param modelPredictions numeric predictions (not empty)
+#' @param modelPredictions numeric predictions (not empty, zero assumed to be "all")
 #' @param yValues logical truth (not empty, same length as model predictions)
 #' @return data frame of precision, enrichment, and recall as a function of threshold
 #'
@@ -65,7 +65,7 @@ calcPRT <- function(modelPredictions, yValues) {
 PRTPlot <- function(frame, xvar, truthVar, truthTarget, title,
                    ...,
                    plotvars = c("precision", "recall"),
-                   thresholdrange = c(0,1)
+                   thresholdrange = c(-Inf, Inf)
                    ) {
   frame <- check_frame_args_list(...,
                                  frame = frame,

@@ -21,7 +21,7 @@ Depends:
     R (>= 3.4.0)
 Imports:
     ggplot2 (>= 2.2.0),
-    wrapr (>= 1.6.3),
+    wrapr (>= 1.7.0),
     sigr (>= 1.0.3),
     cdata (>= 1.0.3),
     utils,
