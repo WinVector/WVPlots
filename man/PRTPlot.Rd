@@ -22,7 +22,7 @@ PRTPlot(frame, xvar, truthVar, truthTarget, title, ...,
 
 \item{plotvars}{variables to plot, must be at least one of "precision", "recall" and "enrichment". Defaults to c("precision", "recall")}
 
-\item{thresholdrange}{range of thresholds to plot. Defaults to c(0,1)}
+\item{thresholdrange}{range of thresholds to plot.}
 }
 \description{
 Plot Precision-Recall or Enrichment-Recall as a function of threshold.

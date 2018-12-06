@@ -46,7 +46,7 @@ calcPRT <- function(modelPredictions, yValues) {
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param plotvars variables to plot, must be at least one of "precision", "recall" and "enrichment". Defaults to c("precision", "recall")
-#' @param thresholdrange range of thresholds to plot. Defaults to c(0,1)
+#' @param thresholdrange range of thresholds to plot.
 #'
 #' @seealso \code{\link{PRPlot}}
 #'
