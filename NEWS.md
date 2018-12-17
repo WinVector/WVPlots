@@ -1,5 +1,5 @@
 
-# WVPlots 1.0.7 2018-12-06
+# WVPlots 1.0.7 2018-12-17
 
  * Add PRTPlot.
  
