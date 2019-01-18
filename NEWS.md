@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.8 2019-01-18
+
+ * Add baseline in lift curve plot.
+ 
 # WVPlots 1.0.7 2018-12-17
 
  * Add PRTPlot.

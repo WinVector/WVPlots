@@ -127,6 +127,7 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
         xvar)) +
     ggplot2::xlab("fraction items in sort order") +
     ggplot2::ylab("lift") +
+    ggplot2::geom_hline(yintercept=1) +
     ggplot2::scale_x_continuous(breaks = seq(0, 1, 0.1)) +
     ggplot2::scale_color_manual(values = colorKey) +
     ggplot2::theme(legend.position = "bottom")
