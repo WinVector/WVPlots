@@ -14,7 +14,7 @@ NULL
 #'
 #' If \code{smoothmethod} is:
 #' \itemize{
-#' \item  'auto', 'loess' or 'gam':  the appropriate smoothing curve is added to the scatterplot.
+#' \item 'auto', 'loess' or 'gam':  the appropriate smoothing curve is added to the scatterplot.
 #' \item 'lm' (the default): the best fit line is added to the scatterplot.
 #' \item 'identity':  the line x = y is added to the scatterplot. This is useful for comparing model predictions to true outcome.
 #' \item 'none': no smoothing line is added to the scatterplot.
@@ -40,7 +40,7 @@ NULL
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
-#' @param smoothmethod (optional) one of 'auto', 'loess', 'gam', 'lm', or 'identity'.
+#' @param smoothmethod (optional) one of 'auto', 'loess', 'gam', 'lm', 'identity', or 'none'.
 #' @param estimate_sig logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.
 #' @param minimal_labels logical drop some annotations
 #' @param binwidth_x  numeric binwidth for x histogram

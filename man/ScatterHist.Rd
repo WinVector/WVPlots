@@ -20,7 +20,7 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{smoothmethod}{(optional) one of 'auto', 'loess', 'gam', 'lm', or 'identity'.}
+\item{smoothmethod}{(optional) one of 'auto', 'loess', 'gam', 'lm', 'identity', or 'none'.}
 
 \item{estimate_sig}{logical if TRUE and smoothmethod is 'identity' or 'lm', report goodness of fit and significance of relation.}
 
@@ -49,7 +49,7 @@ See also \code{ggExtra::ggMarginal}.
 \details{
 If \code{smoothmethod} is:
 \itemize{
-\item  'auto', 'loess' or 'gam':  the appropriate smoothing curve is added to the scatterplot.
+\item 'auto', 'loess' or 'gam':  the appropriate smoothing curve is added to the scatterplot.
 \item 'lm' (the default): the best fit line is added to the scatterplot.
 \item 'identity':  the line x = y is added to the scatterplot. This is useful for comparing model predictions to true outcome.
 \item 'none': no smoothing line is added to the scatterplot.
