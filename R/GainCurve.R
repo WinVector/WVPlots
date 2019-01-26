@@ -104,7 +104,8 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE compute significance.
-#' @param large_count numeric, upper bound target for number of plotting points
+#' @param large_count numeric, upper bound target for number of plotting points.
+#' @param truth_target if not NULL compare to this scalar value.
 #' @examples
 #'
 #' set.seed(34903490)
@@ -118,7 +119,8 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 GainCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
                          estimate_sig = FALSE,
-                         large_count = 1000) {
+                         large_count = 1000,
+                         truth_target = NULL) {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -129,7 +131,11 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
     NULL # used as a symbol, declare not an unbound variable
   sort_criterion <-
     NULL # used as a symbol, declare not an unbound variable
-  truthcol <- as.numeric(frame[[truthVar]])
+  if(!is.null(truth_target)) {
+    truthcol <- as.numeric(frame[[truthVar]]==truth_target)
+  } else {
+    truthcol <- as.numeric(frame[[truthVar]])
+  }
   predcol <- as.numeric(frame[[xvar]])
   # data frame of pred and truth, sorted in order of the predictions
   d = data.frame(predcol = predcol, truthcol = truthcol)

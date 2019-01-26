@@ -18,6 +18,7 @@
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param truth_target if not NULL compare to this scalar value.
 #' @examples
 #'
 #' mpg = ggplot2::mpg
@@ -37,16 +38,25 @@
 #' WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 #'
 #' @export
-DoubleDensityPlot <- function(frame, xvar, truthVar, title,...) {
-  frame <- as.data.frame(frame)
+DoubleDensityPlot <- function(frame, xvar, truthVar, title,
+                              ...,
+                              truth_target = NULL) {
   check_frame_args_list(...,
                         frame = frame,
                         name_var_list = list(xvar = xvar, truthVar = truthVar),
                         title = title,
                         funname = "WVPlots::DoubleDensityPlot")
-  df <- data.frame(x=as.numeric(frame[[xvar]]),
-                   y=as.character(frame[[truthVar]]),
-                   stringsAsFactors=FALSE)
+  if(is.null(truth_target)) {
+    df <- data.frame(x=as.numeric(frame[[xvar]]),
+                     y=as.character(frame[[truthVar]]),
+                     stringsAsFactors=FALSE)
+  } else {
+    df <- data.frame(x=as.numeric(frame[[xvar]]),
+                     y=ifelse(frame[[truthVar]]==truth_target,
+                              truth_target,
+                              paste0("!", truth_target)),
+                     stringsAsFactors=FALSE)
+  }
   pf <- wv_gapply(df,'y',
                   partitionMethod='split',
                   function(sf) {

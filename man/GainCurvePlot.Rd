@@ -5,7 +5,7 @@
 \title{Plot the cumulative gain curve of a sort-order.}
 \usage{
 GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
-  large_count = 1000)
+  large_count = 1000, truth_target = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -20,7 +20,9 @@ GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
 
 \item{estimate_sig}{logical, if TRUE compute significance.}
 
-\item{large_count}{numeric, upper bound target for number of plotting points}
+\item{large_count}{numeric, upper bound target for number of plotting points.}
+
+\item{truth_target}{if not NULL compare to this scalar value.}
 }
 \description{
 Plot the cumulative gain curve of a sort-order.

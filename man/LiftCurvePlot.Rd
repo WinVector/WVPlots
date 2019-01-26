@@ -5,7 +5,7 @@
 \title{Plot the cumulative lift curve of a sort-order.}
 \usage{
 LiftCurvePlot(frame, xvar, truthVar, title, ..., large_count = 1000,
-  include_wizard = TRUE)
+  include_wizard = TRUE, truth_target = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,8 @@ LiftCurvePlot(frame, xvar, truthVar, title, ..., large_count = 1000,
 \item{large_count}{numeric, upper bound target for number of plotting points}
 
 \item{include_wizard}{logical, if TRUE plot the ideal or wizard plot.}
+
+\item{truth_target}{if not NULL compare to this scalar value.}
 }
 \description{
 Plot the cumulative lift curve of a sort-order.

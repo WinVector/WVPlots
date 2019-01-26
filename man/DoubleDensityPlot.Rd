@@ -4,7 +4,7 @@
 \alias{DoubleDensityPlot}
 \title{Plot two density plots conditioned on an outcome variable.}
 \usage{
-DoubleDensityPlot(frame, xvar, truthVar, title, ...)
+DoubleDensityPlot(frame, xvar, truthVar, title, ..., truth_target = NULL)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -16,6 +16,8 @@ DoubleDensityPlot(frame, xvar, truthVar, title, ...)
 \item{title}{title to place on plot}
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
+
+\item{truth_target}{if not NULL compare to this scalar value.}
 }
 \description{
 Plot two density plots conditioned on a binary outcome variable.

@@ -124,7 +124,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>GainCurvePlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
+  <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,7 +155,11 @@
     </tr>
     <tr>
       <th>large_count</th>
-      <td><p>numeric, upper bound target for number of plotting points</p></td>
+      <td><p>numeric, upper bound target for number of plotting points.</p></td>
+    </tr>
+    <tr>
+      <th>truth_target</th>
+      <td><p>if not NULL compare to this scalar value.</p></td>
     </tr>
     </table>
     
