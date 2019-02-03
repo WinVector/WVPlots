@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.0.8
-Date: 2019-01-26
+Version: 1.0.9
+Date: 2019-02-03
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -21,8 +21,8 @@ Depends:
     R (>= 3.4.0)
 Imports:
     ggplot2 (>= 2.2.0),
-    wrapr (>= 1.8.2),
-    sigr (>= 1.0.3),
+    wrapr (>= 1.8.4),
+    sigr (>= 1.0.4),
     cdata (>= 1.0.5),
     utils,
     grid,
@@ -31,7 +31,7 @@ Imports:
     mgcv
 Suggests:
     knitr,
-    testthat,
+    RUnit,
     plotly,
     hexbin
 RoxygenNote: 6.1.1

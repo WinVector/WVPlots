@@ -1,4 +1,8 @@
 
+# WVPlots 1.0.9 2019-02-03
+
+ * Switch to RUnit.
+
 # WVPlots 1.0.8 2019-01-26
 
  * Add baseline in lift curve plot.
