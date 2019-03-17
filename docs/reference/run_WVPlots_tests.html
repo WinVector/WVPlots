@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot receiver operating characteristic plot. — ROCPlot • WVPlots</title>
+<title>Run WVPlots package tests. — run_WVPlots_tests • WVPlots</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,12 @@
 
 
 
-<meta property="og:title" content="Plot receiver operating characteristic plot. — ROCPlot" />
+<meta property="og:title" content="Run WVPlots package tests. — run_WVPlots_tests" />
 
-<meta property="og:description" content="Plot receiver operating characteristic plot." />
+<meta property="og:description" content="For all files with names of the form &quot;^test_.+\.R$&quot; in the package directory unit_tests
+run all functions with names of the form &quot;^test_.+$&quot; as RUnit tests.
+Attaches RUnit and pkg, requires RUnit.
+Stops on error." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,97 +117,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot receiver operating characteristic plot.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ROC.R'><code>R/ROC.R</code></a></small>
-    <div class="hidden name"><code>ROCPlot.Rd</code></div>
+    <h1>Run WVPlots package tests.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/run_WVPlots_tests.R'><code>R/run_WVPlots_tests.R</code></a></small>
+    <div class="hidden name"><code>run_WVPlots_tests.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot receiver operating characteristic plot.</p>
+    <p>For all files with names of the form "^test_.+\.R$" in the package directory unit_tests
+run all functions with names of the form "^test_.+$" as RUnit tests.
+Attaches RUnit and pkg, requires RUnit.
+Stops on error.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ROCPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>truthTarget</span>, <span class='no'>title</span>, <span class='no'>...</span>,
-  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>run_WVPlots_tests</span>(<span class='no'>...</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>package_test_dirs</span> <span class='kw'>=</span> <span class='st'>"unit_tests"</span>, <span class='kw'>test_dirs</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>character</a></span>(<span class='fl'>0</span>),
+  <span class='kw'>stop_on_issue</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>stop_if_no_tests</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>require_RUnit_attached</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>require_pkg_attached</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>rngKind</span> <span class='kw'>=</span> <span class='st'>"Mersenne-Twister"</span>, <span class='kw'>rngNormalKind</span> <span class='kw'>=</span> <span class='st'>"Inversion"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>frame</th>
-      <td><p>data frame to get values from</p></td>
-    </tr>
-    <tr>
-      <th>xvar</th>
-      <td><p>name of the independent (input or model) column in frame</p></td>
-    </tr>
-    <tr>
-      <th>truthVar</th>
-      <td><p>name of the dependent (output or result to be modeled) column in frame</p></td>
-    </tr>
-    <tr>
-      <th>truthTarget</th>
-      <td><p>value we consider to be positive</p></td>
-    </tr>
-    <tr>
-      <th>title</th>
-      <td><p>title to place on plot</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
+      <td><p>not used, force later arguments to bind by name.</p></td>
     </tr>
     <tr>
-      <th>estimate_sig</th>
-      <td><p>logical, if TRUE estimate and display significance of difference from AUC 0.5.</p></td>
+      <th>verbose</th>
+      <td><p>logical, if TRUE print more.</p></td>
     </tr>
     <tr>
-      <th>returnScores</th>
-      <td><p>logical if TRUE return detailed permutedScores</p></td>
+      <th>package_test_dirs</th>
+      <td><p>directory names to look for in the installed package.</p></td>
     </tr>
     <tr>
-      <th>nrep</th>
-      <td><p>number of permutation repetitions to estimate p values.</p></td>
+      <th>test_dirs</th>
+      <td><p>paths to look for tests in.</p></td>
     </tr>
     <tr>
-      <th>parallelCluster</th>
-      <td><p>(optional) a cluster object created by package parallel or package snow.</p></td>
+      <th>stop_on_issue</th>
+      <td><p>logical, if TRUE stop after errors or failures.</p></td>
+    </tr>
+    <tr>
+      <th>stop_if_no_tests</th>
+      <td><p>logical, if TRUE stop if no tests were found.</p></td>
+    </tr>
+    <tr>
+      <th>require_RUnit_attached</th>
+      <td><p>logical, if TRUE require RUnit be attached before testing.</p></td>
+    </tr>
+    <tr>
+      <th>require_pkg_attached</th>
+      <td><p>logical, if TRUE require pkg be attached before testing.</p></td>
+    </tr>
+    <tr>
+      <th>rngKind</th>
+      <td><p>pseudo-random number generator method name.</p></td>
+    </tr>
+    <tr>
+      <th>rngNormalKind</th>
+      <td><p>pseudo-random normal generator method name.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>RUnit test results (invisible).</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of
-true positive and false positive rates,
-and how the ROC plot relates to the precision/recall plot.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='PRPlot.html'>PRPlot</a></code></p></div>
+    <p>Based on <a href='https://github.com/RcppCore/Rcpp/blob/master/tests/doRUnit.R'>https://github.com/RcppCore/Rcpp/blob/master/tests/doRUnit.R</a>.  This
+version is GPL-3, works derived from it must be distributed GPL-3.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>x</span>))
-<span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>yC</span><span class='kw'>=</span><span class='no'>y</span><span class='kw'>&gt;=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>y</span>,<span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/WVPlots/topics/ROCPlot'>ROCPlot</a></span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"yC"</span>, <span class='fl'>TRUE</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example ROC plot"</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ROCPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
 
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

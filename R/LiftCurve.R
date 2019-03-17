@@ -86,7 +86,8 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
                    stringsAsFactors = FALSE)
   results <- rbind(r1, r2)
   # rename sort_criterion
-  sortKeyM <- c('model' = paste('model: sort by', xvar),
+  msort_str <- paste('model: sort by', xvar)
+  sortKeyM <- c('model' = msort_str,
                 'wizard' = paste('wizard: sort by', truthVar))
   results$sort_criterion <- sortKeyM[results$sort_criterion]
   # rename levels of sort criterion
@@ -96,7 +97,7 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
   modelKey = names(colorKey)[[1]]
 
   if(!include_wizard) {
-    results <- results[results$sort_criterion=="model: sort by model", , drop=FALSE]
+    results <- results[results$sort_criterion==msort_str, , drop=FALSE]
   }
 
   # cut down the number of points
