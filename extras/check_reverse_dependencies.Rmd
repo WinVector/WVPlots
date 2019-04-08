@@ -7,6 +7,8 @@ output: github_document
 library("prrd")
 td <- tempdir()
 package = "WVPlots"
+date()
+packageVersion(package)
 
 parallelCluster <- NULL
 # # parallel doesn't work due to https://github.com/r-lib/liteq/issues/22

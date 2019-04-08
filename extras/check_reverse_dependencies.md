@@ -5,7 +5,18 @@ check\_reverse\_dependencies
 library("prrd")
 td <- tempdir()
 package = "WVPlots"
+date()
+```
 
+    ## [1] "Sun Apr  7 17:43:33 2019"
+
+``` r
+packageVersion(package)
+```
+
+    ## [1] '1.1.0'
+
+``` r
 parallelCluster <- NULL
 # # parallel doesn't work due to https://github.com/r-lib/liteq/issues/22
 #ncores <- parallel::detectCores()
@@ -22,7 +33,7 @@ setwd(td)
 print(td)
 ```
 
-    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//RtmpX63x1k"
+    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//RtmpzGd1Up"
 
 ``` r
 options(repos = c(CRAN="https://cloud.r-project.org"))
