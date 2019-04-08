@@ -1,5 +1,5 @@
 
-# WVPlots 1.0.10 2019-03-17
+# WVPlots 1.1.0 2019-04-07
 
  * Fix no-wizard option in lift plot.
 

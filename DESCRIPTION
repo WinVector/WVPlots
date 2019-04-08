@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.0.10
-Date: 2019-03-17
+Version: 1.1.0
+Date: 2019-04-07
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -22,8 +22,8 @@ Depends:
 Imports:
     ggplot2 (>= 2.2.0),
     wrapr (>= 1.8.4),
-    sigr (>= 1.0.4),
-    cdata (>= 1.0.5),
+    sigr (>= 1.0.5),
+    cdata (>= 1.0.7),
     utils,
     grid,
     gridExtra,
