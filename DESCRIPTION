@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.1.0
-Date: 2019-04-07
+Version: 1.1.1
+Date: 2019-07-23
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -15,7 +15,7 @@ Description: Select data analysis plots, under a standardized calling interface 
    Plots of interest include: 'ROC', gain curve, scatter plot with marginal distributions, 
    conditioned scatter plot with marginal densities,
    box and stem with matching theoretical distribution, and density with matching theoretical distribution.
-License: GPL-3
+License: GPL-2 | GPL-3
 VignetteBuilder: knitr
 Depends:
     R (>= 3.4.0)

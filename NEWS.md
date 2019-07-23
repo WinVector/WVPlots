@@ -1,4 +1,8 @@
 
+# WVPlots 1.1.1 2019-07-23
+
+ * Adjust license.
+
 # WVPlots 1.1.0 2019-04-07
 
  * Fix no-wizard option in lift plot.
