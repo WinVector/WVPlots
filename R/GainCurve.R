@@ -221,12 +221,6 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
       )
     ) +
     ggplot2::geom_abline(
-      mapping = ggplot2::aes(
-        x = pctpop,
-        y = pct_outcome,
-        color = sort_criterion,
-        linetype = sort_criterion
-      ),
       color = "gray",
       slope = 1,
       intercept = 0
@@ -451,12 +445,6 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
       )
     ) +
     ggplot2::geom_abline(
-      mapping = ggplot2::aes(
-        x = pctpop,
-        y = pct_outcome,
-        color = sort_criterion,
-        linetype = sort_criterion
-      ),
       color = "gray",
       slope = 1,
       intercept = 0
