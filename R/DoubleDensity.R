@@ -13,17 +13,30 @@
 #' The plot will degrade gracefully in degenerate conditions, for example when only
 #' one category is present.
 #'
+#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#'
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param truth_target if not NULL compare to this scalar value.
+#' @param palette name of Brewer palette (can be NULL)
 #' @examples
 #'
 #' mpg = ggplot2::mpg
 #' mpg$trans = gsub("\\(.*$", '', mpg$trans)
 #' WVPlots::DoubleDensityPlot(mpg, "cty", "trans", "City driving mpg by transmission type")
+#'
+#'# redo the last plot with a custom palette
+#' cmap = c("auto" = "#b2df8a", "manual" = "#1f78b4")
+#' plt = WVPlots::DoubleDensityPlot(mpg, "cty", "trans",
+#'               palette = NULL,
+#'               title="City driving mpg by transmission type")
+#' plt + ggplot2::scale_color_manual(values=cmap) +
+#'       ggplot2::scale_fill_manual(values=cmap)
 #'
 #' set.seed(34903490)
 #' x = rnorm(50)
@@ -34,13 +47,12 @@
 #'    rare=FALSE)
 #' frm[1,'rare'] = TRUE
 #' WVPlots::DoubleDensityPlot(frm, "score", "truth", title="Example double density plot")
-#' WVPlots::DoubleDensityPlot(frm, "score", "stuck", title="Example double density plot")
-#' WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 #'
 #' @export
 DoubleDensityPlot <- function(frame, xvar, truthVar, title,
                               ...,
-                              truth_target = NULL) {
+                              truth_target = NULL,
+                              palette = "Dark2") {
   check_frame_args_list(...,
                         frame = frame,
                         name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -80,7 +92,7 @@ DoubleDensityPlot <- function(frame, xvar, truthVar, title,
   pf$zero = 0
   # library(RColorBrewer)
   # display.brewer.all()
-  palletName = "Dark2"
+  palletName = palette
   plt <- ggplot2::ggplot(data=pf,
                          mapping=ggplot2::aes_string(x=xvar,y='density',
                                                      ymin='zero',ymax='density',
@@ -96,7 +108,10 @@ DoubleDensityPlot <- function(frame, xvar, truthVar, title,
                                      mapping=ggplot2::aes_string(color=truthVar,linetype=truthVar,
                                                                  xintercept='xintercept'))
   }
-  plt + ggplot2::ggtitle(title) +
+  if(!is.null(palette)) {
+  plt = plt +
     ggplot2::scale_fill_brewer(palette=palletName) +
     ggplot2::scale_color_brewer(palette=palletName)
+  }
+  plt + ggplot2::ggtitle(title)
 }

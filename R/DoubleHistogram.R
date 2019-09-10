@@ -13,11 +13,15 @@ NULL
 #' of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
 #' numerical quantity conditioned on a binary feature.
 #'
+#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param palette name of Brewer palette (can be NULL)
 #' @param breaks breaks to pass to histogram
 #' @examples
 #'
@@ -30,8 +34,16 @@ NULL
 #' frm$costX = 1
 #' WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
 #'
+#' # redo the plot with a custom palette
+#' plt = WVPlots::DoubleHistogramPlot(frm, "x", "yC", palette=NULL,
+#'                               title="Example double histogram plot")
+#' cmap = c("TRUE" = "#b2df8a", "FALSE" = "#1f78b4")
+#' plt + ggplot2::scale_color_manual(values=cmap) +
+#'       ggplot2::scale_fill_manual(values=cmap)
+#'
 #' @export
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
+                                palette = "Dark2",
                                 breaks=40) {
   frame <- as.data.frame(frame)
   check_frame_args_list(...,
@@ -75,7 +87,7 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
                   })
   # library(RColorBrewer)
   # display.brewer.all()
-  palletName <- "Dark2"
+  palletName <- palette
   # build a net effect curve
   netF <- wv_gapply(pf,xvar,partitionMethod = 'split',
                     function(fi) {
@@ -103,7 +115,10 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
     plot <- plot +
       ggplot2::geom_line(mapping=ggplot2::aes_string(y='net'),linetype=3,color='black')
   }
-  plot + ggplot2::scale_fill_brewer(palette=palletName) +
-    ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(title)
+  if(!is.null(palette)) {
+    plot = plot + ggplot2::scale_fill_brewer(palette=palletName) +
+      ggplot2::scale_color_brewer(palette=palletName)
+  }
+
+  plot + ggplot2::ggtitle(title)
 }

@@ -4,7 +4,8 @@
 \alias{DoubleDensityPlot}
 \title{Plot two density plots conditioned on an outcome variable.}
 \usage{
-DoubleDensityPlot(frame, xvar, truthVar, title, ..., truth_target = NULL)
+DoubleDensityPlot(frame, xvar, truthVar, title, ..., truth_target = NULL,
+  palette = "Dark2")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -18,6 +19,8 @@ DoubleDensityPlot(frame, xvar, truthVar, title, ..., truth_target = NULL)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{truth_target}{if not NULL compare to this scalar value.}
+
+\item{palette}{name of Brewer palette (can be NULL)}
 }
 \description{
 Plot two density plots conditioned on a binary outcome variable.
@@ -30,12 +33,23 @@ numerical quantity conditioned on a binary feature. See the examples.
 
 The plot will degrade gracefully in degenerate conditions, for example when only
 one category is present.
+
+If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
 }
 \examples{
 
 mpg = ggplot2::mpg
 mpg$trans = gsub("\\\\(.*$", '', mpg$trans)
 WVPlots::DoubleDensityPlot(mpg, "cty", "trans", "City driving mpg by transmission type")
+
+# redo the last plot with a custom palette
+cmap = c("auto" = "#b2df8a", "manual" = "#1f78b4")
+plt = WVPlots::DoubleDensityPlot(mpg, "cty", "trans",
+              palette = NULL,
+              title="City driving mpg by transmission type")
+plt + ggplot2::scale_color_manual(values=cmap) +
+      ggplot2::scale_fill_manual(values=cmap)
 
 set.seed(34903490)
 x = rnorm(50)
@@ -46,7 +60,5 @@ frm = data.frame(score=x,
    rare=FALSE)
 frm[1,'rare'] = TRUE
 WVPlots::DoubleDensityPlot(frm, "score", "truth", title="Example double density plot")
-WVPlots::DoubleDensityPlot(frm, "score", "stuck", title="Example double density plot")
-WVPlots::DoubleDensityPlot(frm, "score", "rare", title="Example double density plot")
 
 }

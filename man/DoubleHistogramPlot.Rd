@@ -4,7 +4,8 @@
 \alias{DoubleHistogramPlot}
 \title{Plot two histograms conditioned on an outcome variable.}
 \usage{
-DoubleHistogramPlot(frame, xvar, truthVar, title, ..., breaks = 40)
+DoubleHistogramPlot(frame, xvar, truthVar, title, ..., palette = "Dark2",
+  breaks = 40)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -17,6 +18,8 @@ DoubleHistogramPlot(frame, xvar, truthVar, title, ..., breaks = 40)
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
+\item{palette}{name of Brewer palette (can be NULL)}
+
 \item{breaks}{breaks to pass to histogram}
 }
 \description{
@@ -28,6 +31,9 @@ To distinguish the two conditions, one histogram is plotted upside-down.
 The use case for this visualization is to plot a predictive model score (usually the predicted probability
 of a desired outcome) conditioned on the actual outcome. However, you can use it to compare any
 numerical quantity conditioned on a binary feature.
+
+If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
 }
 \examples{
 
@@ -39,5 +45,12 @@ frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
 frm$costX = 1
 WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
+
+# redo the plot with a custom palette
+plt = WVPlots::DoubleHistogramPlot(frm, "x", "yC", palette=NULL,
+                              title="Example double histogram plot")
+cmap = c("TRUE" = "#b2df8a", "FALSE" = "#1f78b4")
+plt + ggplot2::scale_color_manual(values=cmap) +
+      ggplot2::scale_fill_manual(values=cmap)
 
 }
