@@ -11,8 +11,10 @@
 #' By default, the facet plots are arranged in a single column. This can be changed
 #' with the optional \code{ncol} argument.
 #'
-#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' If \code{palette} is NULL, and \code{monochrome} is FALSE, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
 #' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#' For consistency with previous releases, \code{ShadowHist} defaults to \code{monochrome = FALSE}, while
+#' \code{\link{ShadowPlot}} defaults to \code{monochrome = TRUE}.
 #'
 #' Please see here for some interesting discussion \url{https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2}.
 #'
@@ -22,7 +24,9 @@
 #' @param title title to place on plot.
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param ncol numeric: number of columns in facet_wrap.
-#' @param palette character: name of brewer color palette (can be NULL)
+#' @param monochrome logical: if TRUE, all facets filled with same color
+#' @param palette character: if monochrome==FALSE, name of brewer color palette (can be NULL)
+#' @param fillcolor character: if monochrome==TRUE, name of fill color
 #' @param bins number of bins. Defaults to thirty.
 #' @param binwidth width of the bins. Overrides bins.
 #' @return a ggplot2 histogram plot
@@ -32,9 +36,15 @@
 #' ShadowHist(iris, "Petal.Length", "Species",
 #'            title = "Petal Length distribution by Species")
 #'
+#' # make all the facets the same color
+#' ShadowHist(iris, "Petal.Length", "Species",
+#'            monochrome=TRUE,
+#'            title = "Petal Length distribution by Species")
+#'
 #' @export
 ShadowHist = function(frm, xvar, condvar, title, ...,
-                      ncol = 1, palette = "Dark2",
+                      ncol = 1, monochrome = FALSE,
+                      palette = "Dark2", fillcolor = "darkblue",
                       bins = 30, binwidth = NULL) {
   frm <- as.data.frame(frm)
   check_frame_args_list(...,
@@ -53,20 +63,35 @@ ShadowHist = function(frm, xvar, condvar, title, ...,
   CVAR = NULL # make sure this does not look like an unbound reference
   XVAR = NULL # make sure this does not look like an unbound reference
 
-  p = wrapr::let(
-    c(XVAR = xvar,
-      CVAR = condvar),
-    ggplot2::ggplot(frm, ggplot2::aes(x=XVAR)) +
-      ggplot2::geom_histogram(data = frmthin, bins = bins, binwidth = binwidth,
-                              fill="lightgray", color = "lightgray", alpha = 0.5) +
-      ggplot2::geom_histogram(data = frm, ggplot2::aes(fill=CVAR), color = NA,
-                              bins = bins, binwidth = binwidth) +
-      ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both) +
-      ggplot2::guides(fill = FALSE)
-  )
+  if(monochrome) {
+    p = wrapr::let(
+      c(XVAR = xvar,
+        CVAR = condvar),
+      ggplot2::ggplot(frm, ggplot2::aes(x=XVAR)) +
+        ggplot2::geom_histogram(data = frmthin, bins = bins, binwidth = binwidth,
+                                fill="lightgray", color = "lightgray", alpha = 0.5) +
+        ggplot2::geom_histogram(data = frm, fill=fillcolor, color = NA,
+                                bins = bins, binwidth = binwidth) +
+        ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both) +
+        ggplot2::guides(fill = FALSE)
+    )
+  } else {
+    p = wrapr::let(
+      c(XVAR = xvar,
+        CVAR = condvar),
+      ggplot2::ggplot(frm, ggplot2::aes(x=XVAR)) +
+        ggplot2::geom_histogram(data = frmthin, bins = bins, binwidth = binwidth,
+                                fill="lightgray", color = "lightgray", alpha = 0.5) +
+        ggplot2::geom_histogram(data = frm, ggplot2::aes(fill=CVAR), color = NA,
+                                bins = bins, binwidth = binwidth) +
+        ggplot2::facet_wrap(~CVAR, ncol=ncol, labeller = ggplot2::label_both) +
+        ggplot2::guides(fill = FALSE)
+    )
 
-  if(!is.null(palette)) {
-    p = p + ggplot2::scale_fill_brewer(palette = palette)
+    if(!is.null(palette)) {
+      p = p + ggplot2::scale_fill_brewer(palette = palette)
+    }
   }
+
   p + ggplot2::ggtitle(title)
 }

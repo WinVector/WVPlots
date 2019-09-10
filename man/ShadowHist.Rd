@@ -4,7 +4,8 @@
 \alias{ShadowHist}
 \title{Plot a Shadow Histogram Plot}
 \usage{
-ShadowHist(frm, xvar, condvar, title, ..., ncol = 1, palette = "Dark2",
+ShadowHist(frm, xvar, condvar, title, ..., ncol = 1,
+  monochrome = FALSE, palette = "Dark2", fillcolor = "darkblue",
   bins = 30, binwidth = NULL)
 }
 \arguments{
@@ -20,7 +21,11 @@ ShadowHist(frm, xvar, condvar, title, ..., ncol = 1, palette = "Dark2",
 
 \item{ncol}{numeric: number of columns in facet_wrap.}
 
-\item{palette}{character: name of brewer color palette (can be NULL)}
+\item{monochrome}{logical: if TRUE, all facets filled with same color}
+
+\item{palette}{character: if monochrome==FALSE, name of brewer color palette (can be NULL)}
+
+\item{fillcolor}{character: if monochrome==TRUE, name of fill color}
 
 \item{bins}{number of bins. Defaults to thirty.}
 
@@ -41,14 +46,21 @@ but not the \code{center}, \code{boundary}, or \code{breaks} arguments.
 By default, the facet plots are arranged in a single column. This can be changed
 with the optional \code{ncol} argument.
 
-If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+If \code{palette} is NULL, and \code{monochrome} is FALSE, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
 allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+For consistency with previous releases, \code{ShadowHist} defaults to \code{monochrome = FALSE}, while
+\code{\link{ShadowPlot}} defaults to \code{monochrome = TRUE}.
 
 Please see here for some interesting discussion \url{https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2}.
 }
 \examples{
 
 ShadowHist(iris, "Petal.Length", "Species",
+           title = "Petal Length distribution by Species")
+
+# make all the facets the same color
+ShadowHist(iris, "Petal.Length", "Species",
+           monochrome=TRUE,
            title = "Petal Length distribution by Species")
 
 }
