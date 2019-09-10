@@ -9,6 +9,10 @@
 #' with a color scale such that dense areas are colored darker (the default
 #' ggplot2 fill scales will color dense areas lighter).
 #'
+#' The user can choose an alternate color scale with endpoints \code{lightcolor}
+#' and \code{darkcolor}; it is up to the user to make sure that \code{lightcolor}
+#' is lighter than \code{darkcolor}.
+#'
 #' Requires the \code{hexbin} package.
 #'
 #' @param d data frame
@@ -16,6 +20,8 @@
 #' @param yvar name of y variable column
 #' @param title plot title
 #' @param ... not used, forces later arguments to bind by name
+#' @param lightcolor light color for least dense areas
+#' @param darkcolor dark color for most dense areas
 #' @param bins passed to geom_hex
 #' @param binwidth passed to geom_hex
 #' @param na.rm passed to geom_hex
@@ -32,12 +38,19 @@
 #'
 #'    diamonds = ggplot2::diamonds
 #'    print(HexBinPlot(diamonds, "carat", "price", "Diamonds example"))
+#'
+#'    # change the colorscale
+#'     print(HexBinPlot(diamonds, "carat", "price", "Diamonds example",
+#'                      lightcolor="#fed98e",
+#'                      darkcolor="#993404"))
 #' }
 #'
 #' @export
 #'
 HexBinPlot <- function(d, xvar, yvar,  title,
                       ...,
+                      lightcolor = "#deebf7",
+                      darkcolor = "#000000",
                       bins = 30, binwidth = NULL, na.rm = FALSE) {
   if(!(requireNamespace("hexbin", quietly = TRUE))) {
     stop("WVPlots::HexBinPlot requires the hexbin package be installed")
@@ -51,7 +64,7 @@ HexBinPlot <- function(d, xvar, yvar,  title,
   ggplot2::ggplot(d, ggplot2::aes_string(x=xvar, y=yvar)) +
     ggplot2::geom_hex(bins = bins, binwidth = binwidth, na.rm = na.rm) +
     ggplot2::ggtitle(title) +
-    ggplot2::scale_fill_gradient(low = "#deebf7", high = "#000000", space = "Lab") +
+    ggplot2::scale_fill_gradient(low = lightcolor, high = darkcolor, space = "Lab") +
     ggplot2::theme_bw()
 }
 

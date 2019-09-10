@@ -4,8 +4,8 @@
 \alias{HexBinPlot}
 \title{Build a hex bin plot}
 \usage{
-HexBinPlot(d, xvar, yvar, title, ..., bins = 30, binwidth = NULL,
-  na.rm = FALSE)
+HexBinPlot(d, xvar, yvar, title, ..., lightcolor = "#deebf7",
+  darkcolor = "#000000", bins = 30, binwidth = NULL, na.rm = FALSE)
 }
 \arguments{
 \item{d}{data frame}
@@ -17,6 +17,10 @@ HexBinPlot(d, xvar, yvar, title, ..., bins = 30, binwidth = NULL,
 \item{title}{plot title}
 
 \item{...}{not used, forces later arguments to bind by name}
+
+\item{lightcolor}{light color for least dense areas}
+
+\item{darkcolor}{dark color for most dense areas}
 
 \item{bins}{passed to geom_hex}
 
@@ -35,6 +39,10 @@ Builds a standard ggplot2 hexbin plot,
 with a color scale such that dense areas are colored darker (the default
 ggplot2 fill scales will color dense areas lighter).
 
+The user can choose an alternate color scale with endpoints \code{lightcolor}
+and \code{darkcolor}; it is up to the user to make sure that \code{lightcolor}
+is lighter than \code{darkcolor}.
+
 Requires the \code{hexbin} package.
 }
 \examples{
@@ -46,6 +54,11 @@ if(requireNamespace("hexbin", quietly = TRUE)) {
 
    diamonds = ggplot2::diamonds
    print(HexBinPlot(diamonds, "carat", "price", "Diamonds example"))
+
+   # change the colorscale
+    print(HexBinPlot(diamonds, "carat", "price", "Diamonds example",
+                     lightcolor="#fed98e",
+                     darkcolor="#993404"))
 }
 
 }
