@@ -130,7 +130,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>ConditionalSmoothedScatterPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>groupvar</span>, <span class='no'>title</span>, <span class='no'>...</span>,
-  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>)</pre>
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"center"</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>smooth_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,12 +168,27 @@
       <th>align</th>
       <td><p>smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'</p></td>
     </tr>
+    <tr>
+      <th>point_color</th>
+      <td><p>color of points, when groupvar is NULL</p></td>
+    </tr>
+    <tr>
+      <th>smooth_color</th>
+      <td><p>color of smoothing line, when groupvar is NULL</p></td>
+    </tr>
+    <tr>
+      <th>palette</th>
+      <td><p>name of Brewer palette, when groupvar is non-NULL (can be NULL)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>xvar</code> is the continuous independent variable and <code>yvar</code> is the dependent binary variable.
 Smoothing is by a square window of width <code>k</code>.</p>
+<p>If <code>palette</code> is NULL, and <code>groupvar</code> is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+Setting <code>palette</code> to NULL
+allows the user to choose a non-Brewer palette, for example with <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

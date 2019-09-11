@@ -8,13 +8,13 @@ package = "WVPlots"
 date()
 ```
 
-    ## [1] "Sun Apr  7 17:43:33 2019"
+    ## [1] "Wed Sep 11 16:24:59 2019"
 
 ``` r
 packageVersion(package)
 ```
 
-    ## [1] '1.1.0'
+    ## [1] '1.1.2'
 
 ``` r
 parallelCluster <- NULL
@@ -26,14 +26,14 @@ orig_dir <- getwd()
 print(orig_dir)
 ```
 
-    ## [1] "/Users/johnmount/Documents/work/WVPlots.git/extras"
+    ## [1] "/Users/ninazumel/Documents/Projects/Win-Verse/WVPlots/extras"
 
 ``` r
 setwd(td)
 print(td)
 ```
 
-    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//RtmpzGd1Up"
+    ## [1] "/var/folders/3s/hyy8hf1s2d7gtmxds0w7kq_w0000gp/T//RtmpggaX1w"
 
 ``` r
 options(repos = c(CRAN="https://cloud.r-project.org"))

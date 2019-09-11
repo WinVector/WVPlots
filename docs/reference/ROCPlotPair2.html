@@ -131,7 +131,8 @@
 
     <pre class="usage"><span class='fu'>ROCPlotPair2</span>(<span class='no'>nm1</span>, <span class='no'>frame1</span>, <span class='no'>xvar1</span>, <span class='no'>truthVar1</span>, <span class='no'>truthTarget1</span>, <span class='no'>nm2</span>, <span class='no'>frame2</span>,
   <span class='no'>xvar2</span>, <span class='no'>truthVar2</span>, <span class='no'>truthTarget2</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>returnScores</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nrep</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>parallelCluster</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,12 +201,18 @@
       <th>parallelCluster</th>
       <td><p>(optional) a cluster object created by package parallel or package snow.</p></td>
     </tr>
+    <tr>
+      <th>palette</th>
+      <td><p>name of Brewer palette to color curves (can be NULL)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Use this curve to compare model predictions to true outcome from two
 data frames, each of which has its own model predictions and true outcome columns.</p>
+<p>If <code>palette</code> is NULL, plot colors will be chosen from the default ggplot2 palette. Setting <code>palette</code> to NULL
+allows the user to choose a non-Brewer palette, for example with <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='ROCPlot.html'>ROCPlot</a></code></p></div>

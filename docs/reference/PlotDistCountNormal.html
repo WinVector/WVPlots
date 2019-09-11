@@ -129,7 +129,9 @@
     <p>Compares empirical data to a normal distribution with the same mean and standard deviation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotDistCountNormal</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>binWidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>())</pre>
+    <pre class="usage"><span class='fu'>PlotDistCountNormal</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>binWidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(),
+  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>normal_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>mean_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>sd_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +156,22 @@
       <th>binWidth</th>
       <td><p>width of histogram bins</p></td>
     </tr>
+    <tr>
+      <th>hist_color</th>
+      <td><p>color of empirical histogram</p></td>
+    </tr>
+    <tr>
+      <th>normal_color</th>
+      <td><p>color of matching theoretical normal</p></td>
+    </tr>
+    <tr>
+      <th>mean_color</th>
+      <td><p>color of mean line</p></td>
+    </tr>
+    <tr>
+      <th>sd_color</th>
+      <td><p>color of 1-standard deviation lines (can be NULL)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -169,6 +187,8 @@ in the subtitle of the plot.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>wt</span><span class='kw'>=</span><span class='fl'>100</span>*<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))
 <span class='fu'>PlotDistCountNormal</span>(<span class='no'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>)</div><div class='img'><img src='PlotDistCountNormal-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># no sd lines</span>
+<span class='fu'>PlotDistCountNormal</span>(<span class='no'>d</span>, <span class='st'>'wt'</span>, <span class='st'>'example'</span>, <span class='kw'>sd_color</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='img'><img src='PlotDistCountNormal-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

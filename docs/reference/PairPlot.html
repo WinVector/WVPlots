@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Build a pair plot — PairPlot" />
-<meta property="og:description" content="Build a pair plot" />
+<meta property="og:description" content="Creates a matrix of scatterplots, one for each possible pair of variables." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,10 +126,11 @@
     </div>
 
     <div class="ref-description">
-    <p>Build a pair plot</p>
+    <p>Creates a matrix of scatterplots, one for each possible pair of variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PairPlot</span>(<span class='no'>d</span>, <span class='no'>meas_vars</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)</pre>
+    <pre class="usage"><span class='fu'>PairPlot</span>(<span class='no'>d</span>, <span class='no'>meas_vars</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>, <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,18 +156,36 @@
       <td><p>variable for grouping and colorcoding</p></td>
     </tr>
     <tr>
+      <th>alpha</th>
+      <td><p>alpha for points on plot</p></td>
+    </tr>
+    <tr>
       <th>palette</th>
       <td><p>name of a brewer palette (NULL for ggplot2 default coloring)</p></td>
+    </tr>
+    <tr>
+      <th>point_color</th>
+      <td><p>point color for monochrome plots (no grouping)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ggplot2 pair plot</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>palette</code> is NULL, and <code>group_var</code> is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+Setting <code>palette</code> to NULL
+allows the user to choose a non-Brewer palette, for example with <code><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</div><div class='img'><img src='PairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># custom palette</span>
+<span class='no'>colormap</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'#a6611a'</span>, <span class='st'>'#dfc27d'</span>, <span class='st'>'#018571'</span>)
+<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>,
+         <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>palette</span><span class='kw'>=</span><span class='kw'>NULL</span>) +
+         <span class='fu'>scale_color_manual</span>(<span class='kw'>values</span><span class='kw'>=</span><span class='no'>colormap</span>)</div><div class='output co'>#&gt; <span class='error'>Error in scale_color_manual(values = colormap): could not find function "scale_color_manual"</span></div><div class='input'>
 <span class='co'># no color-coding</span>
 <span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>)</div><div class='img'><img src='PairPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
@@ -176,6 +195,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

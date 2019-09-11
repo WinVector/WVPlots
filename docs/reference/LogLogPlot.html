@@ -129,7 +129,9 @@
     <p>Plot a trend on log-log paper.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LogLogPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>use_coord_trans</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>LogLogPlot</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>use_coord_trans</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>linear_color</span> <span class='kw'>=</span> <span class='st'>"#018571"</span>,
+  <span class='kw'>quadratic_color</span> <span class='kw'>=</span> <span class='st'>"#a6611a"</span>, <span class='kw'>smoothing_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +159,22 @@
     <tr>
       <th>use_coord_trans</th>
       <td><p>logical if TRUE, use coord_trans instead of <code>coord_trans(x = "log10", y = "log10")</code> instead of <code>scale_x_log10() + scale_y_log10()</code> (useful when there is not enough range to show ticks).</p></td>
+    </tr>
+    <tr>
+      <th>point_color</th>
+      <td><p>the color of the data points</p></td>
+    </tr>
+    <tr>
+      <th>linear_color</th>
+      <td><p>the color of the linear growth lines</p></td>
+    </tr>
+    <tr>
+      <th>quadratic_color</th>
+      <td><p>the color of the quadratic growth lines</p></td>
+    </tr>
+    <tr>
+      <th>smoothing_color</th>
+      <td><p>the color of the smoothing line through the data</p></td>
     </tr>
     </table>
 

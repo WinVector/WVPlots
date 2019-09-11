@@ -131,7 +131,9 @@
 
     <pre class="usage"><span class='fu'>plot_fit_trajectory</span>(<span class='no'>d</span>, <span class='no'>column_description</span>, <span class='no'>title</span>, <span class='no'>...</span>,
   <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>, <span class='kw'>needs_flip</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>draw_segments</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>draw_segments</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>val_color</span> <span class='kw'>=</span> <span class='st'>"#d95f02"</span>, <span class='kw'>train_color</span> <span class='kw'>=</span> <span class='st'>"#1b9e77"</span>,
+  <span class='kw'>pick_color</span> <span class='kw'>=</span> <span class='st'>"#e6ab02"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,6 +177,18 @@
     <tr>
       <th>draw_segments</th>
       <td><p>logical if TRUE draw over-fit/under-fit segments.</p></td>
+    </tr>
+    <tr>
+      <th>val_color</th>
+      <td><p>color for validation performance curve</p></td>
+    </tr>
+    <tr>
+      <th>train_color</th>
+      <td><p>color for training performance curve</p></td>
+    </tr>
+    <tr>
+      <th>pick_color</th>
+      <td><p>color for indicating optimal stopping point</p></td>
     </tr>
     </table>
 

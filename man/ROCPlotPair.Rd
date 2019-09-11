@@ -30,6 +30,8 @@ ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
 \item{nrep}{number of permutation repetitions to estimate p values.}
 
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
+
+\item{palette}{name of a brewer palette (NULL for ggplot2 default coloring)}
 }
 \description{
 Plot two receiver operating characteristic curves from the same data.frame.

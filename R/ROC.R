@@ -217,6 +217,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#' @param palette name of a brewer palette (NULL for ggplot2 default coloring)
 #'
 #' @seealso \code{\link{ROCPlot}}
 #'

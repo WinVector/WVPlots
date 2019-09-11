@@ -129,7 +129,9 @@
     <p>Compares empirical data to a beta distribution with the same mean and standard deviation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotDistHistBeta</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotDistHistBeta</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>beta_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>mean_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>sd_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +160,22 @@
       <th>bins</th>
       <td><p>passed to geom_histogram(). Default: 30</p></td>
     </tr>
+    <tr>
+      <th>hist_color</th>
+      <td><p>color of empirical histogram</p></td>
+    </tr>
+    <tr>
+      <th>beta_color</th>
+      <td><p>color of matching theoretical beta</p></td>
+    </tr>
+    <tr>
+      <th>mean_color</th>
+      <td><p>color of mean line</p></td>
+    </tr>
+    <tr>
+      <th>sd_color</th>
+      <td><p>color of 1-standard devation lines (can be NULL)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -175,7 +193,8 @@ The binwidth can also be passed in instead of the number of bins.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>wt</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>rbeta</a></span>(<span class='fl'>100</span>,<span class='kw'>shape1</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>shape2</span><span class='kw'>=</span><span class='fl'>0.5</span>))
 <span class='fu'>PlotDistHistBeta</span>(<span class='no'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>)</div><div class='img'><img src='PlotDistHistBeta-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='co'># no sd lines</span>
+<span class='fu'>PlotDistHistBeta</span>(<span class='no'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>, <span class='kw'>sd_color</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='img'><img src='PlotDistHistBeta-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -130,7 +130,10 @@
     </div>
 
     <pre class="usage"><span class='fu'>GainCurvePlotWithNotation</span>(<span class='no'>frame</span>, <span class='no'>xvar</span>, <span class='no'>truthVar</span>, <span class='no'>title</span>, <span class='no'>gainx</span>, <span class='no'>labelfun</span>,
-  <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
+  <span class='no'>...</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>large_count</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>model_color</span> <span class='kw'>=</span> <span class='st'>"darkblue"</span>, <span class='kw'>wizard_color</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
+  <span class='kw'>shadow_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>crosshair_color</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>text_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +173,26 @@
     <tr>
       <th>large_count</th>
       <td><p>numeric, upper bound target for number of plotting points</p></td>
+    </tr>
+    <tr>
+      <th>model_color</th>
+      <td><p>color for the model curve</p></td>
+    </tr>
+    <tr>
+      <th>wizard_color</th>
+      <td><p>color for the "wizard" (best possible) curve</p></td>
+    </tr>
+    <tr>
+      <th>shadow_color</th>
+      <td><p>color for the shaded area under the curve</p></td>
+    </tr>
+    <tr>
+      <th>crosshair_color</th>
+      <td><p>color for the annotation location lines</p></td>
+    </tr>
+    <tr>
+      <th>text_color</th>
+      <td><p>color for the annotation text</p></td>
     </tr>
     </table>
 

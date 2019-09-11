@@ -133,7 +133,8 @@
   <span class='kw'>lossname</span> <span class='kw'>=</span> <span class='st'>"loss"</span>, <span class='kw'>loss_pretty_name</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>,
   <span class='kw'>perfname</span> <span class='kw'>=</span> <span class='st'>"acc"</span>, <span class='kw'>perf_pretty_name</span> <span class='kw'>=</span> <span class='st'>"accuracy"</span>,
   <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='no'>loss_pretty_name</span>, <span class='kw'>fliploss</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>val_color</span> <span class='kw'>=</span> <span class='st'>"#d95f02"</span>,
+  <span class='kw'>train_color</span> <span class='kw'>=</span> <span class='st'>"#1b9e77"</span>, <span class='kw'>pick_color</span> <span class='kw'>=</span> <span class='st'>"#e6ab02"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,6 +186,18 @@
     <tr>
       <th>draw_ribbon</th>
       <td><p>present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)</p></td>
+    </tr>
+    <tr>
+      <th>val_color</th>
+      <td><p>color for validation performance curve</p></td>
+    </tr>
+    <tr>
+      <th>train_color</th>
+      <td><p>color for training performance curve</p></td>
+    </tr>
+    <tr>
+      <th>pick_color</th>
+      <td><p>color for indicating optimal stopping point</p></td>
     </tr>
     </table>
 
