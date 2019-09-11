@@ -4,7 +4,8 @@
 \alias{ScatterBoxPlotH}
 \title{Plot a scatter box plot in horizontal mode.}
 \usage{
-ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
+ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3,
+  pt_color = "black", box_color = "black", box_fill = "lightgray")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -18,14 +19,18 @@ ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3)
 \item{...}{(doesn't take additional arguments, used to force later arguments by name)}
 
 \item{pt_alpha}{transparency of points in scatter plot}
+
+\item{pt_color}{point color}
+
+\item{box_color}{boxplot line color}
+
+\item{box_fill}{boxplot fill color (can be NA for no fill)}
 }
 \description{
 Plot a boxplot with the data points superimposed. Box plots are aligned horizontally.
 }
 \details{
 \code{xvar} is a continuous variable and \code{yvar} is a discrete variable.
-If frm[[yvar]] is an integer column, it will be converted to a factor.
-This means that additional layers that rely on continuous y scales won't work.
 }
 \examples{
 
