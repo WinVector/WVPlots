@@ -1,4 +1,8 @@
 
+# WVPlots 1.1.2 2019-09-10
+
+ * Allowed palette controls on more plots.
+
 # WVPlots 1.1.1 2019-07-24
 
  * Adjust license.
