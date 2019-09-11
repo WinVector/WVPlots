@@ -44,6 +44,10 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' \code{xvar} is the continuous independent variable and \code{yvar} is the dependent binary variable.
 #' Smoothing is by a square window of width \code{k}.
 #'
+#' If \code{palette} is NULL, and \code{groupvar} is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+#' Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent column in frame. Assumed to be regularly spaced
 #' @param yvar name of the dependent (output or result to be modeled) column in frame
@@ -52,6 +56,9 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param k width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3
 #' @param align smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'
+#' @param point_color color of points, when groupvar is NULL
+#' @param smooth_color color of smoothing line, when groupvar is NULL
+#' @param palette name of Brewer palette, when groupvar is non-NULL (can be NULL)
 #' @examples
 #'
 #' y = c(1,2,3,4,5,10,15,18,20,25)
@@ -64,7 +71,9 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #'
 #' @export
 ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ...,
-                                          k=3, align="center") {
+                                          k=3, align="center",
+                                          point_color="black", smooth_color="black",
+                                          palette="Dark2") {
   vlist <- list(xvar = xvar, yvar = yvar)
   if(!is.null(groupvar)) {
     vlist$groupvar <- groupvar
@@ -94,9 +103,8 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
     fs$smooth = smoothing(fs, xvar, yvar, k, align)
     fs = fs[!is.na(fs$smooth),]
     p =  ggplot2::ggplot() +
-      ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar)) +
-      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar, y="smooth")) +
-      ggplot2::ggtitle(title)
+      ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar), color=point_color) +
+      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar, y="smooth"), color=smooth_color)
   } else{
     gplist = unique(fs[[groupvar]])
     for(gp in gplist) {
@@ -106,9 +114,12 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar, groupvar, title, ..
     fs = fs[!is.na(fs$smooth),]
     p =  ggplot2::ggplot() +
       ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar, color=groupvar)) +
-      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar,y="smooth",color=groupvar)) +
-      ggplot2::ggtitle(title)
+      ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar,y="smooth",color=groupvar))
+
+    if(!is.null(palette)) {
+      p = p + ggplot2::scale_color_brewer(palette=palette)
+    }
   }
-  p
+  p + ggplot2::ggtitle(title)
 }
 

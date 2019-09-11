@@ -5,7 +5,8 @@
 \title{Plot a scatter plot with smoothing line.}
 \usage{
 ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ...,
-  k = 3, align = "center")
+  k = 3, align = "center", point_color = "black",
+  smooth_color = "black", palette = "Dark2")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -23,6 +24,12 @@ ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ...,
 \item{k}{width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3}
 
 \item{align}{smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'}
+
+\item{point_color}{color of points, when groupvar is NULL}
+
+\item{smooth_color}{color of smoothing line, when groupvar is NULL}
+
+\item{palette}{name of Brewer palette, when groupvar is non-NULL (can be NULL)}
 }
 \description{
 Plot a scatter plot with a smoothing line; the smoothing window is aligned either left, center or right.
@@ -30,6 +37,10 @@ Plot a scatter plot with a smoothing line; the smoothing window is aligned eithe
 \details{
 \code{xvar} is the continuous independent variable and \code{yvar} is the dependent binary variable.
 Smoothing is by a square window of width \code{k}.
+
+If \code{palette} is NULL, and \code{groupvar} is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+Setting \code{palette} to NULL
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
 }
 \examples{
 

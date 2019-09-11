@@ -5,7 +5,7 @@
 \title{Plot a scatter plot of a binary variable with smoothing curve.}
 \usage{
 BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
-  use_glm = TRUE)
+  use_glm = TRUE, point_color = "black", smooth_color = "blue")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -21,6 +21,10 @@ BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
 \item{se}{if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE}
 
 \item{use_glm}{if TRUE, "smooths" with a one-variable logistic regression (defaults to TRUE)}
+
+\item{point_color}{color for points}
+
+\item{smooth_color}{color for smoothing line}
 }
 \description{
 Plot the scatter plot of a binary variable with a smoothing curve.

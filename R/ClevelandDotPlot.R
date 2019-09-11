@@ -32,6 +32,7 @@ stemdotstats = function(ycol) {
 #' @param sort if TRUE sort data
 #' @param limit_n if not NULL number of items to plot
 #' @param stem if TRUE add stems/whiskers to plot
+#' @param color color for points and stems
 #' @examples
 #'
 #' set.seed(34903490)
@@ -56,7 +57,8 @@ stemdotstats = function(ycol) {
 #' WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")
 #' @export
 ClevelandDotPlot = function(frm, xvar, title, ...,
-                            sort=-1, limit_n = NULL, stem=TRUE) {
+                            sort=-1, limit_n = NULL, stem=TRUE,
+                            color='black') {
   frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
@@ -89,10 +91,10 @@ ClevelandDotPlot = function(frm, xvar, title, ...,
   frm$count = 1
   if(stem) {
     p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar, y="count")) +
-      ggplot2::stat_summary(fun.data=stemdotstats, geom="pointrange")
+      ggplot2::stat_summary(fun.data=stemdotstats, geom="pointrange", color=color)
   } else {
     p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar)) +
-      ggplot2::geom_point(stat="count")
+      ggplot2::geom_point(stat="count", color=color)
   }
   p + ggplot2::ggtitle(title)
 }

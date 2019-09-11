@@ -5,7 +5,7 @@
 \title{Plot a Cleveland dot plot.}
 \usage{
 ClevelandDotPlot(frm, xvar, title, ..., sort = -1, limit_n = NULL,
-  stem = TRUE)
+  stem = TRUE, color = "black")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -21,6 +21,8 @@ ClevelandDotPlot(frm, xvar, title, ..., sort = -1, limit_n = NULL,
 \item{limit_n}{if not NULL number of items to plot}
 
 \item{stem}{if TRUE add stems/whiskers to plot}
+
+\item{color}{color for points and stems}
 }
 \description{
 Plot counts of a categorical variable.

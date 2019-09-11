@@ -17,6 +17,8 @@
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param se if TRUE, add error bars (defaults to FALSE). Ignored if useGLM is TRUE
 #' @param use_glm if TRUE, "smooths" with a one-variable logistic regression (defaults to TRUE)
+#' @param point_color color for points
+#' @param smooth_color color for smoothing line
 #'
 #'
 #' @examples
@@ -33,7 +35,8 @@
 #'
 #' @export
 BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
-                              se=FALSE, use_glm=TRUE) {
+                              se=FALSE, use_glm=TRUE,
+                              point_color="black", smooth_color="blue") {
   frame <- as.data.frame(frame)
   check_frame_args_list(...,
                         frame = frame,
@@ -47,13 +50,14 @@ BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
     model = glm(frame[[yvar]] == max(frame[[yvar]]) ~ frame[[xvar]], family=binomial(link="logit"))
     frame$smooth = predict(model, type="response")
     ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
-      ggplot2::geom_point(ggplot2::aes_string(y=yvar), position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
-      ggplot2::geom_line(ggplot2::aes(y=smooth), color='blue') +
+      ggplot2::geom_point(ggplot2::aes_string(y=yvar), color=point_color,
+                          position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
+      ggplot2::geom_line(ggplot2::aes(y=smooth), color=smooth_color) +
       ggplot2::ggtitle(title)
   } else {
     ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar, y=yvar)) +
-      ggplot2::geom_point(position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
-      ggplot2::geom_smooth(se=se) + ggplot2::ggtitle(title)
+      ggplot2::geom_point(color=point_color, position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
+      ggplot2::geom_smooth(color=smooth_color, se=se) + ggplot2::ggtitle(title)
   }
 }
 
