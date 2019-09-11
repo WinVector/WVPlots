@@ -24,6 +24,16 @@
     devtools::check_win_devel()
     
     rhub::check_for_cran()
+    723#> * using R Under development (unstable) (2019-08-30 r77101)
+    724#> * using platform: x86_64-w64-mingw32 (64-bit)
+    725#> * using session charset: ISO8859-1
+    726#> * using option '--as-cran'
+    727#> * checking for file 'WVPlots/DESCRIPTION' ... OK
+    728#> * checking extension type ... Package
+    729#> * this is package 'WVPlots' version '1.1.2'
+    730#> * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+    731#> Maintainer: 'John Mount '
+    787#> Status: OK
 
 
 ## Downstream dependencies
