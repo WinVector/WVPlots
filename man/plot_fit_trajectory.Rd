@@ -6,7 +6,9 @@
 \usage{
 plot_fit_trajectory(d, column_description, title, ...,
   epoch_name = "epoch", needs_flip = c(), pick_metric = NULL,
-  discount_rate = NULL, draw_ribbon = FALSE, draw_segments = FALSE)
+  discount_rate = NULL, draw_ribbon = FALSE, draw_segments = FALSE,
+  val_color = "#d95f02", train_color = "#1b9e77",
+  pick_color = "#e6ab02")
 }
 \arguments{
 \item{d}{data frame to get values from.}
@@ -28,6 +30,12 @@ plot_fit_trajectory(d, column_description, title, ...,
 \item{draw_ribbon}{present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)}
 
 \item{draw_segments}{logical if TRUE draw over-fit/under-fit segments.}
+
+\item{val_color}{color for validation performance curve}
+
+\item{train_color}{color for training performance curve}
+
+\item{pick_color}{color for indicating optimal stopping point}
 }
 \value{
 ggplot2 plot

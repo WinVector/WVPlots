@@ -36,7 +36,7 @@ PlotDistDensityNormal <- function(frm, xvar, title, ...,
                                   mean_color = 'blue',
                                   sd_color = 'darkgray') {
   frm <- as.data.frame(frm)
-  check_frame_args_list(# ...,
+  check_frame_args_list(...,
     frame = frm,
     name_var_list = list(xvar = xvar),
     title = title,
@@ -198,7 +198,7 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
                                 mean_color='blue',
                                 sd_color='darkgray') {
   frm <- as.data.frame(frm)
-  check_frame_args_list(#...,
+  check_frame_args_list(...,
     frame = frm,
     name_var_list = list(xvar = xvar),
     title = title,

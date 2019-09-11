@@ -27,6 +27,9 @@
 #' @param discount_rate numeric what fraction of over-fit to subtract from validation performance.
 #' @param draw_ribbon present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)
 #' @param draw_segments logical if TRUE draw over-fit/under-fit segments.
+#' @param val_color color for validation performance curve
+#' @param train_color color for training performance curve
+#' @param pick_color color for indicating optimal stopping point
 #' @return ggplot2 plot
 #'
 #' @examples
@@ -66,7 +69,10 @@ plot_fit_trajectory <- function(d,
                                 pick_metric = NULL,
                                 discount_rate = NULL,
                                 draw_ribbon = FALSE,
-                                draw_segments = FALSE) {
+                                draw_segments = FALSE,
+                                val_color = "#d95f02",
+                                train_color = "#1b9e77",
+                                pick_color = "#e6ab02") {
   vlist <- unique(c(epoch_name, as.character(as.matrix(column_description[-1]))))
   d <- check_frame_args_list(...,
                         frame = d,
@@ -119,9 +125,9 @@ plot_fit_trajectory <- function(d,
   }
 
 
-  valCol = "#d95f02"
-  trainCol = "#1b9e77"
-  pickCol = '#e6ab02'
+  valCol = val_color
+  trainCol = train_color
+  pickCol = pick_color
 
   plt <- ggplot2::ggplot(
     data = d,
@@ -205,6 +211,9 @@ plot_fit_trajectory <- function(d,
 #' @param fliploss flip the loss so that "larger is better"? (default TRUE)
 #' @param discount_rate numeric: what fraction of over-fit to subtract from validation performance.
 #' @param draw_ribbon present the difference in training and validation performance as a ribbon rather than two curves? (default FALSE)
+#' @param val_color color for validation performance curve
+#' @param train_color color for training performance curve
+#' @param pick_color color for indicating optimal stopping point
 #' @return ggplot2 plot
 #'
 #' @details
@@ -252,7 +261,10 @@ plot_Keras_fit_trajectory <- function(d,
                                       pick_metric = loss_pretty_name,
                                       fliploss = TRUE,
                                       discount_rate = NULL,
-                                      draw_ribbon = FALSE) {
+                                      draw_ribbon = FALSE,
+                                      val_color = "#d95f02",
+                                      train_color = "#1b9e77",
+                                      pick_color = "#e6ab02") {
   val_loss_name = paste("val", lossname, sep="_")
   val_perf_name = paste("val", perfname, sep="_")
   d[[epoch_name]] <- seq_len(nrow(d))
@@ -278,6 +290,9 @@ plot_Keras_fit_trajectory <- function(d,
                       epoch_name = epoch_name,
                       pick_metric = pick_metric,
                       discount_rate = discount_rate,
-                      draw_ribbon = draw_ribbon)
+                      draw_ribbon = draw_ribbon,
+                      val_color=val_color,
+                      train_color=train_color,
+                      pick_color=pick_color)
 }
 
