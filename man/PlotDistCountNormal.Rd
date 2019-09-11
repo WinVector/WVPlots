@@ -4,7 +4,9 @@
 \alias{PlotDistCountNormal}
 \title{Plot distribution details as a histogram plus matching normal}
 \usage{
-PlotDistCountNormal(frm, xvar, title, ..., binWidth = c())
+PlotDistCountNormal(frm, xvar, title, ..., binWidth = c(),
+  hist_color = "black", normal_color = "blue", mean_color = "blue",
+  sd_color = "blue")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -16,6 +18,14 @@ PlotDistCountNormal(frm, xvar, title, ..., binWidth = c())
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
 \item{binWidth}{width of histogram bins}
+
+\item{hist_color}{color of empirical histogram}
+
+\item{normal_color}{color of matching theoretical normal}
+
+\item{mean_color}{color of mean line}
+
+\item{sd_color}{color of 1-standard deviation lines (can be NULL)}
 }
 \description{
 Compares empirical data to a normal distribution with the same mean and standard deviation.
@@ -33,5 +43,8 @@ in the subtitle of the plot.
 set.seed(52523)
 d <- data.frame(wt=100*rnorm(100))
 PlotDistCountNormal(d,'wt','example')
+
+# no sd lines
+PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
 
 }

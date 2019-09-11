@@ -11,14 +11,30 @@ NULL
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
+#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param adjust passed to geom_density; controls smoothness of density plot
+#' @param curve_color color for empirical density curve
+#' @param normal_color color for theoretical matching normal
+#' @param mean_color color of mean line
+#' @param sd_color color for 1-standard deviation lines (can be NULL)
+#'
+#' @seealso \code{\link[ggplot2]{geom_density}}
 #' @examples
 #'
 #' set.seed(52523)
 #' d <- data.frame(wt=100*rnorm(100))
 #' PlotDistDensityNormal(d,'wt','example')
 #'
+#' # no sd lines
+#' PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
+#'
 #' @export
-PlotDistDensityNormal <- function(frm, xvar, title) {
+PlotDistDensityNormal <- function(frm, xvar, title, ...,
+                                  adjust = 0.5,
+                                  curve_color = 'black',
+                                  normal_color = 'blue',
+                                  mean_color = 'blue',
+                                  sd_color = 'darkgray') {
   frm <- as.data.frame(frm)
   check_frame_args_list(# ...,
     frame = frm,
@@ -36,17 +52,21 @@ PlotDistDensityNormal <- function(frm, xvar, title) {
   dDist <- data.frame(x=seq(xmin,xmax,length.out=30))
   colnames(dDist) <- xvar
   dDist$density <- dnorm(dDist[[xvar]],mean=meanx,sd=sdx)
-  ggplot2::ggplot() +
+  plt = ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
                           mapping=ggplot2::aes_string(x=xvar),
-                          adjust=0.5) +
+                          color = curve_color,
+                          adjust=adjust) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='density'),
-                       color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx+sdx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx-sdx,color='blue',linetype=2) +
-    ggplot2::ggtitle(title)
+                       color=normal_color,linetype=2) +
+    ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
+  if(!is.null(sd_color)) {
+    plt = plt +
+      ggplot2::geom_vline(xintercept=meanx+sdx,color=sd_color,linetype=2) +
+      ggplot2::geom_vline(xintercept=meanx-sdx,color=sd_color,linetype=2)
+  }
+  plt +  ggplot2::ggtitle(title)
 }
 
 
@@ -66,16 +86,27 @@ PlotDistDensityNormal <- function(frm, xvar, title) {
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
 #' @param binWidth width of histogram bins
+#' @param hist_color color of empirical histogram
+#' @param normal_color color of matching theoretical normal
+#' @param mean_color color of mean line
+#' @param sd_color color of 1-standard deviation lines (can be NULL)
 #' @examples
 #'
 #' set.seed(52523)
 #' d <- data.frame(wt=100*rnorm(100))
 #' PlotDistCountNormal(d,'wt','example')
 #'
+#' # no sd lines
+#' PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
+#'
 #' @export
 PlotDistCountNormal <- function(frm, xvar, title,
                                 ...,
-                                binWidth=c()) {
+                                binWidth=c(),
+                                hist_color='black',
+                                normal_color='blue',
+                                mean_color='blue',
+                                sd_color='blue') {
   frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
@@ -121,16 +152,20 @@ PlotDistCountNormal <- function(frm, xvar, title,
 
   subtitle = paste('binWidth =', format(binWidth))
 
-  ggplot2::ggplot(data=dHist,
-                  mapping=ggplot2::aes_string(x=xvar,y='count',ymax='count')) +
-    ggplot2::geom_linerange(data=dTheory,ggplot2::aes(ymin=0),size=4,alpha=0.5,color='blue') +
-    ggplot2::geom_point(size=4) +
-    ggplot2::geom_linerange(ggplot2::aes(ymin=0),size=2) +
-    ggplot2::geom_line(data=dDist,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx+sdx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx-sdx,color='blue',linetype=2) +
-    ggplot2::ggtitle(title, subtitle=subtitle)
+  plt = ggplot2::ggplot(data=dHist,
+                        mapping=ggplot2::aes_string(x=xvar,y='count',ymax='count')) +
+    ggplot2::geom_linerange(data=dTheory,ggplot2::aes(ymin=0),size=4,alpha=0.5,color=normal_color) +
+    ggplot2::geom_point(color=hist_color, size=4) +
+    ggplot2::geom_linerange(ggplot2::aes(ymin=0),color=hist_color, size=2) +
+    ggplot2::geom_line(data=dDist,color=normal_color,linetype=2) +   # check this
+    ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
+
+  if(!is.null(sd_color)) {
+    plt = plt +
+      ggplot2::geom_vline(xintercept=meanx+sdx,color=sd_color,linetype=2) +
+      ggplot2::geom_vline(xintercept=meanx-sdx,color=sd_color,linetype=2)
+  }
+  plt + ggplot2::ggtitle(title, subtitle=subtitle)
 }
 
 #' Plot an empirical density with the matching beta distribution
@@ -143,14 +178,25 @@ PlotDistCountNormal <- function(frm, xvar, title,
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
+#' @param ... force later arguments to bind by name
+#' @param curve_color color for empirical density curve
+#' @param beta_color color for matching theoretical beta
+#' @param mean_color color for mean line
+#' @param sd_color color for 1-standard deviation lines (can be NULL)
 #' @examples
 #'
 #' set.seed(52523)
 #' d <- data.frame(wt=rbeta(100,shape1=1,shape2=0.5))
 #' PlotDistDensityBeta(d,'wt','example')
 #'
+#' # no sd lines
+#' PlotDistDensityBeta(d, 'wt', 'example', sd_color=NULL)
 #' @export
-PlotDistDensityBeta <- function(frm, xvar, title) {
+PlotDistDensityBeta <- function(frm, xvar, title, ...,
+                                curve_color='lightgray',
+                                beta_color='blue',
+                                mean_color='blue',
+                                sd_color='darkgray') {
   frm <- as.data.frame(frm)
   check_frame_args_list(#...,
     frame = frm,
@@ -172,19 +218,23 @@ PlotDistDensityBeta <- function(frm, xvar, title) {
   dDist <- data.frame(x=seq(1/30,1-1/30,length.out=30))
   colnames(dDist) <- xvar
   dDist$density <- dbeta(dDist[[xvar]],shape1=shape1,shape2=shape2)
-  ggplot2::ggplot() +
+  plt = ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
                           mapping=ggplot2::aes_string(x=xvar),
                           adjust=0.5,
-                          fill = "lightgray",
+                          fill = curve_color,
                           color = NA) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='density'),
-                       color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx+sdx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx-sdx,color='blue',linetype=2) +
-    ggplot2::ggtitle(title)
+                       color=beta_color,linetype=2) +
+    ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
+
+  if(!is.null(sd_color)) {
+    plt = plt +
+      ggplot2::geom_vline(xintercept=meanx+sdx,color=sd_color,linetype=2) +
+      ggplot2::geom_vline(xintercept=meanx-sdx,color=sd_color,linetype=2)
+  }
+  plt + ggplot2::ggtitle(title)
 }
 
 #' Plot distribution details as a histogram plus matching beta
@@ -203,6 +253,10 @@ PlotDistDensityBeta <- function(frm, xvar, title) {
 #' @param ... force later arguments to bind by name
 #' @param binwidth passed to geom_histogram(). If passed in, overrides bins.
 #' @param bins passed to geom_histogram(). Default: 30
+#' @param hist_color color of empirical histogram
+#' @param beta_color color of matching theoretical beta
+#' @param mean_color color of mean line
+#' @param sd_color color of 1-standard devation lines (can be NULL)
 #' @return ggplot2 plot
 #'
 #'
@@ -212,10 +266,16 @@ PlotDistDensityBeta <- function(frm, xvar, title) {
 #' d <- data.frame(wt=rbeta(100,shape1=0.5,shape2=0.5))
 #' PlotDistHistBeta(d,'wt','example')
 #'
+#' # no sd lines
+#' PlotDistHistBeta(d,'wt','example', sd_color=NULL)
 #' @export
 PlotDistHistBeta <- function(frm, xvar, title,
                              ...,
-                             binwidth = NULL, bins = 30) {
+                             binwidth = NULL, bins = 30,
+                             hist_color='darkgray',
+                             beta_color='blue',
+                             mean_color='blue',
+                             sd_color='darkgray') {
   frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
@@ -238,15 +298,19 @@ PlotDistHistBeta <- function(frm, xvar, title,
   colnames(dDist) <- xvar
   dDist$density <- dbeta(dDist[[xvar]],shape1=shape1,shape2=shape2)
   dDist$count <- length(x)*dDist$density/sum(dDist$densit)
-  ggplot2::ggplot() +
+  plt = ggplot2::ggplot() +
     ggplot2::geom_histogram(data=dPlot,
                             mapping=ggplot2::aes_string(x=xvar),
-                            binwidth = binwidth, bins = bins) +
+                            binwidth = binwidth, bins = bins,
+                            fill=hist_color, color=NA) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='count'),
-                       color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx+sdx,color='blue',linetype=2) +
-    ggplot2::geom_vline(xintercept=meanx-sdx,color='blue',linetype=2) +
-    ggplot2::ggtitle(title)
+                       color=beta_color,linetype=2) +
+    ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
+  if(!is.null(sd_color)) {
+    plt = plt +
+      ggplot2::geom_vline(xintercept=meanx+sdx,color=sd_color,linetype=2) +
+      ggplot2::geom_vline(xintercept=meanx-sdx,color=sd_color,linetype=2)
+  }
+  plt + ggplot2::ggtitle(title)
 }

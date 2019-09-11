@@ -4,7 +4,8 @@
 \alias{PlotDistDensityBeta}
 \title{Plot an empirical density with the matching beta distribution}
 \usage{
-PlotDistDensityBeta(frm, xvar, title)
+PlotDistDensityBeta(frm, xvar, title, ..., curve_color = "lightgray",
+  beta_color = "blue", mean_color = "blue", sd_color = "darkgray")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -12,6 +13,16 @@ PlotDistDensityBeta(frm, xvar, title)
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{title}{title to place on plot}
+
+\item{...}{force later arguments to bind by name}
+
+\item{curve_color}{color for empirical density curve}
+
+\item{beta_color}{color for matching theoretical beta}
+
+\item{mean_color}{color for mean line}
+
+\item{sd_color}{color for 1-standard deviation lines (can be NULL)}
 }
 \description{
 Compares empirical data to a beta distribution with the same mean and standard deviation.
@@ -26,4 +37,6 @@ set.seed(52523)
 d <- data.frame(wt=rbeta(100,shape1=1,shape2=0.5))
 PlotDistDensityBeta(d,'wt','example')
 
+# no sd lines
+PlotDistDensityBeta(d, 'wt', 'example', sd_color=NULL)
 }

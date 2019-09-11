@@ -4,7 +4,9 @@
 \alias{PlotDistDensityNormal}
 \title{Plot an empirical density with the matching normal distribution}
 \usage{
-PlotDistDensityNormal(frm, xvar, title)
+PlotDistDensityNormal(frm, xvar, title, ..., adjust = 0.5,
+  curve_color = "black", normal_color = "blue", mean_color = "blue",
+  sd_color = "darkgray")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -12,6 +14,18 @@ PlotDistDensityNormal(frm, xvar, title)
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{title}{title to place on plot}
+
+\item{...}{no unarmed argument, added to force named binding of later arguments.}
+
+\item{adjust}{passed to geom_density; controls smoothness of density plot}
+
+\item{curve_color}{color for empirical density curve}
+
+\item{normal_color}{color for theoretical matching normal}
+
+\item{mean_color}{color of mean line}
+
+\item{sd_color}{color for 1-standard deviation lines (can be NULL)}
 }
 \description{
 Compares empirical data to a normal distribution with the same mean and standard deviation.
@@ -26,4 +40,10 @@ set.seed(52523)
 d <- data.frame(wt=100*rnorm(100))
 PlotDistDensityNormal(d,'wt','example')
 
+# no sd lines
+PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
+
+}
+\seealso{
+\code{\link[ggplot2]{geom_density}}
 }

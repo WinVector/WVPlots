@@ -4,7 +4,9 @@
 \alias{PlotDistHistBeta}
 \title{Plot distribution details as a histogram plus matching beta}
 \usage{
-PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30)
+PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30,
+  hist_color = "lightgray", beta_color = "blue", mean_color = "blue",
+  sd_color = "darkgray")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -18,6 +20,14 @@ PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30)
 \item{binwidth}{passed to geom_histogram(). If passed in, overrides bins.}
 
 \item{bins}{passed to geom_histogram(). Default: 30}
+
+\item{hist_color}{color of empirical histogram}
+
+\item{beta_color}{color of matching theoretical beta}
+
+\item{mean_color}{color of mean line}
+
+\item{sd_color}{color of 1-standard devation lines (can be NULL)}
 }
 \value{
 ggplot2 plot
@@ -38,4 +48,6 @@ set.seed(52523)
 d <- data.frame(wt=rbeta(100,shape1=0.5,shape2=0.5))
 PlotDistHistBeta(d,'wt','example')
 
+# no sd lines
+PlotDistHistBeta(d,'wt','example', sd_color=NULL)
 }
