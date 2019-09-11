@@ -5,7 +5,10 @@
 \title{Plot the cumulative gain curve of a sort-order with extra notation}
 \usage{
 GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun,
-  ..., estimate_sig = FALSE, large_count = 1000)
+  ..., estimate_sig = FALSE, large_count = 1000,
+  model_color = "darkblue", wizard_color = "darkgreen",
+  shadow_color = "darkgray", crosshair_color = "red",
+  text_color = "black")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -25,6 +28,16 @@ GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun,
 \item{estimate_sig}{logical, if TRUE compute significance}
 
 \item{large_count}{numeric, upper bound target for number of plotting points}
+
+\item{model_color}{color for the model curve}
+
+\item{wizard_color}{color for the "wizard" (best possible) curve}
+
+\item{shadow_color}{color for the shaded area under the curve}
+
+\item{crosshair_color}{color for the annotation location lines}
+
+\item{text_color}{color for the annotation text}
 }
 \description{
 Plot the cumulative gain curve of a sort-order with extra notation.

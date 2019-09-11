@@ -4,7 +4,8 @@
 \alias{DiscreteDistribution}
 \title{Plot distribution of a single discrete numerical variable.}
 \usage{
-DiscreteDistribution(frm, xvar, title, ..., stem = TRUE)
+DiscreteDistribution(frm, xvar, title, ..., stem = TRUE,
+  color = "black")
 }
 \arguments{
 \item{frm}{data frame to get values from}
@@ -16,6 +17,8 @@ DiscreteDistribution(frm, xvar, title, ..., stem = TRUE)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{stem}{if TRUE add whisker/stems to plot}
+
+\item{color}{color of points and stems}
 }
 \description{
 Similar to calling \code{ClevelandDotPlot} with \code{sort = 0} on a numerical x variable that

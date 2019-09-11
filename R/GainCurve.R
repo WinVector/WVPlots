@@ -106,6 +106,9 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' @param estimate_sig logical, if TRUE compute significance.
 #' @param large_count numeric, upper bound target for number of plotting points.
 #' @param truth_target if not NULL compare to this scalar value.
+#' @param model_color color for the model curve
+#' @param wizard_color color for the "wizard" (best possible) curve
+#' @param shadow_color color for the shaded area under the curve
 #' @examples
 #'
 #' set.seed(34903490)
@@ -120,7 +123,10 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
                          estimate_sig = FALSE,
                          large_count = 1000,
-                         truth_target = NULL) {
+                         truth_target = NULL,
+                         model_color='darkblue',
+                         wizard_color='darkgreen',
+                         shadow_color='darkgray') {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -177,7 +183,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
                'wizard' = paste('wizard: sort by', truthVar))
   results$sort_criterion <- sortKeyM[results$sort_criterion]
   # rename levels of sort criterion
-  colorKey = as.character(sortKeyM) %:=% c('darkblue', 'darkgreen')
+  colorKey = as.character(sortKeyM) %:=% c(model_color, wizard_color)
   names(colorKey) = c(paste('model: sort by', xvar),
                       paste('wizard: sort by', truthVar))
   modelKey = names(colorKey)[[1]]
@@ -221,7 +227,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
       )
     ) +
     ggplot2::geom_abline(
-      color = "gray",
+      color = 'gray',
       slope = 1,
       intercept = 0
     ) +
@@ -233,8 +239,9 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
         ymax = pct_outcome,
         color = sort_criterion
       ),
-      alpha = 0.2,
-      color = NA
+      alpha = 0.3,
+      color = NA,
+      fill = shadow_color
     ) +
     ggplot2::ggtitle(
       paste0(
@@ -331,6 +338,9 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, upper bound target for number of plotting points
+#' @param model_color color for the model curve
+#' @param wizard_color color for the "wizard" (best possible) curve
+#' @param shadow_color color for the shaded area under the curve
 #'
 #' @seealso \code{\link{GainCurvePlot}}
 #'
@@ -349,7 +359,10 @@ makeRelativeGiniCostScorer <- function(costcol) {
 GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
                           ...,
                           estimate_sig = FALSE,
-                          large_count = 1000) {
+                          large_count = 1000,
+                          model_color='darkblue',
+                          wizard_color='darkgreen',
+                          shadow_color='darkgray') {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, costVar= costVar, truthVar = truthVar),
@@ -400,7 +413,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
 
 
   # rename levels of sort criterion
-  colorKey = c('model' = 'darkblue', 'wizard' = 'darkgreen')
+  colorKey = c('model' = model_color, 'wizard' = wizard_color)
   names(colorKey) = c(mName, wName)
   modelKey = mName
   results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
@@ -458,7 +471,8 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
         color = sort_criterion
       ),
       alpha = 0.2,
-      color = NA
+      color = NA,
+      fill = shadow_color
     ) +
     ggplot2::ggtitle(
       paste0(
@@ -522,7 +536,11 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, upper bound target for number of plotting points
-#'
+#' @param model_color color for the model curve
+#' @param wizard_color color for the "wizard" (best possible) curve
+#' @param shadow_color color for the shaded area under the curve
+#' @param crosshair_color color for the annotation location lines
+#' @param text_color color for the annotation text
 #' @seealso \code{\link{GainCurvePlot}}
 #'
 #' @examples
@@ -553,7 +571,12 @@ GainCurvePlotWithNotation = function(frame,
                                      labelfun,
                                      ...,
                                      estimate_sig = FALSE,
-                                     large_count = 1000) {
+                                     large_count = 1000,
+                                     model_color='darkblue',
+                                     wizard_color='darkgreen',
+                                     shadow_color='darkgray',
+                                     crosshair_color = 'red',
+                                     text_color='black') {
    frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -564,19 +587,22 @@ GainCurvePlotWithNotation = function(frame,
   label = labelfun(gainx, gainy_p)
   gp = GainCurvePlot(frame, xvar, truthVar, title,
                      estimate_sig = estimate_sig,
-                     large_count = large_count) +
+                     large_count = large_count,
+                     model_color = model_color,
+                     wizard_color = wizard_color,
+                     shadow_color = shadow_color) +
     ggplot2::geom_vline(xintercept = gainx,
-                        color = "red",
+                        color = crosshair_color,
                         alpha = 0.5) +
     ggplot2::geom_hline(yintercept = gainy,
-                        color = "red",
+                        color = crosshair_color,
                         alpha = 0.5) +
     ggplot2::scale_shape_discrete(guide = FALSE) +
     ggplot2::annotate(
       geom = "text",
       x = gainx + 0.01,
       y = gainy - 0.01,
-      color = "black",
+      color = text_color,
       label = label,
       vjust = "top",
       hjust = "left"

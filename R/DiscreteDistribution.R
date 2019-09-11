@@ -17,6 +17,7 @@ is_integral = function(x) {
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param stem if TRUE add whisker/stems to plot
+#' @param color color of points and stems
 #' @examples
 #'
 #' frmx = data.frame(x = rbinom(1000, 20, 0.5))
@@ -24,7 +25,7 @@ is_integral = function(x) {
 #'
 #' @export
 DiscreteDistribution = function(frm, xvar, title, ...,
-                                stem=TRUE) {
+                                stem=TRUE, color='black') {
   frm <- as.data.frame(frm)
   check_frame_args_list(...,
                         frame = frm,
@@ -43,6 +44,6 @@ DiscreteDistribution = function(frm, xvar, title, ...,
     geom="point"
   }
   ggplot2::ggplot(frm, ggplot2::aes_string(xvar, "unit")) +
-    ggplot2::stat_summary(fun.y=sum, fun.ymax=sum, fun.ymin=function(x){0}, geom=geom) +
+    ggplot2::stat_summary(fun.y=sum, fun.ymax=sum, fun.ymin=function(x){0}, geom=geom, color=color) +
     ggplot2::ggtitle(title)
 }

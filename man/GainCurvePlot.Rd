@@ -5,7 +5,8 @@
 \title{Plot the cumulative gain curve of a sort-order.}
 \usage{
 GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
-  large_count = 1000, truth_target = NULL)
+  large_count = 1000, truth_target = NULL, model_color = "darkblue",
+  wizard_color = "darkgreen", shadow_color = "darkgray")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -23,6 +24,12 @@ GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
 \item{large_count}{numeric, upper bound target for number of plotting points.}
 
 \item{truth_target}{if not NULL compare to this scalar value.}
+
+\item{model_color}{color for the model curve}
+
+\item{wizard_color}{color for the "wizard" (best possible) curve}
+
+\item{shadow_color}{color for the shaded area under the curve}
 }
 \description{
 Plot the cumulative gain curve of a sort-order.
