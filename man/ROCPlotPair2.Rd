@@ -6,7 +6,8 @@
 \usage{
 ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2,
   xvar2, truthVar2, truthTarget2, title, ..., estimate_sig = TRUE,
-  returnScores = FALSE, nrep = 100, parallelCluster = NULL)
+  returnScores = FALSE, nrep = 100, parallelCluster = NULL,
+  palette = "Dark2")
 }
 \arguments{
 \item{nm1}{name of first model}
@@ -40,6 +41,8 @@ ROCPlotPair2(nm1, frame1, xvar1, truthVar1, truthTarget1, nm2, frame2,
 \item{nrep}{number of permutation repetitions to estimate p values.}
 
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
+
+\item{palette}{name of Brewer palette to color curves (can be NULL)}
 }
 \description{
 Plot two receiver operating characteristic curves from different data frames.
@@ -47,6 +50,9 @@ Plot two receiver operating characteristic curves from different data frames.
 \details{
 Use this curve to compare model predictions to true outcome from two
 data frames, each of which has its own model predictions and true outcome columns.
+
+If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
 }
 \examples{
 

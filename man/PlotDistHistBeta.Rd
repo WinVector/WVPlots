@@ -5,7 +5,7 @@
 \title{Plot distribution details as a histogram plus matching beta}
 \usage{
 PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30,
-  hist_color = "lightgray", beta_color = "blue", mean_color = "blue",
+  hist_color = "darkgray", beta_color = "blue", mean_color = "blue",
   sd_color = "darkgray")
 }
 \arguments{

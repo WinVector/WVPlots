@@ -6,7 +6,8 @@
 \usage{
 ROCPlot(frame, xvar, truthVar, truthTarget, title, ...,
   estimate_sig = FALSE, returnScores = FALSE, nrep = 100,
-  parallelCluster = NULL)
+  parallelCluster = NULL, curve_color = "darkblue",
+  fill_color = "black", diag_color = "black")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -28,6 +29,12 @@ ROCPlot(frame, xvar, truthVar, truthTarget, title, ...,
 \item{nrep}{number of permutation repetitions to estimate p values.}
 
 \item{parallelCluster}{(optional) a cluster object created by package parallel or package snow.}
+
+\item{curve_color}{color of the ROC curve}
+
+\item{fill_color}{shading color for the area under the curve}
+
+\item{diag_color}{color for the AUC=0.5 line (x=y)}
 }
 \description{
 Plot receiver operating characteristic plot.

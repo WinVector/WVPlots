@@ -106,6 +106,9 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#' @param curve_color color of the ROC curve
+#' @param fill_color shading color for the area under the curve
+#' @param diag_color color for the AUC=0.5 line (x=y)
 #'
 #' @seealso \code{\link{PRPlot}}
 #'
@@ -123,7 +126,10 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     estimate_sig = FALSE,
                     returnScores = FALSE,
                     nrep = 100,
-                    parallelCluster = NULL) {
+                    parallelCluster = NULL,
+                    curve_color='darkblue',
+                    fill_color='black',
+                    diag_color='black') {
   # check and narrow frame
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -137,7 +143,6 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   predcol <- frame[[xvar]]
   rocList <- graphROC(predcol,outcol)
   auc <- rocList$area
-  palletName = "Dark2"
   aucsig <- NULL
   pString <- NULL
   subtitle <- NULL
@@ -162,23 +167,21 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          ggplot2::aes_string(x='FalsePositiveRate',
                                              ymax='TruePositiveRate',ymin=0),
-                         alpha=0.2,color=NA)
+                         alpha=0.2,color=NA, fill=fill_color)
   if(nrow(rocList$pointGraph)<=1000) {
     plot <- plot +
       ggplot2::geom_point(data=rocList$pointGraph,
                           ggplot2::aes_string(x='FalsePositiveRate',
                                               y='TruePositiveRate'),
-                          color='darkblue', alpha=0.5)
+                          color=curve_color, alpha=0.5)
   }
   plot <- plot +
     ggplot2::geom_line(data=rocList$lineGraph,
                        ggplot2::aes_string(x='FalsePositiveRate',
                                            y='TruePositiveRate'),
-                       color='darkblue') +
-    ggplot2::geom_abline(slope=1,intercept=0) +
+                       color=curve_color) +
+    ggplot2::geom_abline(slope=1,intercept=0,color=diag_color) +
     ggplot2::coord_fixed() +
-    ggplot2::scale_fill_brewer(palette=palletName) +
-    ggplot2::scale_color_brewer(palette=palletName) +
     ggplot2::ggtitle(paste0(title,'\n',
                             truthVar, '==', truthTarget, ' ~ ', xvar),
                      subtitle = subtitle) +
@@ -199,6 +202,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' The use case for this function is to compare the performance of two
 #' models when applied to a data set, where the predictions from both models
 #' are columns of the same data frame.
+#'
+#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
 #'
 #' @param frame data frame to get values from
 #' @param xvar1 name of the first independent (input or model) column in frame
@@ -232,7 +238,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                         estimate_sig=FALSE,
                         returnScores=FALSE,
                         nrep=100,
-                        parallelCluster=NULL) {
+                        parallelCluster=NULL,
+                        palette="Dark2") {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar1 = xvar1, xvar2 = xvar2, truthVar = truthVar),
@@ -275,27 +282,31 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 
   pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
   lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
-  palletName = "Dark2"
+  palletName = palette
   plot <- ggplot2::ggplot()
   if(nrow(pointGraph)<=1000) {
     plot <- plot + ggplot2::geom_point(data=pointGraph,
-                        ggplot2::aes_string(x='FalsePositiveRate',
-                                            y='TruePositiveRate',
-                                     color='model',shape='model'),
-                        alpha=0.5)
+                                       ggplot2::aes_string(x='FalsePositiveRate',
+                                                           y='TruePositiveRate',
+                                                           color='model',shape='model'),
+                                       alpha=0.5)
   }
   plot <- plot +
     ggplot2::geom_line(data=lineGraph,
                        ggplot2::aes_string(x='FalsePositiveRate',
                                            y='TruePositiveRate',
-                                    color='model',linetype='model')) +
+                                           color='model',linetype='model')) +
     ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
-    ggplot2::coord_fixed() +
-    ggplot2::scale_fill_brewer(palette=palletName) +
-    ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(paste0(title,'\n',
-                  truthVar, '==', truthTarget, ' ~ model'),
-                  subtitle = subtitle) +
+    ggplot2::coord_fixed()
+
+  if(!is.null(palette)) {
+    plot <- plot +
+      ggplot2::scale_fill_brewer(palette=palletName) +
+      ggplot2::scale_color_brewer(palette=palletName)
+  }
+  plot <- plot + ggplot2::ggtitle(paste0(title,'\n',
+                                         truthVar, '==', truthTarget, ' ~ model'),
+                                  subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
@@ -313,6 +324,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' Use this curve to compare model predictions to true outcome from two
 #' data frames, each of which has its own model predictions and true outcome columns.
 #'
+#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
+#'
 #' @param nm1 name of first model
 #' @param frame1 data frame to get values from
 #' @param xvar1 name of the first independent (input or model) column in frame
@@ -329,6 +343,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @param returnScores logical if TRUE return detailed permutedScores
 #' @param nrep number of permutation repetitions to estimate p values.
 #' @param parallelCluster (optional) a cluster object created by package parallel or package snow.
+#' @param palette name of Brewer palette to color curves (can be NULL)
 #'
 #' @seealso \code{\link{ROCPlot}}
 #'
@@ -353,7 +368,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                          estimate_sig= TRUE,
                          returnScores= FALSE,
                          nrep= 100,
-                         parallelCluster= NULL) {
+                         parallelCluster= NULL,
+                         palette="Dark2") {
   frame1 <- check_frame_args_list(...,
                                   frame = frame1,
                                   name_var_list = list(xvar1 = xvar1, truthVar1 = truthVar1),
@@ -403,7 +419,7 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   rocList2$lineGraph$dataset <- nm2
   pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
   lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
-  palletName = "Dark2"
+  palletName = palette
   plot <- ggplot2::ggplot()
   if(nrow(pointGraph)<=1000) {
     plot <- plot +
@@ -419,11 +435,15 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                                            y='TruePositiveRate',
                                            color='dataset',linetype='dataset')) +
     ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
-    ggplot2::coord_fixed() +
-    ggplot2::scale_fill_brewer(palette=palletName) +
-    ggplot2::scale_color_brewer(palette=palletName) +
-    ggplot2::ggtitle(title,
-                     subtitle = subtitle) +
+    ggplot2::coord_fixed()
+
+  if(!is.null(palette)) {
+    plot <- plot +
+      ggplot2::scale_fill_brewer(palette=palletName) +
+      ggplot2::scale_color_brewer(palette=palletName)
+  }
+  plot <- plot + ggplot2::ggtitle(title,
+                                  subtitle = subtitle) +
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
   if(returnScores) {
     return(list(plot=plot,
