@@ -4,7 +4,9 @@
 \alias{LogLogPlot}
 \title{Log-log plot}
 \usage{
-LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE)
+LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE,
+  point_color = "black", linear_color = "#018571",
+  quadratic_color = "#a6611a", smoothing_color = "blue")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -18,6 +20,14 @@ LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE)
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{use_coord_trans}{logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_y_log10()} (useful when there is not enough range to show ticks).}
+
+\item{point_color}{the color of the data points}
+
+\item{linear_color}{the color of the linear growth lines}
+
+\item{quadratic_color}{the color of the quadratic growth lines}
+
+\item{smoothing_color}{the color of the smoothing line through the data}
 }
 \description{
 Plot a trend on log-log paper.

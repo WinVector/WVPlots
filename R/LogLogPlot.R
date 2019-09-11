@@ -23,6 +23,10 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param use_coord_trans logical if TRUE, use coord_trans instead of \code{coord_trans(x = "log10", y = "log10")} instead of \code{scale_x_log10() + scale_y_log10()} (useful when there is not enough range to show ticks).
+#' @param point_color the color of the data points
+#' @param linear_color the color of the linear growth lines
+#' @param quadratic_color the color of the quadratic growth lines
+#' @param smoothing_color the color of the smoothing line through the data
 #' @examples
 #'
 #' set.seed(5326)
@@ -33,7 +37,11 @@
 #' @export
 LogLogPlot <- function(frame, xvar, yvar, title,
                        ...,
-                       use_coord_trans = FALSE) {
+                       use_coord_trans = FALSE,
+                       point_color = 'black',
+                       linear_color = '#018571',
+                       quadratic_color = '#a6611a',
+                       smoothing_color = 'blue') {
   frame <- as.data.frame(frame)
   check_frame_args_list(...,
                         frame = frame,
@@ -76,26 +84,26 @@ LogLogPlot <- function(frame, xvar, yvar, title,
 
       plt <- ggplot2::ggplot(data = frame,
                              ggplot2::aes(x = XVAR, y = YVAR)) +
-        ggplot2::geom_smooth(se = FALSE) +
-        ggplot2::geom_point() +
+        ggplot2::geom_smooth(color=smoothing_color, se = FALSE) +
+        ggplot2::geom_point(color=point_color) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = linear_trend),
-                           linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = linear_color, alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = (1/mult)*linear_trend),
-                           linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = linear_color, alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = mult*linear_trend),
-                           linetype = 2, color = "green", alpha=0.5) +
+                           linetype = 2, color = linear_color, alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = quadratic_trend),
-                           linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = quadratic_color, alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = (1/mult)*quadratic_trend),
-                           linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = quadratic_color, alpha=0.5) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = mult*quadratic_trend),
-                           linetype = 2, color = "red", alpha=0.5) +
+                           linetype = 2, color = quadratic_color, alpha=0.5) +
         ggplot2::ggtitle(title,
                          subtitle = paste0(
                            "linear and quadtratic growth rates shown as dashed lines",

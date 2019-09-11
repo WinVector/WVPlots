@@ -1,17 +1,30 @@
 #' Build a pair plot
 #'
+#' Creates a matrix of scatterplots, one for each possible pair of variables.
+#'
+#' If \code{palette} is NULL, and \code{group_var} is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+#' Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
 #'
 #' @param d data frame
 #' @param meas_vars the variables to be plotted
 #' @param title plot title
 #' @param ... not used, forces later arguments to bind by name
 #' @param group_var variable for grouping and colorcoding
+#' @param alpha alpha for points on plot
 #' @param palette name of a brewer palette (NULL for ggplot2 default coloring)
+#' @param point_color point color for monochrome plots (no grouping)
 #' @return a ggplot2 pair plot
 #'
 #' @examples
 #'
 #' PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
+#'
+#' # custom palette
+#' colormap = c('#a6611a', '#dfc27d', '#018571')
+#' PairPlot(iris, colnames(iris)[1:4], "Example plot",
+#'          group_var = "Species", palette=NULL) +
+#'          scale_color_manual(values=colormap)
 #'
 #' # no color-coding
 #' PairPlot(iris, colnames(iris)[1:4], "Example plot")
@@ -21,7 +34,9 @@
 PairPlot <- function(d, meas_vars,  title,
                      ...,
                      group_var = NULL,
-                     palette = "Dark2") {
+                     alpha = 1,
+                     palette = "Dark2",
+                     point_color = 'darkgray') {
   check_frame_args_list(...,
                         frame = d,
                         name_var_list = c(meas_vars, group_var),
@@ -61,9 +76,9 @@ PairPlot <- function(d, meas_vars,  title,
 
   if(length(group_var) == 1) {
     plt = plt +
-      ggplot2::geom_point(ggplot2::aes_string(color=group_var))
+      ggplot2::geom_point(ggplot2::aes_string(color=group_var), alpha=alpha)
   } else {
-    plt = plt + ggplot2::geom_point()
+    plt = plt + ggplot2::geom_point(alpha=alpha, color=point_color)
   }
 
   plt = plt +
@@ -72,7 +87,7 @@ PairPlot <- function(d, meas_vars,  title,
     ggplot2::ylab(NULL) +
     ggplot2::xlab(NULL)
 
-  if(length(palette) == 1) {
+  if(!is.null(palette)) {
     plt = plt + ggplot2::scale_color_brewer(palette = palette)
   }
 

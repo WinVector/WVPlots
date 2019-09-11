@@ -4,7 +4,8 @@
 \alias{PairPlot}
 \title{Build a pair plot}
 \usage{
-PairPlot(d, meas_vars, title, ..., group_var = NULL, palette = "Dark2")
+PairPlot(d, meas_vars, title, ..., group_var = NULL, alpha = 1,
+  palette = "Dark2", point_color = "darkgray")
 }
 \arguments{
 \item{d}{data frame}
@@ -17,17 +18,32 @@ PairPlot(d, meas_vars, title, ..., group_var = NULL, palette = "Dark2")
 
 \item{group_var}{variable for grouping and colorcoding}
 
+\item{alpha}{alpha for points on plot}
+
 \item{palette}{name of a brewer palette (NULL for ggplot2 default coloring)}
+
+\item{point_color}{point color for monochrome plots (no grouping)}
 }
 \value{
 a ggplot2 pair plot
 }
 \description{
-Build a pair plot
+Creates a matrix of scatterplots, one for each possible pair of variables.
+}
+\details{
+If \code{palette} is NULL, and \code{group_var} is non-NULL, plot colors will be chosen from the default ggplot2 palette.
+Setting \code{palette} to NULL
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
 }
 \examples{
 
 PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
+
+# custom palette
+colormap = c('#a6611a', '#dfc27d', '#018571')
+PairPlot(iris, colnames(iris)[1:4], "Example plot",
+         group_var = "Species", palette=NULL) +
+         scale_color_manual(values=colormap)
 
 # no color-coding
 PairPlot(iris, colnames(iris)[1:4], "Example plot")

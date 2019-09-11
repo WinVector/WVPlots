@@ -26,6 +26,8 @@
 #' @param large_count numeric, upper bound target for number of plotting points
 #' @param include_wizard logical, if TRUE plot the ideal or wizard plot.
 #' @param truth_target if not NULL compare to this scalar value.
+#' @param model_color color for the model curve
+#' @param wizard_color color for the "wizard" (best possible) curve
 #' @examples
 #'
 #' set.seed(34903490)
@@ -40,7 +42,9 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
                          ...,
                          large_count = 1000,
                          include_wizard = TRUE,
-                         truth_target = NULL) {
+                         truth_target = NULL,
+                         model_color='darkblue',
+                         wizard_color='darkgreen') {
   frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
@@ -91,7 +95,7 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
                 'wizard' = paste('wizard: sort by', truthVar))
   results$sort_criterion <- sortKeyM[results$sort_criterion]
   # rename levels of sort criterion
-  colorKey = as.character(sortKeyM) %:=% c('darkblue', 'darkgreen')
+  colorKey = as.character(sortKeyM) %:=% c(model_color, wizard_color)
   names(colorKey) = c(paste('model: sort by', xvar),
                       paste('wizard: sort by', truthVar))
   modelKey = names(colorKey)[[1]]

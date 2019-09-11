@@ -5,7 +5,8 @@
 \title{Plot the cumulative lift curve of a sort-order.}
 \usage{
 LiftCurvePlot(frame, xvar, truthVar, title, ..., large_count = 1000,
-  include_wizard = TRUE, truth_target = NULL)
+  include_wizard = TRUE, truth_target = NULL,
+  model_color = "darkblue", wizard_color = "darkgreen")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -23,6 +24,10 @@ LiftCurvePlot(frame, xvar, truthVar, title, ..., large_count = 1000,
 \item{include_wizard}{logical, if TRUE plot the ideal or wizard plot.}
 
 \item{truth_target}{if not NULL compare to this scalar value.}
+
+\item{model_color}{color for the model curve}
+
+\item{wizard_color}{color for the "wizard" (best possible) curve}
 }
 \description{
 Plot the cumulative lift curve of a sort-order.

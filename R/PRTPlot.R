@@ -39,6 +39,7 @@ calcPRT <- function(modelPredictions, yValues) {
 #' as a function of classifier score helps identify a score threshold that achieves
 #' an acceptable tradeoff between precision and recall, or enrichment and recall.
 #'
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
@@ -47,6 +48,7 @@ calcPRT <- function(modelPredictions, yValues) {
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param plotvars variables to plot, must be at least one of "precision", "recall" and "enrichment". Defaults to c("precision", "recall")
 #' @param thresholdrange range of thresholds to plot.
+#' @param linecolor line color for the plot
 #'
 #' @seealso \code{\link{PRPlot}}
 #'
@@ -65,7 +67,8 @@ calcPRT <- function(modelPredictions, yValues) {
 PRTPlot <- function(frame, xvar, truthVar, truthTarget, title,
                    ...,
                    plotvars = c("precision", "recall"),
-                   thresholdrange = c(-Inf, Inf)
+                   thresholdrange = c(-Inf, Inf),
+                   linecolor = 'black'
                    ) {
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -91,7 +94,7 @@ PRTPlot <- function(frame, xvar, truthVar, truthTarget, title,
                                      columnsToTakeFrom = plotvars)
 
   ggplot2::ggplot(prtlong, ggplot2::aes(x=threshold, y=value)) +
-    ggplot2::geom_line() +
+    ggplot2::geom_line(color=linecolor) +
     ggplot2::facet_wrap(~measure,
                         scale = "free_y",
                         ncol=1) +
