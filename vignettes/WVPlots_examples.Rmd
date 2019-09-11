@@ -258,15 +258,21 @@ WVPlots::ShadowHist(dframe, "x", "gp", title = "X values by region")
 ```
 
 `ShadowHist` uses the Brewer Dark2 palette by default. You can pass in another Brewer palette to change the color scheme.
-If you prefer all the histograms to be the same color, or to use a non-Brewer palette, set `palette = NULL` and pass in the color scheme directly. Here we plot all the histograms in the same color:
+If you prefer all the histograms to be the same color, set `monochrome=TRUE`.
 
 ```{r}
-ngp = length(unique(dframe$gp))
-
-WVPlots::ShadowHist(dframe, "x", "gp", title = "X values by region", palette = NULL) + 
-  ggplot2::scale_fill_manual(values = rep("darkblue", ngp))
+WVPlots::ShadowHist(dframe, "x", "gp", title = "X values by region", monochrome=TRUE) 
 ```
 
+To use a non-Brewer palette, such as viridis, or a manual color map, set `palette=NULL`. Here's an example of setting the color palette manually.
+
+```{r}
+colormap = c("#1F968BFF", "#29AF7FFF", "#55C667FF")
+
+WVPlots::ShadowHist(dframe, "x", "gp", title = "X values by region", palette=NULL) +
+  ggplot2::scale_fill_manual(values=colormap)
+
+```
 
 ## ScatterBox Plots
 
