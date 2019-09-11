@@ -7,7 +7,9 @@
 ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
   estimate_sig = FALSE, minimal_labels = TRUE, binwidth_x = NULL,
   binwidth_y = NULL, adjust_x = 1, adjust_y = 1, point_alpha = 0.5,
-  contour = FALSE)
+  contour = FALSE, point_color = "black", hist_color = "gray",
+  smoothing_color = "blue", density_color = "blue",
+  contour_color = "blue")
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -37,6 +39,16 @@ ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
 \item{point_alpha}{numeric opaqueness of the plot points}
 
 \item{contour}{logical if TRUE add a 2d contour plot}
+
+\item{point_color}{color for scatter plots}
+
+\item{hist_color}{fill color for marginal histograms}
+
+\item{smoothing_color}{color for smoothing line}
+
+\item{density_color}{color for marginal density plots}
+
+\item{contour_color}{color for contour plots}
 }
 \value{
 plot grid
@@ -80,6 +92,16 @@ WVPlots::ScatterHist(frm, "x", "y",
   smoothmethod = "gam",
   contour = TRUE)
 
+# Same plot with custom colors
+WVPlots::ScatterHist(frm, "x", "y",
+  title= "Example Fit",
+  smoothmethod = "gam",
+  contour = TRUE,
+  point_color = "#006d2c", # dark green
+  hist_color = "#6baed6", # medium blue
+  smoothing_color = "#54278f", # dark purple
+  density_color = "#08519c", # darker blue
+  contour_color = "#9e9ac8") # lighter purple
 }
 \seealso{
 \code{\link{ScatterHistC}}

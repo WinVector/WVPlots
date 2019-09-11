@@ -49,6 +49,11 @@ NULL
 #' @param adjust_y  numeric adjust y density plot
 #' @param point_alpha numeric opaqueness of the plot points
 #' @param contour logical if TRUE add a 2d contour plot
+#' @param point_color color for scatter plots
+#' @param hist_color fill color for marginal histograms
+#' @param smoothing_color color for smoothing line
+#' @param density_color color for marginal density plots
+#' @param contour_color color for contour plots
 #' @return plot grid
 #'
 #' @seealso \code{\link{ScatterHistC}}
@@ -64,6 +69,16 @@ NULL
 #'   smoothmethod = "gam",
 #'   contour = TRUE)
 #'
+#' # Same plot with custom colors
+#' WVPlots::ScatterHist(frm, "x", "y",
+#'   title= "Example Fit",
+#'   smoothmethod = "gam",
+#'   contour = TRUE,
+#'   point_color = "#006d2c", # dark green
+#'   hist_color = "#6baed6", # medium blue
+#'   smoothing_color = "#54278f", # dark purple
+#'   density_color = "#08519c", # darker blue
+#'   contour_color = "#9e9ac8") # lighter purple
 #' @export
 #'
 ScatterHist = function(frame, xvar, yvar, title, ...,
@@ -75,7 +90,12 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
                        adjust_x = 1,
                        adjust_y = 1,
                        point_alpha = 0.5,
-                       contour = FALSE) {
+                       contour = FALSE,
+                       point_color = "black",
+                       hist_color = "gray",
+                       smoothing_color = "blue",
+                       density_color = "blue",
+                       contour_color = "blue") {
   if((!requireNamespace("grid", quietly = TRUE)) ||
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHist requires the grid and gridExtra packages be installed")
@@ -125,21 +145,21 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   gSmooth = NULL
   if(smoothmethod != 'none') {
     if(smoothmethod=='identity') {
-      gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color='blue')
+      gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color=smoothing_color)
     } else {
-      gSmooth = ggplot2::geom_smooth(method=smoothmethod, se=FALSE)
+      gSmooth = ggplot2::geom_smooth(method=smoothmethod, color=smoothing_color, se=FALSE)
     }
   }
 
   # scatterplot of x and y
   plot_center = ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar,y=yvar)) +
-    ggplot2::geom_point(alpha=point_alpha) +
+    ggplot2::geom_point(color=point_color, alpha=point_alpha) +
     ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   if(!is.null(gSmooth)) {
     plot_center = plot_center + gSmooth
   }
   if(contour) {
-    plot_center = plot_center + ggplot2::geom_density2d()
+    plot_center = plot_center + ggplot2::geom_density2d(color=contour_color)
   }
 
   # get the data range, to help align plots
@@ -166,9 +186,9 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # 0,0,0,1 -- left side is shorter
   #
   plot_top <- ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
-    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
+    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
                             color="white", binwidth=binwidth_x, bins=30) +
-    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_x) +
+    ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_x) +
     ggplot2::coord_cartesian(xlim=xlims) +
     ggplot2::scale_x_continuous(expand = c(0,0))
   if(minimal_labels) {
@@ -200,9 +220,9 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
 
   # marginal density of y - plot on the right
   plot_right <- ggplot2::ggplot(frame, ggplot2::aes_string(x=yvar)) +
-    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill="gray",
+    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
                             color="white", binwidth=binwidth_y, bins=30) +
-    ggplot2::geom_line(stat='density',color="blue", adjust=adjust_y) +
+    ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_y) +
     # ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
     ggplot2::scale_x_continuous(expand = c(0,0)) + # , breaks= yBreaks) +
     ggplot2::coord_flip(xlim=ylims, expand = 0) # see: https://github.com/tidyverse/ggplot2/issues/2013
