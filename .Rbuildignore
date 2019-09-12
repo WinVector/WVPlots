@@ -18,3 +18,5 @@
 ^docs$
 ^_pkgdown\.yml$
 ^extras$
+^Examples$
+
