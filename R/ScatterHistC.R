@@ -35,6 +35,9 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
                         colorPalette="Dark2",
                         adjust_x = 1,
                         adjust_y = 1) {
+  if(is.null(colorPalette)) {
+    colorPalette = "Dark2"
+  }
   if((!requireNamespace("grid", quietly = TRUE)) ||
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistC requires the grid and gridExtra packages be installed")
@@ -216,6 +219,9 @@ ScatterHistN = function(frame, xvar, yvar, zvar, title, ...,
                         nclus=3,
                         adjust_x = 1,
                         adjust_y = 1) {
+  if(is.null(colorPalette)) {
+    colorPalette = "RdYlBu"
+  }
   if((!requireNamespace("grid", quietly = TRUE)) ||
      (!requireNamespace("gridExtra", quietly = TRUE))) {
     return("WVPlots::ScatterHistN requires the grid and gridExtra packages be installed")
