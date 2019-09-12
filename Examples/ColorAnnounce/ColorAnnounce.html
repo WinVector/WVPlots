@@ -1,0 +1,42 @@
+<h1 id="wvplots-1.1.2-on-cran">WVPlots 1.1.2 on CRAN</h1>
+<p>Nina Zumel 9/12/2019</p>
+<p>I have put a new release of the <a href="https://winvector.github.io/WVPlots/"><code>WVPlots</code> package</a> up on CRAN. This release adds palette and/or color controls to most of the plotting functions in the package.</p>
+<p><code>WVPlots</code> was originally a catch-all package of <code>ggplot2</code> visualizations that we at Win-Vector tended to use repeatedly, and wanted to turn into “one-liners.” A consequence of this is that the older visualizations had our preferred color schemes hard-coded in. More recent additions to the package sometimes had palette or color controls, but not in a consistent way. Making color controls more consistent has been a “todo” for a while—one that I’d been putting off. A recent request from user Brice Richard (thanks Brice!) has pushed me to finally make the changes.</p>
+<p>Most visualizations in the package that color-code by group now have a <code>palette</code> argument that takes the name of a Brewer palette for the graph; <code>Dark2</code> is usually the default. To use the <code>ggplot2</code> default palette, or to set an alternative palette, such as viridis or a manually specified color scheme, set <code>palette=NULL</code>. Here’s some examples:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(WVPlots)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">mpg =<span class="st"> </span>ggplot2<span class="op">::</span>mpg</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">mpg<span class="op">$</span>trans =<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">(.*$&quot;</span>, <span class="st">&#39;&#39;</span>, mpg<span class="op">$</span>trans)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># default palette: Dark2</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">DoubleDensityPlot</span>(mpg, <span class="st">&quot;cty&quot;</span>, <span class="st">&quot;trans&quot;</span>, </a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">                  <span class="st">&quot;City driving mpg by transmission type&quot;</span>)</a></code></pre></div>
+<p><img src="ColorAnnounce_files/figure-markdown_github/unnamed-chunk-1-1.png" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># set a different Brewer color palette</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">DoubleDensityPlot</span>(mpg, <span class="st">&quot;cty&quot;</span>, <span class="st">&quot;trans&quot;</span>, </a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">                  <span class="st">&quot;City driving mpg by transmission type&quot;</span>,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">                  <span class="dt">palette =</span> <span class="st">&quot;Accent&quot;</span>)</a></code></pre></div>
+<p><img src="ColorAnnounce_files/figure-markdown_github/unnamed-chunk-1-2.png" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># set a custom palette</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">cmap =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;auto&quot;</span> =<span class="st"> &quot;#7b3294&quot;</span>, <span class="st">&quot;manual&quot;</span> =<span class="st"> &quot;#008837&quot;</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">DoubleDensityPlot</span>(mpg, <span class="st">&quot;cty&quot;</span>, <span class="st">&quot;trans&quot;</span>, </a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">                  <span class="st">&quot;City driving mpg by transmission type&quot;</span>,</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">                  <span class="dt">palette=</span><span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span>cmap) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span>cmap)</a></code></pre></div>
+<p><img src="ColorAnnounce_files/figure-markdown_github/unnamed-chunk-1-3.png" /></p>
+<p>For other plots, the user can now specify the desired color for different elements of the graph.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">title =<span class="st"> &quot;Count of cars by number of carburetors and cylinders&quot;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># default fill: darkblue</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">ShadowPlot</span>(mtcars, <span class="st">&quot;carb&quot;</span>, <span class="st">&quot;cyl&quot;</span>,</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">           <span class="dt">title =</span> title)</a></code></pre></div>
+<p><img src="ColorAnnounce_files/figure-markdown_github/unnamed-chunk-2-1.png" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># specify fill</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">ShadowPlot</span>(mtcars, <span class="st">&quot;carb&quot;</span>, <span class="st">&quot;cyl&quot;</span>,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">           <span class="dt">title =</span> title,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">           <span class="dt">fillcolor =</span> <span class="st">&quot;#a6611a&quot;</span>)</a></code></pre></div>
+<p><img src="ColorAnnounce_files/figure-markdown_github/unnamed-chunk-2-2.png" /></p>
+<p>We hope that these changes make <code>WVPlots</code> even more useful to our users. For some examples of several of the visualizations in <code>WVPlots</code>, see this <a href="https://winvector.github.io/WVPlots/articles/WVPlots_examples.html">example vignette</a>. For the complete list of visualizations, see the <a href="https://winvector.github.io/WVPlots/reference/index.html">reference page</a>.</p>
