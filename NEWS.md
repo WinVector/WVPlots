@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.0 2019-09-13
+
+ * Bring in rqdatatable.
+ 
 # WVPlots 1.1.2 2019-09-10
 
  * Allowed palette controls on more plots.
