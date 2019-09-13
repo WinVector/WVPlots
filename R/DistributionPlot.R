@@ -229,7 +229,8 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
   shape2 <- (1-meanx)*(meanx*(1-meanx)/varx-1)
   checkM <- shape1/(shape1+shape2)
   checkV <- shape1*shape2/((shape1+shape2)^2*(shape1+shape2+1))
-  dDist <- data.frame(x=seq(1/30,1-1/30,length.out=30))
+  # dDist <- data.frame(x=seq(1/30,1-1/30,length.out=30))
+  dDist <- data.frame(x=seq(1/200,1-1/200,length.out=100))
   colnames(dDist) <- xvar
   dDist$density <- dbeta(dDist[[xvar]],shape1=shape1,shape2=shape2)
   plt = ggplot2::ggplot() +
@@ -265,7 +266,6 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
 #' @param ... force later arguments to bind by name
-#' @param binwidth passed to geom_histogram(). If passed in, overrides bins.
 #' @param bins passed to geom_histogram(). Default: 30
 #' @param hist_color color of empirical histogram
 #' @param beta_color color of matching theoretical beta
@@ -299,7 +299,7 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
 #' @export
 PlotDistHistBeta <- function(frm, xvar, title,
                              ...,
-                             binwidth = NULL, bins = 30,
+                             bins = 30,
                              hist_color='darkgray',
                              beta_color='blue',
                              mean_color='blue',
@@ -322,14 +322,20 @@ PlotDistHistBeta <- function(frm, xvar, title,
   shape2 <- (1-meanx)*(meanx*(1-meanx)/varx-1)
   checkM <- shape1/(shape1+shape2)
   checkV <- shape1*shape2/((shape1+shape2)^2*(shape1+shape2+1))
-  dDist <- data.frame(x=seq(1/200,1-1/200,length.out=50))
+  dDist <- data.frame(x=seq(1/200,1-1/200,length.out=100))
   colnames(dDist) <- xvar
   dDist$density <- dbeta(dDist[[xvar]],shape1=shape1,shape2=shape2)
-  dDist$count <- length(x)*dDist$density/sum(dDist$densit)
+  # each observation adds 1/bins area to the histogram, as the range
+  # is 0:1. So rescale density to have similar area for presentation.
+
+  histogramArea = length(x)*(1/bins) # each obsevation grows one bin, bin-width = width([0, 1])/bins
+  dDist$count = histogramArea*dDist$density
+
+
   plt = ggplot2::ggplot() +
     ggplot2::geom_histogram(data=dPlot,
                             mapping=ggplot2::aes_string(x=xvar),
-                            binwidth = binwidth, bins = bins,
+                            bins = bins,
                             fill=hist_color, color=NA) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='count'),

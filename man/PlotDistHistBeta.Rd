@@ -4,7 +4,7 @@
 \alias{PlotDistHistBeta}
 \title{Plot empirical rate data as a histogram plus matching beta}
 \usage{
-PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30,
+PlotDistHistBeta(frm, xvar, title, ..., bins = 30,
   hist_color = "darkgray", beta_color = "blue", mean_color = "blue",
   sd_color = "darkgray")
 }
@@ -16,8 +16,6 @@ PlotDistHistBeta(frm, xvar, title, ..., binwidth = NULL, bins = 30,
 \item{title}{title to place on plot}
 
 \item{...}{force later arguments to bind by name}
-
-\item{binwidth}{passed to geom_histogram(). If passed in, overrides bins.}
 
 \item{bins}{passed to geom_histogram(). Default: 30}
 
