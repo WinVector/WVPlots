@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.1 2019-10-04
+
+ * Fix PlotDistCountBinomial.
+ 
 # WVPlots 1.2.0 2019-10-03
 
  * Bring in rqdatatable for data aggregation tasks.

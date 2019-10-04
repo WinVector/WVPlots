@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -180,14 +180,14 @@ allows the user to choose a non-Brewer palette, for example with <code><a href='
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='img'><img src='PairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>, <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</div><div class='img'><img src='PairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># custom palette</span>
 <span class='no'>colormap</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'#a6611a'</span>, <span class='st'>'#dfc27d'</span>, <span class='st'>'#018571'</span>)
 <span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>,
          <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>palette</span><span class='kw'>=</span><span class='kw'>NULL</span>) +
-         <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span>(<span class='kw'>values</span><span class='kw'>=</span><span class='no'>colormap</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='img'><img src='PairPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+         <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span>(<span class='kw'>values</span><span class='kw'>=</span><span class='no'>colormap</span>)</div><div class='img'><img src='PairPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no color-coding</span>
-<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Column 'rqdatatable_temp_one_col' does not exist to remove</span></div><div class='img'><img src='PairPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>)</div><div class='img'><img src='PairPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

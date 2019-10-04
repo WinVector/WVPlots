@@ -84,7 +84,7 @@ PlotDistCountBinomial = function(frm, xvar, trial_size, title, ...,
   # empirical counts
   demp = frm %.>%
     extend(., one=1) %.>%
-    project(., number_of_observations = sum(one), groupby="n_female") %.>%
+    project(., number_of_observations = sum(one), groupby=xvar) %.>%
     as.data.frame(.)
 
   pstr = format(p, digits=3)
