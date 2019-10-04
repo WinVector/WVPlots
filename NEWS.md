@@ -1,5 +1,5 @@
 
-# WVPlots 1.2.0 2019-09-14
+# WVPlots 1.2.0 2019-10-03
 
  * Bring in rqdatatable for data aggregation tasks.
  

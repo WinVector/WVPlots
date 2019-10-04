@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot an empirical density with the matching beta distribution — PlotDistDensityBeta • WVPlots</title>
+<title>Plot empirical rate data as a density with the matching beta distribution — PlotDistDensityBeta • WVPlots</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot an empirical density with the matching beta distribution — PlotDistDensityBeta" />
-<meta property="og:description" content="Compares empirical data to a beta distribution with the same mean and standard deviation." />
+<meta property="og:title" content="Plot empirical rate data as a density with the matching beta distribution — PlotDistDensityBeta" />
+<meta property="og:description" content="Compares empirical rate data to a beta distribution with the same mean and standard deviation." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -120,13 +120,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot an empirical density with the matching beta distribution</h1>
+    <h1>Plot empirical rate data as a density with the matching beta distribution</h1>
     <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/DistributionPlot.R'><code>R/DistributionPlot.R</code></a></small>
     <div class="hidden name"><code>PlotDistDensityBeta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compares empirical data to a beta distribution with the same mean and standard deviation.</p>
+    <p>Compares empirical rate data to a beta distribution with the same mean and standard deviation.</p>
     </div>
 
     <pre class="usage"><span class='fu'>PlotDistDensityBeta</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>curve_color</span> <span class='kw'>=</span> <span class='st'>"lightgray"</span>,
@@ -177,10 +177,24 @@ and plus/minus one standard deviation from the mean.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>wt</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Beta.html'>rbeta</a></span>(<span class='fl'>100</span>,<span class='kw'>shape1</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>shape2</span><span class='kw'>=</span><span class='fl'>0.5</span>))
-<span class='fu'>PlotDistDensityBeta</span>(<span class='no'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>)</div><div class='img'><img src='PlotDistDensityBeta-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>
+<span class='no'>pgray</span> <span class='kw'>=</span> <span class='fl'>0.1</span>  <span class='co'># rate of gray horses in the population</span>
+<span class='no'>herd_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>N</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>25</span>, <span class='fl'>50</span>))
+<span class='no'>ngray</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='no'>N</span>, <span class='no'>herd_size</span>, <span class='no'>pgray</span>)
+<span class='no'>hdata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_gray</span><span class='kw'>=</span><span class='no'>ngray</span>, <span class='kw'>herd_size</span><span class='kw'>=</span><span class='no'>herd_size</span>)
+
+<span class='co'># observed rate of gray horses in each herd</span>
+<span class='no'>hdata</span>$<span class='no'>rate_gray</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>hdata</span>, <span class='no'>ngray</span>/<span class='no'>herd_size</span>)
+
+<span class='no'>title</span> <span class='kw'>=</span> <span class='st'>"Observed prevalence of gray horses in population"</span>
+
+<span class='fu'>PlotDistDensityBeta</span>(<span class='no'>hdata</span>, <span class='st'>"rate_gray"</span>, <span class='no'>title</span>) +
+  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span>(<span class='kw'>xintercept</span> <span class='kw'>=</span> <span class='no'>pgray</span>, <span class='kw'>linetype</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>color</span><span class='kw'>=</span><span class='st'>"maroon"</span>) +
+  <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotate.html'>annotate</a></span>(<span class='st'>"text"</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>pgray</span>+<span class='fl'>0.01</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>0.01</span>, <span class='kw'>hjust</span><span class='kw'>=</span><span class='st'>"left"</span>,
+                    <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"True prevalence ="</span>, <span class='no'>pgray</span>))</div><div class='img'><img src='PlotDistDensityBeta-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no sd lines</span>
-<span class='fu'>PlotDistDensityBeta</span>(<span class='no'>d</span>, <span class='st'>'wt'</span>, <span class='st'>'example'</span>, <span class='kw'>sd_color</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='img'><img src='PlotDistDensityBeta-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>PlotDistDensityBeta</span>(<span class='no'>hdata</span>, <span class='st'>"rate_gray"</span>, <span class='no'>title</span>,
+                    <span class='kw'>sd_color</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='img'><img src='PlotDistDensityBeta-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -200,7 +214,7 @@ and plus/minus one standard deviation from the mean.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

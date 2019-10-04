@@ -1,3 +1,7 @@
+
+#' @importFrom stats dbinom
+NULL
+
 #' Plot count data with a theoretical binomial
 #'
 #' Compares empirical count data to a binomial distribution
@@ -73,9 +77,10 @@ PlotDistCountBinomial = function(frm, xvar, trial_size, title, ...,
 
   # theoretical counts (not necessarily integral)
   dtheory = data.frame(x = 0:trial_size,
-                       y = ntrials*dbinom(0:trial_size, trial_size, p))
+                       y = ntrials*stats::dbinom(0:trial_size, trial_size, p))
   colnames(dtheory) = c(xvar, "number_of_observations")
 
+  one = 1 # don't look unbound
   # empirical counts
   demp = frm %.>%
     extend(., one=1) %.>%
