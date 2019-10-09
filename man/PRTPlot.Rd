@@ -4,16 +4,16 @@
 \alias{PRTPlot}
 \title{Plot Precision-Recall or Enrichment-Recall as a function of threshold.}
 \usage{
-PRTPlot(frame, xvar, truthVar, truthTarget, title, ...,
+PRTPlot(frame, predVar, truthVar, truthTarget, title, ...,
   plotvars = c("precision", "recall"), thresholdrange = c(-Inf, Inf),
   linecolor = "black")
 }
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{predVar}{name of the column of predicted scores}
 
-\item{truthVar}{name of the dependent (output or result to be modeled) column in frame}
+\item{truthVar}{name of the column of actual outcomes in frame}
 
 \item{truthTarget}{value we consider to be positive}
 
@@ -21,14 +21,14 @@ PRTPlot(frame, xvar, truthVar, truthTarget, title, ...,
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{plotvars}{variables to plot, must be at least one of "precision", "recall" and "enrichment". Defaults to c("precision", "recall")}
+\item{plotvars}{variables to plot, must be at least one of the measures listed below. Defaults to c("precision", "recall")}
 
 \item{thresholdrange}{range of thresholds to plot.}
 
 \item{linecolor}{line color for the plot}
 }
 \description{
-Plot Precision-Recall or Enrichment-Recall as a function of threshold.
+Plot classifier performance metrics as a function of threshold.
 }
 \details{
 For a classifier, the precision is what fraction of predicted positives
@@ -37,19 +37,37 @@ classifier finds, and the enrichment is the ratio of classifier precision to
 the average rate of positives. Plotting precision-recall or enrichment-recall
 as a function of classifier score helps identify a score threshold that achieves
 an acceptable tradeoff between precision and recall, or enrichment and recall.
+
+In addition to precision/recall, \code{PRTPlot} can plot a number of other metrics:
+
+\itemize{
+  \item{precision: fraction of predicted positives that are true positives}
+  \item{recall: fraction of true positives that were predicted to be true}
+  \item{enrichment: ratio of classifier precision to prevalence of positive class}
+  \item{sensitivity: the same as recall (also known as the true negative rate)}
+  \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
+  \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
+}
+
+For example, plotting sensitivity/false_positive_rate as functions of threshold will "unroll" an ROC Plot.
+
+Plots are in a single column, in the order specified by \code{plotvars}.
 }
 \examples{
 
-set.seed(34903490)
-x = rnorm(50)
-y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
-frm$absY <- abs(frm$y)
-frm$posY = frm$y > 0
-frm$costX = 1
-WVPlots::PRTPlot(frm, "x", "yC", TRUE, title="Example Precision-Recall threshold plot")
+df <- iris
+df$isVersicolor <- with(df, Species=='versicolor')
+model = glm(isVersicolor ~ Petal.Length + Petal.Width + Sepal.Length + Sepal.Width,
+            data=df, family=binomial)
+df$pred = predict(model, newdata=df, type="response")
+
+WVPlots::PRTPlot(df, "pred", "isVersicolor", TRUE, title="Example Precision-Recall threshold plot")
+
+WVPlots::PRTPlot(df, "pred", "isVersicolor", TRUE,
+                 plotvars = c("sensitivity", "specificity", "false_positive_rate"),
+                 title="Sensitivity/specificity/FPR as functions of threshold")
 
 }
 \seealso{
-\code{\link{PRPlot}}
+\code{\link{PRPlot}}, \code{\link{ROCPlot}}
 }
