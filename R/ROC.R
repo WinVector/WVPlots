@@ -110,7 +110,7 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param fill_color shading color for the area under the curve
 #' @param diag_color color for the AUC=0.5 line (x=y)
 #'
-#' @seealso \code{\link{PRPlot}}
+#' @seealso \code{\link{PRTPlot}}
 #'
 #' @examples
 #'

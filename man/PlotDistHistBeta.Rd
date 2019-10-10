@@ -50,7 +50,7 @@ ngray = rbinom(N, herd_size, pgray)
 hdata = data.frame(n_gray=ngray, herd_size=herd_size)
 
 # observed rate of gray horses in each herd
-hdata$rate_gray = with(hdata, ngray/herd_size)
+hdata$rate_gray = with(hdata, n_gray/herd_size)
 
 title = "Observed prevalence of gray horses in population"
 

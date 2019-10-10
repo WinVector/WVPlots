@@ -44,7 +44,7 @@ In addition to precision/recall, \code{PRTPlot} can plot a number of other metri
   \item{precision: fraction of predicted positives that are true positives}
   \item{recall: fraction of true positives that were predicted to be true}
   \item{enrichment: ratio of classifier precision to prevalence of positive class}
-  \item{sensitivity: the same as recall (also known as the true negative rate)}
+  \item{sensitivity: the same as recall (also known as the true positive rate)}
   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
 }
