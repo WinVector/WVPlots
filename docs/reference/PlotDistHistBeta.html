@@ -194,7 +194,7 @@ The binwidth can also be passed in instead of the number of bins.</p>
 <span class='no'>hdata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_gray</span><span class='kw'>=</span><span class='no'>ngray</span>, <span class='kw'>herd_size</span><span class='kw'>=</span><span class='no'>herd_size</span>)
 
 <span class='co'># observed rate of gray horses in each herd</span>
-<span class='no'>hdata</span>$<span class='no'>rate_gray</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>hdata</span>, <span class='no'>ngray</span>/<span class='no'>herd_size</span>)
+<span class='no'>hdata</span>$<span class='no'>rate_gray</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>hdata</span>, <span class='no'>n_gray</span>/<span class='no'>herd_size</span>)
 
 <span class='no'>title</span> <span class='kw'>=</span> <span class='st'>"Observed prevalence of gray horses in population"</span>
 

@@ -1,7 +1,8 @@
 
-# WVPlots 1.2.1 2019-10-04
+# WVPlots 1.2.1 2019-10-09
 
  * Fix PlotDistCountBinomial.
+ * More plots, adjust plots.
  
 # WVPlots 1.2.0 2019-10-03
 
