@@ -31,7 +31,7 @@ NULL
 #' @export
 PlotDistDensityNormal <- function(frm, xvar, title, ...,
                                   adjust = 0.5,
-                                  curve_color = 'black',
+                                  curve_color = 'lightgray',
                                   normal_color = 'blue',
                                   mean_color = 'blue',
                                   sd_color = 'darkgray') {
@@ -55,7 +55,8 @@ PlotDistDensityNormal <- function(frm, xvar, title, ...,
   plt = ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
                           mapping=ggplot2::aes_string(x=xvar),
-                          color = curve_color,
+                          fill = curve_color,
+                          color = NA,
                           adjust=adjust) +
     ggplot2::geom_line(data=dDist,
                        mapping=ggplot2::aes_string(x=xvar,y='density'),
