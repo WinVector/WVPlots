@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.2 2019-10-29
+
+ * Fix typo in loglog plot (and remove sig presentation).
+
 # WVPlots 1.2.1 2019-10-12
 
  * Fix PlotDistCountBinomial.
