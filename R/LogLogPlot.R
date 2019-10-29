@@ -43,6 +43,8 @@ LogLogPlot <- function(frame, xvar, yvar, title,
                        quadratic_color = '#a6611a',
                        smoothing_color = 'blue') {
   frame <- as.data.frame(frame)
+  frame[[xvar]] <- 1.0*frame[[xvar]]
+  frame[[yvar]] <- 1.0*frame[[yvar]]
   check_frame_args_list(...,
                         frame = frame,
                         name_var_list = list(xvar = xvar, yvar = yvar),
@@ -105,10 +107,7 @@ LogLogPlot <- function(frame, xvar, yvar, title,
                            ggplot2::aes(y = mult*quadratic_trend),
                            linetype = 2, color = quadratic_color, alpha=0.5) +
         ggplot2::ggtitle(title,
-                         subtitle = paste0(
-                           "linear and quadtratic growth rates shown as dashed lines",
-                           "\nsignificance of positive quadratic trend component: ",
-                           ps))
+                         subtitle = "linear and quadratic growth rates shown as dashed lines")
       if(use_coord_trans) {
         plt <- plt +
           ggplot2::coord_trans(x = "log10", y = "log10")
