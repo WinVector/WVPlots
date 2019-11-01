@@ -1,5 +1,5 @@
 
-# WVPlots 1.2.2 2019-10-29
+# WVPlots 1.2.2 2019-11-01
 
  * Fix typo in loglog plot (and remove sig presentation).
 
