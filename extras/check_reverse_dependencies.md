@@ -8,13 +8,13 @@ package = "WVPlots"
 date()
 ```
 
-    ## [1] "Sat Oct 12 12:18:41 2019"
+    ## [1] "Sun Nov  3 06:47:21 2019"
 
 ``` r
 packageVersion(package)
 ```
 
-    ## [1] '1.2.1'
+    ## [1] '1.2.2'
 
 ``` r
 parallelCluster <- NULL
@@ -33,7 +33,7 @@ setwd(td)
 print(td)
 ```
 
-    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//RtmpgMCQPB"
+    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//Rtmp2IP8mh"
 
 ``` r
 options(repos = c(CRAN="https://cloud.r-project.org"))
