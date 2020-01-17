@@ -252,7 +252,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
         xvar),
       subtitle=paste0(
         'Gini score: ',
-        format(idealArea, digits = 2),
+        format(modelArea, digits = 2),
         ', relative Gini score: ',
         format(relGiniScore, digits = 2),
         pString
@@ -483,7 +483,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
         xvar),
       subtitle=paste0(
         'Gini score: ',
-        format(idealArea, digits = 2),
+        format(modelArea, digits = 2),
         ', relative Gini score: ',
         format(relGiniScore, digits = 2),
         pString
