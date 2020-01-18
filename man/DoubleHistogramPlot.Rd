@@ -4,8 +4,15 @@
 \alias{DoubleHistogramPlot}
 \title{Plot two histograms conditioned on an outcome variable.}
 \usage{
-DoubleHistogramPlot(frame, xvar, truthVar, title, ..., palette = "Dark2",
-  breaks = 40)
+DoubleHistogramPlot(
+  frame,
+  xvar,
+  truthVar,
+  title,
+  ...,
+  palette = "Dark2",
+  breaks = 40
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

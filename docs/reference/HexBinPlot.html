@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.3</span>
       </span>
     </div>
 
@@ -129,8 +129,18 @@
     <p>Build a hex bin plot with rational color coding.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>HexBinPlot</span>(<span class='no'>d</span>, <span class='no'>xvar</span>, <span class='no'>yvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>lightcolor</span> <span class='kw'>=</span> <span class='st'>"#deebf7"</span>,
-  <span class='kw'>darkcolor</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>HexBinPlot</span>(
+  <span class='no'>d</span>,
+  <span class='no'>xvar</span>,
+  <span class='no'>yvar</span>,
+  <span class='no'>title</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>lightcolor</span> <span class='kw'>=</span> <span class='st'>"#deebf7"</span>,
+  <span class='kw'>darkcolor</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

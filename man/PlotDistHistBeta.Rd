@@ -4,9 +4,17 @@
 \alias{PlotDistHistBeta}
 \title{Plot empirical rate data as a histogram plus matching beta}
 \usage{
-PlotDistHistBeta(frm, xvar, title, ..., bins = 30,
-  hist_color = "darkgray", beta_color = "blue", mean_color = "blue",
-  sd_color = "darkgray")
+PlotDistHistBeta(
+  frm,
+  xvar,
+  title,
+  ...,
+  bins = 30,
+  hist_color = "darkgray",
+  beta_color = "blue",
+  mean_color = "blue",
+  sd_color = "darkgray"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

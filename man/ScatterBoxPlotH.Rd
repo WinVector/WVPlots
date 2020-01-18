@@ -4,8 +4,17 @@
 \alias{ScatterBoxPlotH}
 \title{Plot a scatter box plot in horizontal mode.}
 \usage{
-ScatterBoxPlotH(frm, xvar, yvar, title, ..., pt_alpha = 0.3,
-  pt_color = "black", box_color = "black", box_fill = "lightgray")
+ScatterBoxPlotH(
+  frm,
+  xvar,
+  yvar,
+  title,
+  ...,
+  pt_alpha = 0.3,
+  pt_color = "black",
+  box_color = "black",
+  box_fill = "lightgray"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

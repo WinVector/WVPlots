@@ -4,8 +4,18 @@
 \alias{HexBinPlot}
 \title{Build a hex bin plot}
 \usage{
-HexBinPlot(d, xvar, yvar, title, ..., lightcolor = "#deebf7",
-  darkcolor = "#000000", bins = 30, binwidth = NULL, na.rm = FALSE)
+HexBinPlot(
+  d,
+  xvar,
+  yvar,
+  title,
+  ...,
+  lightcolor = "#deebf7",
+  darkcolor = "#000000",
+  bins = 30,
+  binwidth = NULL,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{d}{data frame}

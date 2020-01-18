@@ -4,8 +4,15 @@
 \alias{DoubleDensityPlot}
 \title{Plot two density plots conditioned on an outcome variable.}
 \usage{
-DoubleDensityPlot(frame, xvar, truthVar, title, ..., truth_target = NULL,
-  palette = "Dark2")
+DoubleDensityPlot(
+  frame,
+  xvar,
+  truthVar,
+  title,
+  ...,
+  truth_target = NULL,
+  palette = "Dark2"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

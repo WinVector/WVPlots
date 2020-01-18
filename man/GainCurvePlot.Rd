@@ -4,9 +4,19 @@
 \alias{GainCurvePlot}
 \title{Plot the cumulative gain curve of a sort-order.}
 \usage{
-GainCurvePlot(frame, xvar, truthVar, title, ..., estimate_sig = FALSE,
-  large_count = 1000, truth_target = NULL, model_color = "darkblue",
-  wizard_color = "darkgreen", shadow_color = "darkgray")
+GainCurvePlot(
+  frame,
+  xvar,
+  truthVar,
+  title,
+  ...,
+  estimate_sig = FALSE,
+  large_count = 1000,
+  truth_target = NULL,
+  model_color = "darkblue",
+  wizard_color = "darkgreen",
+  shadow_color = "darkgray"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

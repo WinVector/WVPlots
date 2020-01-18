@@ -4,9 +4,18 @@
 \alias{LogLogPlot}
 \title{Log-log plot}
 \usage{
-LogLogPlot(frame, xvar, yvar, title, ..., use_coord_trans = FALSE,
-  point_color = "black", linear_color = "#018571",
-  quadratic_color = "#a6611a", smoothing_color = "blue")
+LogLogPlot(
+  frame,
+  xvar,
+  yvar,
+  title,
+  ...,
+  use_coord_trans = FALSE,
+  point_color = "black",
+  linear_color = "#018571",
+  quadratic_color = "#a6611a",
+  smoothing_color = "blue"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

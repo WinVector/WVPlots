@@ -4,8 +4,15 @@
 \alias{plotlyROC}
 \title{Use \code{plotly} to produce a ROC plot.}
 \usage{
-plotlyROC(d, predCol, outcomeCol, outcomeTarget, title, ...,
-  estimate_sig = FALSE)
+plotlyROC(
+  d,
+  predCol,
+  outcomeCol,
+  outcomeTarget,
+  title,
+  ...,
+  estimate_sig = FALSE
+)
 }
 \arguments{
 \item{d}{dataframe}

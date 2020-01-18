@@ -4,8 +4,16 @@
 \alias{ClevelandDotPlot}
 \title{Plot a Cleveland dot plot.}
 \usage{
-ClevelandDotPlot(frm, xvar, title, ..., sort = -1, limit_n = NULL,
-  stem = TRUE, color = "black")
+ClevelandDotPlot(
+  frm,
+  xvar,
+  title,
+  ...,
+  sort = -1,
+  limit_n = NULL,
+  stem = TRUE,
+  color = "black"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

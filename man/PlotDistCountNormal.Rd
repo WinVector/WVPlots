@@ -4,9 +4,17 @@
 \alias{PlotDistCountNormal}
 \title{Plot distribution details as a histogram plus matching normal}
 \usage{
-PlotDistCountNormal(frm, xvar, title, ..., binWidth = c(),
-  hist_color = "black", normal_color = "blue", mean_color = "blue",
-  sd_color = "blue")
+PlotDistCountNormal(
+  frm,
+  xvar,
+  title,
+  ...,
+  binWidth = c(),
+  hist_color = "black",
+  normal_color = "blue",
+  mean_color = "blue",
+  sd_color = "blue"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

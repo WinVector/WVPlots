@@ -4,8 +4,19 @@
 \alias{ScatterHistN}
 \title{Plot a height scatter plot with marginals.}
 \usage{
-ScatterHistN(frame, xvar, yvar, zvar, title, ..., annot_size = 3,
-  colorPalette = "RdYlBu", nclus = 3, adjust_x = 1, adjust_y = 1)
+ScatterHistN(
+  frame,
+  xvar,
+  yvar,
+  zvar,
+  title,
+  ...,
+  annot_size = 3,
+  colorPalette = "RdYlBu",
+  nclus = 3,
+  adjust_x = 1,
+  adjust_y = 1
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

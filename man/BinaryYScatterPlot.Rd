@@ -4,8 +4,17 @@
 \alias{BinaryYScatterPlot}
 \title{Plot a scatter plot of a binary variable with smoothing curve.}
 \usage{
-BinaryYScatterPlot(frame, xvar, yvar, title, ..., se = FALSE,
-  use_glm = TRUE, point_color = "black", smooth_color = "blue")
+BinaryYScatterPlot(
+  frame,
+  xvar,
+  yvar,
+  title,
+  ...,
+  se = FALSE,
+  use_glm = TRUE,
+  point_color = "black",
+  smooth_color = "blue"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

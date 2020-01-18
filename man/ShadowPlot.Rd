@@ -4,8 +4,17 @@
 \alias{ShadowPlot}
 \title{Plot a Shadow Bar Plot}
 \usage{
-ShadowPlot(frm, condvar, refinevar, title, ..., monochrome = TRUE,
-  palette = "Dark2", fillcolor = "darkblue", ncol = 1)
+ShadowPlot(
+  frm,
+  condvar,
+  refinevar,
+  title,
+  ...,
+  monochrome = TRUE,
+  palette = "Dark2",
+  fillcolor = "darkblue",
+  ncol = 1
+)
 }
 \arguments{
 \item{frm}{data frame to get values from.}

@@ -4,8 +4,7 @@
 \alias{DiscreteDistribution}
 \title{Plot distribution of a single discrete numerical variable.}
 \usage{
-DiscreteDistribution(frm, xvar, title, ..., stem = TRUE,
-  color = "black")
+DiscreteDistribution(frm, xvar, title, ..., stem = TRUE, color = "black")
 }
 \arguments{
 \item{frm}{data frame to get values from}

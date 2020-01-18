@@ -4,9 +4,17 @@
 \alias{PlotDistDensityNormal}
 \title{Plot an empirical density with the matching normal distribution}
 \usage{
-PlotDistDensityNormal(frm, xvar, title, ..., adjust = 0.5,
-  curve_color = "lightgray", normal_color = "blue",
-  mean_color = "blue", sd_color = "darkgray")
+PlotDistDensityNormal(
+  frm,
+  xvar,
+  title,
+  ...,
+  adjust = 0.5,
+  curve_color = "lightgray",
+  normal_color = "blue",
+  mean_color = "blue",
+  sd_color = "darkgray"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

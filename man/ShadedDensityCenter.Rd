@@ -4,8 +4,16 @@
 \alias{ShadedDensityCenter}
 \title{Plot the distribution of a variable with a center region shaded}
 \usage{
-ShadedDensityCenter(frame, xvar, boundaries, title, ...,
-  linecolor = "darkgray", shading = "darkblue", annotate_area = TRUE)
+ShadedDensityCenter(
+  frame,
+  xvar,
+  boundaries,
+  title,
+  ...,
+  linecolor = "darkgray",
+  shading = "darkblue",
+  annotate_area = TRUE
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

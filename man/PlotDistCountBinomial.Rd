@@ -4,9 +4,17 @@
 \alias{PlotDistCountBinomial}
 \title{Plot count data with a theoretical binomial}
 \usage{
-PlotDistCountBinomial(frm, xvar, trial_size, title, ..., p = NULL,
-  limit_to_observed_range = FALSE, count_color = "black",
-  binom_color = "blue")
+PlotDistCountBinomial(
+  frm,
+  xvar,
+  trial_size,
+  title,
+  ...,
+  p = NULL,
+  limit_to_observed_range = FALSE,
+  count_color = "black",
+  binom_color = "blue"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

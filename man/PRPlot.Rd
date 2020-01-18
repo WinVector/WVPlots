@@ -4,8 +4,7 @@
 \alias{PRPlot}
 \title{Plot Precision-Recall plot.}
 \usage{
-PRPlot(frame, xvar, truthVar, truthTarget, title, ...,
-  estimate_sig = FALSE)
+PRPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE)
 }
 \arguments{
 \item{frame}{data frame to get values from}

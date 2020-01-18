@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.3</span>
       </span>
     </div>
 
@@ -129,9 +129,17 @@
     <p>Compares empirical rate data to a beta distribution with the same mean and standard deviation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>PlotDistHistBeta</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>, <span class='kw'>beta_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>mean_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>sd_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>)</pre>
+    <pre class="usage"><span class='fu'>PlotDistHistBeta</span>(
+  <span class='no'>frm</span>,
+  <span class='no'>xvar</span>,
+  <span class='no'>title</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>,
+  <span class='kw'>beta_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>mean_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>sd_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

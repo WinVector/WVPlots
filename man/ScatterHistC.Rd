@@ -4,8 +4,18 @@
 \alias{ScatterHistC}
 \title{Plot a conditional scatter plot with marginals.}
 \usage{
-ScatterHistC(frame, xvar, yvar, cvar, title, ..., annot_size = 3,
-  colorPalette = "Dark2", adjust_x = 1, adjust_y = 1)
+ScatterHistC(
+  frame,
+  xvar,
+  yvar,
+  cvar,
+  title,
+  ...,
+  annot_size = 3,
+  colorPalette = "Dark2",
+  adjust_x = 1,
+  adjust_y = 1
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

@@ -4,10 +4,21 @@
 \alias{ROCPlot}
 \title{Plot receiver operating characteristic plot.}
 \usage{
-ROCPlot(frame, xvar, truthVar, truthTarget, title, ...,
-  estimate_sig = FALSE, returnScores = FALSE, nrep = 100,
-  parallelCluster = NULL, curve_color = "darkblue",
-  fill_color = "black", diag_color = "black")
+ROCPlot(
+  frame,
+  xvar,
+  truthVar,
+  truthTarget,
+  title,
+  ...,
+  estimate_sig = FALSE,
+  returnScores = FALSE,
+  nrep = 100,
+  parallelCluster = NULL,
+  curve_color = "darkblue",
+  fill_color = "black",
+  diag_color = "black"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

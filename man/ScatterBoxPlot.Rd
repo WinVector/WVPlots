@@ -4,8 +4,17 @@
 \alias{ScatterBoxPlot}
 \title{Plot a scatter box plot.}
 \usage{
-ScatterBoxPlot(frm, xvar, yvar, title, ..., pt_alpha = 0.3,
-  pt_color = "black", box_color = "black", box_fill = "lightgray")
+ScatterBoxPlot(
+  frm,
+  xvar,
+  yvar,
+  title,
+  ...,
+  pt_alpha = 0.3,
+  pt_color = "black",
+  box_color = "black",
+  box_fill = "lightgray"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

@@ -4,9 +4,17 @@
 \alias{PRTPlot}
 \title{Plot Precision-Recall or Enrichment-Recall as a function of threshold.}
 \usage{
-PRTPlot(frame, predVar, truthVar, truthTarget, title, ...,
-  plotvars = c("precision", "recall"), thresholdrange = c(-Inf, Inf),
-  linecolor = "black")
+PRTPlot(
+  frame,
+  predVar,
+  truthVar,
+  truthTarget,
+  title,
+  ...,
+  plotvars = c("precision", "recall"),
+  thresholdrange = c(-Inf, Inf),
+  linecolor = "black"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

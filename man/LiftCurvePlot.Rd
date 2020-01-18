@@ -4,9 +4,18 @@
 \alias{LiftCurvePlot}
 \title{Plot the cumulative lift curve of a sort-order.}
 \usage{
-LiftCurvePlot(frame, xvar, truthVar, title, ..., large_count = 1000,
-  include_wizard = TRUE, truth_target = NULL,
-  model_color = "darkblue", wizard_color = "darkgreen")
+LiftCurvePlot(
+  frame,
+  xvar,
+  truthVar,
+  title,
+  ...,
+  large_count = 1000,
+  include_wizard = TRUE,
+  truth_target = NULL,
+  model_color = "darkblue",
+  wizard_color = "darkgreen"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

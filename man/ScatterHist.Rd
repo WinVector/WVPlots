@@ -4,12 +4,27 @@
 \alias{ScatterHist}
 \title{Plot a scatter plot with marginals.}
 \usage{
-ScatterHist(frame, xvar, yvar, title, ..., smoothmethod = "lm",
-  estimate_sig = FALSE, minimal_labels = TRUE, binwidth_x = NULL,
-  binwidth_y = NULL, adjust_x = 1, adjust_y = 1, point_alpha = 0.5,
-  contour = FALSE, point_color = "black", hist_color = "gray",
-  smoothing_color = "blue", density_color = "blue",
-  contour_color = "blue")
+ScatterHist(
+  frame,
+  xvar,
+  yvar,
+  title,
+  ...,
+  smoothmethod = "lm",
+  estimate_sig = FALSE,
+  minimal_labels = TRUE,
+  binwidth_x = NULL,
+  binwidth_y = NULL,
+  adjust_x = 1,
+  adjust_y = 1,
+  point_alpha = 0.5,
+  contour = FALSE,
+  point_color = "black",
+  hist_color = "gray",
+  smoothing_color = "blue",
+  density_color = "blue",
+  contour_color = "blue"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

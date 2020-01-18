@@ -4,8 +4,16 @@
 \alias{PairPlot}
 \title{Build a pair plot}
 \usage{
-PairPlot(d, meas_vars, title, ..., group_var = NULL, alpha = 1,
-  palette = "Dark2", point_color = "darkgray")
+PairPlot(
+  d,
+  meas_vars,
+  title,
+  ...,
+  group_var = NULL,
+  alpha = 1,
+  palette = "Dark2",
+  point_color = "darkgray"
+)
 }
 \arguments{
 \item{d}{data frame}

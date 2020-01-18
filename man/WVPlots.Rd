@@ -3,7 +3,6 @@
 \docType{package}
 \name{WVPlots}
 \alias{WVPlots}
-\alias{WVPlots-package}
 \title{WVPlots: Common Plots for Analysis}
 \description{
 Select data analysis plots, under a standardized calling interface implemented

@@ -4,11 +4,22 @@
 \alias{GainCurvePlotWithNotation}
 \title{Plot the cumulative gain curve of a sort-order with extra notation}
 \usage{
-GainCurvePlotWithNotation(frame, xvar, truthVar, title, gainx, labelfun,
-  ..., estimate_sig = FALSE, large_count = 1000,
-  model_color = "darkblue", wizard_color = "darkgreen",
-  shadow_color = "darkgray", crosshair_color = "red",
-  text_color = "black")
+GainCurvePlotWithNotation(
+  frame,
+  xvar,
+  truthVar,
+  title,
+  gainx,
+  labelfun,
+  ...,
+  estimate_sig = FALSE,
+  large_count = 1000,
+  model_color = "darkblue",
+  wizard_color = "darkgreen",
+  shadow_color = "darkgray",
+  crosshair_color = "red",
+  text_color = "black"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}
@@ -60,7 +71,7 @@ labelfun = function(gx, gy) {
   pctx = gx*100
   pcty = gy*100
 
-  paste("The top ", pctx, "\% most valuable points by the model\\n",
+  paste("The top ", pctx, "\% most valuable points by the model\n",
         "are ", pcty, "\% of total actual value", sep='')
 }
 WVPlots::GainCurvePlotWithNotation(frm, "model", "value",

@@ -4,9 +4,20 @@
 \alias{ROCPlotPair}
 \title{Compare two ROC plots.}
 \usage{
-ROCPlotPair(frame, xvar1, xvar2, truthVar, truthTarget, title, ...,
-  estimate_sig = FALSE, returnScores = FALSE, nrep = 100,
-  parallelCluster = NULL, palette = "Dark2")
+ROCPlotPair(
+  frame,
+  xvar1,
+  xvar2,
+  truthVar,
+  truthTarget,
+  title,
+  ...,
+  estimate_sig = FALSE,
+  returnScores = FALSE,
+  nrep = 100,
+  parallelCluster = NULL,
+  palette = "Dark2"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

@@ -4,9 +4,19 @@
 \alias{ConditionalSmoothedScatterPlot}
 \title{Plot a scatter plot with smoothing line.}
 \usage{
-ConditionalSmoothedScatterPlot(frame, xvar, yvar, groupvar, title, ...,
-  k = 3, align = "center", point_color = "black",
-  smooth_color = "black", palette = "Dark2")
+ConditionalSmoothedScatterPlot(
+  frame,
+  xvar,
+  yvar,
+  groupvar,
+  title,
+  ...,
+  k = 3,
+  align = "center",
+  point_color = "black",
+  smooth_color = "black",
+  palette = "Dark2"
+)
 }
 \arguments{
 \item{frame}{data frame to get values from}

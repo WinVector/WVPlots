@@ -4,9 +4,19 @@
 \alias{ShadowHist}
 \title{Plot a Shadow Histogram Plot}
 \usage{
-ShadowHist(frm, xvar, condvar, title, ..., ncol = 1,
-  monochrome = FALSE, palette = "Dark2", fillcolor = "darkblue",
-  bins = 30, binwidth = NULL)
+ShadowHist(
+  frm,
+  xvar,
+  condvar,
+  title,
+  ...,
+  ncol = 1,
+  monochrome = FALSE,
+  palette = "Dark2",
+  fillcolor = "darkblue",
+  bins = 30,
+  binwidth = NULL
+)
 }
 \arguments{
 \item{frm}{data frame to get values from.}

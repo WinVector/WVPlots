@@ -4,8 +4,16 @@
 \alias{PlotDistDensityBeta}
 \title{Plot empirical rate data as a density with the matching beta distribution}
 \usage{
-PlotDistDensityBeta(frm, xvar, title, ..., curve_color = "lightgray",
-  beta_color = "blue", mean_color = "blue", sd_color = "darkgray")
+PlotDistDensityBeta(
+  frm,
+  xvar,
+  title,
+  ...,
+  curve_color = "lightgray",
+  beta_color = "blue",
+  mean_color = "blue",
+  sd_color = "darkgray"
+)
 }
 \arguments{
 \item{frm}{data frame to get values from}

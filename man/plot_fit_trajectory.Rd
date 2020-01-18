@@ -4,11 +4,21 @@
 \alias{plot_fit_trajectory}
 \title{Plot the trajectory of a model fit.}
 \usage{
-plot_fit_trajectory(d, column_description, title, ...,
-  epoch_name = "epoch", needs_flip = c(), pick_metric = NULL,
-  discount_rate = NULL, draw_ribbon = FALSE, draw_segments = FALSE,
-  val_color = "#d95f02", train_color = "#1b9e77",
-  pick_color = "#e6ab02")
+plot_fit_trajectory(
+  d,
+  column_description,
+  title,
+  ...,
+  epoch_name = "epoch",
+  needs_flip = c(),
+  pick_metric = NULL,
+  discount_rate = NULL,
+  draw_ribbon = FALSE,
+  draw_segments = FALSE,
+  val_color = "#d95f02",
+  train_color = "#1b9e77",
+  pick_color = "#e6ab02"
+)
 }
 \arguments{
 \item{d}{data frame to get values from.}
