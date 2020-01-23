@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.2.3
-Date: 2020-01-18
+Version: 1.2.4
+Date: 2020-01-23
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -34,6 +34,7 @@ Imports:
     stats
 Suggests:
     knitr,
+    rmarkdown,
     RUnit,
     plotly,
     hexbin

@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.4 2020-01-23
+
+ * Add rmarkdown suggest.
+ 
 # WVPlots 1.2.3 2020-01-18
 
  * Fix gini report.
