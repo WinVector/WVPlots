@@ -1,7 +1,8 @@
 
-# WVPlots 1.2.4 2020-01-23
+# WVPlots 1.2.4 2020-02-02
 
  * Add rmarkdown suggest.
+ * Badges.
  
 # WVPlots 1.2.3 2020-01-18
 

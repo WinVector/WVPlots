@@ -1,4 +1,7 @@
 
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/WVPlots)](https://cran.r-project.org/package=WVPlots)
+[![status](https://tinyverse.netlify.com/badge/WVPlots)](https://CRAN.R-project.org/package=WVPlots)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # WVPlots
