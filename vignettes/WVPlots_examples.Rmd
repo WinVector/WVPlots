@@ -19,7 +19,11 @@ Some example data science plots in R using `ggplot2`.  See [https://github.com/W
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,y=y,yC=y>=as.numeric(quantile(y,probs=0.8)))
+frm = data.frame(
+  x = x,
+  y = y,
+  yC = y>=as.numeric(quantile(y,probs=0.8)),
+  stringsAsFactors = FALSE)
 frm$absY <- abs(frm$y)
 frm$posY = frm$y > 0
 ```
@@ -50,7 +54,10 @@ WVPlots::ScatterHist(frm, "x", "y", smoothmethod="identity",
 Scatterplot of *(x, y)* color-coded by category/group, with marginal distributions of *x* and *y* conditioned on group.
 ```{r}
 set.seed(34903490)
-fmScatterHistC = data.frame(x=rnorm(50),y=rnorm(50))
+fmScatterHistC = data.frame(
+  x=rnorm(50),
+  y=rnorm(50),
+  stringsAsFactors = FALSE)
 fmScatterHistC$cat <- fmScatterHistC$x+fmScatterHistC$y>0
 WVPlots::ScatterHistC(fmScatterHistC, "x", "y", "cat", title="Example Conditional Distribution")
 ```
@@ -58,7 +65,10 @@ WVPlots::ScatterHistC(fmScatterHistC, "x", "y", "cat", title="Example Conditiona
 Scatterplot of *(x, y)* color-coded by discretized *z*. The continuous variable *z* is binned into three groups, and then plotted as by `ScatterHistC`
 ```{r}
 set.seed(34903490)
-frmScatterHistN = data.frame(x=rnorm(50),y=rnorm(50))
+frmScatterHistN = data.frame(
+  x=rnorm(50),
+  y=rnorm(50),
+  stringsAsFactors = FALSE)
 frmScatterHistN$z <- frmScatterHistN$x+frmScatterHistN$y
 WVPlots::ScatterHistN(frmScatterHistN, "x", "y", "z", title="Example Joint Distribution")
 ```
@@ -80,8 +90,13 @@ WVPlots::BinaryYScatterPlot(frm, "x", "posY", use_glm=TRUE,
 if(requireNamespace("hexbin", quietly = TRUE)) {
   set.seed(5353636)
   
-  df = rbind(data.frame(x=rnorm(1000, mean = 1), y=rnorm(1000, mean = 1, sd = 0.5 )),
-             data.frame(x = rnorm(1000, mean = -1, sd = 0.5), y = rnorm(1000, mean = -1, sd = 0.5)))
+  df = rbind(data.frame(x=rnorm(1000, mean = 1), 
+                        y=rnorm(1000, mean = 1, sd = 0.5 ),
+                        stringsAsFactors = FALSE),
+             data.frame(x = rnorm(1000, mean = -1, sd = 0.5), 
+                        y = rnorm(1000, mean = -1, sd = 0.5),
+                        stringsAsFactors = FALSE),
+             stringsAsFactors = FALSE)
   
   print(WVPlots::HexBinPlot(df, "x", "y", "Two gaussians"))
 }
@@ -95,7 +110,10 @@ set.seed(34903490)
 y = abs(rnorm(20)) + 0.1
 x = abs(y + 0.5*rnorm(20))
 
-frm = data.frame(model=x, value=y)
+frm = data.frame(
+  model=x, 
+  value=y,
+  stringsAsFactors = FALSE)
 
 frm$costs=1
 frm$costs[1]=5
@@ -151,7 +169,11 @@ set.seed(34903490)
 x1 = rnorm(50)
 x2 = rnorm(length(x1))
 y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
-frmP = data.frame(x1=x1,x2=x2,yC=y>=as.numeric(quantile(y,probs=0.8)))
+frmP = data.frame(
+  x1=x1,
+  x2=x2,
+  yC = y>=as.numeric(quantile(y,probs=0.8)),
+  stringsAsFactors = FALSE)
 # WVPlots::ROCPlot(frmP, "x1", "yC", TRUE, title="Example ROC plot")
 # WVPlots::ROCPlot(frmP, "x2", "yC", TRUE, title="Example ROC plot")
 WVPlots::ROCPlotPair(frmP, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
@@ -197,11 +219,17 @@ letterFreqs = c(8.167, 1.492, 2.782, 4.253, 12.702, 2.228,
                 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929,
                 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.360, 0.150, 1.974, 0.074)
 letterFreqs = letterFreqs/100
-letterFrame = data.frame(letter = letters, freq=letterFreqs)
+letterFrame = data.frame(
+  letter = letters, 
+  freq=letterFreqs, 
+  stringsAsFactors = FALSE)
 
 # now let's generate letters according to their letter frequencies
 N = 1000
-randomDraws = data.frame(draw=1:N, letter=sample(letterFrame$letter, size=N, replace=TRUE, prob=letterFrame$freq))
+randomDraws = data.frame(
+  draw=1:N, 
+  letter=sample(letterFrame$letter, size=N, replace=TRUE, prob=letterFrame$freq), 
+  stringsAsFactors = FALSE)
 
 WVPlots::ClevelandDotPlot(randomDraws, "letter", title = "Example Cleveland-style dot plot")
 WVPlots::ClevelandDotPlot(randomDraws, "letter", limit_n = 10,  title = "Top 10 most frequent letters")
@@ -218,7 +246,9 @@ N = 1000
 ncar_vec = 0:5
 prob = c(1.5, 3, 3.5, 2, 1, 0.75); prob = prob/sum(prob)
 
-df = data.frame(num_cars = sample(ncar_vec, size = N, replace = TRUE, prob=prob))
+df = data.frame(
+  num_cars = sample(ncar_vec, size = N, replace = TRUE, prob=prob),
+  stringsAsFactors = FALSE)
 WVPlots::ClevelandDotPlot(df, "num_cars", sort = 0, title = "Distribution of household vehicle ownership")
               
 
@@ -245,7 +275,10 @@ eye_color  = sample(c("Brown", "Blue", "Hazel", "Green"), size = N, replace = TR
 sex = sample(c("Male", "Female"), size = N, replace = TRUE)
 
 # A data frame of eye color by sex
-dframe = data.frame(eye_color = eye_color, sex = sex)
+dframe = data.frame(
+  eye_color = eye_color, 
+  sex = sex,
+  stringsAsFactors = FALSE)
 
 WVPlots::ShadowPlot(dframe, "eye_color", "sex", title = "Shadow plot of eye colors by sex")
 
@@ -261,7 +294,10 @@ also shows a "shadow plot" of the unconditioned histogram for comparison.
 set.seed(354534)
 N = 100
 
-dframe = data.frame(x = rnorm(N), gp = "region 2", stringsAsFactors = FALSE)
+dframe = data.frame(
+  x = rnorm(N), 
+  gp = "region 2", 
+  stringsAsFactors = FALSE)
 dframe$gp = with(dframe, ifelse(x < -0.5, "region 1", 
                                 ifelse(x > 0.5, "region 3", gp)))
 
@@ -295,7 +331,8 @@ names(means) = classes
 label = sample(classes, size=1000, replace=TRUE)
 meas = means[label] + rnorm(1000)
 frm2 = data.frame(label=label,
-                  meas = meas)
+                  meas = meas,
+                  stringsAsFactors = FALSE)
 
 WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Scatter/Box plot")
@@ -303,7 +340,8 @@ WVPlots::ScatterBoxPlotH(frm2, "meas", "label",  pt_alpha=0.2, title="Example Sc
 
 ## Discrete Distribution Plot
 ```{r}
-frmx = data.frame(x = rbinom(1000, 20, 0.5))
+frmx = data.frame(x = rbinom(1000, 20, 0.5),
+                  stringsAsFactors = FALSE)
 WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 ```
 
@@ -313,7 +351,8 @@ WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 
 ```{r}
 set.seed(52523)
-d <- data.frame(wt=100*rnorm(100))
+d <- data.frame(wt=100*rnorm(100),
+                stringsAsFactors = FALSE)
 WVPlots::PlotDistCountNormal(d,'wt','example')
 WVPlots::PlotDistDensityNormal(d,'wt','example')
 ```
@@ -327,7 +366,8 @@ set.seed(13951)
 trial_size = 20  # one trial is 20 flips
 ntrial = 100     # run 100 trials
 true_frate = 0.4  # true heads probability
-fdata = data.frame(n_heads = rbinom(ntrial, trial_size, true_frate))
+fdata = data.frame(n_heads = rbinom(ntrial, trial_size, true_frate),
+                   stringsAsFactors = FALSE)
 
 title = paste("Distribution of head counts, trial size =", trial_size)
 # compare to empirical p
@@ -349,7 +389,9 @@ N = 100  # number of cohorts
 psucc = 0.15  # true success rate in population
 group_size = round(runif(N, min=25, 50))  # sizes of observed sample groups
 nsucc = rbinom(N, group_size, psucc)   # successes in each group
-hdata = data.frame(n_success=nsucc, group_size=group_size)
+hdata = data.frame(n_success=nsucc, 
+                   group_size=group_size,
+                   stringsAsFactors = FALSE)
 
 # observed rate of successes in each group
 hdata$rate_success = with(hdata, n_success/group_size)
@@ -365,16 +407,19 @@ WVPlots::PlotDistDensityBeta(hdata, "rate_success", title)
 ```{r}
 y = c(1,2,3,4,5,10,15,18,20,25)
 x = seq_len(length(y))
-df = data.frame(x=x,y=y)
+df = data.frame(x=x,
+                y=y,
+                stringsAsFactors = FALSE)
 
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="centered smooth, one group")
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="left smooth, one group", align="left")
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL, title="right smooth, one group", align="right")
 
 n = length(x)
-df = rbind(data.frame(x=x, y=y+rnorm(n), gp="times 1"),
-           data.frame(x=x, y=0.5*y + rnorm(n), gp="times 1/2"),
-           data.frame(x=x, y=2*y + rnorm(n), gp="times 2"))
+df = rbind(data.frame(x=x, y=y+rnorm(n), gp="times 1", stringsAsFactors = FALSE),
+           data.frame(x=x, y=0.5*y + rnorm(n), gp="times 1/2", stringsAsFactors = FALSE),
+           data.frame(x=x, y=2*y + rnorm(n), gp="times 2", stringsAsFactors = FALSE),
+           stringsAsFactors = FALSE)
 
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="centered smooth, multigroup")
 WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="left smooth, multigroup", align="left")
@@ -386,7 +431,7 @@ WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "gp", title="right smooth,
 
 ```{r}
 set.seed(52523)
-d = data.frame(meas=rnorm(100))
+d = data.frame(meas=rnorm(100), stringsAsFactors = FALSE)
 threshold = -1.5
 WVPlots::ShadedDensity(d, "meas", threshold, 
                        title="Example shaded density plot, left tail")
@@ -398,7 +443,7 @@ WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
 ## Density Plot with Shaded Central Region
 ```{r}
 set.seed(52523)
-d = data.frame(meas=rnorm(100))
+d = data.frame(meas=rnorm(100), stringsAsFactors = FALSE)
 # first and third quartiles of the data (central 50%)
 boundaries = quantile(d$meas, c(0.25, 0.75))
 WVPlots::ShadedDensityCenter(d, "meas", boundaries, 

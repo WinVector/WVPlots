@@ -79,7 +79,7 @@ wv_gapply <- function(df,gcolumn,f,
     )
   }
   if(bindrows) {
-    res <- do.call("rbind", res)
+    res <- do.call("rbind", c(res, list(stringsAsFactors = FALSE)))
   }
   return(res)
 }

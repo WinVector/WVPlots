@@ -88,7 +88,7 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
                    pct_outcome = results$wizard_lift,
                    sort_criterion = "wizard",
                    stringsAsFactors = FALSE)
-  results <- rbind(r1, r2)
+  results <- rbind(r1, r2, stringsAsFactors = FALSE)
   # rename sort_criterion
   msort_str <- paste('model: sort by', xvar)
   sortKeyM <- c('model' = msort_str,

@@ -1,6 +1,7 @@
 
-# WVPlots 1.2.4 2020-02-02
+# WVPlots 1.2.4 2020-02-19
 
+ * Fix character/factor issue (upcoming in R4.0.0).
  * Add rmarkdown suggest.
  * Badges.
  

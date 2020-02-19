@@ -204,7 +204,7 @@ the range of the empirical data. Otherwise, the range of the plot will be
 <span class='no'>class_size</span> <span class='kw'>=</span> <span class='fl'>35</span>
 <span class='no'>nclasses</span> <span class='kw'>=</span> <span class='fl'>100</span>
 <span class='no'>true_frate</span> <span class='kw'>=</span> <span class='fl'>0.4</span>
-<span class='no'>fdata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_female</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='no'>nclasses</span>, <span class='no'>class_size</span>, <span class='no'>true_frate</span>))
+<span class='no'>fdata</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_female</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='no'>nclasses</span>, <span class='no'>class_size</span>, <span class='no'>true_frate</span>), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='no'>title</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"Distribution of count of female students, class size ="</span>, <span class='no'>class_size</span>)
 <span class='co'># compare to empirical p</span>
@@ -214,7 +214,8 @@ the range of the empirical data. Otherwise, the range of the plot will be
                       <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='PlotDistCountBinomial-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Example where the distribution is not of a true single binomial</span>
 <span class='no'>fdata2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_female</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>50</span>, <span class='no'>class_size</span>, <span class='fl'>0.25</span>)),
-               <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_female</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>10</span>, <span class='no'>class_size</span>, <span class='fl'>0.60</span>)) )
+               <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>n_female</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>10</span>, <span class='no'>class_size</span>, <span class='fl'>0.60</span>)),
+               <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span> )
 <span class='fu'>PlotDistCountBinomial</span>(<span class='no'>fdata2</span>, <span class='st'>"n_female"</span>, <span class='no'>class_size</span>, <span class='no'>title</span>)</div><div class='img'><img src='PlotDistCountBinomial-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

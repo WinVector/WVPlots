@@ -72,6 +72,10 @@ ClevelandDotPlot = function(frm, xvar, title, ...,
     stop("parameter limit_n must be at least 1")
   }
 
+  if(!is.factor(frm[[xvar]])) {
+    frm[[xvar]] <- as.factor(frm[[xvar]])
+  }
+
   # to get the top N, we always use decreasing sort order
   if(!is.null(limit_n)) {
     tab = table(frm[[xvar]])

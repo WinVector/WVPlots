@@ -58,7 +58,7 @@ set.seed(23590)
 class_size = 35
 nclasses = 100
 true_frate = 0.4
-fdata = data.frame(n_female = rbinom(nclasses, class_size, true_frate))
+fdata = data.frame(n_female = rbinom(nclasses, class_size, true_frate), stringsAsFactors = FALSE)
 
 title = paste("Distribution of count of female students, class size =", class_size)
 # compare to empirical p
@@ -70,7 +70,8 @@ PlotDistCountBinomial(fdata, "n_female", class_size, title,
 
 # Example where the distribution is not of a true single binomial
 fdata2 = rbind(data.frame(n_female = rbinom(50, class_size, 0.25)),
-               data.frame(n_female = rbinom(10, class_size, 0.60)) )
+               data.frame(n_female = rbinom(10, class_size, 0.60)),
+               stringsAsFactors = FALSE )
 PlotDistCountBinomial(fdata2, "n_female", class_size, title)
 
 }

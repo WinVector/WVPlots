@@ -177,7 +177,7 @@ GainCurvePlot = function(frame, xvar, truthVar, title,
                    pct_outcome = results$wizard,
                    sort_criterion = "wizard",
                    stringsAsFactors = FALSE)
-  results <- rbind(r1, r2)
+  results <- rbind(r1, r2, stringsAsFactors = FALSE)
   # rename sort_criterion
   sortKeyM <- c('model' = paste('model: sort by', xvar),
                'wizard' = paste('wizard: sort by', truthVar))
@@ -303,7 +303,7 @@ makeRelativeGiniCostScorer <- function(costcol) {
         sum(d[['truthcol']]),
       sort_criterion = wName
     )
-    results = rbind(resultsM, resultsW)
+    results = rbind(resultsM, resultsW, stringsAsFactors = FALSE)
 
     # calculate the areas under each curve
     # gini score is 2* (area - 0.5)
@@ -403,7 +403,7 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
     pct_outcome = cumsum(d[wizard, 'truthcol']) / sum(d[['truthcol']]),
     sort_criterion = wName
   )
-  results = rbind(resultsM, resultsW)
+  results = rbind(resultsM, resultsW, stringsAsFactors = FALSE)
 
   # calculate the areas under each curve
   # gini score is 2* (area - 0.5)

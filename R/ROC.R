@@ -281,8 +281,8 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   rocList2$pointGraph$model <- nm2
   rocList2$lineGraph$model <- nm2
 
-  pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
-  lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
+  pointGraph <- rbind(rocList1$pointGraph, rocList2$pointGraph, stringsAsFactors = FALSE)
+  lineGraph <- rbind(rocList1$lineGraph, rocList2$lineGraph, stringsAsFactors = FALSE)
   palletName = palette
   plot <- ggplot2::ggplot()
   if(nrow(pointGraph)<=1000) {
@@ -418,8 +418,8 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   rocList1$lineGraph$dataset <- nm1
   rocList2$pointGraph$dataset <- nm2
   rocList2$lineGraph$dataset <- nm2
-  pointGraph <- rbind(rocList1$pointGraph,rocList2$pointGraph)
-  lineGraph <- rbind(rocList1$lineGraph,rocList2$lineGraph)
+  pointGraph <- rbind(rocList1$pointGraph, rocList2$pointGraph, stringsAsFactors = FALSE)
+  lineGraph <- rbind(rocList1$lineGraph, rocList2$lineGraph, stringsAsFactors = FALSE)
   palletName = palette
   plot <- ggplot2::ggplot()
   if(nrow(pointGraph)<=1000) {
