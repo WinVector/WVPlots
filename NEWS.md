@@ -1,4 +1,11 @@
 
+# WVPlots 1.2.5 2020-05-01
+
+ * Work around ggplot2 to deprecating fun.y, fun.ymin, fun.ymax.
+ * Work around ggplot2 variations in label data structure and NA labels.
+ * Fix GainCurvePlotC color mapping issue.
+ * Make more arguments to geom_smooth explicit to avoid default messages.
+
 # WVPlots 1.2.4 2020-02-19
 
  * Fix character/factor issue (upcoming in R4.0.0).

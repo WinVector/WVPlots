@@ -86,7 +86,7 @@ LogLogPlot <- function(frame, xvar, yvar, title,
 
       plt <- ggplot2::ggplot(data = frame,
                              ggplot2::aes(x = XVAR, y = YVAR)) +
-        ggplot2::geom_smooth(color=smoothing_color, se = FALSE) +
+        ggplot2::geom_smooth(color=smoothing_color, se = FALSE, formula = y ~ x) +
         ggplot2::geom_point(color=point_color) +
         ggplot2::geom_line(data = tframe,
                            ggplot2::aes(y = linear_trend),

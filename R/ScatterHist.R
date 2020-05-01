@@ -147,7 +147,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
     if(smoothmethod=='identity') {
       gSmooth = ggplot2::geom_abline(slope=1,linetype=2,color=smoothing_color)
     } else {
-      gSmooth = ggplot2::geom_smooth(method=smoothmethod, color=smoothing_color, se=FALSE)
+      gSmooth = ggplot2::geom_smooth(method=smoothmethod, color=smoothing_color, se=FALSE, formula = y ~ x)
     }
   }
 

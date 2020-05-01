@@ -68,11 +68,21 @@ getYLabs <- function(p) {
   info <- ggplot2::ggplot_build(p)
   origlabs <- NULL
   tryCatch(
+    # ggplot2 version 3.3.0
+    origlabs <- info$layout$panel_params[[1]]$y$get_labels(),
+    error = function(e) {NULL}
+  )
+  if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
+    return(origlabs)
+  }
+  tryCatch(
     # ggplot2 version 2.2.1.9000
     origlabs <- info$layout$panel_params[[1]]$y.label,
     error = function(e) {NULL}
   )
   if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
     return(origlabs)
   }
   tryCatch(
@@ -81,6 +91,7 @@ getYLabs <- function(p) {
     error = function(e) {NULL}
   )
   if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
     return(origlabs)
   }
   tryCatch(
@@ -88,6 +99,7 @@ getYLabs <- function(p) {
     origlabs <- info$panel$ranges[[1]]$y.labels,
     error = function(e) {NULL}
   )
+  origlabs <- origlabs[!is.na(origlabs)]
   origlabs
 }
 
@@ -96,11 +108,21 @@ getXLabs <- function(p) {
   info <- ggplot2::ggplot_build(p)
   origlabs <- NULL
   tryCatch(
+    # ggplot2 version 3.3.0
+    origlabs <- info$layout$panel_params[[1]]$x$get_labels(),
+    error = function(e) {NULL}
+  )
+  if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
+    return(origlabs)
+  }
+  tryCatch(
     # ggplot2 version 2.2.1.9000
     origlabs <- info$layout$panel_params[[1]]$x.label,
     error = function(e) {NULL}
   )
   if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
     return(origlabs)
   }
   tryCatch(
@@ -109,6 +131,7 @@ getXLabs <- function(p) {
     error = function(e) {NULL}
   )
   if(!is.null(origlabs)) {
+    origlabs <- origlabs[!is.na(origlabs)]
     return(origlabs)
   }
   tryCatch(
@@ -116,6 +139,7 @@ getXLabs <- function(p) {
     origlabs <- info$panel$ranges[[1]]$x.labels,
     error = function(e) {NULL}
   )
+  origlabs <- origlabs[!is.na(origlabs)]
   origlabs
 }
 

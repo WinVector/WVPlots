@@ -57,7 +57,8 @@ BinaryYScatterPlot = function(frame, xvar, yvar,  title, ...,
   } else {
     ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar, y=yvar)) +
       ggplot2::geom_point(color=point_color, position=ggplot2::position_jitter(height=0.01), alpha=0.5) +
-      ggplot2::geom_smooth(color=smooth_color, se=se) + ggplot2::ggtitle(title)
+      ggplot2::geom_smooth(color=smooth_color, se=se, method = 'loess', formula = y ~ x) +
+      ggplot2::ggtitle(title)
   }
 }
 

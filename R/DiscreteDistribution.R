@@ -44,6 +44,6 @@ DiscreteDistribution = function(frm, xvar, title, ...,
     geom="point"
   }
   ggplot2::ggplot(frm, ggplot2::aes_string(xvar, "unit")) +
-    ggplot2::stat_summary(fun.y=sum, fun.ymax=sum, fun.ymin=function(x){0}, geom=geom, color=color) +
+    ggplot2::stat_summary(fun=sum, fun.max=sum, fun.min=function(x){0}, geom=geom, color=color) +
     ggplot2::ggtitle(title)
 }

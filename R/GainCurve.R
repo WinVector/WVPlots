@@ -412,11 +412,10 @@ GainCurvePlotC = function(frame, xvar, costVar, truthVar, title,
   relGiniScore = modelArea / idealArea # actually, normalized gini score
 
 
-  # rename levels of sort criterion
+  # map names to colors
   colorKey = c('model' = model_color, 'wizard' = wizard_color)
   names(colorKey) = c(mName, wName)
   modelKey = mName
-  results[["sort_criterion"]] = names(colorKey)[results[["sort_criterion"]]]
 
   pString <- ''
   if (estimate_sig && requireNamespace('sigr', quietly = TRUE)) {
