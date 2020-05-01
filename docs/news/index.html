@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.5</span>
       </span>
     </div>
 
@@ -118,13 +122,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/WinVector/WVPlots/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="wvplots-1-2-5-2020-05-01" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.5">
+<a href="#wvplots-1-2-5-2020-05-01" class="anchor"></a>WVPlots 1.2.5 2020-05-01<small> Unreleased </small>
+</h1>
+<ul>
+<li>Work around ggplot2 to deprecating fun.y, fun.ymin, fun.ymax.</li>
+<li>Work around ggplot2 variations in label data structure and NA labels.</li>
+<li>Fix GainCurvePlotC color mapping issue.</li>
+<li>Make more arguments to geom_smooth explicit to avoid default messages.</li>
+</ul>
+</div>
     <div id="wvplots-1-2-4-2020-02-19" class="section level1">
-<h1 class="page-header">
-<a href="#wvplots-1-2-4-2020-02-19" class="anchor"></a>WVPlots 1.2.4 2020-02-19<small> Unreleased </small>
+<h1 class="page-header" data-toc-text="1.2.4">
+<a href="#wvplots-1-2-4-2020-02-19" class="anchor"></a>WVPlots 1.2.4 2020-02-19<small> 2020-02-19 </small>
 </h1>
 <ul>
 <li>Fix character/factor issue (upcoming in R4.0.0).</li>
@@ -133,7 +148,7 @@
 </ul>
 </div>
     <div id="wvplots-1-2-3-2020-01-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.3">
 <a href="#wvplots-1-2-3-2020-01-18" class="anchor"></a>WVPlots 1.2.3 2020-01-18<small> 2020-01-19 </small>
 </h1>
 <ul>
@@ -141,7 +156,7 @@
 </ul>
 </div>
     <div id="wvplots-1-2-2-2019-11-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.2">
 <a href="#wvplots-1-2-2-2019-11-03" class="anchor"></a>WVPlots 1.2.2 2019-11-03<small> 2019-11-03 </small>
 </h1>
 <ul>
@@ -149,7 +164,7 @@
 </ul>
 </div>
     <div id="wvplots-1-2-1-2019-10-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.1">
 <a href="#wvplots-1-2-1-2019-10-12" class="anchor"></a>WVPlots 1.2.1 2019-10-12<small> 2019-10-12 </small>
 </h1>
 <ul>
@@ -158,7 +173,7 @@
 </ul>
 </div>
     <div id="wvplots-1-2-0-2019-10-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.2.0">
 <a href="#wvplots-1-2-0-2019-10-03" class="anchor"></a>WVPlots 1.2.0 2019-10-03<small> 2019-10-04 </small>
 </h1>
 <ul>
@@ -166,7 +181,7 @@
 </ul>
 </div>
     <div id="wvplots-1-1-2-2019-09-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.2">
 <a href="#wvplots-1-1-2-2019-09-10" class="anchor"></a>WVPlots 1.1.2 2019-09-10<small> 2019-09-12 </small>
 </h1>
 <ul>
@@ -174,7 +189,7 @@
 </ul>
 </div>
     <div id="wvplots-1-1-1-2019-07-24" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.1">
 <a href="#wvplots-1-1-1-2019-07-24" class="anchor"></a>WVPlots 1.1.1 2019-07-24<small> 2019-07-24 </small>
 </h1>
 <ul>
@@ -182,7 +197,7 @@
 </ul>
 </div>
     <div id="wvplots-1-1-0-2019-04-07" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.0">
 <a href="#wvplots-1-1-0-2019-04-07" class="anchor"></a>WVPlots 1.1.0 2019-04-07<small> 2019-04-08 </small>
 </h1>
 <ul>
@@ -190,7 +205,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-9-2019-02-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.9">
 <a href="#wvplots-1-0-9-2019-02-20" class="anchor"></a>WVPlots 1.0.9 2019-02-20<small> 2019-02-20 </small>
 </h1>
 <ul>
@@ -198,7 +213,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-8-2019-01-26" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.8">
 <a href="#wvplots-1-0-8-2019-01-26" class="anchor"></a>WVPlots 1.0.8 2019-01-26<small> 2019-01-27 </small>
 </h1>
 <ul>
@@ -207,7 +222,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-7-2018-12-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.7">
 <a href="#wvplots-1-0-7-2018-12-17" class="anchor"></a>WVPlots 1.0.7 2018-12-17<small> 2018-12-17 </small>
 </h1>
 <ul>
@@ -215,7 +230,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-6-2018-11-06" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.6">
 <a href="#wvplots-1-0-6-2018-11-06" class="anchor"></a>WVPlots 1.0.6 2018-11-06<small> 2018-11-06 </small>
 </h1>
 <ul>
@@ -223,7 +238,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-5-2018-10-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.5">
 <a href="#wvplots-1-0-5-2018-10-22" class="anchor"></a>WVPlots 1.0.5 2018-10-22<small> 2018-10-22 </small>
 </h1>
 <ul>
@@ -231,7 +246,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-4-2018-09-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.4">
 <a href="#wvplots-1-0-4-2018-09-17" class="anchor"></a>WVPlots 1.0.4 2018-09-17<small> Unreleased </small>
 </h1>
 <ul>
@@ -239,7 +254,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-3-2018-09-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.3">
 <a href="#wvplots-1-0-3-2018-09-17" class="anchor"></a>WVPlots 1.0.3 2018-09-17<small> 2018-09-17 </small>
 </h1>
 <ul>
@@ -249,7 +264,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-2-2018-07-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.2">
 <a href="#wvplots-1-0-2-2018-07-20" class="anchor"></a>WVPlots 1.0.2 2018-07-20<small> 2018-07-20 </small>
 </h1>
 <ul>
@@ -257,7 +272,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-1-2018-07-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.1">
 <a href="#wvplots-1-0-1-2018-07-11" class="anchor"></a>WVPlots 1.0.1 2018-07-11<small> 2018-07-11 </small>
 </h1>
 <ul>
@@ -266,7 +281,7 @@
 </ul>
 </div>
     <div id="wvplots-1-0-0-2018-05-24" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.0">
 <a href="#wvplots-1-0-0-2018-05-24" class="anchor"></a>WVPlots 1.0.0 2018-05-24<small> 2018-05-25 </small>
 </h1>
 <ul>
@@ -280,7 +295,7 @@
 </ul>
 </div>
     <div id="wvplots-0-3-2-2018-05-07" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.2">
 <a href="#wvplots-0-3-2-2018-05-07" class="anchor"></a>WVPlots 0.3.2 2018-05-07<small> 2018-05-08 </small>
 </h1>
 <ul>
@@ -289,7 +304,7 @@
 </ul>
 </div>
     <div id="wvplots-0-3-1-2018-04-03" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.1">
 <a href="#wvplots-0-3-1-2018-04-03" class="anchor"></a>WVPlots 0.3.1 2018-04-03<small> 2018-04-03 </small>
 </h1>
 <ul>
@@ -299,7 +314,7 @@
 </ul>
 </div>
     <div id="wvplots-0-3-0-2018-03-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.0">
 <a href="#wvplots-0-3-0-2018-03-20" class="anchor"></a>WVPlots 0.3.0 2018-03-20<small> 2018-03-20 </small>
 </h1>
 <ul>
@@ -309,7 +324,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-9-2018-03-13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.9">
 <a href="#wvplots-0-2-9-2018-03-13" class="anchor"></a>WVPlots 0.2.9 2018-03-13<small> 2018-03-13 </small>
 </h1>
 <ul>
@@ -318,7 +333,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-8-2018-01-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.8">
 <a href="#wvplots-0-2-8-2018-01-20" class="anchor"></a>WVPlots 0.2.8 2018-01-20<small> 2018-01-20 </small>
 </h1>
 <ul>
@@ -327,7 +342,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-7-2017-11-28" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.7">
 <a href="#wvplots-0-2-7-2017-11-28" class="anchor"></a>WVPlots 0.2.7 2017-11-28<small> 2017-11-28 </small>
 </h1>
 <ul>
@@ -337,7 +352,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-6-2017-08-28" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.6">
 <a href="#wvplots-0-2-6-2017-08-28" class="anchor"></a>WVPlots 0.2.6 2017-08-28<small> 2017-08-29 </small>
 </h1>
 <ul>
@@ -345,7 +360,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-5-2017-07-04" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.5">
 <a href="#wvplots-0-2-5-2017-07-04" class="anchor"></a>WVPlots 0.2.5 2017-07-04<small> 2017-07-04 </small>
 </h1>
 <ul>
@@ -353,7 +368,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-4-2017-05-05" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.4">
 <a href="#wvplots-0-2-4-2017-05-05" class="anchor"></a>WVPlots 0.2.4 2017-05-05<small> 2017-05-05 </small>
 </h1>
 <ul>
@@ -363,7 +378,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-3-2017-03-24" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.3">
 <a href="#wvplots-0-2-3-2017-03-24" class="anchor"></a>WVPlots 0.2.3 2017-03-24<small> 2017-03-24 </small>
 </h1>
 <ul>
@@ -372,7 +387,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-2-2017-02-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.2">
 <a href="#wvplots-0-2-2-2017-02-17" class="anchor"></a>WVPlots 0.2.2 2017-02-17<small> 2017-02-17 </small>
 </h1>
 <ul>
@@ -381,7 +396,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-1-2017-01-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.1">
 <a href="#wvplots-0-2-1-2017-01-17" class="anchor"></a>WVPlots 0.2.1 2017-01-17<small> Unreleased </small>
 </h1>
 <ul>
@@ -391,7 +406,7 @@
 </ul>
 </div>
     <div id="wvplots-0-2-0-2017-01-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#wvplots-0-2-0-2017-01-15" class="anchor"></a>WVPlots 0.2.0 2017-01-15<small> 2017-01-17 </small>
 </h1>
 <ul>
@@ -400,43 +415,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#wvplots-1-2-4-2020-02-19">1.2.4</a></li>
-        <li><a href="#wvplots-1-2-3-2020-01-18">1.2.3</a></li>
-        <li><a href="#wvplots-1-2-2-2019-11-03">1.2.2</a></li>
-        <li><a href="#wvplots-1-2-1-2019-10-12">1.2.1</a></li>
-        <li><a href="#wvplots-1-2-0-2019-10-03">1.2.0</a></li>
-        <li><a href="#wvplots-1-1-2-2019-09-10">1.1.2</a></li>
-        <li><a href="#wvplots-1-1-1-2019-07-24">1.1.1</a></li>
-        <li><a href="#wvplots-1-1-0-2019-04-07">1.1.0</a></li>
-        <li><a href="#wvplots-1-0-9-2019-02-20">1.0.9</a></li>
-        <li><a href="#wvplots-1-0-8-2019-01-26">1.0.8</a></li>
-        <li><a href="#wvplots-1-0-7-2018-12-17">1.0.7</a></li>
-        <li><a href="#wvplots-1-0-6-2018-11-06">1.0.6</a></li>
-        <li><a href="#wvplots-1-0-5-2018-10-22">1.0.5</a></li>
-        <li><a href="#wvplots-1-0-4-2018-09-17">1.0.4</a></li>
-        <li><a href="#wvplots-1-0-3-2018-09-17">1.0.3</a></li>
-        <li><a href="#wvplots-1-0-2-2018-07-20">1.0.2</a></li>
-        <li><a href="#wvplots-1-0-1-2018-07-11">1.0.1</a></li>
-        <li><a href="#wvplots-1-0-0-2018-05-24">1.0.0</a></li>
-        <li><a href="#wvplots-0-3-2-2018-05-07">0.3.2</a></li>
-        <li><a href="#wvplots-0-3-1-2018-04-03">0.3.1</a></li>
-        <li><a href="#wvplots-0-3-0-2018-03-20">0.3.0</a></li>
-        <li><a href="#wvplots-0-2-9-2018-03-13">0.2.9</a></li>
-        <li><a href="#wvplots-0-2-8-2018-01-20">0.2.8</a></li>
-        <li><a href="#wvplots-0-2-7-2017-11-28">0.2.7</a></li>
-        <li><a href="#wvplots-0-2-6-2017-08-28">0.2.6</a></li>
-        <li><a href="#wvplots-0-2-5-2017-07-04">0.2.5</a></li>
-        <li><a href="#wvplots-0-2-4-2017-05-05">0.2.4</a></li>
-        <li><a href="#wvplots-0-2-3-2017-03-24">0.2.3</a></li>
-        <li><a href="#wvplots-0-2-2-2017-02-17">0.2.2</a></li>
-        <li><a href="#wvplots-0-2-1-2017-01-17">0.2.1</a></li>
-        <li><a href="#wvplots-0-2-0-2017-01-15">0.2.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -448,7 +430,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

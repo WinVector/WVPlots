@@ -8,13 +8,13 @@ package = "WVPlots"
 date()
 ```
 
-    ## [1] "Wed Feb 19 08:53:12 2020"
+    ## [1] "Fri May  1 08:25:48 2020"
 
 ``` r
 packageVersion(package)
 ```
 
-    ## [1] '1.2.4'
+    ## [1] '1.2.5'
 
 ``` r
 parallelCluster <- NULL
@@ -33,7 +33,7 @@ setwd(td)
 print(td)
 ```
 
-    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//RtmpEpA0MG"
+    ## [1] "/var/folders/7q/h_jp2vj131g5799gfnpzhdp80000gn/T//Rtmp5cgONp"
 
 ``` r
 options(repos = c(CRAN="https://cloud.r-project.org"))
@@ -62,20 +62,13 @@ if(!is.null(parallelCluster)) {
 }
 ```
 
-    ## [1] id     title  status
-    ## <0 rows> (or 0-length row.names)
+    ## Error: no such table: metadata
 
 ``` r
 summariseQueue(package=package, directory=td)
 ```
 
-    ## Test of WVPlots had 0 successes, 0 failures, and 0 skipped packages.
-
-    ## Warning in min(starttime): no non-missing arguments to min; returning Inf
-
-    ## Warning in max(endtime): no non-missing arguments to max; returning -Inf
-
-    ## Error in as.POSIXct.numeric(time1): 'origin' must be supplied
+    ## Error: no such table: metadata
 
 ``` r
 setwd(orig_dir)
