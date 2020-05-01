@@ -19,17 +19,22 @@ Harden package for R4.0.0 defaulting to stringAsFactors=FALSE.
  
 ### Windows
 
+    devtools::check_win_devel()
+    * using R Under development (unstable) (2020-04-30 r78335)
+    * using platform: x86_64-w64-mingw32 (64-bit)
+    * using session charset: ISO8859-1
+    * checking for file 'WVPlots/DESCRIPTION' ... OK
+    * checking extension type ... Package
+    * this is package 'WVPlots' version '1.2.5'
+    * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+    Maintainer: 'John Mount <jmount@win-vector.com>'
+    Status: OK
+
     rhub::check_for_cran()
-    
     645#> * using R Under development (unstable) (2020-04-22 r78281)
     646#> * using platform: x86_64-w64-mingw32 (64-bit)
     630#> Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) :
     631#> there is no package called 'data.table'
-
-
-    devtools::check_win_devel()
-
-    Not run at this time.
 
 ## Downstream dependencies
 
