@@ -7,6 +7,11 @@
 # ThresholdStats(d, 'x', 'y')
 #
 ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
+  # cdf/pdf estimate
+  cdf <- stats::ecdf(frame[[xvar]])
+  dens <- stats::density(frame[[xvar]])
+  pdf <- stats::approxfun(dens$x, dens$y)
+
   # make a thin frame to re-sort for cumulative statistics
   sorted_frame <- data.frame(
     threshold = frame[[xvar]],
@@ -51,12 +56,16 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
     sum(sorted_frame["truth"]) - cumsum(sorted_frame["truth"])
   ) / sum(sorted_frame["truth"])
 
+  # approximate cdf/pdf work
+  sorted_frame["cdf"] <- cdf(sorted_frame$threshold)
+  sorted_frame["pdf"] <- pmax(0, pdf(sorted_frame$threshold))
+
   # derived facts and synonyms
   sorted_frame["recall"] = sorted_frame["true_positive_rate"]
   sorted_frame["sensitivity"] = sorted_frame["recall"]
   sorted_frame["specificity"] = 1 - sorted_frame["false_positive_rate"]
 
-  # re-order for neatness
+  # re-order for plotting
   sorted_frame["new_index"] = wrapr::seqi(1, nrow(sorted_frame))
   sorted_frame <- sorted_frame[order(sorted_frame[["new_index"]], decreasing = TRUE), , drop = FALSE]
 
@@ -65,18 +74,19 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
   sorted_frame["one"] <- NULL
   sorted_frame["new_index"] <- NULL
   sorted_frame["truth"] <- NULL
+  rownames(sorted_frame) <- NULL
   return(sorted_frame)
 }
 
 
 #' Plot distribution of metrics as a function of being greater than or equal to thresholds.
 #'
-#' @param frm data frame to get values from
+#' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the column to be predicted
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param metrics metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity'.
+#' @param metrics metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
 #' @param truth_target truth value considered to be positive.
 #'
 #' @export
@@ -84,9 +94,14 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
 #' @examples
 #'
 #' d <- data.frame(
-#'  x =  c(1, 2, 3, 4, 5),
-#'   y = c(FALSE, FALSE, TRUE, TRUE, FALSE))
-#' ThresholdPlot(d, 'x', 'y', 'example plot')
+#'  x =  rnorm(1000),
+#'  y = sample(c(TRUE, FALSE), size = 1000, replace = TRUE))
+#' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
+#'    metrics = c('sensitivity', 'specificity', 'pdf'))
+#' ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
+#'    metrics = c('recall', 'precision', 'pdf'))
+#' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
+#' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 #'
 ThresholdPlot <- function(frame, xvar, truthVar, title,
                           ...,
@@ -109,9 +124,68 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
     stop(paste0("allowed metrics are: ", paste(universe), collapse = ', '), ", saw: ", paste(bad_metrics, collapse = ', '))
   }
   stats <- stats[stats$metric %in% metrics, , drop = FALSE]
-  ggplot2::ggplot(data = stats, mapping = ggplot2::aes(x = threshold, y = value)) +
+  ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
     ggplot2::geom_line() +
     ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
+    ggplot2::ggtitle(title)
+}
+
+
+#' Plot the relationship between two metrics.
+#'
+#' @param frame data frame to get values from
+#' @param xvar name of the independent (input or model) column in frame
+#' @param truthVar name of the column to be predicted
+#' @param title title to place on plot
+#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param x_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
+#' @param y_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
+#' @param truth_target truth value considered to be positive.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' # data with two different regimes of behavior
+#' d <- rbind(
+#'   data.frame(
+#'     x =  rnorm(1000),
+#'     y = sample(c(TRUE, FALSE), prob = c(0.02, 0.98), size = 1000, replace = TRUE)),
+#'   data.frame(
+#'     x =  rnorm(200) + 5,
+#'     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
+#' )
+#' # sensitivity/1-specificity examples
+#' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
+#'    metrics = c('sensitivity', 'specificity', 'pdf'))
+#' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
+#' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+#' # precision/recall examples
+#' ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
+#'    metrics = c('recall', 'precision', 'pdf'))
+#' MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
+#'
+MetricPairPlot <- function(frame, xvar, truthVar, title,
+                          ...,
+                          x_metric = 'false_positive_rate',
+                          y_metric = 'true_positive_rate',
+                          truth_target = TRUE) {
+  check_frame_args_list(...,
+                        frame = frame,
+                        name_var_list = list(xvar = xvar),
+                        title = title,
+                        funname = "WVPlots::MetricPairPlot")
+  stats <- ThresholdStats(frame = frame, xvar = xvar, truthVar = truthVar, truth_target = truth_target)
+  universe <- sort(unique(colnames(stats)))
+  bad_metrics <- setdiff(c(x_metric, y_metric), universe)
+  if(length(bad_metrics) > 0) {
+    stop(paste0("allowed metrics are: ", paste(universe), collapse = ', '), ", saw: ", paste(bad_metrics, collapse = ', '))
+  }
+  stats <- stats[ , c(x_metric, y_metric), drop = FALSE]
+  # re-order for plotting
+  stats <- stats[order(stats[[x_metric]], stats[[y_metric]]), , drop = FALSE]
+  ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = x_metric, y = y_metric)) +
+    ggplot2::geom_line() +
     ggplot2::ggtitle(title)
 }
 

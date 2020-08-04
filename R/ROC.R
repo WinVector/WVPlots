@@ -185,7 +185,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ggtitle(paste0(title,'\n',
                             truthVar, '==', truthTarget, ' ~ ', xvar),
                      subtitle = subtitle) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::ylab('TruePositiveRate (Sensitivity)') +
+    ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(returnScores) {
     return(list(plot=plot,rocList=rocList,aucsig=aucsig,pString=pString))
   }
@@ -308,7 +310,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
   plot <- plot + ggplot2::ggtitle(paste0(title,'\n',
                                          truthVar, '==', truthTarget, ' ~ model'),
                                   subtitle = subtitle) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::ylab('TruePositiveRate (Sensitivity)') +
+    ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
@@ -445,7 +449,9 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
   }
   plot <- plot + ggplot2::ggtitle(title,
                                   subtitle = subtitle) +
-    ggplot2::ylim(0,1) + ggplot2::xlim(0,1)
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::ylab('TruePositiveRate (Sensitivity)') +
+    ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(returnScores) {
     return(list(plot=plot,
                 rocList1=rocList1,rocList2=rocList2,
@@ -542,8 +548,8 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
                   mode='lines+markers',
                   hoverinfo= 'text',
                   text= ~ paste('</br>threshold: ', model,
-                                '</br>False Positive Rate:', FalsePositiveRate,
-                                '</br>True Positive Rate:', TruePositiveRate)) ->.;
+                                '</br>False Positive Rate (1 - Specificity):', FalsePositiveRate,
+                                '</br>True Positive Rate (Sensitivity):', TruePositiveRate)) ->.;
     plotly::layout(., title = paste(title,
                                     '\n</br>',
                                     outcomeCol, '==', outcomeTarget, ' ~ ', predCol,

@@ -15,6 +15,8 @@ ThresholdPlot(
 )
 }
 \arguments{
+\item{frame}{data frame to get values from}
+
 \item{xvar}{name of the independent (input or model) column in frame}
 
 \item{truthVar}{name of the column to be predicted}
@@ -23,11 +25,9 @@ ThresholdPlot(
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
-\item{metrics}{metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity'.}
+\item{metrics}{metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.}
 
 \item{truth_target}{truth value considered to be positive.}
-
-\item{frm}{data frame to get values from}
 }
 \description{
 Plot distribution of metrics as a function of being greater than or equal to thresholds.
@@ -35,8 +35,13 @@ Plot distribution of metrics as a function of being greater than or equal to thr
 \examples{
 
 d <- data.frame(
- x =  c(1, 2, 3, 4, 5),
-  y = c(FALSE, FALSE, TRUE, TRUE, FALSE))
-ThresholdPlot(d, 'x', 'y', 'example plot')
+ x =  rnorm(1000),
+ y = sample(c(TRUE, FALSE), size = 1000, replace = TRUE))
+ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
+   metrics = c('sensitivity', 'specificity', 'pdf'))
+ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
+   metrics = c('recall', 'precision', 'pdf'))
+MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
+ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 
 }
