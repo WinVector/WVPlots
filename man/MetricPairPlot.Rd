@@ -48,7 +48,7 @@ d <- rbind(
 )
 # sensitivity/1-specificity examples
 ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-   metrics = c('sensitivity', 'specificity', 'pdf', 'positive_rate'))
+   metrics = c('sensitivity', 'specificity', 'pdf'))
 MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 # precision/recall examples

@@ -10,11 +10,11 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
     threshold = frame[[xvar]],
     truth = as.numeric(frame[[truthVar]]==truth_target),
     stringsAsFactors = FALSE)
-  sorted_frame["orig_index"] = wrapr::seqi(1, nrow(frame))
+  sorted_frame$orig_index = wrapr::seqi(1, nrow(frame))
   sorted_frame <- sorted_frame[order(-sorted_frame$threshold, sorted_frame$orig_index), , drop = FALSE]
-  sorted_frame["notY"] = 1 - sorted_frame["truth"]  # falses
-  sorted_frame["one"] = 1
-  sorted_frame["orig_index"] <- NULL
+  sorted_frame$notY = 1 - sorted_frame$truth  # falses
+  sorted_frame$one = 1
+  sorted_frame$orig_index <- NULL
 
   # cdf/pdf estimate
   cdf <- stats::ecdf(sorted_frame$threshold)
@@ -40,41 +40,41 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
   )
 
   # basic cumulative facts
-  sorted_frame["count"] = cumsum(sorted_frame["one"])  # predicted true so far
-  sorted_frame["fraction"] = sorted_frame["count"] / sum(sorted_frame["one"])
-  sorted_frame["precision"] = cumsum(sorted_frame["truth"]) / sorted_frame["count"]
-  sorted_frame["true_positive_rate"] = (
-    cumsum(sorted_frame["truth"]) / sum(sorted_frame["truth"])
+  sorted_frame$count = cumsum(sorted_frame$one)  # predicted true so far
+  sorted_frame$fraction = sorted_frame$count / max(1, sum(sorted_frame$one))
+  sorted_frame$precision = cumsum(sorted_frame$truth) / pmax(1, sorted_frame$count)
+  sorted_frame$true_positive_rate = (
+    cumsum(sorted_frame$truth) / pmax(1, sum(sorted_frame$truth))
   )
-  sorted_frame["false_positive_rate"] = (
-    cumsum(sorted_frame["notY"]) / sum(sorted_frame["notY"])
+  sorted_frame$false_positive_rate = (
+    cumsum(sorted_frame$notY) / pmax(1, sum(sorted_frame$notY))
   )
-  sorted_frame["true_negative_rate"] = (
-    sum(sorted_frame["notY"]) - cumsum(sorted_frame["notY"])
-  ) / sum(sorted_frame["notY"])
-  sorted_frame["false_negative_rate"] = (
-    sum(sorted_frame["truth"]) - cumsum(sorted_frame["truth"])
-  ) / sum(sorted_frame["truth"])
+  sorted_frame$true_negative_rate = (
+    sum(sorted_frame$notY) - cumsum(sorted_frame$notY)
+  ) / pmax(1, sum(sorted_frame$notY))
+  sorted_frame$false_negative_rate = (
+    sum(sorted_frame$truth) - cumsum(sorted_frame$truth)
+  ) / pmax(1, sum(sorted_frame$truth))
 
   # approximate cdf/pdf work
-  sorted_frame["cdf"] <- cdf(sorted_frame$threshold)
-  sorted_frame["pdf"] <- pmax(0, pdf(sorted_frame$threshold))
-  sorted_frame["positive_rate"] <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
+  sorted_frame$cdf <- cdf(sorted_frame$threshold)
+  sorted_frame$pdf <- pmax(0, pdf(sorted_frame$threshold))
+  sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
 
   # derived facts and synonyms
-  sorted_frame["recall"] = sorted_frame["true_positive_rate"]
-  sorted_frame["sensitivity"] = sorted_frame["recall"]
-  sorted_frame["specificity"] = 1 - sorted_frame["false_positive_rate"]
+  sorted_frame$recall = sorted_frame$true_positive_rate
+  sorted_frame$sensitivity = sorted_frame$recall
+  sorted_frame$specificity = 1 - sorted_frame$false_positive_rate
 
   # re-order for plotting
-  sorted_frame["new_index"] = wrapr::seqi(1, nrow(sorted_frame))
-  sorted_frame <- sorted_frame[order(sorted_frame[["new_index"]], decreasing = TRUE), , drop = FALSE]
+  sorted_frame$new_index = wrapr::seqi(1, nrow(sorted_frame))
+  sorted_frame <- sorted_frame[order(sorted_frame$new_index, decreasing = TRUE), , drop = FALSE]
 
   # clean up
-  sorted_frame["notY"] <- NULL
-  sorted_frame["one"] <- NULL
-  sorted_frame["new_index"] <- NULL
-  sorted_frame["truth"] <- NULL
+  sorted_frame$notY <- NULL
+  sorted_frame$one <- NULL
+  sorted_frame$new_index <- NULL
+  sorted_frame$truth <- NULL
   rownames(sorted_frame) <- NULL
   return(sorted_frame)
 }
@@ -158,7 +158,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' )
 #' # sensitivity/1-specificity examples
 #' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-#'    metrics = c('sensitivity', 'specificity', 'pdf', 'positive_rate'))
+#'    metrics = c('sensitivity', 'specificity', 'pdf'))
 #' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 #' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 #' # precision/recall examples
