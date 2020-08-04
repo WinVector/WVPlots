@@ -26,9 +26,9 @@ MetricPairPlot(
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
-\item{x_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.}
+\item{x_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
 
-\item{y_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.}
+\item{y_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
 
 \item{truth_target}{truth value considered to be positive.}
 }
@@ -48,7 +48,7 @@ d <- rbind(
 )
 # sensitivity/1-specificity examples
 ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-   metrics = c('sensitivity', 'specificity', 'pdf'))
+   metrics = c('sensitivity', 'specificity', 'pdf', 'positive_rate'))
 MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 # precision/recall examples

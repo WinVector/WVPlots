@@ -25,7 +25,7 @@ ThresholdPlot(
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
-\item{metrics}{metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.}
+\item{metrics}{metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
 
 \item{truth_target}{truth value considered to be positive.}
 }

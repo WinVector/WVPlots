@@ -1,17 +1,10 @@
 
 # Example:
 #
-# d <- data.frame(
-#   x =  c(1, 2, 3, 4, 5),
-#   y = c(FALSE, FALSE, TRUE, TRUE, FALSE))
-# ThresholdStats(d, 'x', 'y')
+# d <- data.frame(x =  c(1, 2, 3, 4, 5), y = c(FALSE, FALSE, TRUE, TRUE, FALSE))
+# WVPlots:::ThresholdStats(d, 'x', 'y')
 #
 ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
-  # cdf/pdf estimate
-  cdf <- stats::ecdf(frame[[xvar]])
-  dens <- stats::density(frame[[xvar]])
-  pdf <- stats::approxfun(dens$x, dens$y)
-
   # make a thin frame to re-sort for cumulative statistics
   sorted_frame <- data.frame(
     threshold = frame[[xvar]],
@@ -22,6 +15,13 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
   sorted_frame["notY"] = 1 - sorted_frame["truth"]  # falses
   sorted_frame["one"] = 1
   sorted_frame["orig_index"] <- NULL
+
+  # cdf/pdf estimate
+  cdf <- stats::ecdf(sorted_frame$threshold)
+  dens <- stats::density(sorted_frame$threshold)
+  pdf <- stats::approxfun(dens$x, dens$y)
+  pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
+  pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
 
   # pseudo-observation to get end-case (accept nothing case)
   eps = 1.0e-6
@@ -59,6 +59,7 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
   # approximate cdf/pdf work
   sorted_frame["cdf"] <- cdf(sorted_frame$threshold)
   sorted_frame["pdf"] <- pmax(0, pdf(sorted_frame$threshold))
+  sorted_frame["positive_rate"] <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
 
   # derived facts and synonyms
   sorted_frame["recall"] = sorted_frame["true_positive_rate"]
@@ -86,7 +87,7 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
 #' @param truthVar name of the column to be predicted
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param metrics metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
+#' @param metrics metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
 #' @param truth_target truth value considered to be positive.
 #'
 #' @export
@@ -138,8 +139,8 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' @param truthVar name of the column to be predicted
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param x_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
-#' @param y_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf'.
+#' @param x_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
+#' @param y_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
 #' @param truth_target truth value considered to be positive.
 #'
 #' @export
@@ -157,7 +158,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' )
 #' # sensitivity/1-specificity examples
 #' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-#'    metrics = c('sensitivity', 'specificity', 'pdf'))
+#'    metrics = c('sensitivity', 'specificity', 'pdf', 'positive_rate'))
 #' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 #' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 #' # precision/recall examples
