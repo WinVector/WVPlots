@@ -8,6 +8,7 @@ NULL
 #'
 #' Plots the empirical density, the theoretical matching normal, the mean value,
 #' and plus/minus one standard deviation from the mean.
+#'
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
