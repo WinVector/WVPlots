@@ -1,10 +1,41 @@
 
+
+# take a sub-selection of a sorted list of positions (sort can be ascending or descending)
+winnow_sorted_list <- function(sorted_values, rough_target) {
+  n <- length(sorted_values)
+  if((n<=4) || (length(rough_target) != 1) || (is.na(rough_target)) || (rough_target >= 2*n)) {
+    return(!logical(n))
+  }
+  take <- logical(n)
+  # take ends, want first 2 on each end for our application
+  take[c(1, 2, n-1, n)] <- TRUE
+  # take by stride
+  take[seq(1, n, by = ceiling(2*n/rough_target))] <- TRUE
+  # take by delta
+  step <- 2*(max(sorted_values) - min(sorted_values))/rough_target
+  last_take <- sorted_values[[2]]
+  for(i in seq_len(n)) {
+    if(abs(sorted_values[[i]] - last_take) >= step) {
+      take[[i]] <- TRUE
+      last_take <- sorted_values[[i]]
+    }
+  }
+  return(take)
+}
+
+
 # Example:
 #
 # d <- data.frame(x =  c(1, 2, 3, 4, 5), y = c(FALSE, FALSE, TRUE, TRUE, FALSE))
 # WVPlots:::ThresholdStats(d, 'x', 'y')
 #
-ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
+ThresholdStats <- function(frame, xvar, truthVar,
+                           ...,
+                           truth_target = TRUE,
+                           compute_dists = TRUE,
+                           winnow_size = 200) {
+  wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots:::ThresholdStats")
+
   # make a thin frame to re-sort for cumulative statistics
   sorted_frame <- data.frame(
     threshold = frame[[xvar]],
@@ -16,12 +47,14 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
   sorted_frame$one = 1
   sorted_frame$orig_index <- NULL
 
-  # cdf/pdf estimate
-  cdf <- stats::ecdf(sorted_frame$threshold)
-  dens <- stats::density(sorted_frame$threshold)
-  pdf <- stats::approxfun(dens$x, dens$y)
-  pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
-  pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
+  if(compute_dists) {
+    # cdf/pdf estimate
+    cdf <- stats::ecdf(sorted_frame$threshold)
+    dens <- stats::density(sorted_frame$threshold)
+    pdf <- stats::approxfun(dens$x, dens$y)
+    pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
+    pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
+  }
 
   # pseudo-observation to get end-case (accept nothing case)
   eps = 1.0e-6
@@ -56,10 +89,17 @@ ThresholdStats <- function(frame, xvar, truthVar, truth_target=TRUE) {
     sum(sorted_frame$truth) - cumsum(sorted_frame$truth)
   ) / pmax(1, sum(sorted_frame$truth))
 
-  # approximate cdf/pdf work
-  sorted_frame$cdf <- cdf(sorted_frame$threshold)
-  sorted_frame$pdf <- pmax(0, pdf(sorted_frame$threshold))
-  sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
+  if((length(winnow_size)==1) && (winnow_size>100) && (nrow(sorted_frame) > 2*winnow_size)) {
+    take <- winnow_sorted_list(sorted_frame$threshold, winnow_size)
+    sorted_frame <- sorted_frame[take, , drop = FALSE]
+  }
+
+  if(compute_dists) {
+    # approximate cdf/pdf work
+    sorted_frame$cdf <- cdf(sorted_frame$threshold)
+    sorted_frame$pdf <- pmax(0, pdf(sorted_frame$threshold))
+    sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
+  }
 
   # derived facts and synonyms
   sorted_frame$recall = sorted_frame$true_positive_rate
