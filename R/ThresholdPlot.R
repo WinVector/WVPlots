@@ -3,7 +3,7 @@
 # take a sub-selection of a sorted list of positions (sort can be ascending or descending)
 winnow_sorted_list <- function(sorted_values, rough_target) {
   n <- length(sorted_values)
-  if((n<=4) || (length(rough_target) != 1) || (is.na(rough_target)) || (rough_target >= 2*n)) {
+  if((n<=4) || (length(rough_target) != 1) || (is.na(rough_target)) || (2*rough_target >= n)) {
     return(!logical(n))
   }
   take <- logical(n)
