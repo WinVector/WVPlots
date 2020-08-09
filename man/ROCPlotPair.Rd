@@ -53,7 +53,7 @@ models when applied to a data set, where the predictions from both models
 are columns of the same data frame.
 
 If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
-allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
+allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_color_manual}}.
 }
 \examples{
 

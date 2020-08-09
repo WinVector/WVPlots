@@ -206,7 +206,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #' are columns of the same data frame.
 #'
 #' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
-#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_color_manual}}.
 #'
 #' @param frame data frame to get values from
 #' @param xvar1 name of the first independent (input or model) column in frame
@@ -330,7 +330,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' data frames, each of which has its own model predictions and true outcome columns.
 #'
 #' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
-#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_color_manual}}.
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_color_manual}}.
 #'
 #' @param nm1 name of first model
 #' @param frame1 data frame to get values from
