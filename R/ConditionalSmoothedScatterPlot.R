@@ -46,7 +46,7 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #'
 #' If \code{palette} is NULL, and \code{groupvar} is non-NULL, plot colors will be chosen from the default ggplot2 palette.
 #' Setting \code{palette} to NULL
-#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_fill_manual}}.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent column in frame. Assumed to be regularly spaced

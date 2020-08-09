@@ -12,7 +12,7 @@
 #' with the optional \code{ncol} argument.
 #'
 #' If \code{palette} is NULL, and \code{monochrome} is FALSE, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
-#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2]{scale_fill_manual}}.
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_fill_manual}}.
 #' For consistency with previous releases, \code{ShadowHist} defaults to \code{monochrome = FALSE}, while
 #' \code{\link{ShadowPlot}} defaults to \code{monochrome = TRUE}.
 #'
