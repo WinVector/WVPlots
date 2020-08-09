@@ -18,7 +18,7 @@
 #'
 #' @examples
 #'
-#' PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
+#' # PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
 #'
 #' # custom palette
 #' colormap = c('#a6611a', '#dfc27d', '#018571')
@@ -26,8 +26,8 @@
 #'          group_var = "Species", palette=NULL) +
 #'          ggplot2::scale_color_manual(values=colormap)
 #'
-#' # no color-coding
-#' PairPlot(iris, colnames(iris)[1:4], "Example plot")
+#' # # no color-coding
+#' # PairPlot(iris, colnames(iris)[1:4], "Example plot")
 #'
 #' @export
 #'
