@@ -9,7 +9,7 @@ NULL
 #' Plot a scatter plot with marginals.
 #'
 #' Plot a scatter plot with optional smoothing curves or contour lines, and marginal histogram/density plots.
-#' Based on \url{http://www.win-vector.com/blog/2015/06/wanted-a-perfect-scatterplot-with-marginals/}.
+#' Based on \url{https://win-vector.com/2015/06/11/wanted-a-perfect-scatterplot-with-marginals/}.
 #' See also \code{ggExtra::ggMarginal}.
 #'
 #' If \code{smoothmethod} is:
@@ -213,7 +213,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   plot_center <- plot_center +
     ggplot2::scale_y_continuous(limits=ylims, label=yPadFn, expand = c(0,0))
   plot_top <- plot_top + ggplot2::scale_y_continuous(label=yPadFn)
-  # # From: http://stackoverflow.com/questions/27374409/get-tick-break-positions-in-ggplot
+  # # From: https://stackoverflow.com/questions/27374409/get-tick-break-positions-in-ggplot
   # cRanges <-  ggplot_build(plot_center)$layout$panel_ranges[[1]]
   # yBreaks <- cRanges$y.major_source
   # xBreaks <- cRanges$x.major_source

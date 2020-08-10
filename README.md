@@ -8,7 +8,7 @@
 
 Common plots we use for analysis and presentation (on top of ggplot2 in
 [R](https://cran.r-project.org)). For an introduction please see:
-[here](http://www.win-vector.com/blog/2018/05/wvplots-now-at-version-1-0-0-on-cran/).
+[here](https://win-vector.com/2018/05/25/wvplots-now-at-version-1-0-0-on-cran/).
 
 Website: <https://github.com/WinVector/WVPlots>
 
@@ -17,9 +17,9 @@ Website: <https://github.com/WinVector/WVPlots>
 More
     notes:
 
-  - <http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
-  - <http://www.win-vector.com/blog/2011/12/my-favorite-graphs/>
-  - <http://www.win-vector.com/blog/2009/11/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/>
+  - <https://win-vector.com/2013/02/18/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
+  - <https://win-vector.com/2011/12/05/my-favorite-graphs/>
+  - <https://win-vector.com/2009/11/03/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/>
 
 -----
 

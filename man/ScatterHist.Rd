@@ -70,7 +70,7 @@ plot grid
 }
 \description{
 Plot a scatter plot with optional smoothing curves or contour lines, and marginal histogram/density plots.
-Based on \url{http://www.win-vector.com/blog/2015/06/wanted-a-perfect-scatterplot-with-marginals/}.
+Based on \url{https://win-vector.com/2015/06/11/wanted-a-perfect-scatterplot-with-marginals/}.
 See also \code{ggExtra::ggMarginal}.
 }
 \details{

@@ -51,7 +51,7 @@ ROCPlot(
 Plot receiver operating characteristic plot.
 }
 \details{
-See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of
+See https://www.nature.com/articles/nmeth.3945 for a discussion of
 true positive and false positive rates,
 and how the ROC plot relates to the precision/recall plot.
 }

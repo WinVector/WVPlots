@@ -14,7 +14,7 @@
 #' Some care must be taken in drawing conclusions from log-log plots,
 #' as the transform is fairly violent.  Please see:
 #' "(Mar's Law) Everything is linear if plotted log-log with a fat magic marker"
-#' (from Akin's Laws of Spacecraft Design \url{http://spacecraft.ssl.umd.edu/akins_laws.html}),
+#' (from Akin's Laws of Spacecraft Design \url{https://spacecraft.ssl.umd.edu/akins_laws.html}),
 #' and "So You Think You Have a Power Law" \url{http://bactra.org/weblog/491.html}.
 #'
 #' @param frame data frame to get values from

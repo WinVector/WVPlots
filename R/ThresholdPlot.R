@@ -232,6 +232,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 
   # set the factor order to be the same as given in metrics
   stats$metric = factor(stats$metric, levels=metrics)
+  metric <- NULL  # don't look like an unbound variable
 
   if(monochrome) {
     ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
@@ -281,7 +282,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the column to be predicted
 #' @param title title to place on plot
-#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param x_metric metric to be plotted. See Details for the list of allowed metrics
 #' @param y_metric metric to be plotted. See Details for the list of allowed metrics
 #' @param truth_target truth value considered to be positive.

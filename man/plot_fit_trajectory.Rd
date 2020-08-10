@@ -60,7 +60,7 @@ fit history data should be in the form given in the example below.
 
 The example below gives
 a fit plot for a history report from Keras R package.
-Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
+Please see \url{https://win-vector.com/2017/12/23/plotting-deep-learning-model-performance-trajectories/}
 for some examples and details.
 }
 \examples{

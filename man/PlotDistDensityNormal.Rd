@@ -23,7 +23,7 @@ PlotDistDensityNormal(
 
 \item{title}{title to place on plot}
 
-\item{...}{no unarmed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{adjust}{passed to geom_density; controls smoothness of density plot}
 

@@ -12,7 +12,7 @@ NULL
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param adjust passed to geom_density; controls smoothness of density plot
 #' @param curve_color color for empirical density curve
 #' @param normal_color color for theoretical matching normal
@@ -86,7 +86,7 @@ PlotDistDensityNormal <- function(frm, xvar, title, ...,
 #' @param frm data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param title title to place on plot
-#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param binWidth width of histogram bins
 #' @param hist_color color of empirical histogram
 #' @param normal_color color of matching theoretical normal

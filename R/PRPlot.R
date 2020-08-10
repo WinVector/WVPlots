@@ -4,7 +4,7 @@
 #' Calculate precision/recall curve.
 #'
 #' Based on:
-#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'  https://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
 #'
 #'  See also https://github.com/WinVector/sigr
 #'
@@ -53,7 +53,7 @@ calcPR <- function(modelPredictions,yValues) {
 #'
 #' Plot Precision-Recall plot.
 #'
-#' See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of precision and recall,
+#' See https://www.nature.com/articles/nmeth.3945 for a discussion of precision and recall,
 #' and how the precision/recall plot relates to the ROC plot.
 #'
 #' In addition to plotting precision versus recall, \code{PRPlot} reports the best

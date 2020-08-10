@@ -21,7 +21,7 @@ novelPointPositionsR <- function(x) {
 #' Graph AUC.
 #'
 #' Based on:
-#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'  https://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
 #'
 #'  See also https://github.com/WinVector/sigr
 #
@@ -92,7 +92,7 @@ graphROC <- function(modelPredictions, yValues) {
 #'
 #' Plot receiver operating characteristic plot.
 #'
-#' See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of
+#' See https://www.nature.com/articles/nmeth.3945 for a discussion of
 #' true positive and false positive rates,
 #' and how the ROC plot relates to the precision/recall plot.
 #'

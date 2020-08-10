@@ -70,7 +70,7 @@ If you choose not to flip the loss, you should not use the loss as the pick_metr
 
 The example below gives
 a fit plot for a history report from Keras R package.
-Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
+Please see \url{https://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
 for some details.
 }
 \examples{

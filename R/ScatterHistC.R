@@ -14,7 +14,7 @@
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param annot_size numeric scale annotation text (if present)
-#' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
+#' @param colorPalette name of a Brewer palette (see https://colorbrewer2.org/ )
 #' @param adjust_x  numeric: adjust x density plot
 #' @param adjust_y  numeric: adjust y density plot
 #' @return plot grid
@@ -198,7 +198,7 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 #' @param title title to place on plot
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param annot_size numeric: scale annotation text (if present)
-#' @param colorPalette name of a Brewer palette (see http://colorbrewer2.org/ )
+#' @param colorPalette name of a Brewer palette (see https://colorbrewer2.org/ )
 #' @param nclus scalar: number of z-clusters to plot
 #' @param adjust_x  numeric: adjust x density plot
 #' @param adjust_y  numeric: adjust y density plot

@@ -34,7 +34,7 @@ GainCurvePlotWithNotation(
 
 \item{labelfun}{a function to return a label for the marked point}
 
-\item{...}{no unarmed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{estimate_sig}{logical, if TRUE compute significance}
 

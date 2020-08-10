@@ -3,7 +3,7 @@
 
 #' Calculate precision/recall/enrichment as a function of threshold
 #' Based on:
-#'  http://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
+#'  https://blog.revolutionanalytics.com/2016/08/roc-curves-in-two-lines-of-code.html
 #'
 #'  See also https://github.com/WinVector/sigr
 #'

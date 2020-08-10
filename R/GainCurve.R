@@ -532,7 +532,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param title title to place on plot
 #' @param gainx the point on the x axis corresponding to the desired label
 #' @param labelfun a function to return a label for the marked point
-#' @param ...  no unarmed argument, added to force named binding of later arguments.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, upper bound target for number of plotting points
 #' @param model_color color for the model curve

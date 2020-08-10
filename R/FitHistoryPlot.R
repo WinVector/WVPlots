@@ -12,7 +12,7 @@
 #'
 #' The example below gives
 #' a fit plot for a history report from Keras R package.
-#' Please see \url{http://www.win-vector.com/blog/2017/12/plotting-deep-learning-model-performance-trajectories/}
+#' Please see \url{https://win-vector.com/2017/12/23/plotting-deep-learning-model-performance-trajectories/}
 #' for some examples and details.
 #'
 #' @seealso \link{plot_Keras_fit_trajectory}
@@ -228,7 +228,7 @@ plot_fit_trajectory <- function(d,
 #'
 #' The example below gives
 #' a fit plot for a history report from Keras R package.
-#' Please see \url{http://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
+#' Please see \url{https://winvector.github.io/FluidData/PlotExample/KerasPerfPlot.html}
 #' for some details.
 #'
 #' @seealso \link{plot_fit_trajectory}

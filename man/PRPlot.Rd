@@ -25,7 +25,7 @@ PRPlot(frame, xvar, truthVar, truthTarget, title, ..., estimate_sig = FALSE)
 Plot Precision-Recall plot.
 }
 \details{
-See http://www.nature.com/nmeth/journal/v13/n8/full/nmeth.3945.html for a discussion of precision and recall,
+See https://www.nature.com/articles/nmeth.3945 for a discussion of precision and recall,
 and how the precision/recall plot relates to the ROC plot.
 
 In addition to plotting precision versus recall, \code{PRPlot} reports the best

@@ -26,7 +26,7 @@ MetricPairPlot(
 
 \item{title}{title to place on plot}
 
-\item{...}{no unarmed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
 \item{x_metric}{metric to be plotted. See Details for the list of allowed metrics}
 

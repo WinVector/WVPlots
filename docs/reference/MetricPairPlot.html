@@ -108,7 +108,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="http://www.win-vector.com/">Sponsor: Win-Vector LLC</a>
+  <a href="https://win-vector.com/">Sponsor: Win-Vector LLC</a>
 </li>
       </ul>
       
@@ -140,7 +140,9 @@
   <span class='no'>...</span>,
   <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>"false_positive_rate"</span>,
   <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>"true_positive_rate"</span>,
-  <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>points_to_plot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>linecolor</span> <span class='kw'>=</span> <span class='st'>"black"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -164,22 +166,55 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>no unarmed argument, added to force named binding of later arguments.</p></td>
+      <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
     </tr>
     <tr>
       <th>x_metric</th>
-      <td><p>metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.</p></td>
+      <td><p>metric to be plotted. See Details for the list of allowed metrics</p></td>
     </tr>
     <tr>
       <th>y_metric</th>
-      <td><p>metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.</p></td>
+      <td><p>metric to be plotted. See Details for the list of allowed metrics</p></td>
     </tr>
     <tr>
       <th>truth_target</th>
       <td><p>truth value considered to be positive.</p></td>
     </tr>
+    <tr>
+      <th>points_to_plot</th>
+      <td><p>how many data points to use for plotting. Defaults to NULL (all data)</p></td>
+    </tr>
+    <tr>
+      <th>linecolor</th>
+      <td><p>character: name of line color</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Plots two classifier metrics against each other, showing achievable combinations
+of performance metrics. For example, plotting true_positive_rate vs false_positive_rate
+recreates the ROC plot.</p>
+<p><code>MetricPairPlot</code> can plot a number of metrics. Some of the metrics are redundant,
+in keeping with the customary terminology of various analysis communities.</p>
+<ul>
+<li><p>sensitivity: fraction of true positives that were predicted to be true (also known as the true positive rate)</p></li>
+<li><p>specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)</p></li>
+<li><p>precision: fraction of predicted positives that are true positives</p></li>
+<li><p>recall: same as sensitivity or true positive rate</p></li>
+<li><p>false_positive_rate: fraction of negatives predicted to be true over all negatives</p></li>
+<li><p>true_positive_rate: fraction of positives predicted to be true over all positives</p></li>
+<li><p>false_negative_rate: fraction of positives predicted to be all false over all positives</p></li>
+<li><p>true_negative_rate: fraction negatives predicted to be false over all negatives</p></li>
+</ul>
+
+<p><code>points_to_plot</code> specifies the approximate number of datums used to
+create the plots as an absolute count; for example setting <code>points_to_plot = 200</code> uses
+approximately 200 points, rather than the entire data set. This can be useful when
+visualizing very large data sets.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ThresholdPlot.html'>ThresholdPlot</a></code>, <code><a href='ROCPlot.html'>ROCPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -192,11 +227,13 @@
     <span class='kw'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>) + <span class='fl'>5</span>,
     <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 )
-<span class='co'># sensitivity/1-specificity examples</span>
-<span class='fu'><a href='ThresholdPlot.html'>ThresholdPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'positivity rates, and data distribution'</span>,
-   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'sensitivity'</span>, <span class='st'>'specificity'</span>, <span class='st'>'pdf'</span>))</div><div class='img'><img src='MetricPairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>MetricPairPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'ROC equivalent'</span>)</div><div class='img'><img src='MetricPairPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ROCPlot.html'>ROCPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='fl'>TRUE</span>, <span class='st'>'ROC example'</span>)</div><div class='img'><img src='MetricPairPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># precision/recall examples</span>
-<span class='fu'><a href='ThresholdPlot.html'>ThresholdPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'precision/recall, and data distribution'</span>,
-   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>, <span class='st'>'pdf'</span>))</div><div class='img'><img src='MetricPairPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>MetricPairPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'recall/precision'</span>, <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>'recall'</span>, <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>'precision'</span>)</div><div class='img'><img src='MetricPairPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
+
+<span class='co'># Plot true_positive_rate vs false_positive_rate</span>
+<span class='fu'>MetricPairPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'ROC equivalent'</span>)</div><div class='img'><img src='MetricPairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ROCPlot for comparison</span>
+<span class='fu'><a href='ROCPlot.html'>ROCPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='fl'>TRUE</span>, <span class='st'>'ROC example'</span>)</div><div class='img'><img src='MetricPairPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># precision/recall examples</span>
+<span class='fu'><a href='ThresholdPlot.html'>ThresholdPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'recall and precision'</span>,
+   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>))</div><div class='img'><img src='MetricPairPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>MetricPairPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'recall/precision'</span>, <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>'recall'</span>, <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>'precision'</span>)</div><div class='img'><img src='MetricPairPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

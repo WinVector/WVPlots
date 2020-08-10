@@ -33,7 +33,7 @@ ScatterHistN(
 
 \item{annot_size}{numeric: scale annotation text (if present)}
 
-\item{colorPalette}{name of a Brewer palette (see http://colorbrewer2.org/ )}
+\item{colorPalette}{name of a Brewer palette (see https://colorbrewer2.org/ )}
 
 \item{nclus}{scalar: number of z-clusters to plot}
 
