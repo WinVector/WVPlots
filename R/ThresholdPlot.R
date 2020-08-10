@@ -46,6 +46,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
   sorted_frame$notY = 1 - sorted_frame$truth  # falses
   sorted_frame$one = 1
   sorted_frame$orig_index <- NULL
+  prevalence <- mean(sorted_frame$truth)
 
   if(compute_dists) {
     # cdf/pdf estimate
@@ -105,6 +106,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
   sorted_frame$recall = sorted_frame$true_positive_rate
   sorted_frame$sensitivity = sorted_frame$recall
   sorted_frame$specificity = 1 - sorted_frame$false_positive_rate
+  sorted_frame$enrichment <- sorted_frame$precision / prevalence
 
   # re-order for plotting
   sorted_frame$new_index = wrapr::seqi(1, nrow(sorted_frame))
