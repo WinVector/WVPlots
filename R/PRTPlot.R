@@ -75,7 +75,7 @@ calcPRT <- function(modelPredictions, yValues) {
 #' @param thresholdrange range of thresholds to plot.
 #' @param linecolor line color for the plot
 #'
-#' @seealso \code{\link{PRPlot}}, \code{\link{ROCPlot}}
+#' @seealso \code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
 #'
 #' @examples
 #'

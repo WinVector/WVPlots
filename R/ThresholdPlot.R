@@ -33,7 +33,8 @@ ThresholdStats <- function(frame, xvar, truthVar,
                            ...,
                            truth_target = TRUE,
                            compute_dists = TRUE,
-                           winnow_size = 200) {
+                           winnow_size = 200,
+                           compute_pos_rate = FALSE) {
   wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots:::ThresholdStats")
 
   # make a thin frame to re-sort for cumulative statistics
@@ -53,8 +54,10 @@ ThresholdStats <- function(frame, xvar, truthVar,
     cdf <- stats::ecdf(sorted_frame$threshold)
     dens <- stats::density(sorted_frame$threshold)
     pdf <- stats::approxfun(dens$x, dens$y)
-    pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
-    pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
+    if(compute_pos_rate) {
+      pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
+      pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
+    }
   }
 
   # pseudo-observation to get end-case (accept nothing case)
@@ -99,7 +102,9 @@ ThresholdStats <- function(frame, xvar, truthVar,
     # approximate cdf/pdf work
     sorted_frame$cdf <- cdf(sorted_frame$threshold)
     sorted_frame$pdf <- pmax(0, pdf(sorted_frame$threshold))
-    sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
+    if(compute_pos_rate) {
+      sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
+    }
   }
 
   # derived facts and synonyms
@@ -122,15 +127,59 @@ ThresholdStats <- function(frame, xvar, truthVar,
 }
 
 
-#' Plot distribution of metrics as a function of being greater than or equal to thresholds.
+#' Plot classifier metrics as a function of thresholds.
+#'
+#' @details
+#' By default, \code{ThresholdPlot} plots sensitivity and specificity of a
+#' a classifier as a function of the decision threshold.
+#' Plotting sensitivity-specificity (or other metrics) as a function of classifier score helps
+#' identify a score threshold that achieves an acceptable tradeoff among desirable
+#' properties.
+#'
+#' \code{ThresholdPlot} can plot a number of metrics. Some of the metrics are redundant,
+#' in keeping with the customary terminology of various analysis communities.
+#'
+#' \itemize{
+#'   \item{sensitivity: fraction of true positives that were predicted to be true (also known as the true positive rate)}
+#'   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
+#'   \item{precision: fraction of predicted positives that are true positives}
+#'   \item{recall: same as sensitivity or true positive rate}
+#'   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
+#'   \item{true_positive_rate: fraction of positives predicted to be true over all positives}
+#'   \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
+#'   \item{true_negative_rate: fraction negatives predicted to be false over all negatives}
+#' }
+#'
+#' For example, plotting sensitivity/false_positive_rate as functions of threshold will "unroll" an ROC Plot.
+#'
+#'  \code{ThresholdPlot} can also plot distribution diagnostics about the scores:
+#'
+#'  \itemize{
+#'   \item{count: the number of datums that scored greater than a given threshold}
+#'   \item{fraction: the fraction of datums that scored greater than a given threshold}
+#'   \item{cdf: CDF or \code{1 - fraction}; the fraction of datums that scored less than a given threshold}
+#'   \item{pdf: PDF or distribution of scores}
+#' }
+#' Plots are in a single column, in the order specified by \code{metrics}.
+#'
+#' \code{points_to_plot} specifies the approximate number of datums used to
+#' create the plots as an absolute count; for example setting \code{points_to_plot = 200} uses
+#' approximately 200 points, rather than the entire data set. This can be useful when
+#' visualizing very large data sets.
 #'
 #' @param frame data frame to get values from
-#' @param xvar name of the independent (input or model) column in frame
-#' @param truthVar name of the column to be predicted
+#' @param xvar column of scores
+#' @param truthVar column of true outcomes
 #' @param title title to place on plot
-#' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param metrics metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param metrics metrics to be computed. See Details for the list of allowed metrics
 #' @param truth_target truth value considered to be positive.
+#' @param points_to_plot how many data points to use for plotting. Defaults to NULL (all data)
+#' @param monochrome logical: if TRUE, all subgraphs plotted in same color
+#' @param palette character: if monochrome==FALSE, name of brewer color palette (can be NULL)
+#' @param linecolor character: if monochrome==TRUE, name of line color
+#'
+#' @seealso \code{\link{PRTPlot}}
 #'
 #' @export
 #'
@@ -139,23 +188,36 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #' d <- data.frame(
 #'  x =  rnorm(1000),
 #'  y = sample(c(TRUE, FALSE), size = 1000, replace = TRUE))
-#' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-#'    metrics = c('sensitivity', 'specificity', 'pdf'))
-#' ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
-#'    metrics = c('recall', 'precision', 'pdf'))
+#'
+#' ThresholdPlot(d, 'x', 'y', 'Sensitivity/Specificity',
+#'    metrics = c('sensitivity', 'specificity'))
+#'
+#' ThresholdPlot(d, 'x', 'y', 'precision/recall',
+#'    metrics = c('recall', 'precision'))
 #' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 #' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+#'
+#' ThresholdPlot(d, 'x','y', 'Score Distribution',
+#'    metrics = c('fraction', 'cdf', 'pdf'))
 #'
 ThresholdPlot <- function(frame, xvar, truthVar, title,
                           ...,
                           metrics = c('sensitivity', 'specificity'),
-                          truth_target = TRUE) {
+                          truth_target = TRUE,
+                          points_to_plot = NULL,
+                          monochrome = TRUE,
+                          palette = "Dark2",
+                          linecolor = "black"
+                          ) {
   check_frame_args_list(...,
                         frame = frame,
                         name_var_list = list(xvar = xvar),
                         title = title,
                         funname = "WVPlots::ThresholdPlot")
-  stats <- ThresholdStats(frame = frame, xvar = xvar, truthVar = truthVar, truth_target = truth_target)
+  stats <- ThresholdStats(frame = frame, xvar = xvar,
+                          truthVar = truthVar,
+                          truth_target = truth_target,
+                          winnow_size = points_to_plot)
   stats <- cdata::pivot_to_blocks(
     stats,
     nameForNewKeyColumn = 'metric',
@@ -167,23 +229,66 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
     stop(paste0("allowed metrics are: ", paste(universe), collapse = ', '), ", saw: ", paste(bad_metrics, collapse = ', '))
   }
   stats <- stats[stats$metric %in% metrics, , drop = FALSE]
-  ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
-    ggplot2::geom_line() +
-    ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
-    ggplot2::ggtitle(title)
+
+  # set the factor order to be the same as given in metrics
+  stats$metric = factor(stats$metric, levels=metrics)
+
+  if(monochrome) {
+    ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
+      ggplot2::geom_line(color=linecolor) +
+      ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
+      ggplot2::ggtitle(title)
+  } else {
+    p = ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
+      ggplot2::geom_line(aes(color=metric)) +
+      ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
+      ggplot2::ggtitle(title)
+    if(!is.null(palette)) {
+      p = p + ggplot2::scale_color_brewer(palette=palette)
+    }
+    p
+  }
 }
 
 
 #' Plot the relationship between two metrics.
+#'
+#' @details
+#' Plots two classifier metrics against each other, showing achievable combinations
+#' of performance metrics. For example, plotting true_positive_rate vs false_positive_rate
+#' recreates the ROC plot.
+#'
+#' \code{MetricPairPlot} can plot a number of metrics. Some of the metrics are redundant,
+#' in keeping with the customary terminology of various analysis communities.
+#'
+#' \itemize{
+#'   \item{sensitivity: fraction of true positives that were predicted to be true (also known as the true positive rate)}
+#'   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
+#'   \item{precision: fraction of predicted positives that are true positives}
+#'   \item{recall: same as sensitivity or true positive rate}
+#'   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
+#'   \item{true_positive_rate: fraction of positives predicted to be true over all positives}
+#'   \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
+#'   \item{true_negative_rate: fraction negatives predicted to be false over all negatives}
+#' }
+#'
+#' \code{points_to_plot} specifies the approximate number of datums used to
+#' create the plots as an absolute count; for example setting \code{points_to_plot = 200} uses
+#' approximately 200 points, rather than the entire data set. This can be useful when
+#' visualizing very large data sets.
 #'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model) column in frame
 #' @param truthVar name of the column to be predicted
 #' @param title title to place on plot
 #' @param ...  no unarmed argument, added to force named binding of later arguments.
-#' @param x_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
-#' @param y_metric metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.
+#' @param x_metric metric to be plotted. See Details for the list of allowed metrics
+#' @param y_metric metric to be plotted. See Details for the list of allowed metrics
 #' @param truth_target truth value considered to be positive.
+#' @param points_to_plot how many data points to use for plotting. Defaults to NULL (all data)
+#' @param linecolor character: name of line color
+#'
+#' @seealso \code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
 #'
 #' @export
 #'
@@ -198,27 +303,34 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #'     x =  rnorm(200) + 5,
 #'     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
 #' )
-#' # sensitivity/1-specificity examples
-#' ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-#'    metrics = c('sensitivity', 'specificity', 'pdf'))
+#'
+#' # Plot true_positive_rate vs false_positive_rate
 #' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
+#' # ROCPlot for comparison
 #' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+#'
 #' # precision/recall examples
-#' ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
-#'    metrics = c('recall', 'precision', 'pdf'))
+#' ThresholdPlot(d, 'x', 'y', 'recall and precision',
+#'    metrics = c('recall', 'precision'))
 #' MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
 #'
 MetricPairPlot <- function(frame, xvar, truthVar, title,
                           ...,
                           x_metric = 'false_positive_rate',
                           y_metric = 'true_positive_rate',
-                          truth_target = TRUE) {
+                          truth_target = TRUE,
+                          points_to_plot = NULL,
+                          linecolor = "black"
+                          ) {
   check_frame_args_list(...,
                         frame = frame,
                         name_var_list = list(xvar = xvar),
                         title = title,
                         funname = "WVPlots::MetricPairPlot")
-  stats <- ThresholdStats(frame = frame, xvar = xvar, truthVar = truthVar, truth_target = truth_target)
+  stats <- ThresholdStats(frame = frame, xvar = xvar,
+                          truthVar = truthVar,
+                          truth_target = truth_target,
+                          winnow_size = points_to_plot)
   universe <- sort(unique(colnames(stats)))
   bad_metrics <- setdiff(c(x_metric, y_metric), universe)
   if(length(bad_metrics) > 0) {
@@ -228,7 +340,7 @@ MetricPairPlot <- function(frame, xvar, truthVar, title,
   # re-order for plotting
   stats <- stats[order(stats[[x_metric]], stats[[y_metric]]), , drop = FALSE]
   ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = x_metric, y = y_metric)) +
-    ggplot2::geom_line() +
+    ggplot2::geom_line(color=linecolor) +
     ggplot2::ggtitle(title)
 }
 

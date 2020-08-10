@@ -2,7 +2,7 @@
 % Please edit documentation in R/ThresholdPlot.R
 \name{ThresholdPlot}
 \alias{ThresholdPlot}
-\title{Plot distribution of metrics as a function of being greater than or equal to thresholds.}
+\title{Plot classifier metrics as a function of thresholds.}
 \usage{
 ThresholdPlot(
   frame,
@@ -11,37 +11,95 @@ ThresholdPlot(
   title,
   ...,
   metrics = c("sensitivity", "specificity"),
-  truth_target = TRUE
+  truth_target = TRUE,
+  points_to_plot = NULL,
+  monochrome = TRUE,
+  palette = "Dark2",
+  linecolor = "black"
 )
 }
 \arguments{
 \item{frame}{data frame to get values from}
 
-\item{xvar}{name of the independent (input or model) column in frame}
+\item{xvar}{column of scores}
 
-\item{truthVar}{name of the column to be predicted}
+\item{truthVar}{column of true outcomes}
 
 \item{title}{title to place on plot}
 
-\item{...}{no unarmed argument, added to force named binding of later arguments.}
+\item{...}{no unnamed argument, added to force named binding of later arguments.}
 
-\item{metrics}{metrics to be computed, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
+\item{metrics}{metrics to be computed. See Details for the list of allowed metrics}
 
 \item{truth_target}{truth value considered to be positive.}
+
+\item{points_to_plot}{how many data points to use for plotting. Defaults to NULL (all data)}
+
+\item{monochrome}{logical: if TRUE, all subgraphs plotted in same color}
+
+\item{palette}{character: if monochrome==FALSE, name of brewer color palette (can be NULL)}
+
+\item{linecolor}{character: if monochrome==TRUE, name of line color}
 }
 \description{
-Plot distribution of metrics as a function of being greater than or equal to thresholds.
+Plot classifier metrics as a function of thresholds.
+}
+\details{
+By default, \code{ThresholdPlot} plots sensitivity and specificity of a
+a classifier as a function of the decision threshold.
+Plotting sensitivity-specificity (or other metrics) as a function of classifier score helps
+identify a score threshold that achieves an acceptable tradeoff among desirable
+properties.
+
+\code{ThresholdPlot} can plot a number of metrics. Some of the metrics are redundant,
+in keeping with the customary terminology of various analysis communities.
+
+\itemize{
+  \item{sensitivity: fraction of true positives that were predicted to be true (also known as the true positive rate)}
+  \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
+  \item{precision: fraction of predicted positives that are true positives}
+  \item{recall: same as sensitivity or true positive rate}
+  \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
+  \item{true_positive_rate: fraction of positives predicted to be true over all positives}
+  \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
+  \item{true_negative_rate: fraction negatives predicted to be false over all negatives}
+}
+
+For example, plotting sensitivity/false_positive_rate as functions of threshold will "unroll" an ROC Plot.
+
+ \code{ThresholdPlot} can also plot distribution diagnostics about the scores:
+
+ \itemize{
+  \item{count: the number of datums that scored greater than a given threshold}
+  \item{fraction: the fraction of datums that scored greater than a given threshold}
+  \item{cdf: CDF or \code{1 - fraction}; the fraction of datums that scored less than a given threshold}
+  \item{pdf: PDF or distribution of scores}
+}
+Plots are in a single column, in the order specified by \code{metrics}.
+
+\code{points_to_plot} specifies the approximate number of datums used to
+create the plots as an absolute count; for example setting \code{points_to_plot = 200} uses
+approximately 200 points, rather than the entire data set. This can be useful when
+visualizing very large data sets.
 }
 \examples{
 
 d <- data.frame(
  x =  rnorm(1000),
  y = sample(c(TRUE, FALSE), size = 1000, replace = TRUE))
-ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-   metrics = c('sensitivity', 'specificity', 'pdf'))
-ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
-   metrics = c('recall', 'precision', 'pdf'))
+
+ThresholdPlot(d, 'x', 'y', 'Sensitivity/Specificity',
+   metrics = c('sensitivity', 'specificity'))
+
+ThresholdPlot(d, 'x', 'y', 'precision/recall',
+   metrics = c('recall', 'precision'))
 MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
 ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
 
+ThresholdPlot(d, 'x','y', 'Score Distribution',
+   metrics = c('fraction', 'cdf', 'pdf'))
+
+}
+\seealso{
+\code{\link{PRTPlot}}
 }

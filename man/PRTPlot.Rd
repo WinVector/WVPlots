@@ -77,5 +77,5 @@ WVPlots::PRTPlot(df, "pred", "isVersicolor", TRUE,
 
 }
 \seealso{
-\code{\link{PRPlot}}, \code{\link{ROCPlot}}
+\code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
 }

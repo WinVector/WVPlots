@@ -12,7 +12,9 @@ MetricPairPlot(
   ...,
   x_metric = "false_positive_rate",
   y_metric = "true_positive_rate",
-  truth_target = TRUE
+  truth_target = TRUE,
+  points_to_plot = NULL,
+  linecolor = "black"
 )
 }
 \arguments{
@@ -26,14 +28,42 @@ MetricPairPlot(
 
 \item{...}{no unarmed argument, added to force named binding of later arguments.}
 
-\item{x_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
+\item{x_metric}{metric to be plotted. See Details for the list of allowed metrics}
 
-\item{y_metric}{metric to be plotted, allowed: 'threshold', 'count', 'fraction', 'precision', 'true_positive_rate', 'false_positive_rate', 'true_negative_rate', 'false_negative_rate', 'recall', 'sensitivity', 'specificity', 'cdf', 'pdf', 'positive_rate'.}
+\item{y_metric}{metric to be plotted. See Details for the list of allowed metrics}
 
 \item{truth_target}{truth value considered to be positive.}
+
+\item{points_to_plot}{how many data points to use for plotting. Defaults to NULL (all data)}
+
+\item{linecolor}{character: name of line color}
 }
 \description{
 Plot the relationship between two metrics.
+}
+\details{
+Plots two classifier metrics against each other, showing achievable combinations
+of performance metrics. For example, plotting true_positive_rate vs false_positive_rate
+recreates the ROC plot.
+
+\code{MetricPairPlot} can plot a number of metrics. Some of the metrics are redundant,
+in keeping with the customary terminology of various analysis communities.
+
+\itemize{
+  \item{sensitivity: fraction of true positives that were predicted to be true (also known as the true positive rate)}
+  \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
+  \item{precision: fraction of predicted positives that are true positives}
+  \item{recall: same as sensitivity or true positive rate}
+  \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
+  \item{true_positive_rate: fraction of positives predicted to be true over all positives}
+  \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
+  \item{true_negative_rate: fraction negatives predicted to be false over all negatives}
+}
+
+\code{points_to_plot} specifies the approximate number of datums used to
+create the plots as an absolute count; for example setting \code{points_to_plot = 200} uses
+approximately 200 points, rather than the entire data set. This can be useful when
+visualizing very large data sets.
 }
 \examples{
 
@@ -46,14 +76,18 @@ d <- rbind(
     x =  rnorm(200) + 5,
     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
 )
-# sensitivity/1-specificity examples
-ThresholdPlot(d, 'x', 'y', 'positivity rates, and data distribution',
-   metrics = c('sensitivity', 'specificity', 'pdf'))
+
+# Plot true_positive_rate vs false_positive_rate
 MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
+# ROCPlot for comparison
 ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+
 # precision/recall examples
-ThresholdPlot(d, 'x', 'y', 'precision/recall, and data distribution',
-   metrics = c('recall', 'precision', 'pdf'))
+ThresholdPlot(d, 'x', 'y', 'recall and precision',
+   metrics = c('recall', 'precision'))
 MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
 
+}
+\seealso{
+\code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
 }

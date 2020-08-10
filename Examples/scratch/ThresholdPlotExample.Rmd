@@ -1,0 +1,78 @@
+---
+title: "Threshold Plot Example"
+author: "Nina Zumel"
+date: "8/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(WVPlots)
+```
+
+Data. Imagine x is the model prediction and y is the true outcome.
+One can create different classifiers, with different performance metrics, by varying the decision threshold.
+
+```{r}
+# data with two different regimes of behavior
+d <- rbind(
+  data.frame(
+    x =  rnorm(1000),
+    y = sample(c(TRUE, FALSE), prob = c(0.02, 0.98), size = 1000, replace = TRUE)),
+  data.frame(
+    x =  rnorm(200) + 5,
+    y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
+)
+```
+
+The double density plot implies a threshold of about 2.5 gives good separation; but what is the actual model performance?
+
+```{r}
+DoubleDensityPlot(d, "x", "y", "Distribution of predictions as a function of outcome")
+```
+
+PRT plot: for a given model, plots the precision and recall for different choices of threshold.
+As is expected, higher thresholds give higher precision, at the cost of lower recall. 
+
+```{r}
+PRTPlot(d, "x", "y", truth_targe=TRUE, "precision and recall as a function of threshold")
+```
+
+Threshold Plot: produces similar plots for a variety of metrics, not just precision and recall.
+See the documentation for all the metrics that can be plotted.
+
+```{r}
+# replicate PRTPlot. Looks a little different because ThresholdPlot does different smoothing
+ThresholdPlot(d, "x", "y", "Reproduce PRTPlot",
+              truth_target=TRUE, # default
+              metrics = c("precision", "recall"))
+
+# default: sensitivity/specificity
+ThresholdPlot(d, "x", "y", "Default ThresholdPlot")
+
+# the metrics on an ROC plot
+ThresholdPlot(d, "x", "y", "ROC 'unrolled'",
+              metrics = c("true_positive_rate", "false_positive_rate"))
+```
+
+Here are some possibly useful diagnostics on the data distribution:
+`fraction` and `count` measure how much of the data scores above a given threshold value.
+`cdf` is 1 - `fraction`, or the CDF of the scores (how much of the data is below a given threshold value). `pdf` is the PDF of the scores.
+```{r}
+ThresholdPlot(d, "x", "y", "Score distribution",
+              metrics = c("fraction", "cdf", "pdf"))
+```
+
+MetricPairPlot: This plots metrics against each other. For instance, plotting true_positive_rate vs false_positive_rate gives you the equivalent of the ROC.
+
+```{r}
+MetricPairPlot(d, 'x', 'y', 'ROC equivalent',
+                 x_metric = "false_positive_rate", # default
+                 y_metric = "true_positive_rate")  # default
+
+# Plot ROCPlot for comparison
+ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+
+# precision/recall examples
+MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
+```
