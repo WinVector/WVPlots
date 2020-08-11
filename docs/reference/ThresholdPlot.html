@@ -233,16 +233,38 @@ visualizing very large data sets.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
- <span class='kw'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>),
- <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='co'># data with two different regimes of behavior</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+    <span class='kw'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>),
+    <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.02</span>, <span class='fl'>0.98</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)),
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+    <span class='kw'>x</span> <span class='kw'>=</span>  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>) + <span class='fl'>5</span>,
+    <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+)
 
-<span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'Sensitivity/Specificity'</span>,
-   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'sensitivity'</span>, <span class='st'>'specificity'</span>))</div><div class='img'><img src='ThresholdPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'precision/recall'</span>,
-   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>))</div><div class='img'><img src='ThresholdPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='MetricPairPlot.html'>MetricPairPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='st'>'ROC equivalent'</span>)</div><div class='img'><img src='ThresholdPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ROCPlot.html'>ROCPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>, <span class='fl'>TRUE</span>, <span class='st'>'ROC example'</span>)</div><div class='img'><img src='ThresholdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>,<span class='st'>'y'</span>, <span class='st'>'Score Distribution'</span>,
-   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'fraction'</span>, <span class='st'>'cdf'</span>, <span class='st'>'pdf'</span>))</div><div class='img'><img src='ThresholdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Sensitivity/Specificity examples</span>
+<span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'Sensitivity/Specificity'</span>,
+   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'sensitivity'</span>, <span class='st'>'specificity'</span>),
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ThresholdPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='MetricPairPlot.html'>MetricPairPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>'false_positive_rate'</span>,
+   <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>'true_positive_rate'</span>,
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'ROC equivalent'</span>)</div><div class='img'><img src='ThresholdPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ROCPlot.html'>ROCPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>truthTarget</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'ROC example'</span>)</div><div class='img'><img src='ThresholdPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Precision/Recall examples</span>
+<span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'precision/recall'</span>,
+   <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>),
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ThresholdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='MetricPairPlot.html'>MetricPairPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>'recall'</span>,
+   <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>'precision'</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'recall/precision'</span>,
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ThresholdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='PRPlot.html'>PRPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>truthTarget</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'p/r plot'</span>)</div><div class='img'><img src='ThresholdPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
