@@ -161,11 +161,24 @@ WVPlots::GainCurvePlotC(frm, "model", "costs", "value", title="Example Continuou
 ## ROC Plots
 
 ```{r}
+set.seed(34903490)
+
+# data with two different regimes of behavior
+frm <- rbind(
+  data.frame(
+    model = rnorm(1000),
+    isValuable = sample(c(TRUE, FALSE), prob = c(0.02, 0.98), size = 1000, replace = TRUE)),
+  data.frame(
+    model = rnorm(200) + 5,
+    isValuable = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
+)
+
 WVPlots::ROCPlot(frm, "model", "isValuable", TRUE, title="Example ROC plot")
 ```
 
 ```{r}
 set.seed(34903490)
+
 x1 = rnorm(50)
 x2 = rnorm(length(x1))
 y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
@@ -187,14 +200,29 @@ Plots precision and recall as functions of different classifier thresholds.
 WVPlots::PRTPlot(frm, "model", "isValuable", TRUE, title="Example Precision-Recall plot")
 ```
 
-`PRTPlot()` can also plot sensitivity, specificity, and false positive rate as a function of threshold. One application for this is to "unroll" an ROC Plot to explicitly match thresholds to given achievable combinations of 
-false positive rate (AKA (1 - specificity))  and sensitivity (AKA recall or true positive rate). Compare the below graph with the ROC plot for `frm`, above.
+## Threshold Plot
+
+`ThresholdPlot()` plots a variety of functions of different classifier thresholds.
 
 ```{r}
-WVPlots::PRTPlot(frm, "model", "isValuable", TRUE, 
-                 plotvars = c("sensitivity", "false_positive_rate"),
-                 title="TPR(sensitivity)/FPR as functions of threshold")
+# replicate PRTPlot. Looks a little different because ThresholdPlot does different smoothing
+WVPlots::ThresholdPlot(frm, "model", "isValuable", title="Reproduce PRTPlot",
+              truth_target=TRUE, # default
+              metrics = c("precision", "recall"))
+
+# default: sensitivity/specificity
+WVPlots::ThresholdPlot(frm, "model", "isValuable", 
+                       title="Sensitivity and Specificity as a Function of Threshold")
+
 ```
+
+One useful application of `ThresholdPlot` is to "unroll" an ROC plot: if the ROC shows that your model can meet an acceptable trade-off of true positive rate and false positive rate, then `ThresholdPlot` can tell you which threshold achieves that goal.
+
+```{r}
+WVPlots::ThresholdPlot(frm, "model", "isValuable", title="ROC 'unrolled'",
+              metrics = c("true_positive_rate", "false_positive_rate"))
+```
+
 
 ## Double Density Plot
 ```{r}
