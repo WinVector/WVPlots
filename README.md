@@ -14,8 +14,7 @@ Website: <https://github.com/WinVector/WVPlots>
 
 ![](https://github.com/WinVector/WVPlots/raw/master/tools/WVPlots.png)
 
-More
-    notes:
+More notes:
 
   - <https://win-vector.com/2013/02/18/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
   - <https://win-vector.com/2011/12/05/my-favorite-graphs/>

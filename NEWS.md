@@ -1,5 +1,5 @@
 
-# WVPlots 1.2.6 2020-08-10
+# WVPlots 1.2.6 2020-08-11
 
  * Add performance plots from wvpy https://github.com/WinVector/wvpy 
  * Improve documentation.

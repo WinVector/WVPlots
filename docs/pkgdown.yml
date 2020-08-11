@@ -1,8 +1,8 @@
-pandoc: 2.3.1
+pandoc: 2.7.3
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   WVPlots_concept: WVPlots_concept.html
   WVPlots_examples: WVPlots_examples.html
-last_built: 2020-08-11T02:28Z
+last_built: 2020-08-11T19:43Z
 

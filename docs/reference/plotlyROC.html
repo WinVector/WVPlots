@@ -98,7 +98,7 @@
       <a href="../articles/WVPlots_concept.html">WVPlots concept</a>
     </li>
     <li>
-      <a href="../articles/WVPlots_examples.html">Example WVPlots</a>
+      <a href="../articles/WVPlots_examples.html">WVPlots examples</a>
     </li>
   </ul>
 </li>
@@ -190,7 +190,13 @@
    <span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>))
    <span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>yC</span><span class='kw'>=</span><span class='no'>y</span><span class='kw'>&gt;=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>y</span>,<span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
    <span class='fu'>plotlyROC</span>(<span class='no'>frm</span>, <span class='st'>'x'</span>, <span class='st'>'yC'</span>, <span class='fl'>TRUE</span>, <span class='st'>'example plot'</span>, <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+}</div><div class='output co'>#&gt; <span class='warning'>Warning: `arrange_()` is deprecated as of dplyr 0.7.0.</span>
+#&gt; <span class='warning'>Please use `arrange()` instead.</span>
+#&gt; <span class='warning'>See vignette('programming') for more help</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
