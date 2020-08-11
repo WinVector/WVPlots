@@ -1,8 +1,7 @@
 ---
 title: "Threshold Selection for Classifiers"
 author: "Nina Zumel"
-date: "8/10/2020"
-output: html_document
+output: github_document
 ---
 
 `WVPlots` has a variety of visualizations that help modelers to design classifiers best suited to their goals.
