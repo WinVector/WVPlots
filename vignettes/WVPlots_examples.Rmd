@@ -223,6 +223,8 @@ WVPlots::ThresholdPlot(frm, "model", "isValuable", title="ROC 'unrolled'",
               metrics = c("true_positive_rate", "false_positive_rate"))
 ```
 
+An extended example can be found [here](https://github.com/WinVector/WVPlots/blob/main/Examples/PickingThresholds/PickingThresholds.md).
+
 
 ## Double Density Plot
 ```{r}
