@@ -185,20 +185,43 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #'
 #' @examples
 #'
-#' d <- data.frame(
-#'  x =  rnorm(1000),
-#'  y = sample(c(TRUE, FALSE), size = 1000, replace = TRUE))
+#' # data with two different regimes of behavior
+#' d <- rbind(
+#'   data.frame(
+#'     x =  rnorm(1000),
+#'     y = sample(c(TRUE, FALSE), prob = c(0.02, 0.98), size = 1000, replace = TRUE)),
+#'   data.frame(
+#'     x =  rnorm(200) + 5,
+#'     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
+#' )
 #'
-#' ThresholdPlot(d, 'x', 'y', 'Sensitivity/Specificity',
-#'    metrics = c('sensitivity', 'specificity'))
+#' # Sensitivity/Specificity examples
+#' ThresholdPlot(d, 'x', 'y',
+#'    title = 'Sensitivity/Specificity',
+#'    metrics = c('sensitivity', 'specificity'),
+#'    truth_target = TRUE)
+#' MetricPairPlot(d, 'x', 'y',
+#'    x_metric = 'false_positive_rate',
+#'    y_metric = 'true_positive_rate',
+#'    truth_target = TRUE,
+#'    title = 'ROC equivalent')
+#' ROCPlot(d, 'x', 'y',
+#'    truthTarget = TRUE,
+#'    title = 'ROC example')
 #'
-#' ThresholdPlot(d, 'x', 'y', 'precision/recall',
-#'    metrics = c('recall', 'precision'))
-#' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
-#' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
-#'
-#' ThresholdPlot(d, 'x','y', 'Score Distribution',
-#'    metrics = c('fraction', 'cdf', 'pdf'))
+#' # Precision/Recall examples
+#' ThresholdPlot(d, 'x', 'y',
+#'    title = 'precision/recall',
+#'    metrics = c('recall', 'precision'),
+#'    truth_target = TRUE)
+#' MetricPairPlot(d, 'x', 'y',
+#'    x_metric = 'recall',
+#'    y_metric = 'precision',
+#'    title = 'recall/precision',
+#'    truth_target = TRUE)
+#' PRPlot(d, 'x', 'y',
+#'    truthTarget = TRUE,
+#'    title = 'p/r plot')
 #'
 ThresholdPlot <- function(frame, xvar, truthVar, title,
                           ...,
@@ -289,7 +312,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' @param points_to_plot how many data points to use for plotting. Defaults to NULL (all data)
 #' @param linecolor character: name of line color
 #'
-#' @seealso \code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
+#' @seealso \code{\link{ThresholdPlot}}, \code{\link{PRTPlot}}, \code{\link{ROCPlot}}, \code{\link{PRPlot}}
 #'
 #' @export
 #'
@@ -305,15 +328,33 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #'     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
 #' )
 #'
-#' # Plot true_positive_rate vs false_positive_rate
-#' MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
-#' # ROCPlot for comparison
-#' ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+#' # Sensitivity/Specificity examples
+#' ThresholdPlot(d, 'x', 'y',
+#'    title = 'Sensitivity/Specificity',
+#'    metrics = c('sensitivity', 'specificity'),
+#'    truth_target = TRUE)
+#' MetricPairPlot(d, 'x', 'y',
+#'    x_metric = 'false_positive_rate',
+#'    y_metric = 'true_positive_rate',
+#'    truth_target = TRUE,
+#'    title = 'ROC equivalent')
+#' ROCPlot(d, 'x', 'y',
+#'    truthTarget = TRUE,
+#'    title = 'ROC example')
 #'
-#' # precision/recall examples
-#' ThresholdPlot(d, 'x', 'y', 'recall and precision',
-#'    metrics = c('recall', 'precision'))
-#' MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
+#' # Precision/Recall examples
+#' ThresholdPlot(d, 'x', 'y',
+#'    title = 'precision/recall',
+#'    metrics = c('recall', 'precision'),
+#'    truth_target = TRUE)
+#' MetricPairPlot(d, 'x', 'y',
+#'    x_metric = 'recall',
+#'    y_metric = 'precision',
+#'    title = 'recall/precision',
+#'    truth_target = TRUE)
+#' PRPlot(d, 'x', 'y',
+#'    truthTarget = TRUE,
+#'    title = 'p/r plot')
 #'
 MetricPairPlot <- function(frame, xvar, truthVar, title,
                           ...,

@@ -77,17 +77,35 @@ d <- rbind(
     y = sample(c(TRUE, FALSE), size = 200, replace = TRUE))
 )
 
-# Plot true_positive_rate vs false_positive_rate
-MetricPairPlot(d, 'x', 'y', 'ROC equivalent')
-# ROCPlot for comparison
-ROCPlot(d, 'x', 'y', TRUE, 'ROC example')
+# Sensitivity/Specificity examples
+ThresholdPlot(d, 'x', 'y',
+   title = 'Sensitivity/Specificity',
+   metrics = c('sensitivity', 'specificity'),
+   truth_target = TRUE)
+MetricPairPlot(d, 'x', 'y',
+   x_metric = 'false_positive_rate',
+   y_metric = 'true_positive_rate',
+   truth_target = TRUE,
+   title = 'ROC equivalent')
+ROCPlot(d, 'x', 'y',
+   truthTarget = TRUE,
+   title = 'ROC example')
 
-# precision/recall examples
-ThresholdPlot(d, 'x', 'y', 'recall and precision',
-   metrics = c('recall', 'precision'))
-MetricPairPlot(d, 'x', 'y', 'recall/precision', x_metric = 'recall', y_metric = 'precision')
+# Precision/Recall examples
+ThresholdPlot(d, 'x', 'y',
+   title = 'precision/recall',
+   metrics = c('recall', 'precision'),
+   truth_target = TRUE)
+MetricPairPlot(d, 'x', 'y',
+   x_metric = 'recall',
+   y_metric = 'precision',
+   title = 'recall/precision',
+   truth_target = TRUE)
+PRPlot(d, 'x', 'y',
+   truthTarget = TRUE,
+   title = 'p/r plot')
 
 }
 \seealso{
-\code{\link{ThresholdPlot}}, \code{\link{ROCPlot}}
+\code{\link{ThresholdPlot}}, \code{\link{PRTPlot}}, \code{\link{ROCPlot}}, \code{\link{PRPlot}}
 }

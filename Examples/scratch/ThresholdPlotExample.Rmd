@@ -35,7 +35,7 @@ PRT plot: for a given model, plots the precision and recall for different choice
 As is expected, higher thresholds give higher precision, at the cost of lower recall. 
 
 ```{r}
-PRTPlot(d, "x", "y", truth_targe=TRUE, "precision and recall as a function of threshold")
+PRTPlot(d, "x", "y",  truthTarget=TRUE, "precision and recall as a function of threshold")
 ```
 
 Threshold Plot: produces similar plots for a variety of metrics, not just precision and recall.

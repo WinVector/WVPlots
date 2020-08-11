@@ -65,5 +65,5 @@ WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = 
 
 }
 \seealso{
-\code{\link{PRTPlot}}
+\code{\link{PRTPlot}}, \code{\link{ThresholdPlot}}
 }
