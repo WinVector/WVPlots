@@ -105,7 +105,7 @@ ThresholdPlot(ideal, "score", "y", title="Ideal model",
               metrics = c("true_positive_rate", "false_positive_rate")) 
 ```
 
-(The endpoints are plotting artifacts). With an ideal model, any threshold produces a classification rule with a true positive rate of one and and a false positive rate of zero. This traces out an ROC that's exactly the unit square:
+(The endpoints are convention). With an ideal model, any threshold (except exactly zero or one) produces a classification rule with a true positive rate of one and and a false positive rate of zero. This traces out an ROC that's exactly the unit square:
 
 ```{r}
 ROCPlot(ideal, "score", "y", 

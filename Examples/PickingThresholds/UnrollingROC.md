@@ -114,10 +114,10 @@ ThresholdPlot(ideal, "score", "y", title="Ideal model",
 
 ![](UnrollingROC_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-(The endpoints are plotting artifacts). With an ideal model, any
-threshold produces a classification rule with a true positive rate of
-one and and a false positive rate of zero. This traces out an ROC that’s
-exactly the unit square:
+(The endpoints are convention). With an ideal model, any threshold
+(except exactly zero or one) produces a classification rule with a true
+positive rate of one and and a false positive rate of zero. This traces
+out an ROC that’s exactly the unit square:
 
 ``` r
 ROCPlot(ideal, "score", "y", 
@@ -213,6 +213,8 @@ But suppose instead of false positive rate, you are worried about
 *precision* (the probability that a instance predicted to be positive is
 actually positive). With respect to precision, the two models behave
 quite differently.
+
+    ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
 ![](UnrollingROC_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
