@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.6 2020-08-13
+
+ * Fix ThresholdPlot boundary conditions and remove non-zero/one metrics.
+
 # WVPlots 1.2.6 2020-08-11
 
  * Add performance plots from wvpy https://github.com/WinVector/wvpy 

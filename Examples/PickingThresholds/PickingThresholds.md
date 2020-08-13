@@ -110,6 +110,8 @@ ThresholdPlot(d, "score", "y", title="Reproduce PRTPlot",
               metrics = c("precision", "recall"))
 ```
 
+    ## Warning: Removed 1 row(s) containing missing values (geom_path).
+
 ![](PickingThresholds_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
@@ -139,14 +141,14 @@ Our example model with a threshold of 2.5 achieves a true positive rate
 ## Diagnostics on Data Distribution
 
 `ThresholdPlot` can also be used to show some possibly useful
-diagnostics on score distribution. `fraction` and `count` measure how
-much of the data scores above a given threshold value. `cdf` is 1 -
-`fraction`, or the CDF of the scores (how much of the data is below a
-given threshold value). `pdf` is the PDF of the scores.
+diagnostics on score distribution. `fraction` measures how much of the
+data scores above a given threshold value. `cdf` is 1 - `fraction`, or
+the CDF of the scores (how much of the data is below a given threshold
+value).
 
 ``` r
 ThresholdPlot(d, "score", "y", title="Score distribution",
-              metrics = c("fraction", "cdf", "pdf"))
+              metrics = c("fraction", "cdf"))
 ```
 
 ![](PickingThresholds_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
@@ -180,6 +182,8 @@ You can plot other pairs as well, for instance precision vs. recall:
 ``` r
 MetricPairPlot(d, 'score', 'y', title='recall/precision', x_metric = 'recall', y_metric = 'precision')
 ```
+
+    ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
 ![](PickingThresholds_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 

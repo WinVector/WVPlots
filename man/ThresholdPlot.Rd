@@ -70,10 +70,8 @@ For example, plotting sensitivity/false_positive_rate as functions of threshold 
  \code{ThresholdPlot} can also plot distribution diagnostics about the scores:
 
  \itemize{
-  \item{count: the number of datums that scored greater than a given threshold}
   \item{fraction: the fraction of datums that scored greater than a given threshold}
   \item{cdf: CDF or \code{1 - fraction}; the fraction of datums that scored less than a given threshold}
-  \item{pdf: PDF or distribution of scores}
 }
 Plots are in a single column, in the order specified by \code{metrics}.
 

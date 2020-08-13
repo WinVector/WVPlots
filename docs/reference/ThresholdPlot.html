@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.7</span>
       </span>
     </div>
 
@@ -218,10 +218,8 @@ in keeping with the customary terminology of various analysis communities.</p>
 <p>For example, plotting sensitivity/false_positive_rate as functions of threshold will "unroll" an ROC Plot.</p>
 <p><code>ThresholdPlot</code> can also plot distribution diagnostics about the scores:</p>
 <p></p><ul>
-<li><p>count: the number of datums that scored greater than a given threshold</p></li>
 <li><p>fraction: the fraction of datums that scored greater than a given threshold</p></li>
 <li><p>cdf: CDF or <code>1 - fraction</code>; the fraction of datums that scored less than a given threshold</p></li>
-<li><p>pdf: PDF or distribution of scores</p></li>
 </ul><p>Plots are in a single column, in the order specified by <code>metrics</code>.</p>
 <p><code>points_to_plot</code> specifies the approximate number of datums used to
 create the plots as an absolute count; for example setting <code>points_to_plot = 200</code> uses
@@ -258,11 +256,11 @@ visualizing very large data sets.</p>
 <span class='fu'>ThresholdPlot</span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'precision/recall'</span>,
    <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>),
-   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ThresholdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='MetricPairPlot.html'>MetricPairPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='ThresholdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='MetricPairPlot.html'>MetricPairPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    <span class='kw'>x_metric</span> <span class='kw'>=</span> <span class='st'>'recall'</span>,
    <span class='kw'>y_metric</span> <span class='kw'>=</span> <span class='st'>'precision'</span>,
    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'recall/precision'</span>,
-   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ThresholdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='PRPlot.html'>PRPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
+   <span class='kw'>truth_target</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='ThresholdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='PRPlot.html'>PRPlot</a></span>(<span class='no'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    <span class='kw'>truthTarget</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
    <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>'p/r plot'</span>)</div><div class='img'><img src='ThresholdPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>

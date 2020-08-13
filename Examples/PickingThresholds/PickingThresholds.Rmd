@@ -94,12 +94,12 @@ Our example model with a threshold of 2.5 achieves a true positive rate (or reca
 ## Diagnostics on Data Distribution
 
 `ThresholdPlot` can also be used to show some possibly useful diagnostics on score distribution.
-`fraction` and `count` measure how much of the data scores above a given threshold value.
-`cdf` is 1 - `fraction`, or the CDF of the scores (how much of the data is below a given threshold value). `pdf` is the PDF of the scores.
+`fraction` measures how much of the data scores above a given threshold value.
+`cdf` is 1 - `fraction`, or the CDF of the scores (how much of the data is below a given threshold value). 
 
 ```{r}
 ThresholdPlot(d, "score", "y", title="Score distribution",
-              metrics = c("fraction", "cdf", "pdf"))
+              metrics = c("fraction", "cdf"))
 ```
 
 ## `MetricPairPlot`

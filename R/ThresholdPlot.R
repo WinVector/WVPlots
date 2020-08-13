@@ -33,8 +33,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
                            ...,
                            truth_target = TRUE,
                            compute_dists = TRUE,
-                           winnow_size = 200,
-                           compute_pos_rate = FALSE) {
+                           winnow_size = 200) {
   wrapr::stop_if_dot_args(substitute(list(...)), "WVPlots:::ThresholdStats")
 
   # make a thin frame to re-sort for cumulative statistics
@@ -50,14 +49,8 @@ ThresholdStats <- function(frame, xvar, truthVar,
   prevalence <- mean(sorted_frame$truth)
 
   if(compute_dists) {
-    # cdf/pdf estimate
+    # cdf estimate
     cdf <- stats::ecdf(sorted_frame$threshold)
-    dens <- stats::density(sorted_frame$threshold)
-    pdf <- stats::approxfun(dens$x, dens$y)
-    if(compute_pos_rate) {
-      pos_rate <- stats::spline(sorted_frame$threshold, sorted_frame$truth, n=100)
-      pos_rate <- stats::approxfun(pos_rate$x, pos_rate$y)
-    }
   }
 
   # pseudo-observation to get end-case (accept nothing case)
@@ -99,19 +92,14 @@ ThresholdStats <- function(frame, xvar, truthVar,
   }
 
   if(compute_dists) {
-    # approximate cdf/pdf work
+    # approximate cdf work
     sorted_frame$cdf <- cdf(sorted_frame$threshold)
-    sorted_frame$pdf <- pmax(0, pdf(sorted_frame$threshold))
-    if(compute_pos_rate) {
-      sorted_frame$positive_rate <- pmin(1, pmax(0, pos_rate(sorted_frame$threshold)))
-    }
   }
 
   # derived facts and synonyms
   sorted_frame$recall = sorted_frame$true_positive_rate
   sorted_frame$sensitivity = sorted_frame$recall
   sorted_frame$specificity = 1 - sorted_frame$false_positive_rate
-  sorted_frame$enrichment <- sorted_frame$precision / prevalence
 
   # re-order for plotting
   sorted_frame$new_index = wrapr::seqi(1, nrow(sorted_frame))
@@ -119,10 +107,14 @@ ThresholdStats <- function(frame, xvar, truthVar,
 
   # clean up
   sorted_frame$notY <- NULL
-  sorted_frame$one <- NULL
   sorted_frame$new_index <- NULL
   sorted_frame$truth <- NULL
+  sorted_frame$count <- NULL
   rownames(sorted_frame) <- NULL
+
+  # deal with precision special case
+  sorted_frame$precision[sorted_frame$one == 0] <- NA_real_
+
   return(sorted_frame)
 }
 
@@ -155,10 +147,8 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #'  \code{ThresholdPlot} can also plot distribution diagnostics about the scores:
 #'
 #'  \itemize{
-#'   \item{count: the number of datums that scored greater than a given threshold}
 #'   \item{fraction: the fraction of datums that scored greater than a given threshold}
 #'   \item{cdf: CDF or \code{1 - fraction}; the fraction of datums that scored less than a given threshold}
-#'   \item{pdf: PDF or distribution of scores}
 #' }
 #' Plots are in a single column, in the order specified by \code{metrics}.
 #'
@@ -260,12 +250,14 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
   if(monochrome) {
     ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
       ggplot2::geom_line(color=linecolor) +
-      ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
+      ggplot2::facet_wrap(~metric, ncol = 1) +
+      ggplot2::ylim(c(0, 1)) +
       ggplot2::ggtitle(title)
   } else {
     p = ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
       ggplot2::geom_line(aes(color=metric)) +
-      ggplot2::facet_wrap(~metric, ncol = 1, scales = 'free_y') +
+      ggplot2::facet_wrap(~metric, ncol = 1) +
+      ggplot2::ylim(c(0, 1)) +
       ggplot2::ggtitle(title)
     if(!is.null(palette)) {
       p = p + ggplot2::scale_color_brewer(palette=palette)
