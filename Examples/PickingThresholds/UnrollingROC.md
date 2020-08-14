@@ -4,11 +4,11 @@ Nina Zumel
 
 In our data science teaching, we present the ROC plot (and the area
 under the curve of the plot, or AUC) as a useful tool for evaluating
-classifier models, and for comparing multiple classifier models. The ROC
-is informative and useful, but it’s also perhaps overly concise for a
-beginner. This leads to a lot of questions from the students: what does
-the ROC tell us about a model? Why is a bigger AUC better? What does it
-all *mean*?
+scoring classifier models, and for comparing multiple such models. The
+ROC is informative and useful, but it’s also perhaps overly concise for
+a beginner. This leads to a lot of questions from the students: what
+does the ROC tell us about a model? Why is a bigger AUC better? [What
+does it all *mean*](https://win-vector.com/2013/01/17/more-on-rocauc/)?
 
 We’ll start with a simple synthetic example, where `score` is the score
 produced by a trained model, and `y` is the actual outcome in the
@@ -50,20 +50,21 @@ ROCPlot(d, "score", "y", truthTarget=TRUE, title="Model ROC")
 ![](UnrollingROC_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Every point of the ROC corresponds to a given *threshold*; datums that
-score above the threshold are classified as positive (or TRUE, in this
-case), and datums that score below the threshold are classified as
-negative, or FALSE. So the ROC represents the false positive and true
-positive rates of *all possible* classifiers that can be defined from
-this model by varying the threshold. I’ve marked the point that
-corresponds to the threshold 0.5, which is the most commonly used
-threshold.
+score at least the threshold value are classified as positive (or TRUE,
+in this case), and datums that score below the threshold are classified
+as negative, or FALSE. **So the ROC represents the false positive and
+true positive rates of *all possible* [classification
+rules](https://win-vector.com/2020/08/07/dont-use-classification-rules-for-classification-problems/)
+that can be defined from this model by varying the threshold**. I’ve
+marked the point that corresponds to the threshold 0.5, which is the
+most commonly used threshold.
 
 ## The ROC Unrolled
 
-To make this more explicit, let’s plot the true positive rates and false
-positive rates off all possible classifiers as a function of threshold.
-We can do this with the `ThresholdPlot()` function from the `WVPlots`
-package.
+To make the information in the ROC more explicit, let’s plot the true
+positive rates and false positive rates off all possible classification
+rules as a function of threshold. We can do this with the
+`ThresholdPlot()` function from the `WVPlots` package.
 
 ``` r
 ThresholdPlot(d, "score", "y", title="ROC 'unrolled'",
@@ -76,15 +77,16 @@ ThresholdPlot(d, "score", "y", title="ROC 'unrolled'",
 
 I’ve added a horizontal line at `threshold = 0.5`.
 
-The threshold plot and the ROC give us the exact same information, but
-the threshold plot makes the relationship of performance to threshold
-value specific. This can be useful if you are willing to tweak the
-threshold to make a tradeoff. For example, if avoiding false positives
-is more important to you than catching all the positive instances, you
-could try a stricter threshold like 0.75. In this case, the classifier
-would make fewer false positive errors, but it would also detect far
-fewer positive examples, as well. On the other hand, the ROC (and the
-AUC) are more convenient for comparing multiple models.
+The threshold plot and the ROC give us the exact same tradeoff
+information, but the threshold plot makes the relationship of
+performance to threshold value explicit This can be useful if you are
+willing to tweak the threshold to make a tradeoff. For example, if
+avoiding false positives is more important to you than catching all the
+positive instances, you could try a stricter threshold like 0.75. In
+this case, the classifier would make fewer false positive errors, but it
+would also detect far fewer positive examples, as well. On the other
+hand, the ROC (and the AUC) are more convenient for comparing multiple
+scoring models.
 
 ### Some Strawman Models for Intuition
 
@@ -93,9 +95,9 @@ can see that as the threshold goes to zero, both the true and false
 positive rates go to one (the upper right hand corner of the ROC). As
 the threshold goes to one, both the rates go to zero (the lower left
 hand corner of the ROC). As the threshold increases from zero to one, it
-traces out the rest of the ROC, representing all the tradeoffs between
-true positive rate and false positive rate that are possible with a
-given model.
+traces out the rest of the ROC from upper right to bottom left,
+representing all the tradeoffs between true positive rate and false
+positive rate that are possible with a given model.
 
 **The Ideal Model**
 
@@ -126,9 +128,9 @@ ROCPlot(ideal, "score", "y",
 
 ![](UnrollingROC_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-So now we know ***the ideal model has an AUC of 1***. So we want our
-actual model to trace out a curve as close to the ideal model as
-possible; such a model should have an AUC close to 1.
+So now we know ***the ideal model has an AUC of 1***. We want our actual
+model to trace out a curve as close to the ideal model as possible; such
+a model should have an AUC close to 1.
 
 **The Random Model**
 
@@ -173,11 +175,12 @@ To demonstrate, let’s look at two situations that have been designed to
 generate the same ROC (for the code to generate this example, see [the R
 markdown for this
 article](https://github.com/WinVector/WVPlots/blob/main/Examples/PickingThresholds/UnrollingROC.Rmd)).
-The first example is a model applied to a balanced-class situation, the
-second to a situation where the positive class is relatively rate (about
-20%).
+The first situation is a model applied to a balanced-class population;
+the second is a model applied where the positive class is relatively
+rare (about 20%).
 
 ``` r
+# Look at class balances
 table(balanced$y)
 ```
 
@@ -214,8 +217,6 @@ But suppose instead of false positive rate, you are worried about
 actually positive). With respect to precision, the two models behave
 quite differently.
 
-    ## Warning: Removed 2 row(s) containing missing values (geom_path).
-
 ![](UnrollingROC_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Both models have identical recall (which is the same as true positive
@@ -239,6 +240,10 @@ positive will actually be positive. But if only 20% of the population
 has the disease, then nearly half the people who test positive are
 actually negative.
 
+These sort of details are easier to work through with tools that expose
+tradeoff management, like `ThresholdPlot`, rather than only examining
+the ROC.
+
 ## Let’s Sum It All Up
 
 What have we established in this article?
@@ -254,14 +259,14 @@ What have we established in this article?
   - An AUC close to one is good; an AUC close to 0.5 means the model
     doesn’t perform much better than random.
 
-  - ROC (along with true positive and false positive rates) are
-    independent of class prevelance. Precision is dependent on class
-    prevelance.
+  - True and false positive rates, and therefore the ROC, are
+    independent of class prevalence. Precision is dependent on class
+    prevalence.
 
   - If your preferred performance metric is dependent on class
-    prevelance, like precision or accuracy, then the ROC may be
-    optimistic. `ThresholdPlot` can also be useful for evaluating a
-    model in this situation.
+    prevalence, like precision or accuracy, then the ROC may be
+    optimistic when the positive class is rare. `ThresholdPlot` can also
+    be useful for evaluating a model in this situation.
 
 Hopefully, you now have a better intuition about the ROC, and what it
 means.
