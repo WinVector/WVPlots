@@ -83,7 +83,7 @@ ThresholdPlot(d, "score", "y", title="ROC 'unrolled'",
   geom_vline(xintercept = 0.5, color = "#d95f02")
 ```
 
-I've added a horizontal line at `threshold = 0.5`.
+I've added a vertical line at `threshold = 0.5`.
 
 The threshold plot and the ROC give us the exact same tradeoff information, but the threshold plot makes the relationship of performance to threshold value explicit This can be useful if you are willing to tweak the threshold to make a tradeoff. For example, if avoiding false positives is more important to you than catching all the positive instances, you could try a stricter threshold like 0.75. In this case, the classifier would make fewer false positive errors, but it would also detect far fewer positive examples, as well. On the other hand, the ROC (and the AUC) are more convenient for comparing multiple scoring models.
 
