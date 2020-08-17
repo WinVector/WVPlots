@@ -176,6 +176,8 @@ frm <- rbind(
 WVPlots::ROCPlot(frm, "model", "isValuable", TRUE, title="Example ROC plot")
 ```
 
+Plotting the results of two models on the same data.
+
 ```{r}
 set.seed(34903490)
 
@@ -191,6 +193,12 @@ frmP = data.frame(
 # WVPlots::ROCPlot(frmP, "x2", "yC", TRUE, title="Example ROC plot")
 WVPlots::ROCPlotPair(frmP, "x1", "x2", "yC", TRUE, title="Example ROC pair plot")
 ```
+
+Plotting the results from two data sets, for example the results of a model on training and test sets.
+
+```{r}
+```
+
 
 ## Precision-Recall-Threshold Plot
 
