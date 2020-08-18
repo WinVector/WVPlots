@@ -35,9 +35,12 @@ plotly plot
 \description{
 Use \code{plotly} to produce a ROC plot.
 }
+\details{
+Note: any \code{arrange_} warning is a version incompatibility between \code{plotly} and \code{dplyr}.
+}
 \examples{
 
-if(requireNamespace("plotly", quietly = TRUE)) {
+if(FALSE && requireNamespace("plotly", quietly = TRUE)) {
    set.seed(34903490)
    x = rnorm(50)
    y = 0.5*x^2 + 2*x + rnorm(length(x))
