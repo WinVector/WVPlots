@@ -1,5 +1,5 @@
 
-# WVPlots 1.2.6 2020-08-24
+# WVPlots 1.2.7 2020-08-24
 
  * Fix ThresholdPlot boundary conditions and remove non-zero/one metrics.
 
