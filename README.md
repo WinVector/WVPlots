@@ -18,6 +18,7 @@ More notes:
 
   - <https://win-vector.com/2013/02/18/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
   - <https://win-vector.com/2011/12/05/my-favorite-graphs/>
+  - <https://win-vector.com/2020/08/17/unrolling-the-roc/>
   - <https://win-vector.com/2009/11/03/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/>
 
 -----
