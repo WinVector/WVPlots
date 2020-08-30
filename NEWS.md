@@ -1,4 +1,8 @@
 
+# WVPlots 1.2.9 2020-08-29
+
+ * Add ROCPlotPairList().
+
 # WVPlots 1.2.7 2020-08-24
 
  * Fix ThresholdPlot boundary conditions and remove non-zero/one metrics.

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the distribution of a variable with a tail shaded — ShadedDensity • WVPlots</title>
+<title>Compare multiple ROC plots. — ROCPlotPairList • WVPlots</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot the distribution of a variable with a tail shaded — ShadedDensity" />
-<meta property="og:description" content="Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region." />
+<meta property="og:title" content="Compare multiple ROC plots. — ROCPlotPairList" />
+<meta property="og:description" content="Plot multiple receiver operating characteristic curves from the same data.frame." />
 
 
 
@@ -123,25 +123,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the distribution of a variable with a tail shaded</h1>
-    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ShadedDensity.R'><code>R/ShadedDensity.R</code></a></small>
-    <div class="hidden name"><code>ShadedDensity.Rd</code></div>
+    <h1>Compare multiple ROC plots.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ROC.R'><code>R/ROC.R</code></a></small>
+    <div class="hidden name"><code>ROCPlotPairList.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot the distribution of a variable with a tail shaded. Annotate with the area of the shaded region.</p>
+    <p>Plot multiple receiver operating characteristic curves from the same data.frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ShadedDensity</span>(
+    <pre class="usage"><span class='fu'>ROCPlotPairList</span>(
   <span class='no'>frame</span>,
-  <span class='no'>xvar</span>,
-  <span class='no'>threshold</span>,
+  <span class='no'>xvar_names</span>,
+  <span class='no'>truthVar</span>,
+  <span class='no'>truthTarget</span>,
   <span class='no'>title</span>,
   <span class='no'>...</span>,
-  <span class='kw'>tail</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
-  <span class='kw'>linecolor</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>,
-  <span class='kw'>shading</span> <span class='kw'>=</span> <span class='st'>"darkblue"</span>,
-  <span class='kw'>annotate_area</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -152,12 +150,16 @@
       <td><p>data frame to get values from</p></td>
     </tr>
     <tr>
-      <th>xvar</th>
-      <td><p>name of the variable to be density plotted</p></td>
+      <th>xvar_names</th>
+      <td><p>names of the independent (input or model) columns in frame</p></td>
     </tr>
     <tr>
-      <th>threshold</th>
-      <td><p>boundary value for the tail</p></td>
+      <th>truthVar</th>
+      <td><p>name of the dependent (output or result to be modeled) column in frame</p></td>
+    </tr>
+    <tr>
+      <th>truthTarget</th>
+      <td><p>value we consider to be positive</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -168,35 +170,39 @@
       <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
     </tr>
     <tr>
-      <th>tail</th>
-      <td><p>which tail to shade, 'left' (default) or 'right'</p></td>
-    </tr>
-    <tr>
-      <th>linecolor</th>
-      <td><p>color of density curve</p></td>
-    </tr>
-    <tr>
-      <th>shading</th>
-      <td><p>color of shaded region and boundaries</p></td>
-    </tr>
-    <tr>
-      <th>annotate_area</th>
-      <td><p>if TRUE (default), report the area of the shaded region</p></td>
+      <th>palette</th>
+      <td><p>name of a brewer palette (NULL for ggplot2 default coloring)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The use case for this function is to compare the performance of two
+models when applied to a data set, where the predictions from both models
+are columns of the same data frame.</p>
+<p>If <code>palette</code> is NULL, plot colors will be chosen from the default ggplot2 palette. Setting <code>palette</code> to NULL
+allows the user to choose a non-Brewer palette, for example with <code>scale_color_manual</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ShadedDensityCenter.html'>ShadedDensityCenter</a></code></p></div>
+    <div class='dont-index'><p><code><a href='ROCPlot.html'>ROCPlot</a></code>, <code><a href='ROCPlotPair.html'>ROCPlotPair</a></code>, , <code><a href='ROCPlotPair2.html'>ROCPlotPair2</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>meas</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))
-<span class='no'>threshold</span> <span class='kw'>=</span> -<span class='fl'>1.5</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ShadedDensity</span>(<span class='no'>d</span>, <span class='st'>"meas"</span>, <span class='no'>threshold</span>,
-                       <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example shaded density plot, left tail"</span>)</div><div class='img'><img src='ShadedDensity-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ShadedDensity</span>(<span class='no'>d</span>, <span class='st'>"meas"</span>, -<span class='no'>threshold</span>, <span class='kw'>tail</span><span class='kw'>=</span><span class='st'>"right"</span>,
-                       <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example shaded density plot, right tail"</span>)</div><div class='img'><img src='ShadedDensity-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
+<span class='no'>x1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='no'>x2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x1</span>))
+<span class='no'>x3</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x1</span>))
+<span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.2</span>*<span class='no'>x2</span>^<span class='fl'>2</span> + <span class='fl'>0.5</span>*<span class='no'>x2</span> + <span class='no'>x1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x1</span>))
+<span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+   <span class='kw'>x1</span> <span class='kw'>=</span> <span class='no'>x1</span>,
+   <span class='kw'>x2</span> <span class='kw'>=</span> <span class='no'>x2</span>,
+   <span class='kw'>x3</span> <span class='kw'>=</span> <span class='no'>x3</span>,
+   <span class='kw'>yC</span> <span class='kw'>=</span> <span class='no'>y</span> <span class='kw'>&gt;=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>y</span>,<span class='kw'>probs</span><span class='kw'>=</span><span class='fl'>0.8</span>)))
+<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ROCPlotPairList</span>(
+   <span class='kw'>frame</span> <span class='kw'>=</span> <span class='no'>frm</span>,
+   <span class='kw'>xvar_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>, <span class='st'>"x3"</span>),
+   <span class='kw'>truthVar</span> <span class='kw'>=</span> <span class='st'>"yC"</span>, <span class='kw'>truthTarget</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Example ROC list plot"</span>)</div><div class='img'><img src='ROCPlotPairList-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -322,6 +322,114 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 }
 
 
+#' Compare multiple ROC plots.
+#'
+#' Plot multiple receiver operating characteristic curves from the same data.frame.
+#'
+#' The use case for this function is to compare the performance of two
+#' models when applied to a data set, where the predictions from both models
+#' are columns of the same data frame.
+#'
+#' If \code{palette} is NULL, plot colors will be chosen from the default ggplot2 palette. Setting \code{palette} to NULL
+#' allows the user to choose a non-Brewer palette, for example with \code{\link[ggplot2:scale_manual]{scale_color_manual}}.
+#'
+#' @param frame data frame to get values from
+#' @param xvar_names names of the independent (input or model) columns in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param truthTarget value we consider to be positive
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param palette name of a brewer palette (NULL for ggplot2 default coloring)
+#'
+#' @seealso \code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, , \code{\link{ROCPlotPair2}}
+#'
+#' @examples
+#'
+#' set.seed(34903490)
+#' x1 = rnorm(50)
+#' x2 = rnorm(length(x1))
+#' x3 = rnorm(length(x1))
+#' y = 0.2*x2^2 + 0.5*x2 + x1 + rnorm(length(x1))
+#' frm = data.frame(
+#'    x1 = x1,
+#'    x2 = x2,
+#'    x3 = x3,
+#'    yC = y >= as.numeric(quantile(y,probs=0.8)))
+#' WVPlots::ROCPlotPairList(
+#'    frame = frm,
+#'    xvar_names = c("x1", "x2", "x3"),
+#'    truthVar = "yC", truthTarget = TRUE,
+#'    title = "Example ROC list plot")
+#'
+#' @export
+ROCPlotPairList <- function(
+  frame, xvar_names, truthVar, truthTarget, title,
+  ...,
+  palette="Dark2") {
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = c(xvar_names := xvar_names, c(truthVar = truthVar)),
+                                 title = title,
+                                 funname = "WVPlots::ROCPlotPair")
+  outcol <- frame[[truthVar]]==truthTarget
+  if(length(unique(outcol))!=2) {
+    return(NULL)
+  }
+  rocLists <- lapply(
+    xvar_names := xvar_names,
+    function(v) {graphROC(frame[[v]], outcol)})
+
+  nmList <- lapply(
+    xvar_names := xvar_names,
+    function(v) {paste0(v,', AUC=',sprintf('%.2g',rocLists[[v]]$area))}
+  )
+
+  for(v in xvar_names) {
+    rocLists[[v]]$pointGraph$model <- nmList[[v]]
+    rocLists[[v]]$lineGraph$model <- nmList[[v]]
+  }
+
+  pointGraph <- do.call(rbind,
+                        c(lapply(xvar_names, function(v) {rocLists[[v]]$pointGraph}),
+                          c(stringsAsFactors = FALSE)))
+  lineGraph <- do.call(rbind,
+                       c(lapply(xvar_names, function(v) {rocLists[[v]]$lineGraph}),
+                         c(stringsAsFactors = FALSE)))
+
+  subtitle <- NULL
+
+  palletName = palette
+  plot <- ggplot2::ggplot()
+  if(nrow(pointGraph)<=1000) {
+    plot <- plot + ggplot2::geom_point(data=pointGraph,
+                                       ggplot2::aes_string(x='FalsePositiveRate',
+                                                           y='TruePositiveRate',
+                                                           color='model',shape='model'),
+                                       alpha=0.5)
+  }
+  plot <- plot +
+    ggplot2::geom_line(data=lineGraph,
+                       ggplot2::aes_string(x='FalsePositiveRate',
+                                           y='TruePositiveRate',
+                                           color='model',linetype='model')) +
+    ggplot2::geom_abline(slope=1,intercept=0,color='gray') +
+    ggplot2::coord_fixed()
+
+  if(!is.null(palette)) {
+    plot <- plot +
+      ggplot2::scale_fill_brewer(palette=palletName) +
+      ggplot2::scale_color_brewer(palette=palletName)
+  }
+  plot <- plot + ggplot2::ggtitle(paste0(title,'\n',
+                                         truthVar, '==', truthTarget, ' ~ model'),
+                                  subtitle = subtitle) +
+    ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
+    ggplot2::ylab('TruePositiveRate (Sensitivity)') +
+    ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
+  plot
+}
+
+
 #' Compare two ROC plots.
 #'
 #' Plot two receiver operating characteristic curves from different data frames.
