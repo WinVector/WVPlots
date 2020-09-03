@@ -395,6 +395,9 @@ ROCPlotPairList <- function(
   lineGraph <- do.call(rbind,
                        c(lapply(xvar_names, function(v) {rocLists[[v]]$lineGraph}),
                          c(stringsAsFactors = FALSE)))
+  # set the factor order to be the same as given in metrics
+  pointGraph$model = factor(pointGraph$model, levels=nmList)
+  lineGraph$model = factor(lineGraph$model, levels=nmList)
 
   subtitle <- NULL
 
