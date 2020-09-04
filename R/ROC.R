@@ -341,7 +341,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param palette name of a brewer palette (NULL for ggplot2 default coloring)
 #'
-#' @seealso \code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, , \code{\link{ROCPlotPair2}}
+#' @seealso \code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, \code{\link{ROCPlotPair2}}
 #'
 #' @examples
 #'

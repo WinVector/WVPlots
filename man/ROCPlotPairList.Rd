@@ -60,5 +60,5 @@ WVPlots::ROCPlotPairList(
 
 }
 \seealso{
-\code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, , \code{\link{ROCPlotPair2}}
+\code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, \code{\link{ROCPlotPair2}}
 }
