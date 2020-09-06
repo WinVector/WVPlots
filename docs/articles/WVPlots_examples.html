@@ -85,7 +85,7 @@
       <h1 data-toc-skip>WVPlots examples</h1>
                         <h4 class="author">Win-Vector LLC</h4>
             
-            <h4 class="date">2020-09-04</h4>
+            <h4 class="date">2020-09-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_examples.Rmd"><code>vignettes/WVPlots_examples.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_examples.Rmd</code></div>
@@ -95,274 +95,304 @@
     
     
 <p>Some example data science plots in R using <code>ggplot2</code>. See <a href="https://github.com/WinVector/WVPlots">https://github.com/WinVector/WVPlots</a> for code/details.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
-<span class="no">y</span> <span class="kw">=</span> <span class="fl">0.5</span>*<span class="no">x</span>^<span class="fl">2</span> + <span class="fl">2</span>*<span class="no">x</span> + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>))
-<span class="no">frm</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="no">x</span>,
-  <span class="kw">y</span> <span class="kw">=</span> <span class="no">y</span>,
-  <span class="kw">yC</span> <span class="kw">=</span> <span class="no">y</span><span class="kw">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">y</span>,<span class="kw">probs</span><span class="kw">=</span><span class="fl">0.8</span>)),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">frm</span>$<span class="no">absY</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">frm</span>$<span class="no">y</span>)
-<span class="no">frm</span>$<span class="no">posY</span> <span class="kw">=</span> <span class="no">frm</span>$<span class="no">y</span> <span class="kw">&gt;</span> <span class="fl">0</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">x</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
+<span class="kw">y</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="kw">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="kw">x</span> <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x</span>))
+<span class="kw">frm</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  x = <span class="kw">x</span>,
+  y = <span class="kw">y</span>,
+  yC = <span class="kw">y</span><span class="op">&gt;=</span><span class="fu"><a href="#base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="#stats/quantile.html">quantile</a></span>(<span class="kw">y</span>,probs=<span class="fl">0.8</span>)),
+  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">frm</span><span class="op">$</span><span class="kw">absY</span> <span class="op">&lt;-</span> <span class="fu"><a href="#base/MathFun.html">abs</a></span>(<span class="kw">frm</span><span class="op">$</span><span class="kw">y</span>)
+<span class="kw">frm</span><span class="op">$</span><span class="kw">posY</span> <span class="op">=</span> <span class="kw">frm</span><span class="op">$</span><span class="kw">y</span> <span class="op">&gt;</span> <span class="fl">0</span></pre></div>
 <div id="scatterplots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scatterplots" class="anchor"></a>Scatterplots</h2>
 <p>Scatterplot with smoothing line through points.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="no">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Fit"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="kw">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, title=<span class="st">"Example Fit"</span>)</pre></div>
+<pre><code>## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
+## when loading 'dplyr'</code></pre>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>Scatterplot with best linear fit through points. Also report the R-squared and significance of the linear fit.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="no">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">smoothmethod</span><span class="kw">=</span><span class="st">"lm"</span>,
-                     <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Linear Fit"</span>, <span class="kw">estimate_sig</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="kw">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, smoothmethod=<span class="st">"lm"</span>, 
+                     title=<span class="st">"Example Linear Fit"</span>, estimate_sig = <span class="fl">TRUE</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>Scatterplot compared to the line <code>x = y</code>. Also report the coefficient of determination between <code>x</code> and <code>y</code> (where <code>y</code> is “true outcome” and <code>x</code> is “predicted outcome”).</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="no">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">smoothmethod</span><span class="kw">=</span><span class="st">"identity"</span>,
-                     <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Relation Plot"</span>, <span class="kw">estimate_sig</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span>(<span class="kw">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, smoothmethod=<span class="st">"identity"</span>, 
+                     title=<span class="st">"Example Relation Plot"</span>, estimate_sig = <span class="fl">TRUE</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>Scatterplot of <em>(x, y)</em> color-coded by category/group, with marginal distributions of <em>x</em> and <em>y</em> conditioned on group.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">fmScatterHistC</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">x</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
-  <span class="kw">y</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">fmScatterHistC</span>$<span class="no">cat</span> <span class="kw">&lt;-</span> <span class="no">fmScatterHistC</span>$<span class="no">x</span>+<span class="no">fmScatterHistC</span>$<span class="no">y</span><span class="kw">&gt;</span><span class="fl">0</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterHistC.html">ScatterHistC</a></span>(<span class="no">fmScatterHistC</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"cat"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Conditional Distribution"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">fmScatterHistC</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  x=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
+  y=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
+  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">fmScatterHistC</span><span class="op">$</span><span class="kw">cat</span> <span class="op">&lt;-</span> <span class="kw">fmScatterHistC</span><span class="op">$</span><span class="kw">x</span><span class="op">+</span><span class="kw">fmScatterHistC</span><span class="op">$</span><span class="kw">y</span><span class="op">&gt;</span><span class="fl">0</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterHistC.html">ScatterHistC</a></span>(<span class="kw">fmScatterHistC</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"cat"</span>, title=<span class="st">"Example Conditional Distribution"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>Scatterplot of <em>(x, y)</em> color-coded by discretized <em>z</em>. The continuous variable <em>z</em> is binned into three groups, and then plotted as by <code>ScatterHistC</code></p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">frmScatterHistN</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">x</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
-  <span class="kw">y</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">frmScatterHistN</span>$<span class="no">z</span> <span class="kw">&lt;-</span> <span class="no">frmScatterHistN</span>$<span class="no">x</span>+<span class="no">frmScatterHistN</span>$<span class="no">y</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterHistN.html">ScatterHistN</a></span>(<span class="no">frmScatterHistN</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Joint Distribution"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">frmScatterHistN</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  x=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
+  y=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>),
+  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">frmScatterHistN</span><span class="op">$</span><span class="kw">z</span> <span class="op">&lt;-</span> <span class="kw">frmScatterHistN</span><span class="op">$</span><span class="kw">x</span><span class="op">+</span><span class="kw">frmScatterHistN</span><span class="op">$</span><span class="kw">y</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterHistN.html">ScatterHistN</a></span>(<span class="kw">frmScatterHistN</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, title=<span class="st">"Example Joint Distribution"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>Plot the relationship <em>y</em> as a function of <em>x</em> with a smoothing curve that estimates <span class="math inline">\(E[y | x]\)</span>. If <em>y</em> is a 0/1 variable as below (binary classification, where 1 is the target class), then the smoothing curve estimates <span class="math inline">\(P(y | x)\)</span>. Since <span class="math inline">\(y \in \{0,1\}\)</span> with <span class="math inline">\(y\)</span> intended to be monotone in <span class="math inline">\(x\)</span> is the most common use of this graph, <code>BinaryYScatterPlot</code> uses a <code>glm</code> smoother by default (<code>use_glm=TRUE</code>, this is essentially Platt scaling), as the best estimate of <span class="math inline">\(P(y | x)\)</span>.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/BinaryYScatterPlot.html">BinaryYScatterPlot</a></span>(<span class="no">frm</span>, <span class="st">"x"</span>, <span class="st">"posY"</span>, <span class="kw">use_glm</span><span class="kw">=</span><span class="fl">FALSE</span>,
-                            <span class="kw">title</span><span class="kw">=</span><span class="st">"Example 'Probability of Y' Plot (ggplot2 smoothing)"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/BinaryYScatterPlot.html">BinaryYScatterPlot</a></span>(<span class="kw">frm</span>, <span class="st">"x"</span>, <span class="st">"posY"</span>, use_glm=<span class="fl">FALSE</span>,
+                            title=<span class="st">"Example 'Probability of Y' Plot (ggplot2 smoothing)"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/BinaryYScatterPlot.html">BinaryYScatterPlot</a></span>(<span class="no">frm</span>, <span class="st">"x"</span>, <span class="st">"posY"</span>, <span class="kw">use_glm</span><span class="kw">=</span><span class="fl">TRUE</span>,
-                            <span class="kw">title</span><span class="kw">=</span><span class="st">"Example 'Probability of Y' Plot (GLM smoothing)"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/BinaryYScatterPlot.html">BinaryYScatterPlot</a></span>(<span class="kw">frm</span>, <span class="st">"x"</span>, <span class="st">"posY"</span>, use_glm=<span class="fl">TRUE</span>, 
+                            title=<span class="st">"Example 'Probability of Y' Plot (GLM smoothing)"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-8-2.png" width="576"></p>
 </div>
 <div id="hexbin-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hexbin-plot" class="anchor"></a>Hexbin Plot</h2>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"hexbin"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>)) {
-  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">5353636</span>)
-
-  <span class="no">df</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, <span class="kw">mean</span> <span class="kw">=</span> <span class="fl">1</span>),
-                        <span class="kw">y</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, <span class="kw">mean</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">0.5</span> ),
-                        <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-             <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, <span class="kw">mean</span> <span class="kw">=</span> -<span class="fl">1</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">0.5</span>),
-                        <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, <span class="kw">mean</span> <span class="kw">=</span> -<span class="fl">1</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">0.5</span>),
-                        <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-             <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/HexBinPlot.html">HexBinPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"Two gaussians"</span>))
-}</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="co">if</span>(<span class="fu"><a href="#base/ns-load.html">requireNamespace</a></span>(<span class="st">"hexbin"</span>, quietly = <span class="fl">TRUE</span>)) {
+  <span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">5353636</span>)
+  
+  <span class="kw">df</span> <span class="op">=</span> <span class="fu"><a href="#base/cbind.html">rbind</a></span>(<span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, mean = <span class="fl">1</span>), 
+                        y=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, mean = <span class="fl">1</span>, sd = <span class="fl">0.5</span> ),
+                        stringsAsFactors = <span class="fl">FALSE</span>),
+             <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, mean = <span class="op">-</span><span class="fl">1</span>, sd = <span class="fl">0.5</span>), 
+                        y = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>, mean = <span class="op">-</span><span class="fl">1</span>, sd = <span class="fl">0.5</span>),
+                        stringsAsFactors = <span class="fl">FALSE</span>),
+             stringsAsFactors = <span class="fl">FALSE</span>)
+  
+  <span class="fu"><a href="#base/print.html">print</a></span>(<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/HexBinPlot.html">HexBinPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"Two gaussians"</span>))
+}</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 </div>
 <div id="gain-curves" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gain-curves" class="anchor"></a>Gain Curves</h2>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">20</span>)) + <span class="fl">0.1</span>
-<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">y</span> + <span class="fl">0.5</span>*<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">20</span>))
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">y</span> <span class="op">=</span> <span class="fu"><a href="#base/MathFun.html">abs</a></span>(<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">20</span>)) <span class="op">+</span> <span class="fl">0.1</span>
+<span class="kw">x</span> <span class="op">=</span> <span class="fu"><a href="#base/MathFun.html">abs</a></span>(<span class="kw">y</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">20</span>))
 
-<span class="no">frm</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">model</span><span class="kw">=</span><span class="no">x</span>,
-  <span class="kw">value</span><span class="kw">=</span><span class="no">y</span>,
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">frm</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  model=<span class="kw">x</span>, 
+  value=<span class="kw">y</span>,
+  stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="no">frm</span>$<span class="no">costs</span><span class="kw">=</span><span class="fl">1</span>
-<span class="no">frm</span>$<span class="no">costs</span>[<span class="fl">1</span>]<span class="kw">=</span><span class="fl">5</span>
-<span class="no">frm</span>$<span class="no">rate</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span>(<span class="no">frm</span>, <span class="no">value</span>/<span class="no">costs</span>)
+<span class="kw">frm</span><span class="op">$</span><span class="kw">costs</span><span class="op">=</span><span class="fl">1</span>
+<span class="kw">frm</span><span class="op">$</span><span class="kw">costs</span>[<span class="fl">1</span>]<span class="op">=</span><span class="fl">5</span>
+<span class="kw">frm</span><span class="op">$</span><span class="kw">rate</span> <span class="op">=</span> <span class="fu"><a href="#base/with.html">with</a></span>(<span class="kw">frm</span>, <span class="kw">value</span><span class="op">/</span><span class="kw">costs</span>)
 
-<span class="no">frm</span>$<span class="no">isValuable</span> <span class="kw">=</span> (<span class="no">frm</span>$<span class="no">value</span> <span class="kw">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">frm</span>$<span class="no">value</span>, <span class="kw">probs</span><span class="kw">=</span><span class="fl">0.8</span>)))</pre></body></html></div>
+<span class="kw">frm</span><span class="op">$</span><span class="kw">isValuable</span> <span class="op">=</span> (<span class="kw">frm</span><span class="op">$</span><span class="kw">value</span> <span class="op">&gt;=</span> <span class="fu"><a href="#base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="#stats/quantile.html">quantile</a></span>(<span class="kw">frm</span><span class="op">$</span><span class="kw">value</span>, probs=<span class="fl">0.8</span>)))</pre></div>
 <p>Basic curve: each item “costs” the same. The wizard sorts by true value, the x axis sorts by the model, and plots the fraction of the total population.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/GainCurvePlot.html">GainCurvePlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Continuous Gain Curve"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/GainCurvePlot.html">GainCurvePlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>, title=<span class="st">"Example Continuous Gain Curve"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <p>We can annotate a point of the model at a specific x value</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">gainx</span> <span class="kw">=</span> <span class="fl">0.10</span>  <span class="co"># get the top 10% most valuable points as sorted by the model</span>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="kw">gainx</span> <span class="op">=</span> <span class="fl">0.10</span>  <span class="co"># get the top 10% most valuable points as sorted by the model</span>
 
 <span class="co"># make a function to calculate the label for the annotated point</span>
-<span class="no">labelfun</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">gx</span>, <span class="no">gy</span>) {
-  <span class="no">pctx</span> <span class="kw">=</span> <span class="no">gx</span>*<span class="fl">100</span>
-  <span class="no">pcty</span> <span class="kw">=</span> <span class="no">gy</span>*<span class="fl">100</span>
-
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"The top "</span>, <span class="no">pctx</span>, <span class="st">"% most valuable points by the model\n"</span>,
-        <span class="st">"are "</span>, <span class="no">pcty</span>, <span class="st">"% of total actual value"</span>, <span class="kw">sep</span><span class="kw">=</span><span class="st">''</span>)
+<span class="kw">labelfun</span> <span class="op">=</span> <span class="fu">function</span>(<span class="kw">gx</span>, <span class="kw">gy</span>) {
+  <span class="kw">pctx</span> <span class="op">=</span> <span class="kw">gx</span><span class="op">*</span><span class="fl">100</span>
+  <span class="kw">pcty</span> <span class="op">=</span> <span class="kw">gy</span><span class="op">*</span><span class="fl">100</span>
+  
+  <span class="fu"><a href="#base/paste.html">paste</a></span>(<span class="st">"The top "</span>, <span class="kw">pctx</span>, <span class="st">"% most valuable points by the model\n"</span>,
+        <span class="st">"are "</span>, <span class="kw">pcty</span>, <span class="st">"% of total actual value"</span>, sep=<span class="st">''</span>)
 }
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/GainCurvePlotWithNotation.html">GainCurvePlotWithNotation</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>,
-                                   <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Gain Curve with annotation"</span>,
-                          <span class="kw">gainx</span><span class="kw">=</span><span class="no">gainx</span>,<span class="kw">labelfun</span><span class="kw">=</span><span class="no">labelfun</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/GainCurvePlotWithNotation.html">GainCurvePlotWithNotation</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>, 
+                                   title=<span class="st">"Example Gain Curve with annotation"</span>, 
+                          gainx=<span class="kw">gainx</span>,labelfun=<span class="kw">labelfun</span>) </pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>When the <code>x</code> values have different costs, take that into account in the gain curve. The wizard now sorts by value/cost, and the x axis is sorted by the model, but plots the fraction of total cost, rather than total count.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/GainCurvePlotC.html">GainCurvePlotC</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"costs"</span>, <span class="st">"value"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Continuous Gain CurveC"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/GainCurvePlotC.html">GainCurvePlotC</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"costs"</span>, <span class="st">"value"</span>, title=<span class="st">"Example Continuous Gain CurveC"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
 </div>
 <div id="roc-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#roc-plots" class="anchor"></a>ROC Plots</h2>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
 
 <span class="co"># data with two different regimes of behavior</span>
-<span class="no">frm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-    <span class="kw">model</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>),
-    <span class="kw">isValuable</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">TRUE</span>, <span class="fl">FALSE</span>), <span class="kw">prob</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>)),
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-    <span class="kw">model</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">200</span>) + <span class="fl">5</span>,
-    <span class="kw">isValuable</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">TRUE</span>, <span class="fl">FALSE</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">200</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<span class="kw">frm</span> <span class="op">&lt;-</span> <span class="fu"><a href="#base/cbind.html">rbind</a></span>(
+  <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+    model = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>),
+    isValuable = <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">TRUE</span>, <span class="fl">FALSE</span>), prob = <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), size = <span class="fl">1000</span>, replace = <span class="fl">TRUE</span>)),
+  <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+    model = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">200</span>) <span class="op">+</span> <span class="fl">5</span>,
+    isValuable = <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">TRUE</span>, <span class="fl">FALSE</span>), size = <span class="fl">200</span>, replace = <span class="fl">TRUE</span>))
 )
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ROCPlot.html">ROCPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="fl">TRUE</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example ROC plot"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ROCPlot.html">ROCPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="fl">TRUE</span>, title=<span class="st">"Example ROC plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>Plotting the ROC of two models on the same data, where predictions and true outcome all in the same data frame.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
 
-<span class="no">x1</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
-<span class="no">x2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x1</span>))
-<span class="no">y</span> <span class="kw">=</span> <span class="fl">0.2</span>*<span class="no">x2</span>^<span class="fl">2</span> + <span class="fl">0.5</span>*<span class="no">x2</span> + <span class="no">x1</span> + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x1</span>))
-<span class="no">frmP</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">x1</span><span class="kw">=</span><span class="no">x1</span>,
-  <span class="kw">x2</span><span class="kw">=</span><span class="no">x2</span>,
-  <span class="kw">yC</span> <span class="kw">=</span> <span class="no">y</span><span class="kw">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">y</span>,<span class="kw">probs</span><span class="kw">=</span><span class="fl">0.8</span>)),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">x1</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
+<span class="kw">x2</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x1</span>))
+<span class="kw">y</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span><span class="kw">x2</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="kw">x2</span> <span class="op">+</span> <span class="kw">x1</span> <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x1</span>))
+<span class="kw">frmP</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  x1=<span class="kw">x1</span>,
+  x2=<span class="kw">x2</span>,
+  yC = <span class="kw">y</span><span class="op">&gt;=</span><span class="fu"><a href="#base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="#stats/quantile.html">quantile</a></span>(<span class="kw">y</span>,probs=<span class="fl">0.8</span>)),
+  stringsAsFactors = <span class="fl">FALSE</span>)
 <span class="co"># WVPlots::ROCPlot(frmP, "x1", "yC", TRUE, title="Example ROC plot")</span>
 <span class="co"># WVPlots::ROCPlot(frmP, "x2", "yC", TRUE, title="Example ROC plot")</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ROCPlotPair.html">ROCPlotPair</a></span>(<span class="no">frmP</span>, <span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"yC"</span>, <span class="fl">TRUE</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example ROC pair plot"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ROCPlotPair.html">ROCPlotPair</a></span>(<span class="kw">frmP</span>, <span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"yC"</span>, <span class="fl">TRUE</span>, title=<span class="st">"Example ROC pair plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
 <p>Plotting the results from two data sets, for example the results of a model on training and test sets, where predictions/outcome for the two data sets are in different data frames.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">2342458</span>)
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">2342458</span>)
 
-<span class="no">make_data</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">nrows</span>) {
-    <span class="no">d</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">nrows</span>))
-    <span class="no">d</span>[<span class="st">'y'</span>] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span>(<span class="no">d</span>[<span class="st">'x'</span>]) + <span class="fl">0.25</span>*<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="no">nrows</span>)
-    <span class="no">d</span>[<span class="st">'x2'</span>] <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="no">nrows</span>)
-    <span class="no">d</span>[<span class="st">'yc'</span>] <span class="kw">=</span> <span class="no">d</span><span class="kw">[[</span><span class="st">'y'</span>]]<span class="kw">&gt;</span><span class="fl">0.5</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">d</span>)
+<span class="kw">make_data</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">nrows</span>) {
+    <span class="kw">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="kw">nrows</span>))
+    <span class="kw">d</span>[<span class="st">'y'</span>] <span class="op">=</span> <span class="fu"><a href="#base/Trig.html">sin</a></span>(<span class="kw">d</span>[<span class="st">'x'</span>]) <span class="op">+</span> <span class="fl">0.25</span><span class="op">*</span><span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(n = <span class="kw">nrows</span>)
+    <span class="kw">d</span>[<span class="st">'x2'</span>] <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(n = <span class="kw">nrows</span>)
+    <span class="kw">d</span>[<span class="st">'yc'</span>] <span class="op">=</span> <span class="kw">d</span>[[<span class="st">'y'</span>]]<span class="op">&gt;</span><span class="fl">0.5</span>
+    <span class="fu"><a href="#base/function.html">return</a></span>(<span class="kw">d</span>)
 }
 
 
-<span class="no">training</span> <span class="kw">&lt;-</span> <span class="fu">make_data</span>(<span class="fl">500</span>)
-<span class="no">test</span> <span class="kw">&lt;-</span> <span class="fu">make_data</span>(<span class="fl">200</span>)
+<span class="kw">training</span> <span class="op">&lt;-</span> <span class="fu">make_data</span>(<span class="fl">500</span>)
+<span class="kw">test</span> <span class="op">&lt;-</span> <span class="fu">make_data</span>(<span class="fl">200</span>)
 
-<span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(<span class="no">yc</span> ~ <span class="no">x</span> + <span class="no">x2</span>, <span class="kw">data</span><span class="kw">=</span><span class="no">training</span>, <span class="kw">family</span><span class="kw">=</span><span class="no">binomial</span>)
+<span class="kw">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="#stats/glm.html">glm</a></span>(<span class="kw">yc</span> <span class="op">~</span> <span class="kw">x</span> <span class="op">+</span> <span class="kw">x2</span>, data=<span class="kw">training</span>, family=<span class="kw">binomial</span>)
 
-<span class="no">training</span>$<span class="no">pred</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">model</span>, <span class="kw">newdata</span><span class="kw">=</span><span class="no">training</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"response"</span>)
-<span class="no">test</span>$<span class="no">pred</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">model</span>, <span class="kw">newdata</span><span class="kw">=</span><span class="no">test</span>, <span class="kw">type</span><span class="kw">=</span><span class="st">"response"</span>)
+<span class="kw">training</span><span class="op">$</span><span class="kw">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="#stats/predict.html">predict</a></span>(<span class="kw">model</span>, newdata=<span class="kw">training</span>, type=<span class="st">"response"</span>)
+<span class="kw">test</span><span class="op">$</span><span class="kw">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="#stats/predict.html">predict</a></span>(<span class="kw">model</span>, newdata=<span class="kw">test</span>, type=<span class="st">"response"</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ROCPlotPair2.html">ROCPlotPair2</a></span>(<span class="kw">nm1</span> <span class="kw">=</span> <span class="st">"Training"</span>, <span class="co"># model 1</span>
-                      <span class="kw">frame1</span> <span class="kw">=</span> <span class="no">training</span>,
-                      <span class="kw">xvar1</span> <span class="kw">=</span> <span class="st">"pred"</span>,  <span class="kw">truthVar1</span> <span class="kw">=</span> <span class="st">"yc"</span>, <span class="kw">truthTarget1</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                      <span class="kw">nm2</span> <span class="kw">=</span><span class="st">"Test"</span>, <span class="co"># model 2</span>
-                      <span class="kw">frame2</span> <span class="kw">=</span> <span class="no">test</span>,
-                      <span class="kw">xvar2</span> <span class="kw">=</span> <span class="st">"pred"</span>, <span class="kw">truthVar2</span> <span class="kw">=</span> <span class="st">"yc"</span>, <span class="kw">truthTarget2</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                      <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Model performance, training vs test"</span>,
-                      <span class="kw">estimate_sig</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ROCPlotPair2.html">ROCPlotPair2</a></span>(nm1 = <span class="st">"Training"</span>, <span class="co"># model 1</span>
+                      frame1 = <span class="kw">training</span>,
+                      xvar1 = <span class="st">"pred"</span>,  truthVar1 = <span class="st">"yc"</span>, truthTarget1 = <span class="fl">TRUE</span>,
+                      nm2 =<span class="st">"Test"</span>, <span class="co"># model 2</span>
+                      frame2 = <span class="kw">test</span>,
+                      xvar2 = <span class="st">"pred"</span>, truthVar2 = <span class="st">"yc"</span>, truthTarget2 = <span class="fl">TRUE</span>,
+                      title = <span class="st">"Model performance, training vs test"</span>,
+                      estimate_sig = <span class="fl">FALSE</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
 <p>Many <code>ROC</code> plots on the same graph.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">x1</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
-<span class="no">x2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x1</span>))
-<span class="no">x3</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x1</span>))
-<span class="no">y</span> <span class="kw">=</span> <span class="fl">0.2</span>*<span class="no">x2</span>^<span class="fl">2</span> + <span class="fl">0.5</span>*<span class="no">x2</span> + <span class="no">x1</span> + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x1</span>))
-<span class="no">frm_m</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-   <span class="kw">x1</span> <span class="kw">=</span> <span class="no">x1</span>,
-   <span class="kw">x2</span> <span class="kw">=</span> <span class="no">x2</span>,
-   <span class="kw">x3</span> <span class="kw">=</span> <span class="no">x3</span>,
-   <span class="kw">yC</span> <span class="kw">=</span> <span class="no">y</span> <span class="kw">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">y</span>,<span class="kw">probs</span><span class="kw">=</span><span class="fl">0.8</span>)))
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ROCPlotPairList.html">ROCPlotPairList</a></span>(
-   <span class="kw">frame</span> <span class="kw">=</span> <span class="no">frm_m</span>,
-   <span class="kw">xvar_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>),
-   <span class="kw">truthVar</span> <span class="kw">=</span> <span class="st">"yC"</span>, <span class="kw">truthTarget</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-   <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Example ROC list plot"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">x1</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
+<span class="kw">x2</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x1</span>))
+<span class="kw">x3</span> <span class="op">=</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x1</span>))
+<span class="kw">y</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span><span class="kw">x2</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="kw">x2</span> <span class="op">+</span> <span class="kw">x1</span> <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x1</span>))
+<span class="kw">frm_m</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+   x1 = <span class="kw">x1</span>,
+   x2 = <span class="kw">x2</span>,
+   x3 = <span class="kw">x3</span>,
+   yC = <span class="kw">y</span> <span class="op">&gt;=</span> <span class="fu"><a href="#base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="#stats/quantile.html">quantile</a></span>(<span class="kw">y</span>,probs=<span class="fl">0.8</span>)))
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ROCPlotPairList.html">ROCPlotPairList</a></span>(
+   frame = <span class="kw">frm_m</span>,
+   xvar_names = <span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>),
+   truthVar = <span class="st">"yC"</span>, truthTarget = <span class="fl">TRUE</span>,
+   title = <span class="st">"Example ROC list plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 </div>
 <div id="precision-recall-threshold-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#precision-recall-threshold-plot" class="anchor"></a>Precision-Recall-Threshold Plot</h2>
 <p>Plots precision and recall as functions of different classifier thresholds.</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PRTPlot.html">PRTPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="fl">TRUE</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Precision-Recall plot"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PRTPlot.html">PRTPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="fl">TRUE</span>, title=<span class="st">"Example Precision-Recall plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 </div>
 <div id="threshold-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#threshold-plot" class="anchor"></a>Threshold Plot</h2>
 <p><code><a href="../reference/ThresholdPlot.html">ThresholdPlot()</a></code> plots a variety of functions of different classifier thresholds.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># replicate PRTPlot. Looks a little different because ThresholdPlot does different smoothing</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Reproduce PRTPlot"</span>,
-              <span class="kw">truth_target</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="co"># default</span>
-              <span class="kw">metrics</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"precision"</span>, <span class="st">"recall"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="co"># replicate PRTPlot. Looks a little different because ThresholdPlot does different smoothing</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, title=<span class="st">"Reproduce PRTPlot"</span>,
+              truth_target=<span class="fl">TRUE</span>, <span class="co"># default</span>
+              metrics = <span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"precision"</span>, <span class="st">"recall"</span>))</pre></div>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="co"># default: sensitivity/specificity</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>,
-                       <span class="kw">title</span><span class="kw">=</span><span class="st">"Sensitivity and Specificity as a Function of Threshold"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="co"># default: sensitivity/specificity</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, 
+                       title=<span class="st">"Sensitivity and Specificity as a Function of Threshold"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-19-2.png" width="576"></p>
 <p>One useful application of <code>ThresholdPlot</code> is to “unroll” an ROC plot: if the ROC shows that your model can meet an acceptable trade-off of true positive rate and false positive rate, then <code>ThresholdPlot</code> can tell you which threshold achieves that goal.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"ROC 'unrolled'"</span>,
-              <span class="kw">metrics</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"true_positive_rate"</span>, <span class="st">"false_positive_rate"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ThresholdPlot.html">ThresholdPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, title=<span class="st">"ROC 'unrolled'"</span>,
+              metrics = <span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"true_positive_rate"</span>, <span class="st">"false_positive_rate"</span>))</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 <p>An extended example can be found <a href="https://github.com/WinVector/WVPlots/blob/main/Examples/PickingThresholds/PickingThresholds.md">here</a>.</p>
 </div>
 <div id="double-density-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#double-density-plot" class="anchor"></a>Double Density Plot</h2>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/DoubleDensityPlot.html">DoubleDensityPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example double density plot"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/DoubleDensityPlot.html">DoubleDensityPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, title=<span class="st">"Example double density plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
 <div id="double-histogram-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#double-histogram-plot" class="anchor"></a>Double Histogram Plot</h2>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/DoubleHistogramPlot.html">DoubleHistogramPlot</a></span>(<span class="no">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example double histogram plot"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/DoubleHistogramPlot.html">DoubleHistogramPlot</a></span>(<span class="kw">frm</span>, <span class="st">"model"</span>, <span class="st">"isValuable"</span>, title=<span class="st">"Example double histogram plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 </div>
 <div id="cleveland-style-dotplots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cleveland-style-dotplots" class="anchor"></a>Cleveland Style Dotplots</h2>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<div class="sourceCode" id="cb26"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
 
 <span class="co"># discrete variable: letters of the alphabet</span>
 <span class="co"># frequencies of letters in English</span>
 <span class="co"># source: http://en.algoritmy.net/article/40379/Letter-frequency-English</span>
-<span class="no">letterFreqs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">8.167</span>, <span class="fl">1.492</span>, <span class="fl">2.782</span>, <span class="fl">4.253</span>, <span class="fl">12.702</span>, <span class="fl">2.228</span>,
+<span class="kw">letterFreqs</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">8.167</span>, <span class="fl">1.492</span>, <span class="fl">2.782</span>, <span class="fl">4.253</span>, <span class="fl">12.702</span>, <span class="fl">2.228</span>,
                 <span class="fl">2.015</span>, <span class="fl">6.094</span>, <span class="fl">6.966</span>, <span class="fl">0.153</span>, <span class="fl">0.772</span>, <span class="fl">4.025</span>, <span class="fl">2.406</span>, <span class="fl">6.749</span>, <span class="fl">7.507</span>, <span class="fl">1.929</span>,
                 <span class="fl">0.095</span>, <span class="fl">5.987</span>, <span class="fl">6.327</span>, <span class="fl">9.056</span>, <span class="fl">2.758</span>, <span class="fl">0.978</span>, <span class="fl">2.360</span>, <span class="fl">0.150</span>, <span class="fl">1.974</span>, <span class="fl">0.074</span>)
-<span class="no">letterFreqs</span> <span class="kw">=</span> <span class="no">letterFreqs</span>/<span class="fl">100</span>
-<span class="no">letterFrame</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">letter</span> <span class="kw">=</span> <span class="no">letters</span>,
-  <span class="kw">freq</span><span class="kw">=</span><span class="no">letterFreqs</span>,
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">letterFreqs</span> <span class="op">=</span> <span class="kw">letterFreqs</span><span class="op">/</span><span class="fl">100</span>
+<span class="kw">letterFrame</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  letter = <span class="kw">letters</span>, 
+  freq=<span class="kw">letterFreqs</span>, 
+  stringsAsFactors = <span class="fl">FALSE</span>)
 
 <span class="co"># now let's generate letters according to their letter frequencies</span>
-<span class="no">N</span> <span class="kw">=</span> <span class="fl">1000</span>
-<span class="no">randomDraws</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">draw</span><span class="kw">=</span><span class="fl">1</span>:<span class="no">N</span>,
-  <span class="kw">letter</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">letterFrame</span>$<span class="no">letter</span>, <span class="kw">size</span><span class="kw">=</span><span class="no">N</span>, <span class="kw">replace</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">prob</span><span class="kw">=</span><span class="no">letterFrame</span>$<span class="no">freq</span>),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">N</span> <span class="op">=</span> <span class="fl">1000</span>
+<span class="kw">randomDraws</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  draw=<span class="fl">1</span><span class="op">:</span><span class="kw">N</span>, 
+  letter=<span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="kw">letterFrame</span><span class="op">$</span><span class="kw">letter</span>, size=<span class="kw">N</span>, replace=<span class="fl">TRUE</span>, prob=<span class="kw">letterFrame</span><span class="op">$</span><span class="kw">freq</span>), 
+  stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="no">randomDraws</span>, <span class="st">"letter"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Example Cleveland-style dot plot"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="kw">randomDraws</span>, <span class="st">"letter"</span>, title = <span class="st">"Example Cleveland-style dot plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="no">randomDraws</span>, <span class="st">"letter"</span>, <span class="kw">limit_n</span> <span class="kw">=</span> <span class="fl">10</span>,  <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Top 10 most frequent letters"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="kw">randomDraws</span>, <span class="st">"letter"</span>, limit_n = <span class="fl">10</span>,  title = <span class="st">"Top 10 most frequent letters"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-2.png" width="576"></p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="no">randomDraws</span>, <span class="st">"letter"</span>, <span class="kw">sort</span><span class="kw">=</span><span class="fl">0</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Cleveland-style dot plot, unsorted"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="kw">randomDraws</span>, <span class="st">"letter"</span>, sort=<span class="fl">0</span>, title=<span class="st">"Example Cleveland-style dot plot, unsorted"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-3.png" width="576"></p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="no">randomDraws</span>, <span class="st">"letter"</span>, <span class="kw">sort</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">stem</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example with increasing sort order + coord_flip, no stem"</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb29"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="kw">randomDraws</span>, <span class="st">"letter"</span>, sort=<span class="fl">1</span>, stem=<span class="fl">FALSE</span>, title=<span class="st">"Example with increasing sort order + coord_flip, no stem"</span>) <span class="op">+</span> <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>()</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-23-4.png" width="576"></p>
 <p><code>ClevelandDotPlot</code> also accepts an integral <em>x</em> variable. You probably want <code>sort = 0</code> in this case.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
-<span class="no">N</span> <span class="kw">=</span> <span class="fl">1000</span>
-<span class="no">ncar_vec</span> <span class="kw">=</span> <span class="fl">0</span>:<span class="fl">5</span>
-<span class="no">prob</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.5</span>, <span class="fl">3</span>, <span class="fl">3.5</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0.75</span>); <span class="no">prob</span> <span class="kw">=</span> <span class="no">prob</span>/<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">prob</span>)
+<div class="sourceCode" id="cb30"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">34903490</span>)
+<span class="kw">N</span> <span class="op">=</span> <span class="fl">1000</span>
+<span class="kw">ncar_vec</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>
+<span class="kw">prob</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">1.5</span>, <span class="fl">3</span>, <span class="fl">3.5</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0.75</span>); <span class="kw">prob</span> <span class="op">=</span> <span class="kw">prob</span><span class="op">/</span><span class="fu"><a href="#base/sum.html">sum</a></span>(<span class="kw">prob</span>)
 
-<span class="no">df</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">num_cars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">ncar_vec</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="no">N</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">prob</span><span class="kw">=</span><span class="no">prob</span>),
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="no">df</span>, <span class="st">"num_cars"</span>, <span class="kw">sort</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Distribution of household vehicle ownership"</span>)</pre></body></html></div>
+<span class="kw">df</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  num_cars = <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="kw">ncar_vec</span>, size = <span class="kw">N</span>, replace = <span class="fl">TRUE</span>, prob=<span class="kw">prob</span>),
+  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ClevelandDotPlot.html">ClevelandDotPlot</a></span>(<span class="kw">df</span>, <span class="st">"num_cars"</span>, sort = <span class="fl">0</span>, title = <span class="st">"Distribution of household vehicle ownership"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 </div>
 <div id="shadow-plots" class="section level2">
@@ -370,73 +400,80 @@
 <a href="#shadow-plots" class="anchor"></a>Shadow Plots</h2>
 <p>Plot a bar chart of row counts conditioned on the categorical variable <code>condvar</code>, faceted on a second categorical variable, <code>refinevar</code>. Each faceted plot also shows a “shadow plot” of the totals conditioned on <code>condvar</code> alone.</p>
 <p>This plot enables comparisons of sub-population totals across both <code>condvar</code> and <code>refinevar</code> simultaneously.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">354534</span>)
-<span class="no">N</span> <span class="kw">=</span> <span class="fl">100</span>
+<div class="sourceCode" id="cb31"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">354534</span>)
+<span class="kw">N</span> <span class="op">=</span> <span class="fl">100</span>
 
 <span class="co"># rough proportions of eye colors</span>
-<span class="no">eprobs</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.37</span>, <span class="fl">0.36</span>, <span class="fl">0.16</span>, <span class="fl">0.11</span>)
+<span class="kw">eprobs</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">0.37</span>, <span class="fl">0.36</span>, <span class="fl">0.16</span>, <span class="fl">0.11</span>)
 
-<span class="no">eye_color</span>  <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Brown"</span>, <span class="st">"Blue"</span>, <span class="st">"Hazel"</span>, <span class="st">"Green"</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="no">N</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">prob</span> <span class="kw">=</span> <span class="no">eprobs</span>)
-<span class="no">sex</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="no">N</span>, <span class="kw">replace</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="kw">eye_color</span>  <span class="op">=</span> <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"Brown"</span>, <span class="st">"Blue"</span>, <span class="st">"Hazel"</span>, <span class="st">"Green"</span>), size = <span class="kw">N</span>, replace = <span class="fl">TRUE</span>, prob = <span class="kw">eprobs</span>)
+<span class="kw">sex</span> <span class="op">=</span> <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>), size = <span class="kw">N</span>, replace = <span class="fl">TRUE</span>)
 
 <span class="co"># A data frame of eye color by sex</span>
-<span class="no">dframe</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">eye_color</span> <span class="kw">=</span> <span class="no">eye_color</span>,
-  <span class="kw">sex</span> <span class="kw">=</span> <span class="no">sex</span>,
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="kw">dframe</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  eye_color = <span class="kw">eye_color</span>, 
+  sex = <span class="kw">sex</span>,
+  stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadowPlot.html">ShadowPlot</a></span>(<span class="no">dframe</span>, <span class="st">"eye_color"</span>, <span class="st">"sex"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Shadow plot of eye colors by sex"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadowPlot.html">ShadowPlot</a></span>(<span class="kw">dframe</span>, <span class="st">"eye_color"</span>, <span class="st">"sex"</span>, title = <span class="st">"Shadow plot of eye colors by sex"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
 </div>
 <div id="shadow-histogram" class="section level2">
 <h2 class="hasAnchor">
 <a href="#shadow-histogram" class="anchor"></a>Shadow Histogram</h2>
 <p>Plot a histogram of a continuous variable <code>xvar</code>, faceted on a categorical conditioning variable, <code>condvar</code>. Each faceted plot also shows a “shadow plot” of the unconditioned histogram for comparison.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">354534</span>)
-<span class="no">N</span> <span class="kw">=</span> <span class="fl">100</span>
+<div class="sourceCode" id="cb32"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">354534</span>)
+<span class="kw">N</span> <span class="op">=</span> <span class="fl">100</span>
 
-<span class="no">dframe</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">N</span>),
-  <span class="kw">gp</span> <span class="kw">=</span> <span class="st">"region 2"</span>,
-  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">dframe</span>$<span class="no">gp</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span>(<span class="no">dframe</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">x</span> <span class="kw">&lt;</span> -<span class="fl">0.5</span>, <span class="st">"region 1"</span>,
-                                <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">x</span> <span class="kw">&gt;</span> <span class="fl">0.5</span>, <span class="st">"region 3"</span>, <span class="no">gp</span>)))
+<span class="kw">dframe</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(
+  x = <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="kw">N</span>), 
+  gp = <span class="st">"region 2"</span>, 
+  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">dframe</span><span class="op">$</span><span class="kw">gp</span> <span class="op">=</span> <span class="fu"><a href="#base/with.html">with</a></span>(<span class="kw">dframe</span>, <span class="fu"><a href="#base/ifelse.html">ifelse</a></span>(<span class="kw">x</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.5</span>, <span class="st">"region 1"</span>, 
+                                <span class="fu"><a href="#base/ifelse.html">ifelse</a></span>(<span class="kw">x</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="st">"region 3"</span>, <span class="kw">gp</span>)))
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="no">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"X values by region"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="kw">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, title = <span class="st">"X values by region"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
 <p><code>ShadowHist</code> uses the Brewer Dark2 palette by default. You can pass in another Brewer palette to change the color scheme. If you prefer all the histograms to be the same color, set <code>monochrome=TRUE</code>.</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="no">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"X values by region"</span>, <span class="kw">monochrome</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb33"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="kw">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, title = <span class="st">"X values by region"</span>, monochrome=<span class="fl">TRUE</span>) </pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
 <p>To use a non-Brewer palette, such as viridis, or a manual color map, set <code>palette=NULL</code>. Here’s an example of setting the color palette manually.</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">colormap</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#1F968BFF"</span>, <span class="st">"#29AF7FFF"</span>, <span class="st">"#55C667FF"</span>)
+<div class="sourceCode" id="cb34"><pre class="downlit">
+<span class="kw">colormap</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"#1F968BFF"</span>, <span class="st">"#29AF7FFF"</span>, <span class="st">"#55C667FF"</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="no">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"X values by region"</span>, <span class="kw">palette</span><span class="kw">=</span><span class="kw">NULL</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span>(<span class="kw">values</span><span class="kw">=</span><span class="no">colormap</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadowHist.html">ShadowHist</a></span>(<span class="kw">dframe</span>, <span class="st">"x"</span>, <span class="st">"gp"</span>, title = <span class="st">"X values by region"</span>, palette=<span class="kw">NULL</span>) <span class="op">+</span>
+  <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span>(values=<span class="kw">colormap</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
 </div>
 <div id="scatterbox-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scatterbox-plots" class="anchor"></a>ScatterBox Plots</h2>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">classes</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)
-<span class="no">means</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">means</span>) <span class="kw">=</span> <span class="no">classes</span>
-<span class="no">label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="no">classes</span>, <span class="kw">size</span><span class="kw">=</span><span class="fl">1000</span>, <span class="kw">replace</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="no">meas</span> <span class="kw">=</span> <span class="no">means</span>[<span class="no">label</span>] + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>)
-<span class="no">frm2</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">label</span><span class="kw">=</span><span class="no">label</span>,
-                  <span class="kw">meas</span> <span class="kw">=</span> <span class="no">meas</span>,
-                  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb35"><pre class="downlit">
+<span class="kw">classes</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)
+<span class="kw">means</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>)
+<span class="fu"><a href="#base/names.html">names</a></span>(<span class="kw">means</span>) <span class="op">=</span> <span class="kw">classes</span>
+<span class="kw">label</span> <span class="op">=</span> <span class="fu"><a href="#base/sample.html">sample</a></span>(<span class="kw">classes</span>, size=<span class="fl">1000</span>, replace=<span class="fl">TRUE</span>)
+<span class="kw">meas</span> <span class="op">=</span> <span class="kw">means</span>[<span class="kw">label</span>] <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">1000</span>)
+<span class="kw">frm2</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(label=<span class="kw">label</span>,
+                  meas = <span class="kw">meas</span>,
+                  stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterBoxPlot.html">ScatterBoxPlot</a></span>(<span class="no">frm2</span>, <span class="st">"label"</span>, <span class="st">"meas"</span>, <span class="kw">pt_alpha</span><span class="kw">=</span><span class="fl">0.2</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Scatter/Box plot"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterBoxPlot.html">ScatterBoxPlot</a></span>(<span class="kw">frm2</span>, <span class="st">"label"</span>, <span class="st">"meas"</span>, pt_alpha=<span class="fl">0.2</span>, title=<span class="st">"Example Scatter/Box plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-29-1.png" width="576"></p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ScatterBoxPlotH.html">ScatterBoxPlotH</a></span>(<span class="no">frm2</span>, <span class="st">"meas"</span>, <span class="st">"label"</span>,  <span class="kw">pt_alpha</span><span class="kw">=</span><span class="fl">0.2</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"Example Scatter/Box plot"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb36"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ScatterBoxPlotH.html">ScatterBoxPlotH</a></span>(<span class="kw">frm2</span>, <span class="st">"meas"</span>, <span class="st">"label"</span>,  pt_alpha=<span class="fl">0.2</span>, title=<span class="st">"Example Scatter/Box plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-29-2.png" width="576"></p>
 </div>
 <div id="discrete-distribution-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#discrete-distribution-plot" class="anchor"></a>Discrete Distribution Plot</h2>
-<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="no">frmx</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="fl">1000</span>, <span class="fl">20</span>, <span class="fl">0.5</span>),
-                  <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/DiscreteDistribution.html">DiscreteDistribution</a></span>(<span class="no">frmx</span>, <span class="st">"x"</span>,<span class="st">"Discrete example"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><pre class="downlit">
+<span class="kw">frmx</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x = <span class="fu"><a href="#stats/Binomial.html">rbinom</a></span>(<span class="fl">1000</span>, <span class="fl">20</span>, <span class="fl">0.5</span>),
+                  stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/DiscreteDistribution.html">DiscreteDistribution</a></span>(<span class="kw">frmx</span>, <span class="st">"x"</span>,<span class="st">"Discrete example"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
 </div>
 <div id="distribution-and-count-plots" class="section level2">
@@ -445,108 +482,123 @@
 <div id="compare-observations-to-a-normal-distribution-with-the-same-mean-and-standard-deviation-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compare-observations-to-a-normal-distribution-with-the-same-mean-and-standard-deviation-" class="anchor"></a>Compare observations to a normal distribution with the same mean and standard deviation.</h3>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
-<span class="no">d</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">wt</span><span class="kw">=</span><span class="fl">100</span>*<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>),
-                <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistCountNormal.html">PlotDistCountNormal</a></span>(<span class="no">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb38"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
+<span class="kw">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(wt=<span class="fl">100</span><span class="op">*</span><span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>),
+                stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistCountNormal.html">PlotDistCountNormal</a></span>(<span class="kw">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
-<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistDensityNormal.html">PlotDistDensityNormal</a></span>(<span class="no">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb39"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistDensityNormal.html">PlotDistDensityNormal</a></span>(<span class="kw">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-31-2.png" width="576"></p>
 </div>
 <div id="compare-coin-flip-observations-to-a-binomial-distribution" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compare-coin-flip-observations-to-a-binomial-distribution" class="anchor"></a>Compare “coin flip” observations to a binomial distribution</h3>
 <p>Compare to a binomial with the same success rate as the observed data</p>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">13951</span>)
-<span class="no">trial_size</span> <span class="kw">=</span> <span class="fl">20</span>  <span class="co"># one trial is 20 flips</span>
-<span class="no">ntrial</span> <span class="kw">=</span> <span class="fl">100</span>     <span class="co"># run 100 trials</span>
-<span class="no">true_frate</span> <span class="kw">=</span> <span class="fl">0.4</span>  <span class="co"># true heads probability</span>
-<span class="no">fdata</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">n_heads</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="no">ntrial</span>, <span class="no">trial_size</span>, <span class="no">true_frate</span>),
-                   <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb40"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">13951</span>)
+<span class="kw">trial_size</span> <span class="op">=</span> <span class="fl">20</span>  <span class="co"># one trial is 20 flips</span>
+<span class="kw">ntrial</span> <span class="op">=</span> <span class="fl">100</span>     <span class="co"># run 100 trials</span>
+<span class="kw">true_frate</span> <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># true heads probability</span>
+<span class="kw">fdata</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(n_heads = <span class="fu"><a href="#stats/Binomial.html">rbinom</a></span>(<span class="kw">ntrial</span>, <span class="kw">trial_size</span>, <span class="kw">true_frate</span>),
+                   stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="no">title</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Distribution of head counts, trial size ="</span>, <span class="no">trial_size</span>)
+<span class="kw">title</span> <span class="op">=</span> <span class="fu"><a href="#base/paste.html">paste</a></span>(<span class="st">"Distribution of head counts, trial size ="</span>, <span class="kw">trial_size</span>)
 <span class="co"># compare to empirical p</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistCountBinomial.html">PlotDistCountBinomial</a></span>(<span class="no">fdata</span>, <span class="st">"n_heads"</span>, <span class="no">trial_size</span>, <span class="no">title</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistCountBinomial.html">PlotDistCountBinomial</a></span>(<span class="kw">fdata</span>, <span class="st">"n_heads"</span>, <span class="kw">trial_size</span>, <span class="kw">title</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 <p>Compare to a binomial with a specified success rate</p>
-<div class="sourceCode" id="cb40"><html><body><pre class="r"><span class="co"># compare to theoretical p of 0.5</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistCountBinomial.html">PlotDistCountBinomial</a></span>(<span class="no">fdata</span>, <span class="st">"n_heads"</span>, <span class="no">trial_size</span>, <span class="no">title</span>,
-                      <span class="kw">p</span> <span class="kw">=</span> <span class="fl">0.5</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb41"><pre class="downlit">
+<span class="co"># compare to theoretical p of 0.5</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistCountBinomial.html">PlotDistCountBinomial</a></span>(<span class="kw">fdata</span>, <span class="st">"n_heads"</span>, <span class="kw">trial_size</span>, <span class="kw">title</span>,
+                      p = <span class="fl">0.5</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
 </div>
 <div id="compare-observed-rate-data-to-a-beta-distribution-with-same-mean-and-standard-deviation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compare-observed-rate-data-to-a-beta-distribution-with-same-mean-and-standard-deviation" class="anchor"></a>Compare observed rate data to a beta distribution with same mean and standard deviation</h3>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">349521</span>)
-<span class="no">N</span> <span class="kw">=</span> <span class="fl">100</span>  <span class="co"># number of cohorts</span>
-<span class="no">psucc</span> <span class="kw">=</span> <span class="fl">0.15</span>  <span class="co"># true success rate in population</span>
-<span class="no">group_size</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="no">N</span>, <span class="kw">min</span><span class="kw">=</span><span class="fl">25</span>, <span class="fl">50</span>))  <span class="co"># sizes of observed sample groups</span>
-<span class="no">nsucc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="no">N</span>, <span class="no">group_size</span>, <span class="no">psucc</span>)   <span class="co"># successes in each group</span>
-<span class="no">hdata</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">n_success</span><span class="kw">=</span><span class="no">nsucc</span>,
-                   <span class="kw">group_size</span><span class="kw">=</span><span class="no">group_size</span>,
-                   <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb42"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">349521</span>)
+<span class="kw">N</span> <span class="op">=</span> <span class="fl">100</span>  <span class="co"># number of cohorts</span>
+<span class="kw">psucc</span> <span class="op">=</span> <span class="fl">0.15</span>  <span class="co"># true success rate in population</span>
+<span class="kw">group_size</span> <span class="op">=</span> <span class="fu"><a href="#base/Round.html">round</a></span>(<span class="fu"><a href="#stats/Uniform.html">runif</a></span>(<span class="kw">N</span>, min=<span class="fl">25</span>, <span class="fl">50</span>))  <span class="co"># sizes of observed sample groups</span>
+<span class="kw">nsucc</span> <span class="op">=</span> <span class="fu"><a href="#stats/Binomial.html">rbinom</a></span>(<span class="kw">N</span>, <span class="kw">group_size</span>, <span class="kw">psucc</span>)   <span class="co"># successes in each group</span>
+<span class="kw">hdata</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(n_success=<span class="kw">nsucc</span>, 
+                   group_size=<span class="kw">group_size</span>,
+                   stringsAsFactors = <span class="fl">FALSE</span>)
 
 <span class="co"># observed rate of successes in each group</span>
-<span class="no">hdata</span>$<span class="no">rate_success</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span>(<span class="no">hdata</span>, <span class="no">n_success</span>/<span class="no">group_size</span>)
+<span class="kw">hdata</span><span class="op">$</span><span class="kw">rate_success</span> <span class="op">=</span> <span class="fu"><a href="#base/with.html">with</a></span>(<span class="kw">hdata</span>, <span class="kw">n_success</span><span class="op">/</span><span class="kw">group_size</span>)
 
-<span class="no">title</span> <span class="kw">=</span> <span class="st">"Observed prevalence of success in population"</span>
+<span class="kw">title</span> <span class="op">=</span> <span class="st">"Observed prevalence of success in population"</span>
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistHistBeta.html">PlotDistHistBeta</a></span>(<span class="no">hdata</span>, <span class="st">"rate_success"</span>, <span class="no">title</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistHistBeta.html">PlotDistHistBeta</a></span>(<span class="kw">hdata</span>, <span class="st">"rate_success"</span>, <span class="kw">title</span>) </pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-34-1.png" width="576"></p>
-<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/PlotDistDensityBeta.html">PlotDistDensityBeta</a></span>(<span class="no">hdata</span>, <span class="st">"rate_success"</span>, <span class="no">title</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb43"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/PlotDistDensityBeta.html">PlotDistDensityBeta</a></span>(<span class="kw">hdata</span>, <span class="st">"rate_success"</span>, <span class="kw">title</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-34-2.png" width="576"></p>
 </div>
 </div>
 <div id="smoothed-scatterplots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#smoothed-scatterplots" class="anchor"></a>Smoothed Scatterplots</h2>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="no">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span>,<span class="fl">18</span>,<span class="fl">20</span>,<span class="fl">25</span>)
-<span class="no">x</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">y</span>))
-<span class="no">df</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>,
-                <span class="kw">y</span><span class="kw">=</span><span class="no">y</span>,
-                <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb44"><pre class="downlit">
+<span class="kw">y</span> <span class="op">=</span> <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">10</span>,<span class="fl">15</span>,<span class="fl">18</span>,<span class="fl">20</span>,<span class="fl">25</span>)
+<span class="kw">x</span> <span class="op">=</span> <span class="fu"><a href="#base/seq.html">seq_len</a></span>(<span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">y</span>))
+<span class="kw">df</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x=<span class="kw">x</span>,
+                y=<span class="kw">y</span>,
+                stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"centered smooth, one group"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, title=<span class="st">"centered smooth, one group"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-1.png" width="576"></p>
-<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"left smooth, one group"</span>, <span class="kw">align</span><span class="kw">=</span><span class="st">"left"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb45"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, title=<span class="st">"left smooth, one group"</span>, align=<span class="st">"left"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-2.png" width="576"></p>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"right smooth, one group"</span>, <span class="kw">align</span><span class="kw">=</span><span class="st">"right"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb46"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="kw">NULL</span>, title=<span class="st">"right smooth, one group"</span>, align=<span class="st">"right"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-3.png" width="576"></p>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="no">n</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>)
-<span class="no">df</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>, <span class="kw">y</span><span class="kw">=</span><span class="no">y</span>+<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">n</span>), <span class="kw">gp</span><span class="kw">=</span><span class="st">"times 1"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-           <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>, <span class="kw">y</span><span class="kw">=</span><span class="fl">0.5</span>*<span class="no">y</span> + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">n</span>), <span class="kw">gp</span><span class="kw">=</span><span class="st">"times 1/2"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-           <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">x</span><span class="kw">=</span><span class="no">x</span>, <span class="kw">y</span><span class="kw">=</span><span class="fl">2</span>*<span class="no">y</span> + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">n</span>), <span class="kw">gp</span><span class="kw">=</span><span class="st">"times 2"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>),
-           <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb47"><pre class="downlit">
+<span class="kw">n</span> <span class="op">=</span> <span class="fu"><a href="#base/length.html">length</a></span>(<span class="kw">x</span>)
+<span class="kw">df</span> <span class="op">=</span> <span class="fu"><a href="#base/cbind.html">rbind</a></span>(<span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x=<span class="kw">x</span>, y=<span class="kw">y</span><span class="op">+</span><span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="kw">n</span>), gp=<span class="st">"times 1"</span>, stringsAsFactors = <span class="fl">FALSE</span>),
+           <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x=<span class="kw">x</span>, y=<span class="fl">0.5</span><span class="op">*</span><span class="kw">y</span> <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="kw">n</span>), gp=<span class="st">"times 1/2"</span>, stringsAsFactors = <span class="fl">FALSE</span>),
+           <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(x=<span class="kw">x</span>, y=<span class="fl">2</span><span class="op">*</span><span class="kw">y</span> <span class="op">+</span> <span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="kw">n</span>), gp=<span class="st">"times 2"</span>, stringsAsFactors = <span class="fl">FALSE</span>),
+           stringsAsFactors = <span class="fl">FALSE</span>)
 
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"centered smooth, multigroup"</span>)</pre></body></html></div>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, title=<span class="st">"centered smooth, multigroup"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-4.png" width="576"></p>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"left smooth, multigroup"</span>, <span class="kw">align</span><span class="kw">=</span><span class="st">"left"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb48"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, title=<span class="st">"left smooth, multigroup"</span>, align=<span class="st">"left"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-5.png" width="576"></p>
-<div class="sourceCode" id="cb48"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="no">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, <span class="kw">title</span><span class="kw">=</span><span class="st">"right smooth, multigroup"</span>, <span class="kw">align</span><span class="kw">=</span><span class="st">"right"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb49"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ConditionalSmoothedScatterPlot.html">ConditionalSmoothedScatterPlot</a></span>(<span class="kw">df</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"gp"</span>, title=<span class="st">"right smooth, multigroup"</span>, align=<span class="st">"right"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-35-6.png" width="576"></p>
 </div>
 <div id="density-plot-with-shaded-tail" class="section level2">
 <h2 class="hasAnchor">
 <a href="#density-plot-with-shaded-tail" class="anchor"></a>Density Plot with Shaded Tail</h2>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
-<span class="no">d</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">meas</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>), <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">threshold</span> <span class="kw">=</span> -<span class="fl">1.5</span>
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span>(<span class="no">d</span>, <span class="st">"meas"</span>, <span class="no">threshold</span>,
-                       <span class="kw">title</span><span class="kw">=</span><span class="st">"Example shaded density plot, left tail"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb50"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
+<span class="kw">d</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(meas=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>), stringsAsFactors = <span class="fl">FALSE</span>)
+<span class="kw">threshold</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1.5</span>
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span>(<span class="kw">d</span>, <span class="st">"meas"</span>, <span class="kw">threshold</span>, 
+                       title=<span class="st">"Example shaded density plot, left tail"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
-<div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span>(<span class="no">d</span>, <span class="st">"meas"</span>, -<span class="no">threshold</span>, <span class="kw">tail</span><span class="kw">=</span><span class="st">"right"</span>,
-                       <span class="kw">title</span><span class="kw">=</span><span class="st">"Example shaded density plot, right tail"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb51"><pre class="downlit">
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span>(<span class="kw">d</span>, <span class="st">"meas"</span>, <span class="op">-</span><span class="kw">threshold</span>, tail=<span class="st">"right"</span>, 
+                       title=<span class="st">"Example shaded density plot, right tail"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-36-2.png" width="576"></p>
 </div>
 <div id="density-plot-with-shaded-central-region" class="section level2">
 <h2 class="hasAnchor">
 <a href="#density-plot-with-shaded-central-region" class="anchor"></a>Density Plot with Shaded Central Region</h2>
-<div class="sourceCode" id="cb51"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
-<span class="no">d</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">meas</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>), <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb52"><pre class="downlit">
+<span class="fu"><a href="#base/Random.html">set.seed</a></span>(<span class="fl">52523</span>)
+<span class="kw">d</span> <span class="op">=</span> <span class="fu"><a href="#base/data.frame.html">data.frame</a></span>(meas=<span class="fu"><a href="#stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>), stringsAsFactors = <span class="fl">FALSE</span>)
 <span class="co"># first and third quartiles of the data (central 50%)</span>
-<span class="no">boundaries</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(<span class="no">d</span>$<span class="no">meas</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))
-<span class="kw pkg">WVPlots</span><span class="kw ns">::</span><span class="fu"><a href="../reference/ShadedDensityCenter.html">ShadedDensityCenter</a></span>(<span class="no">d</span>, <span class="st">"meas"</span>, <span class="no">boundaries</span>,
-                       <span class="kw">title</span><span class="kw">=</span><span class="st">"Example center-shaded density plot"</span>)</pre></body></html></div>
+<span class="kw">boundaries</span> <span class="op">=</span> <span class="fu"><a href="#stats/quantile.html">quantile</a></span>(<span class="kw">d</span><span class="op">$</span><span class="kw">meas</span>, <span class="fu"><a href="#base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))
+<span class="kw">WVPlots</span>::<span class="fu"><a href="../reference/ShadedDensityCenter.html">ShadedDensityCenter</a></span>(<span class="kw">d</span>, <span class="st">"meas"</span>, <span class="kw">boundaries</span>, 
+                       title=<span class="st">"Example center-shaded density plot"</span>)</pre></div>
 <p><img src="WVPlots_examples_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
 </div>
   </div>
@@ -566,7 +618,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

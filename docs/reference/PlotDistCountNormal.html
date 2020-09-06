@@ -133,15 +133,15 @@
     </div>
 
     <pre class="usage"><span class='fu'>PlotDistCountNormal</span>(
-  <span class='no'>frm</span>,
-  <span class='no'>xvar</span>,
-  <span class='no'>title</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>binWidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(),
-  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>normal_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>mean_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>sd_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>
+  <span class='kw'>frm</span>,
+  <span class='kw'>xvar</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  binWidth = <span class='fu'><a href='#base/c.html'>c</a></span>(),
+  hist_color = <span class='st'>"black"</span>,
+  normal_color = <span class='st'>"blue"</span>,
+  mean_color = <span class='st'>"blue"</span>,
+  sd_color = <span class='st'>"blue"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -195,11 +195,13 @@ in the subtitle of the plot.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>wt</span><span class='kw'>=</span><span class='fl'>100</span>*<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))
-<span class='fu'>PlotDistCountNormal</span>(<span class='no'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>)</div><div class='img'><img src='PlotDistCountNormal-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>52523</span>)
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(wt=<span class='fl'>100</span><span class='op'>*</span><span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>))
+<span class='fu'>PlotDistCountNormal</span>(<span class='kw'>d</span>,<span class='st'>'wt'</span>,<span class='st'>'example'</span>)
+</div><div class='img'><img src='PlotDistCountNormal-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no sd lines</span>
-<span class='fu'>PlotDistCountNormal</span>(<span class='no'>d</span>, <span class='st'>'wt'</span>, <span class='st'>'example'</span>, <span class='kw'>sd_color</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='img'><img src='PlotDistCountNormal-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>PlotDistCountNormal</span>(<span class='kw'>d</span>, <span class='st'>'wt'</span>, <span class='st'>'example'</span>, sd_color=<span class='kw'>NULL</span>)
+</div><div class='img'><img src='PlotDistCountNormal-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -216,7 +218,7 @@ in the subtitle of the plot.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

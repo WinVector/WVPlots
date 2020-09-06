@@ -134,7 +134,7 @@ takes on a discrete set of values." />
 takes on a discrete set of values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DiscreteDistribution</span>(<span class='no'>frm</span>, <span class='no'>xvar</span>, <span class='no'>title</span>, <span class='no'>...</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</pre>
+    <pre class="usage"><span class='fu'>DiscreteDistribution</span>(<span class='kw'>frm</span>, <span class='kw'>xvar</span>, <span class='kw'>title</span>, <span class='kw'>...</span>, stem = <span class='fl'>TRUE</span>, color = <span class='st'>"black"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,8 +168,9 @@ takes on a discrete set of values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>frmx</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>1000</span>, <span class='fl'>20</span>, <span class='fl'>0.5</span>))
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>DiscreteDistribution</span>(<span class='no'>frmx</span>, <span class='st'>"x"</span>,<span class='st'>"Discrete example"</span>)</div><div class='img'><img src='DiscreteDistribution-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>frmx</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(x = <span class='fu'><a href='#stats/Binomial.html'>rbinom</a></span>(<span class='fl'>1000</span>, <span class='fl'>20</span>, <span class='fl'>0.5</span>))
+<span class='kw'>WVPlots</span>::<span class='fu'>DiscreteDistribution</span>(<span class='kw'>frmx</span>, <span class='st'>"x"</span>,<span class='st'>"Discrete example"</span>)
+</div><div class='img'><img src='DiscreteDistribution-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -186,7 +187,7 @@ takes on a discrete set of values.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

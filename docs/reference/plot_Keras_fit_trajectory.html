@@ -133,21 +133,21 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_Keras_fit_trajectory</span>(
-  <span class='no'>d</span>,
-  <span class='no'>title</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>epoch_name</span> <span class='kw'>=</span> <span class='st'>"epoch"</span>,
-  <span class='kw'>lossname</span> <span class='kw'>=</span> <span class='st'>"loss"</span>,
-  <span class='kw'>loss_pretty_name</span> <span class='kw'>=</span> <span class='st'>"minus binary cross entropy"</span>,
-  <span class='kw'>perfname</span> <span class='kw'>=</span> <span class='st'>"acc"</span>,
-  <span class='kw'>perf_pretty_name</span> <span class='kw'>=</span> <span class='st'>"accuracy"</span>,
-  <span class='kw'>pick_metric</span> <span class='kw'>=</span> <span class='no'>loss_pretty_name</span>,
-  <span class='kw'>fliploss</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>discount_rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>draw_ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>val_color</span> <span class='kw'>=</span> <span class='st'>"#d95f02"</span>,
-  <span class='kw'>train_color</span> <span class='kw'>=</span> <span class='st'>"#1b9e77"</span>,
-  <span class='kw'>pick_color</span> <span class='kw'>=</span> <span class='st'>"#e6ab02"</span>
+  <span class='kw'>d</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  epoch_name = <span class='st'>"epoch"</span>,
+  lossname = <span class='st'>"loss"</span>,
+  loss_pretty_name = <span class='st'>"minus binary cross entropy"</span>,
+  perfname = <span class='st'>"acc"</span>,
+  perf_pretty_name = <span class='st'>"accuracy"</span>,
+  pick_metric = <span class='kw'>loss_pretty_name</span>,
+  fliploss = <span class='fl'>TRUE</span>,
+  discount_rate = <span class='kw'>NULL</span>,
+  draw_ribbon = <span class='fl'>FALSE</span>,
+  val_color = <span class='st'>"#d95f02"</span>,
+  train_color = <span class='st'>"#1b9e77"</span>,
+  pick_color = <span class='st'>"#e6ab02"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -237,17 +237,18 @@ for some details.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># example data (from Keras)</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>val_loss</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.3769818</span>, <span class='fl'>0.2996994</span>, <span class='fl'>0.2963943</span>, <span class='fl'>0.2779052</span>, <span class='fl'>0.2842501</span>),
-  <span class='kw'>val_acc</span>  <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8722000</span>, <span class='fl'>0.8895000</span>, <span class='fl'>0.8822000</span>, <span class='fl'>0.8899000</span>, <span class='fl'>0.8861000</span>),
-  <span class='kw'>loss</span>     <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5067290</span>, <span class='fl'>0.3002033</span>, <span class='fl'>0.2165675</span>, <span class='fl'>0.1738829</span>, <span class='fl'>0.1410933</span>),
-  <span class='kw'>acc</span>      <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.7852000</span>, <span class='fl'>0.9040000</span>, <span class='fl'>0.9303333</span>, <span class='fl'>0.9428000</span>, <span class='fl'>0.9545333</span>) )
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(
+  val_loss = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>0.3769818</span>, <span class='fl'>0.2996994</span>, <span class='fl'>0.2963943</span>, <span class='fl'>0.2779052</span>, <span class='fl'>0.2842501</span>),
+  val_acc  = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>0.8722000</span>, <span class='fl'>0.8895000</span>, <span class='fl'>0.8822000</span>, <span class='fl'>0.8899000</span>, <span class='fl'>0.8861000</span>),
+  loss     = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>0.5067290</span>, <span class='fl'>0.3002033</span>, <span class='fl'>0.2165675</span>, <span class='fl'>0.1738829</span>, <span class='fl'>0.1410933</span>),
+  acc      = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>0.7852000</span>, <span class='fl'>0.9040000</span>, <span class='fl'>0.9303333</span>, <span class='fl'>0.9428000</span>, <span class='fl'>0.9545333</span>) )
 
-<span class='no'>plt</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_Keras_fit_trajectory</span>(
-  <span class='no'>d</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"model performance by epoch, dataset, and measure"</span>)
+<span class='kw'>plt</span> <span class='op'>&lt;-</span> <span class='fu'>plot_Keras_fit_trajectory</span>(
+  <span class='kw'>d</span>,
+  title = <span class='st'>"model performance by epoch, dataset, and measure"</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>plt</span>)) <span class='co'># too few points for loess</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='plot_Keras_fit_trajectory-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='#base/warning.html'>suppressWarnings</a></span>(<span class='fu'><a href='#base/print.html'>print</a></span>(<span class='kw'>plt</span>)) <span class='co'># too few points for loess</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='plot_Keras_fit_trajectory-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -264,7 +265,7 @@ for some details.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -137,25 +137,25 @@ See also <code>ggExtra::ggMarginal</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ScatterHist</span>(
-  <span class='no'>frame</span>,
-  <span class='no'>xvar</span>,
-  <span class='no'>yvar</span>,
-  <span class='no'>title</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"lm"</span>,
-  <span class='kw'>estimate_sig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>minimal_labels</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>binwidth_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>binwidth_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>point_alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>,
-  <span class='kw'>smoothing_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>density_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>contour_color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>
+  <span class='kw'>frame</span>,
+  <span class='kw'>xvar</span>,
+  <span class='kw'>yvar</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  smoothmethod = <span class='st'>"lm"</span>,
+  estimate_sig = <span class='fl'>FALSE</span>,
+  minimal_labels = <span class='fl'>TRUE</span>,
+  binwidth_x = <span class='kw'>NULL</span>,
+  binwidth_y = <span class='kw'>NULL</span>,
+  adjust_x = <span class='fl'>1</span>,
+  adjust_y = <span class='fl'>1</span>,
+  point_alpha = <span class='fl'>0.5</span>,
+  contour = <span class='fl'>FALSE</span>,
+  point_color = <span class='st'>"black"</span>,
+  hist_color = <span class='st'>"gray"</span>,
+  smoothing_color = <span class='st'>"blue"</span>,
+  density_color = <span class='st'>"blue"</span>,
+  contour_color = <span class='st'>"blue"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -268,24 +268,26 @@ is the correct measure.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>y</span> <span class='kw'>=</span> <span class='fl'>0.5</span>*<span class='no'>x</span>^<span class='fl'>2</span> + <span class='fl'>2</span>*<span class='no'>x</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>))
-<span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>,<span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>)
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ScatterHist</span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
-  <span class='kw'>title</span><span class='kw'>=</span> <span class='st'>"Example Fit"</span>,
-  <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"gam"</span>,
-  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
+<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='kw'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x</span>))
+<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(x=<span class='kw'>x</span>,y=<span class='kw'>y</span>)
+<span class='kw'>WVPlots</span>::<span class='fu'>ScatterHist</span>(<span class='kw'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
+  title= <span class='st'>"Example Fit"</span>,
+  smoothmethod = <span class='st'>"gam"</span>,
+  contour = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='ScatterHist-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Same plot with custom colors</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ScatterHist</span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
-  <span class='kw'>title</span><span class='kw'>=</span> <span class='st'>"Example Fit"</span>,
-  <span class='kw'>smoothmethod</span> <span class='kw'>=</span> <span class='st'>"gam"</span>,
-  <span class='kw'>contour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"#006d2c"</span>, <span class='co'># dark green</span>
-  <span class='kw'>hist_color</span> <span class='kw'>=</span> <span class='st'>"#6baed6"</span>, <span class='co'># medium blue</span>
-  <span class='kw'>smoothing_color</span> <span class='kw'>=</span> <span class='st'>"#54278f"</span>, <span class='co'># dark purple</span>
-  <span class='kw'>density_color</span> <span class='kw'>=</span> <span class='st'>"#08519c"</span>, <span class='co'># darker blue</span>
-  <span class='kw'>contour_color</span> <span class='kw'>=</span> <span class='st'>"#9e9ac8"</span>) <span class='co'># lighter purple</span></div><div class='img'><img src='ScatterHist-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>WVPlots</span>::<span class='fu'>ScatterHist</span>(<span class='kw'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>,
+  title= <span class='st'>"Example Fit"</span>,
+  smoothmethod = <span class='st'>"gam"</span>,
+  contour = <span class='fl'>TRUE</span>,
+  point_color = <span class='st'>"#006d2c"</span>, <span class='co'># dark green</span>
+  hist_color = <span class='st'>"#6baed6"</span>, <span class='co'># medium blue</span>
+  smoothing_color = <span class='st'>"#54278f"</span>, <span class='co'># dark purple</span>
+  density_color = <span class='st'>"#08519c"</span>, <span class='co'># darker blue</span>
+  contour_color = <span class='st'>"#9e9ac8"</span>) <span class='co'># lighter purple</span>
+</div><div class='img'><img src='ScatterHist-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -301,7 +303,7 @@ is the correct measure.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

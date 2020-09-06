@@ -1,8 +1,6 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
-pkgdown_sha: ~
-articles:
-  WVPlots_concept: WVPlots_concept.html
-  WVPlots_examples: WVPlots_examples.html
-last_built: 2020-09-04T17:42Z
+pkgdown: 1.5.1.9000
+pkgdown_sha: c6b35532515a7ae433eff4b547d77eeae4278664
+articles: []
+last_built: 2020-09-06T19:34Z
 

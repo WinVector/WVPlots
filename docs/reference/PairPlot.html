@@ -133,14 +133,14 @@
     </div>
 
     <pre class="usage"><span class='fu'>PairPlot</span>(
-  <span class='no'>d</span>,
-  <span class='no'>meas_vars</span>,
-  <span class='no'>title</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>,
-  <span class='kw'>point_color</span> <span class='kw'>=</span> <span class='st'>"darkgray"</span>
+  <span class='kw'>d</span>,
+  <span class='kw'>meas_vars</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  group_var = <span class='kw'>NULL</span>,
+  alpha = <span class='fl'>1</span>,
+  palette = <span class='st'>"Dark2"</span>,
+  point_color = <span class='st'>"darkgray"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -194,12 +194,13 @@ allows the user to choose a non-Brewer palette, for example with <code>scale_col
 <span class='co'># PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")</span>
 
 <span class='co'># custom palette</span>
-<span class='no'>colormap</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'#a6611a'</span>, <span class='st'>'#dfc27d'</span>, <span class='st'>'#018571'</span>)
-<span class='fu'>PairPlot</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>iris</span>)[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='st'>"Example plot"</span>,
-         <span class='kw'>group_var</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>palette</span><span class='kw'>=</span><span class='kw'>NULL</span>) +
-         <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span>(<span class='kw'>values</span><span class='kw'>=</span><span class='no'>colormap</span>)</div><div class='img'><img src='PairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-# # no color-coding
-# PairPlot(iris, colnames(iris)[1:4], "Example plot")
+<span class='kw'>colormap</span> <span class='op'>=</span> <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='st'>'#a6611a'</span>, <span class='st'>'#dfc27d'</span>, <span class='st'>'#018571'</span>)
+<span class='fu'>PairPlot</span>(<span class='kw'>iris</span>, <span class='fu'><a href='#base/colnames.html'>colnames</a></span>(<span class='kw'>iris</span>)[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>], <span class='st'>"Example plot"</span>,
+         group_var = <span class='st'>"Species"</span>, palette=<span class='kw'>NULL</span>) <span class='op'>+</span>
+         <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span>(values=<span class='kw'>colormap</span>)
+</div><div class='img'><img src='PairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># # no color-coding</span>
+<span class='co'># PairPlot(iris, colnames(iris)[1:4], "Example plot")</span>
 
 </div></pre>
   </div>
@@ -217,7 +218,7 @@ allows the user to choose a non-Brewer palette, for example with <code>scale_col
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

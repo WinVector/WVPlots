@@ -133,17 +133,17 @@
     </div>
 
     <pre class="usage"><span class='fu'>ScatterHistN</span>(
-  <span class='no'>frame</span>,
-  <span class='no'>xvar</span>,
-  <span class='no'>yvar</span>,
-  <span class='no'>zvar</span>,
-  <span class='no'>title</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>annot_size</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>colorPalette</span> <span class='kw'>=</span> <span class='st'>"RdYlBu"</span>,
-  <span class='kw'>nclus</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>adjust_x</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>adjust_y</span> <span class='kw'>=</span> <span class='fl'>1</span>
+  <span class='kw'>frame</span>,
+  <span class='kw'>xvar</span>,
+  <span class='kw'>yvar</span>,
+  <span class='kw'>zvar</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  annot_size = <span class='fl'>3</span>,
+  colorPalette = <span class='st'>"RdYlBu"</span>,
+  nclus = <span class='fl'>3</span>,
+  adjust_x = <span class='fl'>1</span>,
+  adjust_y = <span class='fl'>1</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -207,10 +207,11 @@ are color-coded by these categories.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='no'>frm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>),<span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>))
-<span class='no'>frm</span>$<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='no'>frm</span>$<span class='no'>x</span>+<span class='no'>frm</span>$<span class='no'>y</span>
-<span class='kw pkg'>WVPlots</span><span class='kw ns'>::</span><span class='fu'>ScatterHistN</span>(<span class='no'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>, <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Example Joint Distribution"</span>)</div><div class='img'><img src='ScatterHistN-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
+<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(x=<span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>),y=<span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>))
+<span class='kw'>frm</span><span class='op'>$</span><span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='kw'>frm</span><span class='op'>$</span><span class='kw'>x</span><span class='op'>+</span><span class='kw'>frm</span><span class='op'>$</span><span class='kw'>y</span>
+<span class='kw'>WVPlots</span>::<span class='fu'>ScatterHistN</span>(<span class='kw'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>, title=<span class='st'>"Example Joint Distribution"</span>)
+</div><div class='img'><img src='ScatterHistN-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -227,7 +228,7 @@ are color-coded by these categories.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
