@@ -12,6 +12,7 @@ GainCurvePlotWithNotation(
   gainx,
   labelfun,
   ...,
+  sort_by_model = TRUE,
   estimate_sig = FALSE,
   large_count = 1000,
   model_color = "darkblue",
@@ -36,6 +37,8 @@ GainCurvePlotWithNotation(
 
 \item{...}{no unnamed argument, added to force named binding of later arguments.}
 
+\item{sort_by_model}{logical, if TRUE use the model to calculate gainy, else use wizard.}
+
 \item{estimate_sig}{logical, if TRUE compute significance}
 
 \item{large_count}{numeric, upper bound target for number of plotting points}
@@ -58,6 +61,9 @@ This is the standard gain curve plot (see \code{\link{GainCurvePlot}}) with
 a label attached to a particular value of x. The label is created by
 a function \code{labelfun}, which takes as inputs the x and y coordinates
 of a label and returns a string (the label).
+
+By default, uses the model to calculate the y value of the calculated point;
+to use the wizard curve, set \code{sort_by_model = FALSE}
 }
 \examples{
 
@@ -65,18 +71,32 @@ set.seed(34903490)
 y = abs(rnorm(20)) + 0.1
 x = abs(y + 0.5*rnorm(20))
 frm = data.frame(model=x, value=y)
-gainx = 0.10  # get the top 10\% most valuable points as sorted by the model
+gainx = 0.25  # get the predicted top 25\% most valuable points as sorted by the model
 # make a function to calculate the label for the annotated point
 labelfun = function(gx, gy) {
   pctx = gx*100
   pcty = gy*100
 
-  paste("The top ", pctx, "\% most valuable points by the model\n",
+  paste("The predicted top ", pctx, "\% most valuable points by the model\n",
         "are ", pcty, "\% of total actual value", sep='')
 }
 WVPlots::GainCurvePlotWithNotation(frm, "model", "value",
    title="Example Gain Curve with annotation",
    gainx=gainx,labelfun=labelfun)
+
+# now get the top 25\% actual most valuable points
+
+labelfun = function(gx, gy) {
+  pctx = gx*100
+  pcty = gy*100
+
+  paste("The actual top ", pctx, "\% most valuable points\n",
+        "are ", pcty, "\% of total actual value", sep='')
+}
+
+WVPlots::GainCurvePlotWithNotation(frm, "model", "value",
+   title="Example Gain Curve with annotation",
+   gainx=gainx,labelfun=labelfun, sort_by_model=FALSE)
 
 }
 \seealso{

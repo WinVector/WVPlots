@@ -526,6 +526,9 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' a function \code{labelfun}, which takes as inputs the x and y coordinates
 #' of a label and returns a string (the label).
 #'
+#' By default, uses the model to calculate the y value of the calculated point;
+#' to use the wizard curve, set \code{sort_by_model = FALSE}
+#'
 #' @param frame data frame to get values from
 #' @param xvar name of the independent (input or model score) column in frame
 #' @param truthVar name of the dependent (output or result to be modeled) column in frame
@@ -533,6 +536,7 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' @param gainx the point on the x axis corresponding to the desired label
 #' @param labelfun a function to return a label for the marked point
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param sort_by_model logical, if TRUE use the model to calculate gainy, else use wizard.
 #' @param estimate_sig logical, if TRUE compute significance
 #' @param large_count numeric, upper bound target for number of plotting points
 #' @param model_color color for the model curve
@@ -548,18 +552,32 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #' y = abs(rnorm(20)) + 0.1
 #' x = abs(y + 0.5*rnorm(20))
 #' frm = data.frame(model=x, value=y)
-#' gainx = 0.10  # get the top 10% most valuable points as sorted by the model
+#' gainx = 0.25  # get the predicted top 25% most valuable points as sorted by the model
 #' # make a function to calculate the label for the annotated point
 #' labelfun = function(gx, gy) {
 #'   pctx = gx*100
 #'   pcty = gy*100
 #'
-#'   paste("The top ", pctx, "% most valuable points by the model\n",
+#'   paste("The predicted top ", pctx, "% most valuable points by the model\n",
 #'         "are ", pcty, "% of total actual value", sep='')
 #' }
 #' WVPlots::GainCurvePlotWithNotation(frm, "model", "value",
 #'    title="Example Gain Curve with annotation",
 #'    gainx=gainx,labelfun=labelfun)
+#'
+#' # now get the top 25% actual most valuable points
+#'
+#'labelfun = function(gx, gy) {
+#'   pctx = gx*100
+#'   pcty = gy*100
+#'
+#'   paste("The actual top ", pctx, "% most valuable points\n",
+#'         "are ", pcty, "% of total actual value", sep='')
+#' }
+#'
+#' WVPlots::GainCurvePlotWithNotation(frm, "model", "value",
+#'    title="Example Gain Curve with annotation",
+#'    gainx=gainx,labelfun=labelfun, sort_by_model=FALSE)
 #'
 #' @export
 GainCurvePlotWithNotation = function(frame,
@@ -569,6 +587,7 @@ GainCurvePlotWithNotation = function(frame,
                                      gainx,
                                      labelfun,
                                      ...,
+                                     sort_by_model = TRUE,
                                      estimate_sig = FALSE,
                                      large_count = 1000,
                                      model_color='darkblue',
@@ -576,12 +595,17 @@ GainCurvePlotWithNotation = function(frame,
                                      shadow_color='darkgray',
                                      crosshair_color = 'red',
                                      text_color='black') {
-   frame <- check_frame_args_list(...,
+  frame <- check_frame_args_list(...,
                                  frame = frame,
                                  name_var_list = list(xvar = xvar, truthVar = truthVar),
                                  title = title,
                                  funname = "WVPlots::GainCurvePlotWithNotation")
-  gainy = get_gainy(frame, xvar, truthVar, gainx)
+  if(sort_by_model) {
+    gainy = get_gainy(frame, xvar, truthVar, gainx)
+  }
+  else {
+    gainy = get_gainy(frame, truthVar, truthVar, gainx)
+  }
   gainy_p = round(100 * gainy) / 100  # two sig figs
   label = labelfun(gainx, gainy_p)
   gp = GainCurvePlot(frame, xvar, truthVar, title,
