@@ -355,14 +355,14 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #'    x2 = x2,
 #'    x3 = x3,
 #'    yC = y >= as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::ROCPlotPairList(
+#' WVPlots::ROCPlotList(
 #'    frame = frm,
 #'    xvar_names = c("x1", "x2", "x3"),
 #'    truthVar = "yC", truthTarget = TRUE,
 #'    title = "Example ROC list plot")
 #'
 #' @export
-ROCPlotPairList <- function(
+ROCPlotList <- function(
   frame, xvar_names, truthVar, truthTarget, title,
   ...,
   palette="Dark2") {
@@ -431,6 +431,10 @@ ROCPlotPairList <- function(
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   plot
 }
+
+#' @export
+#' @rdname ROCPlotList
+ROCPlotPairList <- ROCPlotList
 
 
 #' Compare two ROC plots.
