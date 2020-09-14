@@ -35,44 +35,26 @@ novelPointPositionsR <- function(x) {
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::graphROC(frm$x, frm$yC, estimate_sig = TRUE)
+#' WVPlots:::graphROC(frm$x, frm$yC)
 #'
 #' @noRd
 #'
 graphROC <- function(modelPredictions, yValues) {
-  if(!is.numeric(modelPredictions)) {
-    stop("WVPlots::graphROC modelPredictions must be numeric")
-  }
-  if(!is.logical(yValues)) {
-    stop("WVPlots::graphROC yValues must be logical")
-  }
-  if(length(modelPredictions)!=length(yValues)) {
-    stop("WVPlots::graphROC must have length(modelPredictions)==length(yValues)")
-  }
-  ord <- order(modelPredictions, decreasing=TRUE)
-  yValues <- yValues[ord]
-  modelPredictions <- modelPredictions[ord]
-  # FPR is the x-axis, TPR the y.
-  x <- cumsum(!yValues)/max(1,sum(!yValues)) # FPR = x-axis
-  y <- cumsum(yValues)/max(1,sum(yValues))   # TPR = y-axis
-  # each point should be fully after a bunch of points or fully before a
-  # decision level. remove dups to achieve this.
-  dup <- c(modelPredictions[-1]>=modelPredictions[-length(modelPredictions)],
-           FALSE)
-  # And add in ideal endpoints just in case (redundancy here is not a problem).
-  x <- x[!dup]
-  y <- y[!dup]
-  prediction <- modelPredictions[!dup]
-  pointGraph <- data.frame(FalsePositiveRate= x,
-                           TruePositiveRate= y,
-                           model= prediction,
+  positive_prevalence <- mean(yValues, na.rm = TRUE)
+  roc <- sigr::build_ROC_curve(
+    modelPredictions = modelPredictions,
+    yValues = yValues,
+    yTarget = TRUE,
+    na.rm = TRUE)
+  roc <- sigr::add_ROC_derived_columns(roc, positive_prevalence)
+  pointGraph <- data.frame(FalsePositiveRate= roc$FalsePositiveRate,
+                           TruePositiveRate= roc$TruePositiveRate,
+                           model= roc$Score,
                            stringsAsFactors = FALSE)
-  x <- c(0,x,1)
-  y <- c(0,y,1)
-  prediction <- c(0,prediction,1)
-  lineGraph <- data.frame(FalsePositiveRate= x,
-                          TruePositiveRate= y,
-                          model= prediction,
+  pointGraph <- pointGraph[!is.na(pointGraph$model), , drop = FALSE]
+  lineGraph <- data.frame(FalsePositiveRate= roc$FalsePositiveRate,
+                          TruePositiveRate= roc$TruePositiveRate,
+                          model= roc$Score,
                           stringsAsFactors = FALSE)
   # further de-dup points
   # care about changes in x or y

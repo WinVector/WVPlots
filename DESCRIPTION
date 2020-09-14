@@ -1,8 +1,8 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.2.8
-Date: 2020-09-03
+Version: 1.2.9
+Date: 2020-09-14
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -22,10 +22,10 @@ Depends:
     wrapr (>= 2.0.0)
 Imports:
     ggplot2 (>= 3.3.0),
-    sigr (>= 1.0.6),
-    cdata (>= 1.1.6),
-    rqdatatable (>= 1.2.7),
-    rquery (>= 1.4.4),
+    sigr (>= 1.1.0),
+    cdata (>= 1.1.8),
+    rqdatatable (>= 1.2.8),
+    rquery (>= 1.4.5),
     utils,
     grid,
     gridExtra,

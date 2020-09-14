@@ -1,5 +1,12 @@
 
-# WVPlots 1.2.9 2020-09-03
+# WVPlots 1.2.9 2020-09-14
+
+ * Switch to sigr ROC calculations.
+ * More on ROC plots.
+ * Add ROCPairList() as prefered name for  ROCPlotPairList().
+ * More gain curve annotation controls.
+
+# WVPlots 1.2.8 2020-09-03
 
  * Add ROCPlotPairList().
 
