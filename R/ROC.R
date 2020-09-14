@@ -100,7 +100,20 @@ graphROC <- function(modelPredictions, yValues) {
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
+#' plt <- WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
+#' print(plt)
+#'
+#' # add in an ideal AUC curve with same area
+#' # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
+#' q <- sigr::find_AUC_q(frm$x, frm$yC)
+#' ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
+#' ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q^(1/q))
+#' # ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frm$yC, na.rm = TRUE)
+#' plt + ggplot2::geom_line(
+#'    data = ideal_roc,
+#'    mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
+#'    color = "Orange",
+#'    linetype = 2)
 #'
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
