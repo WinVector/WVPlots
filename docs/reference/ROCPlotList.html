@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a Shadow Bar Plot — ShadowPlot • WVPlots</title>
+<title>Compare multiple ROC plots. — ROCPlotList • WVPlots</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot a Shadow Bar Plot — ShadowPlot" />
-<meta property="og:description" content="Plot a bar chart of row counts conditioned on the categorical variable condvar,
-faceted on a second categorical variable, refinevar. Each faceted plot
-also shows a &quot;shadow plot&quot; of the totals conditioned on condvar alone." />
+<meta property="og:title" content="Compare multiple ROC plots. — ROCPlotList" />
+<meta property="og:description" content="Plot multiple receiver operating characteristic curves from the same data.frame." />
 
 
 
@@ -125,95 +123,97 @@ also shows a &quot;shadow plot&quot; of the totals conditioned on condvar alone.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a Shadow Bar Plot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ShadowPlot.R'><code>R/ShadowPlot.R</code></a></small>
-    <div class="hidden name"><code>ShadowPlot.Rd</code></div>
+    <h1>Compare multiple ROC plots.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/WinVector/WVPlots/blob/master/R/ROC.R'><code>R/ROC.R</code></a></small>
+    <div class="hidden name"><code>ROCPlotList.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot a bar chart of row counts conditioned on the categorical variable <code>condvar</code>,
-faceted on a second categorical variable, <code>refinevar</code>. Each faceted plot
-also shows a "shadow plot" of the totals conditioned on <code>condvar</code> alone.</p>
+    <p>Plot multiple receiver operating characteristic curves from the same data.frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ShadowPlot</span>(
-  <span class='kw'>frm</span>,
-  <span class='kw'>condvar</span>,
-  <span class='kw'>refinevar</span>,
+    <pre class="usage"><span class='fu'>ROCPlotList</span>(
+  <span class='kw'>frame</span>,
+  <span class='kw'>xvar_names</span>,
+  <span class='kw'>truthVar</span>,
+  <span class='kw'>truthTarget</span>,
   <span class='kw'>title</span>,
   <span class='kw'>...</span>,
-  monochrome = <span class='fl'>TRUE</span>,
-  palette = <span class='st'>"Dark2"</span>,
-  fillcolor = <span class='st'>"darkblue"</span>,
-  ncol = <span class='fl'>1</span>
+  palette = <span class='st'>"Dark2"</span>
+)
+
+<span class='fu'>ROCPlotPairList</span>(
+  <span class='kw'>frame</span>,
+  <span class='kw'>xvar_names</span>,
+  <span class='kw'>truthVar</span>,
+  <span class='kw'>truthTarget</span>,
+  <span class='kw'>title</span>,
+  <span class='kw'>...</span>,
+  palette = <span class='st'>"Dark2"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>frm</th>
-      <td><p>data frame to get values from.</p></td>
+      <th>frame</th>
+      <td><p>data frame to get values from</p></td>
     </tr>
     <tr>
-      <th>condvar</th>
-      <td><p>name of the primary conditioning variable (a categorical variable, controls x-axis).</p></td>
+      <th>xvar_names</th>
+      <td><p>names of the independent (input or model) columns in frame</p></td>
     </tr>
     <tr>
-      <th>refinevar</th>
-      <td><p>name of the second or refining conditioning variable (also a categorical variable, controls faceting).</p></td>
+      <th>truthVar</th>
+      <td><p>name of the dependent (output or result to be modeled) column in frame</p></td>
+    </tr>
+    <tr>
+      <th>truthTarget</th>
+      <td><p>value we consider to be positive</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>title to place on plot.</p></td>
+      <td><p>title to place on plot</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
     </tr>
     <tr>
-      <th>monochrome</th>
-      <td><p>logical: if TRUE, all facets filled with same color</p></td>
-    </tr>
-    <tr>
       <th>palette</th>
-      <td><p>character: if monochrome==FALSE, name of brewer color palette (can be NULL)</p></td>
-    </tr>
-    <tr>
-      <th>fillcolor</th>
-      <td><p>character: if monochrome==TRUE, name of fill color for bars</p></td>
-    </tr>
-    <tr>
-      <th>ncol</th>
-      <td><p>numeric: number of columns in facet_wrap.</p></td>
+      <td><p>name of a brewer palette (NULL for ggplot2 default coloring)</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a ggplot2 bar chart counting examples grouped by condvar, faceted by refinevar.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This plot enables comparisons of subpopulation totals across both
-<code>condvar</code> and <code>refinevar</code> simultaneously.</p>
-<p>By default, the facet plots are arranged in a single column. This can be changed
-with the optional <code>ncol</code> argument.</p>
-<p>If <code>palette</code> is NULL, and <code>monochrome</code> is FALSE, plot colors will be chosen from the default ggplot2 palette. Setting <code>palette</code> to NULL
-allows the user to choose a non-Brewer palette, for example with <code>scale_fill_manual</code>.
-For consistency with previous releases, <code>ShadowPlot</code> defaults to <code>monochrome = TRUE</code>, while
-<code><a href='ShadowHist.html'>ShadowHist</a></code> defaults to <code>monochrome = FALSE</code>.</p>
-<p>Please see here for some interesting discussion <a href='https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2'>https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2</a>.</p>
+    <p>The use case for this function is to compare the performance of two
+models when applied to a data set, where the predictions from both models
+are columns of the same data frame.</p>
+<p>If <code>palette</code> is NULL, plot colors will be chosen from the default ggplot2 palette. Setting <code>palette</code> to NULL
+allows the user to choose a non-Brewer palette, for example with <code>scale_color_manual</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ROCPlot.html'>ROCPlot</a></code>, <code><a href='ROCPlotPair.html'>ROCPlotPair</a></code>, <code><a href='ROCPlotPair2.html'>ROCPlotPair2</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>ShadowPlot</span>(<span class='kw'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
-           title = <span class='st'>"Number of example cars by carb and cyl counts"</span>)
-</div><div class='img'><img src='ShadowPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># colorcode the facets</span>
-<span class='fu'>ShadowPlot</span>(<span class='kw'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
-           monochrome = <span class='fl'>FALSE</span>,
-           title = <span class='st'>"Number of example cars by carb and cyl counts"</span>)
-</div><div class='img'><img src='ShadowPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
+<span class='kw'>x1</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='kw'>x2</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x1</span>))
+<span class='kw'>x3</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x1</span>))
+<span class='kw'>y</span> <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>*</span><span class='kw'>x2</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='kw'>x2</span> <span class='op'>+</span> <span class='kw'>x1</span> <span class='op'>+</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x1</span>))
+<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(
+   x1 = <span class='kw'>x1</span>,
+   x2 = <span class='kw'>x2</span>,
+   x3 = <span class='kw'>x3</span>,
+   yC = <span class='kw'>y</span> <span class='op'>&gt;=</span> <span class='fu'><a href='#base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='#stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>,probs=<span class='fl'>0.8</span>)))
+<span class='kw'>WVPlots</span>::<span class='fu'>ROCPlotList</span>(
+   frame = <span class='kw'>frm</span>,
+   xvar_names = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>, <span class='st'>"x3"</span>),
+   truthVar = <span class='st'>"yC"</span>, truthTarget = <span class='fl'>TRUE</span>,
+   title = <span class='st'>"Example ROC list plot"</span>)
+</div><div class='img'><img src='ROCPlotList-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

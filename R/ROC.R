@@ -91,6 +91,8 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param curve_color color of the ROC curve
 #' @param fill_color shading color for the area under the curve
 #' @param diag_color color for the AUC=0.5 line (x=y)
+#' @param add_ideal_curve logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.
+#' @param ideal_curve_color color for ideal curve.
 #'
 #' @seealso \code{\link{PRTPlot}}, \code{\link{ThresholdPlot}}
 #'
@@ -100,20 +102,13 @@ graphROC <- function(modelPredictions, yValues) {
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
 #' frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-#' plt <- WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
-#' print(plt)
-#'
-#' # add in an ideal AUC curve with same area
-#' # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
-#' q <- sigr::find_AUC_q(frm$x, frm$yC)
-#' ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
-#' ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q^(1/q))
-#' # ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frm$yC, na.rm = TRUE)
-#' plt + ggplot2::geom_line(
-#'    data = ideal_roc,
-#'    mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
-#'    color = "Orange",
-#'    linetype = 2)
+#' WVPlots::ROCPlot(
+#'    frm,
+#'    xvar = "x",
+#'    truthVar = "yC", truthTarget = TRUE,
+#'    title="Example ROC plot",
+#'    estimate_sig = TRUE,
+#'    add_ideal_curve = TRUE)
 #'
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
@@ -124,7 +119,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     parallelCluster = NULL,
                     curve_color='darkblue',
                     fill_color='black',
-                    diag_color='black') {
+                    diag_color='black',
+                    add_ideal_curve = FALSE,
+                    ideal_curve_color = "Orange") {
   # check and narrow frame
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -183,6 +180,23 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
     ggplot2::ylab('TruePositiveRate (Sensitivity)') +
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
+  if(add_ideal_curve) {
+    # add in an ideal AUC curve with same area
+    # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
+    q <- sigr::find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
+    ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
+    ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q^(1/q))
+    # ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frame$yC, na.rm = TRUE)
+    Specificity <- NULL  # don't look unbound
+    Sensitivity <- NULL  # don't look unbound
+    plot <- plot +
+      ggplot2::geom_line(
+         data = ideal_roc,
+         mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
+         color = ideal_curve_color,
+         alpha = 0.8,
+         linetype = 2)
+  }
   if(returnScores) {
     return(list(plot=plot,rocList=rocList,aucsig=aucsig,pString=pString))
   }

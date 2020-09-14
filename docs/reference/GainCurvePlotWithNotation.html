@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.9</span>
       </span>
     </div>
 
@@ -140,6 +140,7 @@
   <span class='kw'>gainx</span>,
   <span class='kw'>labelfun</span>,
   <span class='kw'>...</span>,
+  sort_by_model = <span class='fl'>TRUE</span>,
   estimate_sig = <span class='fl'>FALSE</span>,
   large_count = <span class='fl'>1000</span>,
   model_color = <span class='st'>"darkblue"</span>,
@@ -181,6 +182,10 @@
       <td><p>no unnamed argument, added to force named binding of later arguments.</p></td>
     </tr>
     <tr>
+      <th>sort_by_model</th>
+      <td><p>logical, if TRUE use the model to calculate gainy, else use wizard.</p></td>
+    </tr>
+    <tr>
       <th>estimate_sig</th>
       <td><p>logical, if TRUE compute significance</p></td>
     </tr>
@@ -216,6 +221,8 @@
 a label attached to a particular value of x. The label is created by
 a function <code>labelfun</code>, which takes as inputs the x and y coordinates
 of a label and returns a string (the label).</p>
+<p>By default, uses the model to calculate the y value of the calculated point;
+to use the wizard curve, set <code>sort_by_model = FALSE</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='GainCurvePlot.html'>GainCurvePlot</a></code></p></div>
@@ -226,19 +233,33 @@ of a label and returns a string (the label).</p>
 <span class='kw'>y</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>)) <span class='op'>+</span> <span class='fl'>0.1</span>
 <span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>))
 <span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(model=<span class='kw'>x</span>, value=<span class='kw'>y</span>)
-<span class='kw'>gainx</span> <span class='op'>=</span> <span class='fl'>0.10</span>  <span class='co'># get the top 10% most valuable points as sorted by the model</span>
+<span class='kw'>gainx</span> <span class='op'>=</span> <span class='fl'>0.25</span>  <span class='co'># get the predicted top 25% most valuable points as sorted by the model</span>
 <span class='co'># make a function to calculate the label for the annotated point</span>
 <span class='kw'>labelfun</span> <span class='op'>=</span> <span class='fu'>function</span>(<span class='kw'>gx</span>, <span class='kw'>gy</span>) {
   <span class='kw'>pctx</span> <span class='op'>=</span> <span class='kw'>gx</span><span class='op'>*</span><span class='fl'>100</span>
   <span class='kw'>pcty</span> <span class='op'>=</span> <span class='kw'>gy</span><span class='op'>*</span><span class='fl'>100</span>
 
-  <span class='fu'><a href='#base/paste.html'>paste</a></span>(<span class='st'>"The top "</span>, <span class='kw'>pctx</span>, <span class='st'>"% most valuable points by the model\n"</span>,
+  <span class='fu'><a href='#base/paste.html'>paste</a></span>(<span class='st'>"The predicted top "</span>, <span class='kw'>pctx</span>, <span class='st'>"% most valuable points by the model\n"</span>,
         <span class='st'>"are "</span>, <span class='kw'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep=<span class='st'>''</span>)
 }
 <span class='kw'>WVPlots</span>::<span class='fu'>GainCurvePlotWithNotation</span>(<span class='kw'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
    title=<span class='st'>"Example Gain Curve with annotation"</span>,
    gainx=<span class='kw'>gainx</span>,labelfun=<span class='kw'>labelfun</span>)
 </div><div class='img'><img src='GainCurvePlotWithNotation-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># now get the top 25% actual most valuable points</span>
+
+<span class='kw'>labelfun</span> <span class='op'>=</span> <span class='fu'>function</span>(<span class='kw'>gx</span>, <span class='kw'>gy</span>) {
+  <span class='kw'>pctx</span> <span class='op'>=</span> <span class='kw'>gx</span><span class='op'>*</span><span class='fl'>100</span>
+  <span class='kw'>pcty</span> <span class='op'>=</span> <span class='kw'>gy</span><span class='op'>*</span><span class='fl'>100</span>
+
+  <span class='fu'><a href='#base/paste.html'>paste</a></span>(<span class='st'>"The actual top "</span>, <span class='kw'>pctx</span>, <span class='st'>"% most valuable points\n"</span>,
+        <span class='st'>"are "</span>, <span class='kw'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep=<span class='st'>''</span>)
+}
+
+<span class='kw'>WVPlots</span>::<span class='fu'>GainCurvePlotWithNotation</span>(<span class='kw'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
+   title=<span class='st'>"Example Gain Curve with annotation"</span>,
+   gainx=<span class='kw'>gainx</span>,labelfun=<span class='kw'>labelfun</span>, sort_by_model=<span class='fl'>FALSE</span>)
+</div><div class='img'><img src='GainCurvePlotWithNotation-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

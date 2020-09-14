@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.9</span>
       </span>
     </div>
 
@@ -145,7 +145,9 @@
   parallelCluster = <span class='kw'>NULL</span>,
   curve_color = <span class='st'>"darkblue"</span>,
   fill_color = <span class='st'>"black"</span>,
-  diag_color = <span class='st'>"black"</span>
+  diag_color = <span class='st'>"black"</span>,
+  add_ideal_curve = <span class='fl'>FALSE</span>,
+  ideal_curve_color = <span class='st'>"Orange"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -203,6 +205,14 @@
       <th>diag_color</th>
       <td><p>color for the AUC=0.5 line (x=y)</p></td>
     </tr>
+    <tr>
+      <th>add_ideal_curve</th>
+      <td><p>logical, if TRUE add the ideal curve as discussed in <a href='https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/'>https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/</a>.</p></td>
+    </tr>
+    <tr>
+      <th>ideal_curve_color</th>
+      <td><p>color for ideal curve.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -220,7 +230,13 @@ and how the ROC plot relates to the precision/recall plot.</p>
 <span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
 <span class='kw'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x</span>))
 <span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(x=<span class='kw'>x</span>,yC=<span class='kw'>y</span><span class='op'>&gt;=</span><span class='fu'><a href='#base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='#stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>,probs=<span class='fl'>0.8</span>)))
-<span class='kw'>WVPlots</span>::<span class='fu'>ROCPlot</span>(<span class='kw'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"yC"</span>, <span class='fl'>TRUE</span>, title=<span class='st'>"Example ROC plot"</span>, estimate_sig = <span class='fl'>TRUE</span>)
+<span class='kw'>WVPlots</span>::<span class='fu'>ROCPlot</span>(
+   <span class='kw'>frm</span>,
+   xvar = <span class='st'>"x"</span>,
+   truthVar = <span class='st'>"yC"</span>, truthTarget = <span class='fl'>TRUE</span>,
+   title=<span class='st'>"Example ROC plot"</span>,
+   estimate_sig = <span class='fl'>TRUE</span>,
+   add_ideal_curve = <span class='fl'>TRUE</span>)
 </div><div class='img'><img src='ROCPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

@@ -17,7 +17,9 @@ ROCPlot(
   parallelCluster = NULL,
   curve_color = "darkblue",
   fill_color = "black",
-  diag_color = "black"
+  diag_color = "black",
+  add_ideal_curve = FALSE,
+  ideal_curve_color = "Orange"
 )
 }
 \arguments{
@@ -46,6 +48,10 @@ ROCPlot(
 \item{fill_color}{shading color for the area under the curve}
 
 \item{diag_color}{color for the AUC=0.5 line (x=y)}
+
+\item{add_ideal_curve}{logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.}
+
+\item{ideal_curve_color}{color for ideal curve.}
 }
 \description{
 Plot receiver operating characteristic plot.
@@ -61,18 +67,13 @@ set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
 frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-plt <- WVPlots::ROCPlot(frm, "x", "yC", TRUE, title="Example ROC plot", estimate_sig = TRUE)
-# From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
-q <- sigr::find_AUC_q(frm$x, frm$yC)
-ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
-ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q^(1/q))
-# ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frm$yC, na.rm = TRUE)
-plt + ggplot2::geom_line(
-   data = ideal_roc,
-   mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
-   color = "Orange",
-   alpha = 0.5,
-   linetype = 2)
+WVPlots::ROCPlot(
+   frm,
+   xvar = "x",
+   truthVar = "yC", truthTarget = TRUE,
+   title="Example ROC plot",
+   estimate_sig = TRUE,
+   add_ideal_curve = TRUE)
 
 }
 \seealso{

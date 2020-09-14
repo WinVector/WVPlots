@@ -2,7 +2,7 @@
 # WVPlots 1.2.9 2020-09-14
 
  * Switch to sigr ROC calculations.
- * More on ROC plots.
+ * Add ideal curve to ROC plot, see: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
  * Add ROCPairList() as prefered name for  ROCPlotPairList().
  * More gain curve annotation controls.
 
