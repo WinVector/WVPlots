@@ -22,7 +22,7 @@ Depends:
     wrapr (>= 2.0.0)
 Imports:
     ggplot2 (>= 3.3.0),
-    sigr (>= 1.1.0),
+    sigr (>= 1.0.8),
     cdata (>= 1.1.8),
     rqdatatable (>= 1.2.8),
     rquery (>= 1.4.5),
