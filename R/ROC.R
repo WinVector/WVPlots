@@ -185,7 +185,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
     q <- sigr::find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
     ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
-    ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q^(1/q))
+    ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q)^(1/q)
     # ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frame$yC, na.rm = TRUE)
     Specificity <- NULL  # don't look unbound
     Sensitivity <- NULL  # don't look unbound
