@@ -70,6 +70,52 @@ graphROC <- function(modelPredictions, yValues) {
        area=sigr::calcAUC(modelPredictions,yValues))
 }
 
+
+# Find area matching polynomial curve.
+#
+# TODO: move to sigr version
+find_AUC_q <- function(modelPredictions, yValues,
+                       ...,
+                       na.rm = FALSE,
+                       yTarget = TRUE) {
+  wrapr::stop_if_dot_args(substitute(list(...)), "sigr::calcAUC")
+
+  area_from_roc_graph <- function(d) {
+    # sum areas of segments (triangle topped vertical rectangles)
+    n <- nrow(d)
+    area <- sum( ((d$Sensitivity[-1]+d$Sensitivity[-n])/2) * abs(d$Specificity[-1]-d$Specificity[-n]) )
+    area
+  }
+
+  d <- sigr::build_ROC_curve(
+    modelPredictions = modelPredictions,
+    yValues = yValues,
+    na.rm = na.rm,
+    yTarget = yTarget)
+  # sum areas of segments (triangle topped vertical rectangles)
+  area <- area_from_roc_graph(d)
+  q_eps <- 1.e-6
+  q_low <- 0
+  q_high <- 1
+  ex_frame <- data.frame(
+    Specificity = seq(0, 1, length.out = 101))
+  while(q_low + q_eps < q_high) {
+    q_mid <- (q_low + q_high)/2
+    ex_frame$Sensitivity <- 1 - (1 -  (1-ex_frame$Specificity)^q_mid)^(1/q_mid)
+    q_mid_area <- area_from_roc_graph(ex_frame)
+    if(q_mid_area <= area) {
+      q_high <- q_mid
+    } else {
+      q_low <- q_mid
+    }
+    # print(paste(q_low, q_mid, q_high, q_mid_area, area))
+  }
+  (q_low + q_high)/2
+}
+
+
+
+
 #' Plot receiver operating characteristic plot.
 #'
 #' Plot receiver operating characteristic plot.
@@ -183,7 +229,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   if(add_ideal_curve) {
     # add in an ideal AUC curve with same area
     # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
-    q <- sigr::find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
+    q <- find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
     ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
     ideal_roc$Sensitivity <- 1 - (1 -  (1-ideal_roc$Specificity)^q)^(1/q)
     # ideal_roc <- sigr::add_ROC_derived_columns(ideal_roc, mean(frame$yC, na.rm = TRUE)
