@@ -73,6 +73,8 @@ graphROC <- function(modelPredictions, yValues) {
 }
 
 
+
+
 #' Plot receiver operating characteristic plot.
 #'
 #' Plot receiver operating characteristic plot.
@@ -211,9 +213,31 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ylab('TruePositiveRate (Sensitivity)') +
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(add_beta1_ideal_curve) {
-    stop("WVPlots::ROCPlot add_beta1_ideal_curve = TRUE is not implemented yet")
+    # fit the underlying betas by maximum likelihood
+    minus_log_likelihood <- function(x) {
+      -1*(sum(dbeta(predcol[outcol], shape1 = x[[1]], shape2 = 1, log = TRUE)) +
+        sum(dbeta(predcol[!outcol], shape1 = 1, shape2 = x[[2]], log = TRUE)))
+    }
+    opt <- stats::optim(c(2, 2), minus_log_likelihood, lower = c(1, 1), method = 'L-BFGS-B')
+    a <- opt$par[[1]]
+    b <- opt$par[[2]]
+    print(paste(a, b))
+    ideal_roc <- sensitivity_and_specificity_s12p12n(
+      seq(0, 1, 0.01),
+      shape1_pos = a,
+      shape2_pos = 1,
+      shape1_neg = 1,
+      shape2_neg = b)
+    plot <- plot +
+      ggplot2::geom_line(
+        data = ideal_roc,
+        mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
+        color = beta_ideal_curve_color,
+        alpha = 0.8,
+        linetype = 2)
   }
   if(add_beta_ideal_curve) {
+    # fit by moment matching
     shape1 <- shape1_neg <- shape1_pos <- shape2 <- shape2_neg <- shape2_pos <- NULL  # don't look unbound
     unpack[shape1_pos = shape1, shape2_pos = shape2] <-
       fit_beta_shapes(predcol[outcol])
@@ -222,8 +246,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ideal_roc <- sensitivity_and_specificity_s12p12n(
       seq(0, 1, 0.01),
       shape1_pos = shape1_pos,
-      shape1_neg = shape1_neg,
       shape2_pos = shape2_pos,
+      shape1_neg = shape1_neg,
       shape2_neg = shape2_neg)
     plot <- plot +
       ggplot2::geom_line(
