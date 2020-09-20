@@ -18,8 +18,10 @@ ROCPlot(
   curve_color = "darkblue",
   fill_color = "black",
   diag_color = "black",
-  add_ideal_curve = FALSE,
-  ideal_curve_color = "Orange"
+  add_beta1_ideal_curve = FALSE,
+  beta1_ideal_curve_color = "DarkRed",
+  add_symmetric_ideal_curve = FALSE,
+  symmetric_ideal_curve_color = "Orange"
 )
 }
 \arguments{
@@ -49,9 +51,13 @@ ROCPlot(
 
 \item{diag_color}{color for the AUC=0.5 line (x=y)}
 
-\item{add_ideal_curve}{logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.}
+\item{add_beta1_ideal_curve}{logical, if TRUE add the beta(1, a), beta(b, 2) ideal curve defined in \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210}}
 
-\item{ideal_curve_color}{color for ideal curve.}
+\item{beta1_ideal_curve_color}{color for ideal curve.}
+
+\item{add_symmetric_ideal_curve}{logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.}
+
+\item{symmetric_ideal_curve_color}{color for ideal curve.}
 }
 \description{
 Plot receiver operating characteristic plot.
@@ -63,17 +69,36 @@ and how the ROC plot relates to the precision/recall plot.
 }
 \examples{
 
-set.seed(34903490)
-x = rnorm(50)
-y = 0.5*x^2 + 2*x + rnorm(length(x))
-frm = data.frame(x=x,yC=y>=as.numeric(quantile(y,probs=0.8)))
-WVPlots::ROCPlot(
-   frm,
-   xvar = "x",
-   truthVar = "yC", truthTarget = TRUE,
+beta_example <- function(
+  n,
+  shape1_pos, shape2_pos,
+  shape1_neg, shape2_neg) {
+  d <- data.frame(
+    y = sample(
+      c(TRUE, FALSE),
+      size = n,
+      replace = TRUE),
+    score = 0.0
+  )
+  d$score[d$y] <- rbeta(sum(d$y), shape1 = shape1_pos, shape2 = shape2_pos)
+  d$score[!d$y] <- rbeta(sum(!d$y), shape1 = shape1_neg, shape2 = shape2_neg)
+  d
+}
+
+d1 <- beta_example(
+  100,
+  shape1_pos = 6,
+  shape2_pos = 6,
+  shape1_neg = 1,
+  shape2_neg = 2)
+
+ROCPlot(
+   d1,
+   xvar = "score",
+   truthVar = "y", truthTarget = TRUE,
    title="Example ROC plot",
    estimate_sig = TRUE,
-   add_ideal_curve = TRUE)
+   add_beta1_ideal_curve = TRUE)
 
 }
 \seealso{
