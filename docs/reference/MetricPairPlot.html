@@ -219,19 +219,19 @@ visualizing very large data sets.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># data with two different regimes of behavior</span>
-<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='#base/cbind.html'>rbind</a></span>(
-  <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(
-    x =  <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>),
-    y = <span class='fu'><a href='#base/sample.html'>sample</a></span>(<span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), prob = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>0.02</span>, <span class='fl'>0.98</span>), size = <span class='fl'>1000</span>, replace = <span class='fl'>TRUE</span>)),
-  <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(
-    x =  <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>) <span class='op'>+</span> <span class='fl'>5</span>,
-    y = <span class='fu'><a href='#base/sample.html'>sample</a></span>(<span class='fu'><a href='#base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), size = <span class='fl'>200</span>, replace = <span class='fl'>TRUE</span>))
+<span class='kw'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+    x =  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>),
+    y = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), prob = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.02</span>, <span class='fl'>0.98</span>), size = <span class='fl'>1000</span>, replace = <span class='fl'>TRUE</span>)),
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+    x =  <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>) <span class='op'>+</span> <span class='fl'>5</span>,
+    y = <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), size = <span class='fl'>200</span>, replace = <span class='fl'>TRUE</span>))
 )
 
 <span class='co'># Sensitivity/Specificity examples</span>
 <span class='fu'><a href='ThresholdPlot.html'>ThresholdPlot</a></span>(<span class='kw'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    title = <span class='st'>'Sensitivity/Specificity'</span>,
-   metrics = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='st'>'sensitivity'</span>, <span class='st'>'specificity'</span>),
+   metrics = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'sensitivity'</span>, <span class='st'>'specificity'</span>),
    truth_target = <span class='fl'>TRUE</span>)
 </div><div class='img'><img src='MetricPairPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>MetricPairPlot</span>(<span class='kw'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    x_metric = <span class='st'>'false_positive_rate'</span>,
@@ -245,7 +245,7 @@ visualizing very large data sets.</p>
 <span class='co'># Precision/Recall examples</span>
 <span class='fu'><a href='ThresholdPlot.html'>ThresholdPlot</a></span>(<span class='kw'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    title = <span class='st'>'precision/recall'</span>,
-   metrics = <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>),
+   metrics = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'recall'</span>, <span class='st'>'precision'</span>),
    truth_target = <span class='fl'>TRUE</span>)
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 row(s) containing missing values (geom_path).</span></div><div class='img'><img src='MetricPairPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>MetricPairPlot</span>(<span class='kw'>d</span>, <span class='st'>'x'</span>, <span class='st'>'y'</span>,
    x_metric = <span class='st'>'recall'</span>,
