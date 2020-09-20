@@ -43,12 +43,12 @@ novelPointPositionsR <- function(x) {
 #'
 graphROC <- function(modelPredictions, yValues) {
   positive_prevalence <- mean(yValues, na.rm = TRUE)
-  roc <- build_ROC_curve(
+  roc <- sigr::build_ROC_curve(
     modelPredictions = modelPredictions,
     yValues = yValues,
     yTarget = TRUE,
     na.rm = TRUE)
-  roc <- add_ROC_derived_columns(roc, positive_prevalence)
+  roc <- sigr::add_ROC_derived_columns(roc, positive_prevalence)
   pointGraph <- data.frame(FalsePositiveRate= roc$FalsePositiveRate,
                            TruePositiveRate= roc$TruePositiveRate,
                            model= roc$Score,
@@ -69,7 +69,7 @@ graphROC <- function(modelPredictions, yValues) {
   lineGraph <- lineGraph[goodLineRows, , drop=FALSE]
   list(lineGraph=lineGraph,
        pointGraph=pointGraph,
-       area=calcAUC(modelPredictions,yValues))
+       area=sigr::calcAUC(modelPredictions,yValues))
 }
 
 
@@ -165,7 +165,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     return(NULL)
   }
   predcol <- frame[[xvar]]
-  rocList <- graphROC(predcol,outcol)
+  rocList <- graphROC(predcol, outcol)
   auc <- rocList$area
   aucsig <- NULL
   pString <- NULL
@@ -173,7 +173,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   if(estimate_sig) {
     aucsig <- sigr::permutationScoreModel(modelValues=predcol,
                                           yValues=outcol,
-                                          scoreFn=calcAUC,
+                                          scoreFn=sigr::calcAUC,
                                           returnScores=returnScores,
                                           nRep=nrep,
                                           parallelCluster=parallelCluster)
@@ -216,42 +216,11 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   Sensitivity <- NULL  # don't look unbound
   if(add_beta1_ideal_curve) {
     # match the displayed curve
-    # fit by moment matching to get an initial guess
-    shape1 <- shape1_neg <- shape1_pos <- shape2 <- shape2_neg <- shape2_pos <- NULL  # don't look unbound
-    unpack[shape1_pos = shape1, shape2_pos = shape2] <-
-      fit_beta_shapes(predcol[outcol])
-    unpack[shape1_neg = shape1, shape2_neg = shape2] <-
-      fit_beta_shapes(predcol[!outcol])
-    a0 <- max(1, shape1_pos / shape2_pos)
-    b0 <- max(1, shape2_neg / shape1_neg)
-    # find a close fit
-    empirical_graph <- rocList$lineGraph
-    empirical_graph$Specificity <- 1 - empirical_graph$FalsePositiveRate
-    empirical_graph$Sensitivity <- empirical_graph$TruePositiveRate
-    curve_critique <- function(x) {
-      a <- max(1, x[[1]])
-      b <- max(1, x[[2]])
-      ideal_roc <- sensitivity_and_specificity_s12p12n(
-        seq(0, 1, 0.01),
-        shape1_pos = a,
-        shape2_pos = 1,
-        shape1_neg = 1,
-        shape2_neg = b)
-      match_fn <- suppressWarnings(approxfun(
-        x = ideal_roc$Specificity,
-        y = ideal_roc$Sensitivity,
-        yleft = 1,
-        yright = 0))
-      match_values <- match_fn(empirical_graph$Specificity)
-      loss <- mean((empirical_graph$Sensitivity - match_values)^2)
-      regularization <- 1.0e-6*sum((x - 1)^2)
-      loss + regularization
-    }
-    opt <- stats::optim(c(a0, b0), curve_critique, lower = c(1, 1), method = 'L-BFGS-B')
-    a <- max(1, opt$par[[1]])
-    b <- max(1, opt$par[[2]])
+    a <- b <- NULL  # don't look unbound
+    unpack[a, b] <-
+       sigr::find_ROC_matching_ab1(modelPredictions = predcol, yValues = outcol)
     # print(paste(a, b))
-    ideal_roc <- sensitivity_and_specificity_s12p12n(
+    ideal_roc <- sigr::sensitivity_and_specificity_s12p12n(
       seq(0, 1, 0.01),
       shape1_pos = a,
       shape2_pos = 1,
@@ -268,11 +237,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   if(add_beta_ideal_curve) {
     # fit by moment matching
     shape1 <- shape1_neg <- shape1_pos <- shape2 <- shape2_neg <- shape2_pos <- NULL  # don't look unbound
-    unpack[shape1_pos = shape1, shape2_pos = shape2] <-
-      fit_beta_shapes(predcol[outcol])
-    unpack[shape1_neg = shape1, shape2_neg = shape2] <-
-      fit_beta_shapes(predcol[!outcol])
-    ideal_roc <- sensitivity_and_specificity_s12p12n(
+    unpack[shape1_pos, shape2_pos, shape1_neg, shape2_neg] <-
+      sigr::find_ROC_matching_ab(modelPredictions = predcol, yValues = outcol)
+    ideal_roc <- sigr::sensitivity_and_specificity_s12p12n(
       seq(0, 1, 0.01),
       shape1_pos = shape1_pos,
       shape2_pos = shape2_pos,
@@ -289,9 +256,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
   if(add_symmetric_ideal_curve) {
     # add in an ideal AUC curve with same area
     # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
-    q <- find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
+    q <- sigr::find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
     ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
-    ideal_roc$Sensitivity <- sensitivity_from_specificity_q(ideal_roc$Specificity, q)  # TODO: move back to sigr
+    ideal_roc$Sensitivity <- sigr::sensitivity_from_specificity_q(ideal_roc$Specificity, q)  # TODO: move back to sigr
     plot <- plot +
       ggplot2::geom_line(
          data = ideal_roc,
@@ -378,7 +345,7 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
     aucsig <- sigr::resampleScoreModelPair(frame[[xvar1]],
                                            frame[[xvar2]],
                                            frame[[truthVar]]==truthTarget,
-                                           scoreFn=calcAUC,
+                                           scoreFn=sigr::calcAUC,
                                            returnScores=returnScores,
                                            nRep=nrep,
                                            parallelCluster=parallelCluster)
@@ -754,7 +721,7 @@ plotlyROC <- function(d, predCol, outcomeCol, outcomeTarget, title,
   if(estimate_sig) {
     aucsig <- sigr::permutationScoreModel(modelValues=prediction,
                                           yValues=outcome,
-                                          scoreFn=calcAUC,
+                                          scoreFn=sigr::calcAUC,
                                           returnScores=returnScores,
                                           nRep=nrep,
                                           parallelCluster=parallelCluster)
