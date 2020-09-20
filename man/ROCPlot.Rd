@@ -94,7 +94,7 @@ beta_example <- function(
 d1 <- beta_example(
   100,
   shape1_pos = 6,
-  shape2_pos = 6,
+  shape2_pos = 5,
   shape1_neg = 1,
   shape2_neg = 2)
 

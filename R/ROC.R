@@ -126,7 +126,7 @@ graphROC <- function(modelPredictions, yValues) {
 #' d1 <- beta_example(
 #'   100,
 #'   shape1_pos = 6,
-#'   shape2_pos = 6,
+#'   shape2_pos = 5,
 #'   shape1_neg = 1,
 #'   shape2_neg = 2)
 #'
@@ -214,6 +214,15 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(add_beta1_ideal_curve) {
     # match the displayed curve
+    # fit by moment matching to get an initial guess
+    shape1 <- shape1_neg <- shape1_pos <- shape2 <- shape2_neg <- shape2_pos <- NULL  # don't look unbound
+    unpack[shape1_pos = shape1, shape2_pos = shape2] <-
+      fit_beta_shapes(predcol[outcol])
+    unpack[shape1_neg = shape1, shape2_neg = shape2] <-
+      fit_beta_shapes(predcol[!outcol])
+    a0 <- max(1, shape1_pos / shape2_pos)
+    b0 <- max(1, shape2_neg / shape1_neg)
+    # find a close fit
     empirical_graph <- rocList$lineGraph
     empirical_graph$Specificity <- 1 - empirical_graph$FalsePositiveRate
     empirical_graph$Sensitivity <- empirical_graph$TruePositiveRate
@@ -221,14 +230,20 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
       a <- max(1, x[[1]])
       b <- max(1, x[[2]])
       ideal_roc <- sensitivity_and_specificity_s12p12n(
-        empirical_graph$Specificity,
+        seq(0, 1, 0.01),
         shape1_pos = a,
         shape2_pos = 1,
         shape1_neg = 1,
         shape2_neg = b)
-      mean((ideal_roc$Sensitivity - empirical_graph$Sensitivity)^2)
+      match_fn <- suppressWarnings(approxfun(
+        x = ideal_roc$Specificity,
+        y = ideal_roc$Sensitivity,
+        yleft = 1,
+        yright = 0))
+      match_values <- match_fn(empirical_graph$Specificity)
+      mean((empirical_graph$Sensitivity - match_values)^2)
     }
-    opt <- stats::optim(c(2, 2), curve_critique, lower = c(1, 1), method = 'L-BFGS-B')
+    opt <- stats::optim(c(a0, b0), curve_critique, lower = c(1, 1), method = 'L-BFGS-B')
     a <- max(1, opt$par[[1]])
     b <- max(1, opt$par[[2]])
     # print(paste(a, b))
