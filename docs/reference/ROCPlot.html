@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -146,10 +146,12 @@
   curve_color = <span class='st'>"darkblue"</span>,
   fill_color = <span class='st'>"black"</span>,
   diag_color = <span class='st'>"black"</span>,
+  add_beta_ideal_curve = <span class='fl'>FALSE</span>,
+  beta_ideal_curve_color = <span class='st'>"#fd8d3c"</span>,
   add_beta1_ideal_curve = <span class='fl'>FALSE</span>,
-  beta1_ideal_curve_color = <span class='st'>"DarkRed"</span>,
+  beta1_ideal_curve_color = <span class='st'>"#f03b20"</span>,
   add_symmetric_ideal_curve = <span class='fl'>FALSE</span>,
-  symmetric_ideal_curve_color = <span class='st'>"Orange"</span>
+  symmetric_ideal_curve_color = <span class='st'>"#bd0026"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,6 +208,14 @@
     <tr>
       <th>diag_color</th>
       <td><p>color for the AUC=0.5 line (x=y)</p></td>
+    </tr>
+    <tr>
+      <th>add_beta_ideal_curve</th>
+      <td><p>logical, if TRUE add the beta(a, b), beta(c, d) ideal curve found by moment matching.</p></td>
+    </tr>
+    <tr>
+      <th>beta_ideal_curve_color</th>
+      <td><p>color for ideal curve.</p></td>
     </tr>
     <tr>
       <th>add_beta1_ideal_curve</th>
@@ -265,7 +275,7 @@ and how the ROC plot relates to the precision/recall plot.</p>
    truthVar = <span class='st'>"y"</span>, truthTarget = <span class='fl'>TRUE</span>,
    title=<span class='st'>"Example ROC plot"</span>,
    estimate_sig = <span class='fl'>TRUE</span>,
-   add_beta1_ideal_curve = <span class='fl'>TRUE</span>)
+   add_beta_ideal_curve = <span class='fl'>TRUE</span>)
 </div><div class='img'><img src='ROCPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
