@@ -212,6 +212,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
     ggplot2::ylab('TruePositiveRate (Sensitivity)') +
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
+  Specificity <- NULL  # don't look unbound
+  Sensitivity <- NULL  # don't look unbound
   if(add_beta1_ideal_curve) {
     # match the displayed curve
     # fit by moment matching to get an initial guess
@@ -290,8 +292,6 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     q <- find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
     ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
     ideal_roc$Sensitivity <- sensitivity_from_specificity_q(ideal_roc$Specificity, q)  # TODO: move back to sigr
-    Specificity <- NULL  # don't look unbound
-    Sensitivity <- NULL  # don't look unbound
     plot <- plot +
       ggplot2::geom_line(
          data = ideal_roc,
