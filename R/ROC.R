@@ -214,29 +214,23 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(add_beta1_ideal_curve) {
     # match the displayed curve
-    empirical_graph <- rocList$pointGraph
+    empirical_graph <- rocList$lineGraph
     empirical_graph$Specificity <- 1 - empirical_graph$FalsePositiveRate
-    empirical_graph$Sensitifity <- empirical_graph$TruePositiveRate
-    empirical_fn <- suppressWarnings(
-      approxfun(x = empirical_graph$Specificity,
-                y = empirical_graph$Sensitifity,
-                yleft = 1,
-                yright = 0))
+    empirical_graph$Sensitivity <- empirical_graph$TruePositiveRate
     curve_critique <- function(x) {
-      a <- x[[1]]
-      b <- x[[2]]
+      a <- max(1, x[[1]])
+      b <- max(1, x[[2]])
       ideal_roc <- sensitivity_and_specificity_s12p12n(
-        seq(0, 1, 0.01),
-        shape1_pos = max(1, a),
+        empirical_graph$Specificity,
+        shape1_pos = a,
         shape2_pos = 1,
         shape1_neg = 1,
-        shape2_neg = max(1, b))
-      match <- empirical_fn(ideal_roc$Specificity)
-      mean((ideal_roc$Sensitivity - match)^2)
+        shape2_neg = b)
+      mean((ideal_roc$Sensitivity - empirical_graph$Sensitivity)^2)
     }
     opt <- stats::optim(c(2, 2), curve_critique, lower = c(1, 1), method = 'L-BFGS-B')
-    a <- opt$par[[1]]
-    b <- opt$par[[2]]
+    a <- max(1, opt$par[[1]])
+    b <- max(1, opt$par[[2]])
     # print(paste(a, b))
     ideal_roc <- sensitivity_and_specificity_s12p12n(
       seq(0, 1, 0.01),
