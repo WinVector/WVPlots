@@ -241,7 +241,9 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
         yleft = 1,
         yright = 0))
       match_values <- match_fn(empirical_graph$Specificity)
-      mean((empirical_graph$Sensitivity - match_values)^2)
+      loss <- mean((empirical_graph$Sensitivity - match_values)^2)
+      regularization <- 1.0e-6*sum((x - 1)^2)
+      loss + regularization
     }
     opt <- stats::optim(c(a0, b0), curve_critique, lower = c(1, 1), method = 'L-BFGS-B')
     a <- max(1, opt$par[[1]])
