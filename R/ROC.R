@@ -94,6 +94,8 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param curve_color color of the ROC curve
 #' @param fill_color shading color for the area under the curve
 #' @param diag_color color for the AUC=0.5 line (x=y)
+#' @param add_beta_ideal_curve logical, if TRUE add the beta(a, b), beta(c, d) ideal curve found by moment matching.
+#' @param beta_ideal_curve_color color for ideal curve.
 #' @param add_beta1_ideal_curve logical, if TRUE add the beta(1, a), beta(b, 2) ideal curve defined in \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210}
 #' @param beta1_ideal_curve_color color for ideal curve.
 #' @param add_symmetric_ideal_curve logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.
@@ -132,7 +134,7 @@ graphROC <- function(modelPredictions, yValues) {
 #'    truthVar = "y", truthTarget = TRUE,
 #'    title="Example ROC plot",
 #'    estimate_sig = TRUE,
-#'    add_beta1_ideal_curve = TRUE)
+#'    add_beta_ideal_curve = TRUE)
 #'
 #' @export
 ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
@@ -144,10 +146,12 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     curve_color='darkblue',
                     fill_color='black',
                     diag_color='black',
+                    add_beta_ideal_curve = FALSE,
+                    beta_ideal_curve_color = "#fd8d3c",
                     add_beta1_ideal_curve = FALSE,
-                    beta1_ideal_curve_color = "DarkRed",
+                    beta1_ideal_curve_color = "#f03b20",
                     add_symmetric_ideal_curve = FALSE,
-                    symmetric_ideal_curve_color = "Orange") {
+                    symmetric_ideal_curve_color = "#bd0026") {
   # check and narrow frame
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -207,13 +211,16 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ylab('TruePositiveRate (Sensitivity)') +
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
   if(add_beta1_ideal_curve) {
+    stop("WVPlots::ROCPlot add_beta1_ideal_curve = TRUE is not implemented yet")
+  }
+  if(add_beta_ideal_curve) {
     shape1 <- shape1_neg <- shape1_pos <- shape2 <- shape2_neg <- shape2_pos <- NULL  # don't look unbound
     unpack[shape1_pos = shape1, shape2_pos = shape2] <-
       fit_beta_shapes(predcol[outcol])
     unpack[shape1_neg = shape1, shape2_neg = shape2] <-
       fit_beta_shapes(predcol[!outcol])
     ideal_roc <- sensitivity_and_specificity_s12p12n(
-      seq(0, 1, 0.1),
+      seq(0, 1, 0.01),
       shape1_pos = shape1_pos,
       shape1_neg = shape1_neg,
       shape2_pos = shape2_pos,
@@ -222,7 +229,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
       ggplot2::geom_line(
         data = ideal_roc,
         mapping = ggplot2::aes(x = 1 - Specificity, y = Sensitivity),
-        color = beta1_ideal_curve_color,
+        color = beta_ideal_curve_color,
         alpha = 0.8,
         linetype = 2)
   }

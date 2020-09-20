@@ -18,10 +18,12 @@ ROCPlot(
   curve_color = "darkblue",
   fill_color = "black",
   diag_color = "black",
+  add_beta_ideal_curve = FALSE,
+  beta_ideal_curve_color = "#fd8d3c",
   add_beta1_ideal_curve = FALSE,
-  beta1_ideal_curve_color = "DarkRed",
+  beta1_ideal_curve_color = "#f03b20",
   add_symmetric_ideal_curve = FALSE,
-  symmetric_ideal_curve_color = "Orange"
+  symmetric_ideal_curve_color = "#bd0026"
 )
 }
 \arguments{
@@ -50,6 +52,10 @@ ROCPlot(
 \item{fill_color}{shading color for the area under the curve}
 
 \item{diag_color}{color for the AUC=0.5 line (x=y)}
+
+\item{add_beta_ideal_curve}{logical, if TRUE add the beta(a, b), beta(c, d) ideal curve found by moment matching.}
+
+\item{beta_ideal_curve_color}{color for ideal curve.}
 
 \item{add_beta1_ideal_curve}{logical, if TRUE add the beta(1, a), beta(b, 2) ideal curve defined in \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210}}
 
@@ -98,7 +104,7 @@ ROCPlot(
    truthVar = "y", truthTarget = TRUE,
    title="Example ROC plot",
    estimate_sig = TRUE,
-   add_beta1_ideal_curve = TRUE)
+   add_beta_ideal_curve = TRUE)
 
 }
 \seealso{
