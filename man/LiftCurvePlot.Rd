@@ -48,7 +48,7 @@ lift curve plot measures how well the model score sorts the data compared
 to the true outcome value.
 
 The x-axis represents the fraction of items seen when sorted by score, and the
-y-axis represents the lift seen so far (cummulative value of model over cummulative value of random selection)..
+y-axis represents the lift seen so far (cumulative value of model over cummulative value of random selection)..
 
 For comparison, \code{LiftCurvePlot} also plots the "wizard curve": the lift curve when the
 data is sorted according to its true outcome.

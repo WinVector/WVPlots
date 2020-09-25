@@ -12,7 +12,7 @@ NULL
 #' to the true outcome value.
 #'
 #' The x-axis represents the fraction of items seen when sorted by score, and the
-#' y-axis represents the lift seen so far (cummulative value of model over cummulative value of random selection)..
+#' y-axis represents the lift seen so far (cumulative value of model over cummulative value of random selection)..
 #'
 #' For comparison, \code{LiftCurvePlot} also plots the "wizard curve": the lift curve when the
 #' data is sorted according to its true outcome.
@@ -159,10 +159,8 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
 #' to the true outcome value.
 #'
 #' The x-axis represents the fraction of items seen when sorted by score, and the
-#' y-axis represents the lift seen so far (cummulative value of model over cummulative value of random selection)..
+#' y-axis represents the lift seen so far (cumulative value of model over cummulative value of random selection)..
 #'
-#' For comparison, \code{LiftCurvePlot} also plots the "wizard curve": the lift curve when the
-#' data is sorted according to its true outcome.
 #'
 #'
 #' @param frame data frame to get values from
@@ -184,7 +182,6 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
 #' @export
 LiftCurvePlotList = function(frame, xvars, truthVar, title,
                              ...,
-                             large_count = 1000,
                              truth_target = NULL,
                              palette = 'Dark2') {
   frame <- check_frame_args_list(...,
@@ -192,7 +189,8 @@ LiftCurvePlotList = function(frame, xvars, truthVar, title,
                                  name_var_list = c(xvars = xvars, truthVar = truthVar),
                                  title = title,
                                  funname = "WVPlots::LiftCurvePlot")
-  pct_outcome <- pctpop <- sort_criterion <- NULL # mark as not unbound variables
+  curve <- lift <- percent_total <- NULL  # mark as not unbound variables
+  pct_outcome <- pctpop <- sort_criterion <- NULL  # mark as not unbound variables
   if(!is.null(truth_target)) {
     truthcol <- as.numeric(frame[[truthVar]]==truth_target)
   } else {
