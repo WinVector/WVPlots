@@ -1,4 +1,7 @@
 
+#' @importFrom wrapr :=
+NULL
+
 #' Plot the cumulative lift curve of a sort-order.
 #'
 #' Plot the cumulative lift curve of a sort-order.
@@ -141,6 +144,97 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
     ggplot2::geom_hline(yintercept=1) +
     ggplot2::scale_x_continuous(breaks = seq(0, 1, 0.1)) +
     ggplot2::scale_color_manual(values = colorKey) +
+    ggplot2::theme(legend.position = "bottom")
+  gplot
+}
+
+
+#' Plot the cumulative lift curves of a sort-order.
+#'
+#' Plot the cumulative lift curves of a sort-order.
+#'
+#' The use case for this visualization is to compare a predictive model
+#' score to an actual outcome (either binary (0/1) or continuous). In this case the
+#' lift curve plot measures how well the model score sorts the data compared
+#' to the true outcome value.
+#'
+#' The x-axis represents the fraction of items seen when sorted by score, and the
+#' y-axis represents the lift seen so far (cummulative value of model over cummulative value of random selection)..
+#'
+#' For comparison, \code{LiftCurvePlot} also plots the "wizard curve": the lift curve when the
+#' data is sorted according to its true outcome.
+#'
+#'
+#' @param frame data frame to get values from
+#' @param xvars name of the independent (input or model score) columns in frame
+#' @param truthVar name of the dependent (output or result to be modeled) column in frame
+#' @param title title to place on plot
+#' @param ...  no unnamed argument, added to force named binding of later arguments.
+#' @param truth_target if not NULL compare to this scalar value.
+#' @param palette color palette for the model curves
+#' @examples
+#'
+#' set.seed(34903490)
+#' y = abs(rnorm(20)) + 0.1
+#' x = abs(y + 0.5*rnorm(20))
+#' frm = data.frame(model=x, value=y)
+#' WVPlots::LiftCurvePlotList(frm, c("model", "value"), "value",
+#'    title="Example Continuous Lift Curves")
+#'
+#' @export
+LiftCurvePlotList = function(frame, xvars, truthVar, title,
+                             ...,
+                             large_count = 1000,
+                             truth_target = NULL,
+                             palette = 'Dark2') {
+  frame <- check_frame_args_list(...,
+                                 frame = frame,
+                                 name_var_list = c(xvars = xvars, truthVar = truthVar),
+                                 title = title,
+                                 funname = "WVPlots::LiftCurvePlot")
+  pct_outcome <- pctpop <- sort_criterion <- NULL # mark as not unbound variables
+  if(!is.null(truth_target)) {
+    truthcol <- as.numeric(frame[[truthVar]]==truth_target)
+  } else {
+    truthcol <- as.numeric(frame[[truthVar]])
+  }
+  n <- nrow(frame)
+
+  # data frame the cumulative prediction/truth as a function
+  # of the fraction of the population we're considering, highest first
+  results <- data.frame(
+    pctpop = (1:n) / n
+  )
+  for(xvar in xvars) {
+    predcol <- as.numeric(frame[[xvar]])
+    # data frame of pred and truth, sorted in order of the predictions
+    d = data.frame(predcol = predcol, truthcol = truthcol)
+    predord <- order(d$predcol,
+                    sample.int(n, n, replace = FALSE),
+                    decreasing = TRUE) # reorder, with highest first
+    gain <- cumsum(d[predord, 'truthcol']) / sum(d[['truthcol']])
+    results[[xvar]] <- gain/results$pctpop
+  }
+
+  # transform the frame into the tall form, for plotting
+  results <- cdata::pivot_to_blocks(results,
+                         nameForNewKeyColumn = 'curve',
+                         nameForNewValueColumn = 'lift',
+                         columnsToTakeFrom = setdiff(colnames(results), 'pctpop'))
+
+  # plot
+  gplot = ggplot2::ggplot(
+    data = results,
+    mapping = ggplot2::aes(
+      x = pctpop,
+      y = lift,
+      color = curve)) +
+    ggplot2::geom_point(alpha = 0.5) +
+    ggplot2::geom_line() +
+    ggplot2::scale_color_brewer(palette = palette) +
+    ggplot2::xlab("fraction items in sort order") +
+    ggplot2::ylab("lift") +
+    ggplot2::geom_hline(yintercept=1, alpha=0.5) +
     ggplot2::theme(legend.position = "bottom")
   gplot
 }
