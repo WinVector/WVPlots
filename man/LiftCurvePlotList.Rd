@@ -2,9 +2,20 @@
 % Please edit documentation in R/LiftCurve.R
 \name{LiftCurvePlotList}
 \alias{LiftCurvePlotList}
+\alias{LiftCurveListPlot}
 \title{Plot the cumulative lift curves of a sort-order.}
 \usage{
 LiftCurvePlotList(
+  frame,
+  xvars,
+  truthVar,
+  title,
+  ...,
+  truth_target = NULL,
+  palette = "Dark2"
+)
+
+LiftCurveListPlot(
   frame,
   xvars,
   truthVar,

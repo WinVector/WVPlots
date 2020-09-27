@@ -236,3 +236,8 @@ LiftCurvePlotList = function(frame, xvars, truthVar, title,
     ggplot2::theme(legend.position = "bottom")
   gplot
 }
+
+
+#' @export
+#' @rdname LiftCurvePlotList
+LiftCurveListPlot <- LiftCurvePlotList

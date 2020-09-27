@@ -515,6 +515,10 @@ ROCPlotList <- function(
 #' @rdname ROCPlotList
 ROCPlotPairList <- ROCPlotList
 
+#' @export
+#' @rdname ROCPlotList
+ROCListPlot <- ROCPlotList
+
 
 #' Compare two ROC plots.
 #'

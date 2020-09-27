@@ -1,10 +1,11 @@
 
-# WVPlots 1.3.0 2020-09-24
+# WVPlots 1.3.0 2020-09-27
 
  * Fix ROC smoothing doc.
  * Add more paramteric ROC fitters.
  * Move back to sigr for ROC fitting.
  * More curves on lift plot.
+ * Add some aliases.
 
 # WVPlots 1.2.9 2020-09-19
 

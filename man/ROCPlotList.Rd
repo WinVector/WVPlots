@@ -3,6 +3,7 @@
 \name{ROCPlotList}
 \alias{ROCPlotList}
 \alias{ROCPlotPairList}
+\alias{ROCListPlot}
 \title{Compare multiple ROC plots.}
 \usage{
 ROCPlotList(
@@ -16,6 +17,16 @@ ROCPlotList(
 )
 
 ROCPlotPairList(
+  frame,
+  xvar_names,
+  truthVar,
+  truthTarget,
+  title,
+  ...,
+  palette = "Dark2"
+)
+
+ROCListPlot(
   frame,
   xvar_names,
   truthVar,

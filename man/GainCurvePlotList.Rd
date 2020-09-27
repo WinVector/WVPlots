@@ -2,9 +2,20 @@
 % Please edit documentation in R/GainCurve.R
 \name{GainCurvePlotList}
 \alias{GainCurvePlotList}
+\alias{GainCurveListPlot}
 \title{Plot the cumulative gain curves of a sort-order.}
 \usage{
 GainCurvePlotList(
+  frame,
+  xvars,
+  truthVar,
+  title,
+  ...,
+  truth_target = NULL,
+  palette = "Dark2"
+)
+
+GainCurveListPlot(
   frame,
   xvars,
   truthVar,
