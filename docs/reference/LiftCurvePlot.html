@@ -197,7 +197,7 @@ score to an actual outcome (either binary (0/1) or continuous). In this case the
 lift curve plot measures how well the model score sorts the data compared
 to the true outcome value.</p>
 <p>The x-axis represents the fraction of items seen when sorted by score, and the
-y-axis represents the lift seen so far (cummulative value of model over cummulative value of random selection)..</p>
+y-axis represents the lift seen so far (cumulative value of model over cummulative value of random selection)..</p>
 <p>For comparison, <code>LiftCurvePlot</code> also plots the "wizard curve": the lift curve when the
 data is sorted according to its true outcome.</p>
 <p>To improve presentation quality, the plot is limited to approximately <code>large_count</code> points (default: 1000).
@@ -205,10 +205,10 @@ For larger data sets, the data is appropriately randomly sampled down before plo
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='kw'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>)) <span class='op'>+</span> <span class='fl'>0.1</span>
-<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>))
-<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(model=<span class='kw'>x</span>, value=<span class='kw'>y</span>)
+<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
+<span class='kw'>y</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>)) <span class='op'>+</span> <span class='fl'>0.1</span>
+<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>))
+<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(model=<span class='kw'>x</span>, value=<span class='kw'>y</span>)
 <span class='kw'>WVPlots</span>::<span class='fu'>LiftCurvePlot</span>(<span class='kw'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
    title=<span class='st'>"Example Continuous Lift Curve"</span>)
 </div><div class='img'><img src='LiftCurvePlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -228,7 +228,7 @@ For larger data sets, the data is appropriately randomly sampled down before plo
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
