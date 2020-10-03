@@ -1,5 +1,5 @@
 
-# WVPlots 1.3.0 2020-10-01
+# WVPlots 1.3.0 2020-10-03
 
  * Fix ROC smoothing doc.
  * Add more paramteric ROC fitters.
