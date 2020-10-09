@@ -1,4 +1,8 @@
 
+# WVPlots 1.3.1 2020-10-09
+
+ * More control on ideal ROC curve plots.
+
 # WVPlots 1.3.0 2020-10-03
 
  * Fix ROC smoothing doc.

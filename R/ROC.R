@@ -102,6 +102,7 @@ graphROC <- function(modelPredictions, yValues) {
 #' @param beta1_ideal_curve_color color for ideal curve.
 #' @param add_symmetric_ideal_curve logical, if TRUE add the ideal curve as discussed in \url{https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/}.
 #' @param symmetric_ideal_curve_color color for ideal curve.
+#' @param ideal_plot_step_size step size used in ideal plots
 #'
 #' @seealso \code{\link{PRTPlot}}, \code{\link{ThresholdPlot}}
 #'
@@ -153,7 +154,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
                     add_beta1_ideal_curve = FALSE,
                     beta1_ideal_curve_color = "#f03b20",
                     add_symmetric_ideal_curve = FALSE,
-                    symmetric_ideal_curve_color = "#bd0026") {
+                    symmetric_ideal_curve_color = "#bd0026",
+                    ideal_plot_step_size = 0.001) {
   # check and narrow frame
   frame <- check_frame_args_list(...,
                                  frame = frame,
@@ -221,7 +223,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
        sigr::find_ROC_matching_ab1(modelPredictions = predcol, yValues = outcol)
     # print(paste(a, b))
     ideal_roc <- sigr::sensitivity_and_specificity_s12p12n(
-      seq(0, 1, 0.01),
+      seq(0, 1, by = ideal_plot_step_size),
       shape1_pos = a,
       shape2_pos = 1,
       shape1_neg = 1,
@@ -240,7 +242,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     unpack[shape1_pos, shape2_pos, shape1_neg, shape2_neg] <-
       sigr::find_ROC_matching_ab(modelPredictions = predcol, yValues = outcol)
     ideal_roc <- sigr::sensitivity_and_specificity_s12p12n(
-      seq(0, 1, 0.01),
+      seq(0, 1, by = ideal_plot_step_size),
       shape1_pos = shape1_pos,
       shape2_pos = shape2_pos,
       shape1_neg = shape1_neg,
@@ -257,7 +259,7 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     # add in an ideal AUC curve with same area
     # From: https://win-vector.com/2020/09/13/why-working-with-auc-is-more-powerful-than-one-might-think/
     q <- sigr::find_AUC_q(frame[[xvar]], frame[[truthVar]] == truthTarget)
-    ideal_roc <- data.frame(Specificity = seq(0, 1, length.out = 101))
+    ideal_roc <- data.frame(Specificity = seq(0, 1, by = ideal_plot_step_size))
     ideal_roc$Sensitivity <- sigr::sensitivity_from_specificity_q(ideal_roc$Specificity, q)  # TODO: move back to sigr
     plot <- plot +
       ggplot2::geom_line(
