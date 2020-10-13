@@ -1,5 +1,5 @@
 
-# WVPlots 1.3.1 2020-10-09
+# WVPlots 1.3.1 2020-10-13
 
  * More control on ideal ROC curve plots.
 

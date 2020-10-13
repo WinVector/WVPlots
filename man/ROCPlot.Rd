@@ -24,6 +24,8 @@ ROCPlot(
   beta1_ideal_curve_color = "#f03b20",
   add_symmetric_ideal_curve = FALSE,
   symmetric_ideal_curve_color = "#bd0026",
+  add_convex_hull = FALSE,
+  convex_hull_color = "#404040",
   ideal_plot_step_size = 0.001
 )
 }
@@ -66,6 +68,10 @@ ROCPlot(
 
 \item{symmetric_ideal_curve_color}{color for ideal curve.}
 
+\item{add_convex_hull}{logical, if TRUE add convex hull to plot}
+
+\item{convex_hull_color}{color for convex hull curve}
+
 \item{ideal_plot_step_size}{step size used in ideal plots}
 }
 \description{
@@ -107,7 +113,8 @@ ROCPlot(
    truthVar = "y", truthTarget = TRUE,
    title="Example ROC plot",
    estimate_sig = TRUE,
-   add_beta_ideal_curve = TRUE)
+   add_beta_ideal_curve = TRUE,
+   add_convex_hull = TRUE)
 
 }
 \seealso{
