@@ -2,6 +2,7 @@
 # WVPlots 1.3.1 2020-10-13
 
  * More control on ideal ROC curve plots.
+ * Convex hull on ROC plot.
 
 # WVPlots 1.3.0 2020-10-03
 
