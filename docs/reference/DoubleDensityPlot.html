@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -132,15 +132,15 @@
     <p>Plot two density plots conditioned on a binary outcome variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>DoubleDensityPlot</span>(
-  <span class='kw'>frame</span>,
-  <span class='kw'>xvar</span>,
-  <span class='kw'>truthVar</span>,
-  <span class='kw'>title</span>,
-  <span class='kw'>...</span>,
-  truth_target = <span class='kw'>NULL</span>,
-  palette = <span class='st'>"Dark2"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>DoubleDensityPlot</span><span class='op'>(</span>
+  <span class='va'>frame</span>,
+  <span class='va'>xvar</span>,
+  <span class='va'>truthVar</span>,
+  <span class='va'>title</span>,
+  <span class='va'>...</span>,
+  truth_target <span class='op'>=</span> <span class='cn'>NULL</span>,
+  palette <span class='op'>=</span> <span class='st'>"Dark2"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,27 +188,27 @@ allows the user to choose a non-Brewer palette, for example with <code>scale_fil
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>mpg</span> <span class='op'>=</span> <span class='kw'>ggplot2</span>::<span class='kw'><a href='https://ggplot2.tidyverse.org/reference/mpg.html'>mpg</a></span>
-<span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>trans</span> <span class='op'>=</span> <span class='fu'><a href='#base/grep.html'>gsub</a></span>(<span class='st'>"\\(.*$"</span>, <span class='st'>''</span>, <span class='kw'>mpg</span><span class='op'>$</span><span class='kw'>trans</span>)
-<span class='kw'>WVPlots</span>::<span class='fu'>DoubleDensityPlot</span>(<span class='kw'>mpg</span>, <span class='st'>"cty"</span>, <span class='st'>"trans"</span>, <span class='st'>"City driving mpg by transmission type"</span>)
+<span class='va'>mpg</span> <span class='op'>=</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/mpg.html'>mpg</a></span>
+<span class='va'>mpg</span><span class='op'>$</span><span class='va'>trans</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"\\(.*$"</span>, <span class='st'>''</span>, <span class='va'>mpg</span><span class='op'>$</span><span class='va'>trans</span><span class='op'>)</span>
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>DoubleDensityPlot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"cty"</span>, <span class='st'>"trans"</span>, <span class='st'>"City driving mpg by transmission type"</span><span class='op'>)</span>
 </div><div class='img'><img src='DoubleDensityPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># redo the last plot with a custom palette</span>
-<span class='kw'>cmap</span> <span class='op'>=</span> <span class='fu'><a href='#base/c.html'>c</a></span>(<span class='st'>"auto"</span> = <span class='st'>"#b2df8a"</span>, <span class='st'>"manual"</span> = <span class='st'>"#1f78b4"</span>)
-<span class='kw'>plt</span> <span class='op'>=</span> <span class='kw'>WVPlots</span>::<span class='fu'>DoubleDensityPlot</span>(<span class='kw'>mpg</span>, <span class='st'>"cty"</span>, <span class='st'>"trans"</span>,
-              palette = <span class='kw'>NULL</span>,
-              title=<span class='st'>"City driving mpg by transmission type"</span>)
-<span class='kw'>plt</span> <span class='op'>+</span> <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span>(values=<span class='kw'>cmap</span>) <span class='op'>+</span>
-      <span class='kw'>ggplot2</span>::<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span>(values=<span class='kw'>cmap</span>)
+<span class='va'>cmap</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"auto"</span> <span class='op'>=</span> <span class='st'>"#b2df8a"</span>, <span class='st'>"manual"</span> <span class='op'>=</span> <span class='st'>"#1f78b4"</span><span class='op'>)</span>
+<span class='va'>plt</span> <span class='op'>=</span> <span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>DoubleDensityPlot</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"cty"</span>, <span class='st'>"trans"</span>,
+              palette <span class='op'>=</span> <span class='cn'>NULL</span>,
+              title<span class='op'>=</span><span class='st'>"City driving mpg by transmission type"</span><span class='op'>)</span>
+<span class='va'>plt</span> <span class='op'>+</span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values<span class='op'>=</span><span class='va'>cmap</span><span class='op'>)</span> <span class='op'>+</span>
+      <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values<span class='op'>=</span><span class='va'>cmap</span><span class='op'>)</span>
 </div><div class='img'><img src='DoubleDensityPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='kw'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x</span>))
-<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(score=<span class='kw'>x</span>,
-   truth=(<span class='kw'>y</span><span class='op'>&gt;=</span><span class='fu'><a href='#base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='#stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>,probs=<span class='fl'>0.8</span>))),
-   stuck=<span class='fl'>TRUE</span>,
-   rare=<span class='fl'>FALSE</span>)
-<span class='kw'>frm</span>[<span class='fl'>1</span>,<span class='st'>'rare'</span>] <span class='op'>=</span> <span class='fl'>TRUE</span>
-<span class='kw'>WVPlots</span>::<span class='fu'>DoubleDensityPlot</span>(<span class='kw'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"truth"</span>, title=<span class='st'>"Example double density plot"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>34903490</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>frm</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>score<span class='op'>=</span><span class='va'>x</span>,
+   truth<span class='op'>=</span><span class='op'>(</span><span class='va'>y</span><span class='op'>&gt;=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>y</span>,probs<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+   stuck<span class='op'>=</span><span class='cn'>TRUE</span>,
+   rare<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>frm</span><span class='op'>[</span><span class='fl'>1</span>,<span class='st'>'rare'</span><span class='op'>]</span> <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>DoubleDensityPlot</span><span class='op'>(</span><span class='va'>frm</span>, <span class='st'>"score"</span>, <span class='st'>"truth"</span>, title<span class='op'>=</span><span class='st'>"Example double density plot"</span><span class='op'>)</span>
 </div><div class='img'><img src='DoubleDensityPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -132,17 +132,17 @@
     <p>Plot the scatter plot of a binary variable with a smoothing curve.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>BinaryYScatterPlot</span>(
-  <span class='kw'>frame</span>,
-  <span class='kw'>xvar</span>,
-  <span class='kw'>yvar</span>,
-  <span class='kw'>title</span>,
-  <span class='kw'>...</span>,
-  se = <span class='fl'>FALSE</span>,
-  use_glm = <span class='fl'>TRUE</span>,
-  point_color = <span class='st'>"black"</span>,
-  smooth_color = <span class='st'>"blue"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>BinaryYScatterPlot</span><span class='op'>(</span>
+  <span class='va'>frame</span>,
+  <span class='va'>xvar</span>,
+  <span class='va'>yvar</span>,
+  <span class='va'>title</span>,
+  <span class='va'>...</span>,
+  se <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  use_glm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  point_color <span class='op'>=</span> <span class='st'>"black"</span>,
+  smooth_color <span class='op'>=</span> <span class='st'>"blue"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,15 +195,15 @@ spline fit) is used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='kw'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='kw'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='kw'>x</span> <span class='op'>+</span> <span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='#base/length.html'>length</a></span>(<span class='kw'>x</span>))
-<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(x=<span class='kw'>x</span>,y=<span class='kw'>y</span>,yC=<span class='kw'>y</span><span class='op'>&gt;=</span><span class='fu'><a href='#base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='#stats/quantile.html'>quantile</a></span>(<span class='kw'>y</span>,probs=<span class='fl'>0.8</span>)))
-<span class='kw'>frm</span><span class='op'>$</span><span class='kw'>absY</span> <span class='op'>&lt;-</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='kw'>frm</span><span class='op'>$</span><span class='kw'>y</span>)
-<span class='kw'>frm</span><span class='op'>$</span><span class='kw'>posY</span> <span class='op'>=</span> <span class='kw'>frm</span><span class='op'>$</span><span class='kw'>y</span> <span class='op'>&gt;</span> <span class='fl'>0</span>
-<span class='kw'>frm</span><span class='op'>$</span><span class='kw'>costX</span> <span class='op'>=</span> <span class='fl'>1</span>
-<span class='kw'>WVPlots</span>::<span class='fu'>BinaryYScatterPlot</span>(<span class='kw'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"posY"</span>,
-   title=<span class='st'>"Example 'Probability of Y' Plot"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>34903490</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>frm</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>,yC<span class='op'>=</span><span class='va'>y</span><span class='op'>&gt;=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>y</span>,probs<span class='op'>=</span><span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>frm</span><span class='op'>$</span><span class='va'>absY</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>frm</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
+<span class='va'>frm</span><span class='op'>$</span><span class='va'>posY</span> <span class='op'>=</span> <span class='va'>frm</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&gt;</span> <span class='fl'>0</span>
+<span class='va'>frm</span><span class='op'>$</span><span class='va'>costX</span> <span class='op'>=</span> <span class='fl'>1</span>
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>BinaryYScatterPlot</span><span class='op'>(</span><span class='va'>frm</span>, <span class='st'>"x"</span>, <span class='st'>"posY"</span>,
+   title<span class='op'>=</span><span class='st'>"Example 'Probability of Y' Plot"</span><span class='op'>)</span>
 </div><div class='img'><img src='BinaryYScatterPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

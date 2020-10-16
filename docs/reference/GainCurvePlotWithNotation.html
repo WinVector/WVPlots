@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -132,23 +132,23 @@
     <p>Plot the cumulative gain curve of a sort-order with extra notation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>GainCurvePlotWithNotation</span>(
-  <span class='kw'>frame</span>,
-  <span class='kw'>xvar</span>,
-  <span class='kw'>truthVar</span>,
-  <span class='kw'>title</span>,
-  <span class='kw'>gainx</span>,
-  <span class='kw'>labelfun</span>,
-  <span class='kw'>...</span>,
-  sort_by_model = <span class='fl'>TRUE</span>,
-  estimate_sig = <span class='fl'>FALSE</span>,
-  large_count = <span class='fl'>1000</span>,
-  model_color = <span class='st'>"darkblue"</span>,
-  wizard_color = <span class='st'>"darkgreen"</span>,
-  shadow_color = <span class='st'>"darkgray"</span>,
-  crosshair_color = <span class='st'>"red"</span>,
-  text_color = <span class='st'>"black"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>GainCurvePlotWithNotation</span><span class='op'>(</span>
+  <span class='va'>frame</span>,
+  <span class='va'>xvar</span>,
+  <span class='va'>truthVar</span>,
+  <span class='va'>title</span>,
+  <span class='va'>gainx</span>,
+  <span class='va'>labelfun</span>,
+  <span class='va'>...</span>,
+  sort_by_model <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  estimate_sig <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  large_count <span class='op'>=</span> <span class='fl'>1000</span>,
+  model_color <span class='op'>=</span> <span class='st'>"darkblue"</span>,
+  wizard_color <span class='op'>=</span> <span class='st'>"darkgreen"</span>,
+  shadow_color <span class='op'>=</span> <span class='st'>"darkgray"</span>,
+  crosshair_color <span class='op'>=</span> <span class='st'>"red"</span>,
+  text_color <span class='op'>=</span> <span class='st'>"black"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,36 +229,36 @@ to use the wizard curve, set <code>sort_by_model = FALSE</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='#base/Random.html'>set.seed</a></span>(<span class='fl'>34903490</span>)
-<span class='kw'>y</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>)) <span class='op'>+</span> <span class='fl'>0.1</span>
-<span class='kw'>x</span> <span class='op'>=</span> <span class='fu'><a href='#base/MathFun.html'>abs</a></span>(<span class='kw'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='#stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>))
-<span class='kw'>frm</span> <span class='op'>=</span> <span class='fu'><a href='#base/data.frame.html'>data.frame</a></span>(model=<span class='kw'>x</span>, value=<span class='kw'>y</span>)
-<span class='kw'>gainx</span> <span class='op'>=</span> <span class='fl'>0.25</span>  <span class='co'># get the predicted top 25% most valuable points as sorted by the model</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>34903490</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0.1</span>
+<span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>frm</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>model<span class='op'>=</span><span class='va'>x</span>, value<span class='op'>=</span><span class='va'>y</span><span class='op'>)</span>
+<span class='va'>gainx</span> <span class='op'>=</span> <span class='fl'>0.25</span>  <span class='co'># get the predicted top 25% most valuable points as sorted by the model</span>
 <span class='co'># make a function to calculate the label for the annotated point</span>
-<span class='kw'>labelfun</span> <span class='op'>=</span> <span class='fu'>function</span>(<span class='kw'>gx</span>, <span class='kw'>gy</span>) {
-  <span class='kw'>pctx</span> <span class='op'>=</span> <span class='kw'>gx</span><span class='op'>*</span><span class='fl'>100</span>
-  <span class='kw'>pcty</span> <span class='op'>=</span> <span class='kw'>gy</span><span class='op'>*</span><span class='fl'>100</span>
+<span class='va'>labelfun</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gx</span>, <span class='va'>gy</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>pctx</span> <span class='op'>=</span> <span class='va'>gx</span><span class='op'>*</span><span class='fl'>100</span>
+  <span class='va'>pcty</span> <span class='op'>=</span> <span class='va'>gy</span><span class='op'>*</span><span class='fl'>100</span>
 
-  <span class='fu'><a href='#base/paste.html'>paste</a></span>(<span class='st'>"The predicted top "</span>, <span class='kw'>pctx</span>, <span class='st'>"% most valuable points by the model\n"</span>,
-        <span class='st'>"are "</span>, <span class='kw'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep=<span class='st'>''</span>)
-}
-<span class='kw'>WVPlots</span>::<span class='fu'>GainCurvePlotWithNotation</span>(<span class='kw'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
-   title=<span class='st'>"Example Gain Curve with annotation"</span>,
-   gainx=<span class='kw'>gainx</span>,labelfun=<span class='kw'>labelfun</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The predicted top "</span>, <span class='va'>pctx</span>, <span class='st'>"% most valuable points by the model\n"</span>,
+        <span class='st'>"are "</span>, <span class='va'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep<span class='op'>=</span><span class='st'>''</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>GainCurvePlotWithNotation</span><span class='op'>(</span><span class='va'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
+   title<span class='op'>=</span><span class='st'>"Example Gain Curve with annotation"</span>,
+   gainx<span class='op'>=</span><span class='va'>gainx</span>,labelfun<span class='op'>=</span><span class='va'>labelfun</span><span class='op'>)</span>
 </div><div class='img'><img src='GainCurvePlotWithNotation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># now get the top 25% actual most valuable points</span>
 
-<span class='kw'>labelfun</span> <span class='op'>=</span> <span class='fu'>function</span>(<span class='kw'>gx</span>, <span class='kw'>gy</span>) {
-  <span class='kw'>pctx</span> <span class='op'>=</span> <span class='kw'>gx</span><span class='op'>*</span><span class='fl'>100</span>
-  <span class='kw'>pcty</span> <span class='op'>=</span> <span class='kw'>gy</span><span class='op'>*</span><span class='fl'>100</span>
+<span class='va'>labelfun</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gx</span>, <span class='va'>gy</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>pctx</span> <span class='op'>=</span> <span class='va'>gx</span><span class='op'>*</span><span class='fl'>100</span>
+  <span class='va'>pcty</span> <span class='op'>=</span> <span class='va'>gy</span><span class='op'>*</span><span class='fl'>100</span>
 
-  <span class='fu'><a href='#base/paste.html'>paste</a></span>(<span class='st'>"The actual top "</span>, <span class='kw'>pctx</span>, <span class='st'>"% most valuable points\n"</span>,
-        <span class='st'>"are "</span>, <span class='kw'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep=<span class='st'>''</span>)
-}
+  <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The actual top "</span>, <span class='va'>pctx</span>, <span class='st'>"% most valuable points\n"</span>,
+        <span class='st'>"are "</span>, <span class='va'>pcty</span>, <span class='st'>"% of total actual value"</span>, sep<span class='op'>=</span><span class='st'>''</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='kw'>WVPlots</span>::<span class='fu'>GainCurvePlotWithNotation</span>(<span class='kw'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
-   title=<span class='st'>"Example Gain Curve with annotation"</span>,
-   gainx=<span class='kw'>gainx</span>,labelfun=<span class='kw'>labelfun</span>, sort_by_model=<span class='fl'>FALSE</span>)
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>GainCurvePlotWithNotation</span><span class='op'>(</span><span class='va'>frm</span>, <span class='st'>"model"</span>, <span class='st'>"value"</span>,
+   title<span class='op'>=</span><span class='st'>"Example Gain Curve with annotation"</span>,
+   gainx<span class='op'>=</span><span class='va'>gainx</span>,labelfun<span class='op'>=</span><span class='va'>labelfun</span>, sort_by_model<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='GainCurvePlotWithNotation-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

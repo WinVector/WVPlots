@@ -74,7 +74,7 @@ also shows a &quot;shadow plot&quot; of the totals conditioned on condvar alone.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
       </span>
     </div>
 
@@ -136,17 +136,17 @@ faceted on a second categorical variable, <code>refinevar</code>. Each faceted p
 also shows a "shadow plot" of the totals conditioned on <code>condvar</code> alone.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ShadowPlot</span>(
-  <span class='kw'>frm</span>,
-  <span class='kw'>condvar</span>,
-  <span class='kw'>refinevar</span>,
-  <span class='kw'>title</span>,
-  <span class='kw'>...</span>,
-  monochrome = <span class='fl'>TRUE</span>,
-  palette = <span class='st'>"Dark2"</span>,
-  fillcolor = <span class='st'>"darkblue"</span>,
-  ncol = <span class='fl'>1</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ShadowPlot</span><span class='op'>(</span>
+  <span class='va'>frm</span>,
+  <span class='va'>condvar</span>,
+  <span class='va'>refinevar</span>,
+  <span class='va'>title</span>,
+  <span class='va'>...</span>,
+  monochrome <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  palette <span class='op'>=</span> <span class='st'>"Dark2"</span>,
+  fillcolor <span class='op'>=</span> <span class='st'>"darkblue"</span>,
+  ncol <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,13 +206,13 @@ For consistency with previous releases, <code>ShadowPlot</code> defaults to <cod
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>ShadowPlot</span>(<span class='kw'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
-           title = <span class='st'>"Number of example cars by carb and cyl counts"</span>)
+<span class='fu'>ShadowPlot</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
+           title <span class='op'>=</span> <span class='st'>"Number of example cars by carb and cyl counts"</span><span class='op'>)</span>
 </div><div class='img'><img src='ShadowPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># colorcode the facets</span>
-<span class='fu'>ShadowPlot</span>(<span class='kw'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
-           monochrome = <span class='fl'>FALSE</span>,
-           title = <span class='st'>"Number of example cars by carb and cyl counts"</span>)
+<span class='fu'>ShadowPlot</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"cyl"</span>,
+           monochrome <span class='op'>=</span> <span class='cn'>FALSE</span>,
+           title <span class='op'>=</span> <span class='st'>"Number of example cars by carb and cyl counts"</span><span class='op'>)</span>
 </div><div class='img'><img src='ShadowPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
