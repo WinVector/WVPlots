@@ -2,7 +2,7 @@ Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
 Version: 1.3.1
-Date: 2020-10-16
+Date: 2020-10-17
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
     person("Nina", "Zumel", email = "nzumel@win-vector.com", role = c("aut")),
@@ -17,10 +17,10 @@ Description: Select data analysis plots, under a standardized calling interface 
    box and stem with matching theoretical distribution, and density with matching theoretical distribution.
 License: GPL-2 | GPL-3
 VignetteBuilder: knitr
-Depends:
+Depends: 
     R (>= 3.4.0),
     wrapr (>= 2.0.2)
-Imports:
+Imports: 
     ggplot2 (>= 3.3.0),
     sigr (>= 1.1.2),
     cdata (>= 1.1.8),
@@ -33,11 +33,11 @@ Imports:
     grDevices,
     mgcv,
     stats
-Suggests:
+Suggests: 
     knitr,
     rmarkdown,
-    RUnit,
     plotly,
-    hexbin
+    hexbin, 
+    tinytest
 RoxygenNote: 7.1.1
 ByteCompile: true
