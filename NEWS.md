@@ -1,4 +1,9 @@
 
+# WVPlots 1.3.2 2021-01-01
+
+ * Fix error msg on ThresholdPlot
+ * Add accuracy as a ThresholdPlot metric.
+
 # WVPlots 1.3.1 2020-10-17
 
  * More control on ideal ROC curve plots.

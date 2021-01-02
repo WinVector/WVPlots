@@ -100,6 +100,9 @@ ThresholdStats <- function(frame, xvar, truthVar,
   sorted_frame$recall = sorted_frame$true_positive_rate
   sorted_frame$sensitivity = sorted_frame$recall
   sorted_frame$specificity = 1 - sorted_frame$false_positive_rate
+  sorted_frame$accuracy = (sorted_frame$sensitivity * sum(sorted_frame$truth) +
+    sorted_frame$specificity * (nrow(sorted_frame) - sum(sorted_frame$truth))) /
+    nrow(sorted_frame)
 
   # re-order for plotting
   sorted_frame$new_index = wrapr::seqi(1, nrow(sorted_frame))
@@ -136,6 +139,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #'   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
 #'   \item{precision: fraction of predicted positives that are true positives}
 #'   \item{recall: same as sensitivity or true positive rate}
+#'   \item{accuracy: fraction of items correctly decided}
 #'   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
 #'   \item{true_positive_rate: fraction of positives predicted to be true over all positives}
 #'   \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
@@ -239,7 +243,9 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
   universe <- sort(unique(stats$metric))
   bad_metrics <- setdiff(metrics, universe)
   if(length(bad_metrics) > 0) {
-    stop(paste0("allowed metrics are: ", paste(universe), collapse = ', '), ", saw: ", paste(bad_metrics, collapse = ', '))
+    stop(paste0(
+      "allowed metrics are: ", paste(universe, collapse = ', ')),
+      ", saw: ", paste(bad_metrics, collapse = ', '))
   }
   stats <- stats[stats$metric %in% metrics, , drop = FALSE]
 
@@ -282,6 +288,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #'   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
 #'   \item{precision: fraction of predicted positives that are true positives}
 #'   \item{recall: same as sensitivity or true positive rate}
+#'   \item{accuracy: fraction of items correctly decided}
 #'   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
 #'   \item{true_positive_rate: fraction of positives predicted to be true over all positives}
 #'   \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
@@ -368,7 +375,9 @@ MetricPairPlot <- function(frame, xvar, truthVar, title,
   universe <- sort(unique(colnames(stats)))
   bad_metrics <- setdiff(c(x_metric, y_metric), universe)
   if(length(bad_metrics) > 0) {
-    stop(paste0("allowed metrics are: ", paste(universe), collapse = ', '), ", saw: ", paste(bad_metrics, collapse = ', '))
+    stop(paste0(
+      "allowed metrics are: ", paste(universe, collapse = ', ')),
+      ", saw: ", paste(bad_metrics, collapse = ', '))
   }
   stats <- stats[ , c(x_metric, y_metric), drop = FALSE]
   # re-order for plotting

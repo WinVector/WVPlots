@@ -54,6 +54,7 @@ in keeping with the customary terminology of various analysis communities.
   \item{specificity: fraction of true negatives to all negatives (or 1 - false_positive_rate)}
   \item{precision: fraction of predicted positives that are true positives}
   \item{recall: same as sensitivity or true positive rate}
+  \item{accuracy: fraction of items correctly decided}
   \item{false_positive_rate: fraction of negatives predicted to be true over all negatives}
   \item{true_positive_rate: fraction of positives predicted to be true over all positives}
   \item{false_negative_rate: fraction of positives predicted to be all false over all positives}
