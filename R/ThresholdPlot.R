@@ -101,7 +101,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
   sorted_frame$sensitivity = sorted_frame$recall
   sorted_frame$specificity = 1 - sorted_frame$false_positive_rate
   sorted_frame$accuracy = (sorted_frame$sensitivity * sum(sorted_frame$truth) +
-    sorted_frame$specificity * (nrow(sorted_frame) - sum(sorted_frame$truth))) /
+    sorted_frame$specificity * sum(!sorted_frame$truth)) /
     nrow(sorted_frame)
 
   # re-order for plotting
