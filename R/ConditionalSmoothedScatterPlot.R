@@ -57,6 +57,7 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @param k width of smoothing window. Must be odd for a center-aligned plot. Defaults to 3
 #' @param align smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'
 #' @param point_color color of points, when groupvar is NULL. Set to NULL to turn off points.
+#' @param point_alpha alpha/opaqueness of points.
 #' @param smooth_color color of smoothing line, when groupvar is NULL
 #' @param palette name of Brewer palette, when groupvar is non-NULL (can be NULL)
 #' @examples
@@ -75,7 +76,9 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,
                                           title = 'ConditionalSmoothedScatterPlot',
                                           ...,
                                           k=3, align="center",
-                                          point_color="black", smooth_color="black",
+                                          point_color="black",
+                                          point_alpha=0.2,
+                                          smooth_color="black",
                                           palette="Dark2") {
   vlist <- list(xvar = xvar, yvar = yvar)
   if(!is.null(groupvar)) {
@@ -107,7 +110,10 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,
     fs = fs[!is.na(fs$smooth), ]
     p = ggplot2::ggplot()
     if(!is.null(point_color)) {
-      p = p + ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar), color=point_color)
+      p = p + ggplot2::geom_point(data=frame,
+                                  ggplot2::aes_string(x=xvar, y=yvar),
+                                  color=point_color,
+                                  alpha=point_alpha)
     }
     p = p + ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar, y="smooth"), color=smooth_color)
   } else{
@@ -119,7 +125,9 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,
     fs = fs[!is.na(fs$smooth),]
     p =  ggplot2::ggplot()
     if(!is.null(point_color)) {
-      p = p + ggplot2::geom_point(data=frame, ggplot2::aes_string(x=xvar, y=yvar, color=groupvar))
+      p = p + ggplot2::geom_point(data=frame,
+                                  ggplot2::aes_string(x=xvar, y=yvar, color=groupvar),
+                                  alpha=point_alpha)
     }
     p = p + ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar,y="smooth",color=groupvar))
     if(!is.null(palette)) {

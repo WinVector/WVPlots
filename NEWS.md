@@ -1,9 +1,9 @@
 
-# WVPlots 1.3.2 2021-01-01
+# WVPlots 1.3.2 2021-01-03
 
  * Fix error msg on ThresholdPlot
  * Add accuracy as a ThresholdPlot metric.
- * Turn points of in ConditionalSmoothedScatterPlot.
+ * Point controls in ConditionalSmoothedScatterPlot.
 
 # WVPlots 1.3.1 2020-10-17
 

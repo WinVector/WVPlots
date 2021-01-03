@@ -14,6 +14,7 @@ ConditionalSmoothedScatterPlot(
   k = 3,
   align = "center",
   point_color = "black",
+  point_alpha = 0.2,
   smooth_color = "black",
   palette = "Dark2"
 )
@@ -36,6 +37,8 @@ ConditionalSmoothedScatterPlot(
 \item{align}{smoothing window alignment: 'center', 'left', or 'right'. Defaults to 'center'}
 
 \item{point_color}{color of points, when groupvar is NULL. Set to NULL to turn off points.}
+
+\item{point_alpha}{alpha/opaqueness of points.}
 
 \item{smooth_color}{color of smoothing line, when groupvar is NULL}
 
