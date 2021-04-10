@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -210,10 +210,14 @@
 <span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>ClevelandDotPlot</span><span class='op'>(</span><span class='va'>randomDraws</span>, <span class='st'>"letter"</span>,
   title <span class='op'>=</span> <span class='st'>"Example Cleveland-style dot plot"</span><span class='op'>)</span>
 </div><div class='img'><img src='ClevelandDotPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Note the use of sort = 0, and that the graph correctly includes counts</span>
+<span class='co'># Note the use of sort = 0. Also note that the graph omits counts</span>
 <span class='co'># with no occurrences (5, and 7)</span>
 <span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'>ClevelandDotPlot</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='st'>"carb"</span>, sort <span class='op'>=</span> <span class='fl'>0</span>, <span class='st'>"Example of counting integer values"</span><span class='op'>)</span>
-</div><div class='img'><img src='ClevelandDotPlot-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='ClevelandDotPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># For counting integer values while including counts with no occurrences,</span>
+<span class='co'># use Discrete Distribution.</span>
+<span class='fu'>WVPlots</span><span class='fu'>::</span><span class='fu'><a href='DiscreteDistribution.html'>DiscreteDistribution</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='st'>"carb"</span>, <span class='st'>"Better way to count integer values"</span><span class='op'>)</span>
+</div><div class='img'><img src='ClevelandDotPlot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

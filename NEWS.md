@@ -1,4 +1,8 @@
 
+# WVPlots 1.3.3 2021-04-10
+
+ * Documentation fixes.
+
 # WVPlots 1.3.2 2021-01-04
 
  * Fix error msg on ThresholdPlot
