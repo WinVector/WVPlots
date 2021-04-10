@@ -64,7 +64,11 @@ randomDraws = data.frame(draw=1:N,
 WVPlots::ClevelandDotPlot(randomDraws, "letter",
   title = "Example Cleveland-style dot plot")
 
-# Note the use of sort = 0, and that the graph correctly includes counts
+# Note the use of sort = 0. Also note that the graph omits counts
 # with no occurrences (5, and 7)
 WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")
+
+# For counting integer values while including counts with no occurrences,
+# use Discrete Distribution.
+WVPlots::DiscreteDistribution(mtcars, "carb", "Better way to count integer values")
 }
