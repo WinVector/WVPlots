@@ -30,7 +30,7 @@
 #' WVPlots::ScatterBoxPlot(frm2, "label", "meas", pt_alpha=0.2, title="Example Scatter/Box plot")
 #'
 #' @export
-ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
+ScatterBoxPlot <- function(frm, xvar, yvar, title, ...,
                           pt_alpha=0.3,
                           pt_color='black',
                           box_color='black',
@@ -45,7 +45,7 @@ ScatterBoxPlot = function(frm, xvar, yvar, title, ...,
     stop(paste(xvar, "should be discrete (factor, character, integer, or logical)"))
   }
 
-  ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar, y=yvar, group=xvar)) +
+  ggplot2::ggplot(data=frm, mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar, y=yvar, group=xvar))) +
     ggplot2::geom_boxplot(outlier.size=0, color=box_color, fill=box_fill) +
     ggplot2::geom_point(color=pt_color, alpha=pt_alpha, position=ggplot2::position_jitter(width=0.1,height=0)) +
     ggplot2::ggtitle(title)

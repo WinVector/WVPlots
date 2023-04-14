@@ -26,6 +26,7 @@ Imports:
     cdata (>= 1.2.0),
     rqdatatable (>= 1.3.1),
     rquery (>= 1.4.9),
+    rlang,
     utils,
     grid,
     gridExtra,
@@ -39,5 +40,5 @@ Suggests:
     plotly,
     hexbin, 
     tinytest
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 ByteCompile: true
