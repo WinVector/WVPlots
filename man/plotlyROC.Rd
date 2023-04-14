@@ -33,9 +33,6 @@ plotlyROC(
 plotly plot
 }
 \description{
-Use \code{plotly} to produce a ROC plot.
-}
-\details{
 Note: any \code{arrange_} warning is a version incompatibility between \code{plotly} and \code{dplyr}.
 }
 \examples{

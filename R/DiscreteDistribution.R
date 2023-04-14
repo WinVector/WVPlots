@@ -43,7 +43,7 @@ DiscreteDistribution = function(frm, xvar, title, ...,
   } else {
     geom="point"
   }
-  ggplot2::ggplot(frm, ggplot2::aes_string(xvar, "unit")) +
+  ggplot2::ggplot(data = frm, mapping = ggplot2::aes(!!!simulate_aes_string(x = xvar, y = "unit"))) +
     ggplot2::stat_summary(fun=sum, fun.max=sum, fun.min=function(x){0}, geom=geom, color=color) +
     ggplot2::ggtitle(title)
 }

@@ -55,12 +55,12 @@ PlotDistDensityNormal <- function(frm, xvar, title, ...,
   dDist$density <- dnorm(dDist[[xvar]],mean=meanx,sd=sdx)
   plt = ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
-                          mapping=ggplot2::aes_string(x=xvar),
+                          mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar)),
                           fill = curve_color,
                           color = NA,
                           adjust=adjust) +
     ggplot2::geom_line(data=dDist,
-                       mapping=ggplot2::aes_string(x=xvar,y='density'),
+                       mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y='density')),
                        color=normal_color,linetype=2) +
     ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
   if(!is.null(sd_color)) {
@@ -155,7 +155,7 @@ PlotDistCountNormal <- function(frm, xvar, title,
   subtitle = paste('binWidth =', format(binWidth))
 
   plt = ggplot2::ggplot(data=dHist,
-                        mapping=ggplot2::aes_string(x=xvar,y='count',ymax='count')) +
+                        mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y='count',ymax='count'))) +
     ggplot2::geom_linerange(data=dTheory,ggplot2::aes(ymin=0),size=4,alpha=0.5,color=normal_color) +
     ggplot2::geom_point(color=hist_color, size=4) +
     ggplot2::geom_linerange(ggplot2::aes(ymin=0),color=hist_color, size=2) +
@@ -237,12 +237,12 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
   dDist$density <- dbeta(dDist[[xvar]],shape1=shape1,shape2=shape2)
   plt = ggplot2::ggplot() +
     ggplot2::geom_density(data=dPlot,
-                          mapping=ggplot2::aes_string(x=xvar),
+                          mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar)),
                           adjust=0.5,
                           fill = curve_color,
                           color = NA) +
     ggplot2::geom_line(data=dDist,
-                       mapping=ggplot2::aes_string(x=xvar,y='density'),
+                       mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y='density')),
                        color=beta_color,linetype=2) +
     ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
 
@@ -336,11 +336,11 @@ PlotDistHistBeta <- function(frm, xvar, title,
 
   plt = ggplot2::ggplot() +
     ggplot2::geom_histogram(data=dPlot,
-                            mapping=ggplot2::aes_string(x=xvar),
+                            mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar)),
                             bins = bins,
                             fill=hist_color, color=NA) +
     ggplot2::geom_line(data=dDist,
-                       mapping=ggplot2::aes_string(x=xvar,y='count'),
+                       mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y='count')),
                        color=beta_color,linetype=2) +
     ggplot2::geom_vline(xintercept=meanx,color=mean_color,linetype=2)
   if(!is.null(sd_color)) {

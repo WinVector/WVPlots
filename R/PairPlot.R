@@ -72,11 +72,11 @@ PairPlot <- function(d, meas_vars,  title,
 
   x <- y <- NULL # don't look like unbound references to checker
 
-  plt = ggplot2::ggplot(d_aug, ggplot2::aes(x=x, y=y))
+  plt = ggplot2::ggplot(data = d_aug, mapping = ggplot2::aes(x=x, y=y))
 
   if(length(group_var) == 1) {
     plt = plt +
-      ggplot2::geom_point(ggplot2::aes_string(color=group_var), alpha=alpha)
+      ggplot2::geom_point(mapping = ggplot2::aes(!!!simulate_aes_string(color=group_var), alpha=alpha))
   } else {
     plt = plt + ggplot2::geom_point(alpha=alpha, color=point_color)
   }

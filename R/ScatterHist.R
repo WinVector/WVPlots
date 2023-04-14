@@ -152,7 +152,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   }
 
   # scatterplot of x and y
-  plot_center = ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar,y=yvar)) +
+  plot_center = ggplot2::ggplot(data = frame, mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar,y=yvar))) +
     ggplot2::geom_point(color=point_color, alpha=point_alpha) +
     ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines"))
   if(!is.null(gSmooth)) {
@@ -185,7 +185,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # 0,0,1,0 -- bottom gap bigger
   # 0,0,0,1 -- left side is shorter
   #
-  plot_top <- ggplot2::ggplot(frame, ggplot2::aes_string(x=xvar)) +
+  plot_top <- ggplot2::ggplot(data = frame, mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar))) +
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
                             color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_x) +
@@ -219,7 +219,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # xBreaks <- cRanges$x.major_source
 
   # marginal density of y - plot on the right
-  plot_right <- ggplot2::ggplot(frame, ggplot2::aes_string(x=yvar)) +
+  plot_right <- ggplot2::ggplot(data = frame, mapping = ggplot2::aes(!!!simulate_aes_string(x=yvar))) +
     ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
                             color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_y) +

@@ -103,17 +103,17 @@ DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,
   error = function(e) { NA }
   )
   pf$net <- sm
-  plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes_string(x=xvar,
-                                                              color=truthVar,fill=truthVar,linetype=truthVar)) +
-    ggplot2::geom_bar(mapping=ggplot2::aes_string(y='count'),
+  plot <- ggplot2::ggplot(data=pf,mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,
+                                                              color=truthVar,fill=truthVar,linetype=truthVar))) +
+    ggplot2::geom_bar(mapping=ggplot2::aes(!!!simulate_aes_string(y='count')),
                       stat='identity',alpha=0.5,position='identity')
   if(sum(!is.na(pf$smooth))>1) {
     plot <- plot +
-      ggplot2::geom_line(mapping=ggplot2::aes_string(y='smooth'))
+      ggplot2::geom_line(mapping=ggplot2::aes(!!!simulate_aes_string(y='smooth')))
   }
   if(sum(!is.na(pf$net))>1) {
     plot <- plot +
-      ggplot2::geom_line(mapping=ggplot2::aes_string(y='net'),linetype=3,color='black')
+      ggplot2::geom_line(mapping=ggplot2::aes(!!!simulate_aes_string(y='net')),linetype=3,color='black')
   }
   if(!is.null(palette)) {
     plot = plot + ggplot2::scale_fill_brewer(palette=palletName) +

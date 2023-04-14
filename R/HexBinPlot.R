@@ -61,7 +61,9 @@ HexBinPlot <- function(d, xvar, yvar,  title,
                              title = title,
                              funname = "WVPlots::HexBinPlot")
 
-  ggplot2::ggplot(d, ggplot2::aes_string(x=xvar, y=yvar)) +
+  ggplot2::ggplot(
+      data = d,
+      mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar, y=yvar))) +
     ggplot2::geom_hex(bins = bins, binwidth = binwidth, na.rm = na.rm) +
     ggplot2::ggtitle(title) +
     ggplot2::scale_fill_gradient(low = lightcolor, high = darkcolor, space = "Lab") +

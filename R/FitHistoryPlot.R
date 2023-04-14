@@ -124,19 +124,19 @@ plot_fit_trajectory <- function(d,
                            d$validation)
   }
 
-
   valCol = val_color
   trainCol = train_color
   pickCol = pick_color
 
   plt <- ggplot2::ggplot(
     data = d,
-    ggplot2::aes_string(x = epoch_name,
-                        xend = epoch_name,
-                        y = "validation",
-                        yend = "training",
-                        ymin = "rmin",
-                        ymax = "rmax")) +
+    mapping = ggplot2::aes(!!!simulate_aes_string(
+      x = epoch_name,
+      xend = epoch_name,
+      y = "validation",
+      yend = "training",
+      ymin = "rmin",
+      ymax = "rmax"))) +
     ggplot2::geom_point(color=valCol) +
     ggplot2::geom_point(ggplot2::aes(y = training), color=trainCol)
 

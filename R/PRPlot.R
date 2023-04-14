@@ -124,18 +124,18 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,
   if(nrow(pF1)<1000) {
     plot <- plot +
       ggplot2::geom_point(data=pf,
-                          ggplot2::aes_string(x='Recall',y='Precision'),
+                          mapping=ggplot2::aes(x=Recall, y=Precision),
                           color='darkblue',alpha=0.5)
   }
   plot <- plot +
     ggplot2::geom_point(data=pF1,
-                        ggplot2::aes_string(x='Recall',y='Precision'),
+                        mapping=ggplot2::aes(x=Recall, y=Precision),
                         color='blue',size=2,shape=15) +
     ggplot2::geom_line(data=prList$lineGraph,
-                       ggplot2::aes_string(x='Recall',y='Precision'),
+                       mapping=ggplot2::aes(x=Recall, y=Precision),
                        color='darkblue') +
     ggplot2::geom_line(data=isoFrame,
-                       ggplot2::aes_string(x='Recall',y='Precision'),
+                       mapping=ggplot2::aes(x=Recall, y=Precision),
                        color='blue',alpha=0.5,linetype=2) +
     ggplot2::geom_hline(yintercept=prevalence, linetype=3, alpha=0.2) +
     ggplot2::geom_vline(xintercept=1, linetype=3, alpha=0.2) +

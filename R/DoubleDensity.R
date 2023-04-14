@@ -94,19 +94,19 @@ DoubleDensityPlot <- function(frame, xvar, truthVar, title,
   # display.brewer.all()
   palletName = palette
   plt <- ggplot2::ggplot(data=pf,
-                         mapping=ggplot2::aes_string(x=xvar,y='density',
+                         mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y='density',
                                                      ymin='zero',ymax='density',
                                                      color=truthVar,fill=truthVar,
                                                      linetype=truthVar
-                         ))
+                         )))
   if(sum(!is.na(pf$density))>0) {
     plt <- plt + ggplot2::geom_line() +
       ggplot2::geom_ribbon(alpha=0.5,color=NA)
   }
   if(sum(!is.na(pf$xintercept))>0) {
     plt <- plt + ggplot2::geom_vline(data=pf,
-                                     mapping=ggplot2::aes_string(color=truthVar,linetype=truthVar,
-                                                                 xintercept='xintercept'))
+                                     mapping=ggplot2::aes(!!!simulate_aes_string(color=truthVar,linetype=truthVar,
+                                                                 xintercept='xintercept')))
   }
   if(!is.null(palette)) {
   plt = plt +

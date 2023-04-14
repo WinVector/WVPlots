@@ -92,8 +92,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 
 
   # scatterplot of x and y
-  plot_center = ggplot2::ggplot(frame,
-                                ggplot2::aes_string(x=xvar,y=yvar,color=cvar)) +
+  plot_center = ggplot2::ggplot(data = frame,
+                                mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar,y=yvar,color=cvar))) +
     ggplot2::geom_point() +
     ggplot2::theme(plot.margin = grid::unit(c(0, 0, 0, 0), "lines")) +
     ggplot2::scale_color_brewer(palette=colorPalette) +
@@ -123,8 +123,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
   # 0,0,1,0 -- bottom gap bigger
   # 0,0,0,1 -- left side is shorter
   #
-  plot_top <- ggplot2::ggplot(frame,
-                              ggplot2::aes_string(x=xvar,color=cvar)) +
+  plot_top <- ggplot2::ggplot(data = frame,
+                              mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar,color=cvar))) +
     ggplot2::geom_line(stat='density',adjust=adjust_x) +
     ggplot2::coord_cartesian(xlim=xlims) +
     ggplot2::scale_x_continuous(expand = c(0,0))
@@ -144,8 +144,8 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 
 
   # marginal density of y - plot on the right
-  plot_right <- ggplot2::ggplot(frame,
-                                ggplot2::aes_string(x=yvar,color=cvar)) +
+  plot_right <- ggplot2::ggplot(data = frame,
+                                mapping = ggplot2::aes(!!!simulate_aes_string(x=yvar,color=cvar))) +
     ggplot2::geom_line(stat='density', adjust=adjust_y) +
     #  ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
     ggplot2::scale_x_continuous(expand = c(0,0)) +
