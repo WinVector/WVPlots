@@ -109,7 +109,8 @@ PRPlot <- function(frame, xvar, truthVar, truthTarget, title,
   isoFrame$Precision <- bestF1*isoFrame$Recall/(2*isoFrame$Recall-bestF1)
   isoFrame <- isoFrame[(isoFrame$Precision<=1) & (isoFrame$Precision>0),]
   #f1check <- 2*isoFrame$Recall*isoFrame$Precision/(isoFrame$Recall+isoFrame$Precision)
-
+  Precision <- NULL  # don't look unbound in CRAN checks
+  Recall <- NULL  # don't look unbound in CRAN checks
   pString <- ''
   if(estimate_sig && requireNamespace('sigr',quietly = TRUE)) {
     sp <- sigr::permutationScoreModel(predcol,outcol,

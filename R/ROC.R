@@ -196,6 +196,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     aucString <- sprintf('%.2g',auc)
     subtitle <- paste('AUC =', aucString)
   }
+  FalsePositiveRate <- NULL  # don't look unbound in CRAN check
+  TruePositiveRate <- NULL  # don't look unbound in CRAN check
   plot <- ggplot2::ggplot() +
     ggplot2::geom_ribbon(data=rocList$lineGraph,
                          mapping=ggplot2::aes(x=FalsePositiveRate,
@@ -221,8 +223,8 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
     ggplot2::ylim(0,1) + ggplot2::xlim(0,1) +
     ggplot2::ylab('TruePositiveRate (Sensitivity)') +
     ggplot2::xlab('FalsePositiveRate (1 - Specificity)')
-  Specificity <- NULL  # don't look unbound
-  Sensitivity <- NULL  # don't look unbound
+  Specificity <- NULL  # don't look unbound in CRAN check
+  Sensitivity <- NULL  # don't look unbound in CRAN check
   if(add_beta1_ideal_curve) {
     # match the displayed curve
     a <- b <- NULL  # don't look unbound
@@ -356,6 +358,9 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
                                  title = title,
                                  funname = "WVPlots::ROCPlotPair")
   outcol <- frame[[truthVar]]==truthTarget
+  FalsePositiveRate <- NULL  # don't look unbound in CRAN check
+  TruePositiveRate <- NULL  # don't look unbound in CRAN check
+  model <- NULL  # don't look unbound in CRAN check
   if(length(unique(outcol))!=2) {
     return(NULL)
   }
@@ -491,6 +496,11 @@ ROCPlotList <- function(
     function(v) {paste0(v,', AUC=',sprintf('%.2g',rocLists[[v]]$area))}
   )
 
+  FalsePositiveRate <- NULL  # don't look unbound in CRAN check
+  TruePositiveRate <- NULL  # don't look unbound in CRAN check
+  model <- NULL  # don't look unbound in CRAN check
+  dataset <- NULL  # don't look unbound in CRAN check
+
   for(v in xvar_names) {
     rocLists[[v]]$pointGraph$model <- nmList[[v]]
     rocLists[[v]]$lineGraph$model <- nmList[[v]]
@@ -611,6 +621,12 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
                                   name_var_list = list(xvar2 = xvar2, truthVar2 = truthVar2),
                                   title = title,
                                   funname = "WVPlots::ROCPlotPair2")
+
+  FalsePositiveRate <- NULL  # don't look unbound in CRAN check
+  TruePositiveRate <- NULL  # don't look unbound in CRAN check
+  model <- NULL  # don't look unbound in CRAN check
+  dataset <- NULL  # don't look unbound in CRAN check
+
   test <- NULL # used as a symbol, declare not an unbound variable
   outcol1 <- frame1[[truthVar1]]==truthTarget1
   if(length(unique(outcol1))!=2) {

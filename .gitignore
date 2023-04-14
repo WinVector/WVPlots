@@ -5,3 +5,5 @@ inst/doc
 *~
 .DS_Store
 CRAN-RELEASE
+/doc/
+/Meta/

@@ -18,9 +18,11 @@
 #' xvar <- 'x'  # the idea is, this is passed in and not known at coding time
 #' yvar <- 'y'
 #' # what we want:
-#' #  ggplot2::ggplot(data = d, mapping = ggplot2::aes_string(x = xvar, y = yvar)) + ggplot2::geom_point()
+#' #  ggplot2::ggplot(data = d, mapping = ggplot2::aes_string(x = xvar, y = yvar)) +
+#' #     ggplot2::geom_point()
 #' # The required "tidy evaluation ideoms[sic] with `aes()`".
-#' ggplot2::ggplot(data = d, mapping = ggplot2::aes(!!!simulate_aes_string(x = xvar, y = yvar))) + ggplot2::geom_point()
+#' ggplot2::ggplot(data = d, mapping = ggplot2::aes(!!!simulate_aes_string(x = xvar, y = yvar))) +
+#'    ggplot2::geom_point()
 #'
 #' @export
 simulate_aes_string <- function(...) {

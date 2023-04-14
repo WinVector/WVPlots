@@ -53,7 +53,7 @@ to the true outcome value.
 The x-axis represents the fraction of items seen when sorted by score, and the
 y-axis represents the cumulative summed true outcome represented by the items seen so far.
 See, for example,
-\url{https://www.ibm.com/support/knowledgecenter/SSLVMB_24.0.0/spss/tutorials/mlp_bankloan_outputtype_02.html}.
+\url{https://www.ibm.com/docs/SSLVMB_24.0.0/spss/tutorials/mlp_bankloan_outputtype_02.html}.
 
 For comparison, \code{GainCurvePlot} also plots the "wizard curve": the gain curve when the
 data is sorted according to its true outcome.
