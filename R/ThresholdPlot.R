@@ -254,13 +254,13 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
   metric <- NULL  # don't look like an unbound variable
 
   if(monochrome) {
-    ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
+    ggplot2::ggplot(data = stats, mapping = ggplot2::aes(!!!simulate_aes_string(x = 'threshold', y = 'value'))) +
       ggplot2::geom_line(color=linecolor) +
       ggplot2::facet_wrap(~metric, ncol = 1) +
       ggplot2::ylim(c(0, 1)) +
       ggplot2::ggtitle(title)
   } else {
-    p = ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = 'threshold', y = 'value')) +
+    p = ggplot2::ggplot(data = stats, mapping = ggplot2::aes(!!!simulate_aes_string(x = 'threshold', y = 'value'))) +
       ggplot2::geom_line(aes(color=metric)) +
       ggplot2::facet_wrap(~metric, ncol = 1) +
       ggplot2::ylim(c(0, 1)) +
@@ -382,7 +382,7 @@ MetricPairPlot <- function(frame, xvar, truthVar, title,
   stats <- stats[ , c(x_metric, y_metric), drop = FALSE]
   # re-order for plotting
   stats <- stats[order(stats[[x_metric]], stats[[y_metric]]), , drop = FALSE]
-  ggplot2::ggplot(data = stats, mapping = ggplot2::aes_string(x = x_metric, y = y_metric)) +
+  ggplot2::ggplot(data = stats, mapping = ggplot2::aes(!!!simulate_aes_string(x = x_metric, y = y_metric))) +
     ggplot2::geom_line(color=linecolor) +
     ggplot2::ggtitle(title)
 }

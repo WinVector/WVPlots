@@ -98,10 +98,10 @@ ClevelandDotPlot = function(frm, xvar, title, ...,
   }
   frm$count = 1
   if(stem) {
-    p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar, y="count")) +
+    p = ggplot2::ggplot(data = frm, mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar, y="count"))) +
       ggplot2::stat_summary(fun.data=stemdotstats, geom="pointrange", color=color)
   } else {
-    p = ggplot2::ggplot(frm, ggplot2::aes_string(x=xvar)) +
+    p = ggplot2::ggplot(data = frm, mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar))) +
       ggplot2::geom_point(stat="count", color=color)
   }
   p + ggplot2::ggtitle(title)

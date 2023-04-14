@@ -111,11 +111,14 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,
     p = ggplot2::ggplot()
     if(!is.null(point_color)) {
       p = p + ggplot2::geom_point(data=frame,
-                                  ggplot2::aes_string(x=xvar, y=yvar),
+                                  mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar, y=yvar)),
                                   color=point_color,
                                   alpha=point_alpha)
     }
-    p = p + ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar, y="smooth"), color=smooth_color)
+    p = p + ggplot2::geom_line(
+      data=fs,
+      mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar, y="smooth")),
+                           color=smooth_color)
   } else{
     gplist = unique(fs[[groupvar]])
     for(gp in gplist) {
@@ -126,10 +129,11 @@ ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,
     p =  ggplot2::ggplot()
     if(!is.null(point_color)) {
       p = p + ggplot2::geom_point(data=frame,
-                                  ggplot2::aes_string(x=xvar, y=yvar, color=groupvar),
+                                  mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar, y=yvar, color=groupvar)),
                                   alpha=point_alpha)
     }
-    p = p + ggplot2::geom_line(data=fs, ggplot2::aes_string(x=xvar,y="smooth",color=groupvar))
+    p = p + ggplot2::geom_line(data=fs,
+                               mapping=ggplot2::aes(!!!simulate_aes_string(x=xvar,y="smooth",color=groupvar)))
     if(!is.null(palette)) {
       p = p + ggplot2::scale_color_brewer(palette=palette)
     }
