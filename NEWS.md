@@ -1,7 +1,8 @@
 
-# WVPlots 1.3.3 2021-04-10
+# WVPlots 1.3.3 2023-04-14
 
  * Documentation fixes.
+ * Work away from aes_string().
 
 # WVPlots 1.3.2 2021-01-04
 
