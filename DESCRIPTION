@@ -1,7 +1,7 @@
 Package: WVPlots
 Type: Package
 Title: Common Plots for Analysis
-Version: 1.3.3
+Version: 1.3.4
 Date: 2023-04-14
 Authors@R: c(
     person("John", "Mount", email = "jmount@win-vector.com", role = c("aut", "cre")),
