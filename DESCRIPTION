@@ -19,13 +19,13 @@ License: GPL-2 | GPL-3
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.4.0),
-    wrapr (>= 2.0.6)
+    wrapr (>= 2.0.9)
 Imports: 
     ggplot2 (>= 3.3.0),
-    sigr (>= 1.1.3),
-    cdata (>= 1.1.9),
-    rqdatatable (>= 1.2.9),
-    rquery (>= 1.4.6),
+    sigr (>= 1.1.4),
+    cdata (>= 1.2.0),
+    rqdatatable (>= 1.3.1),
+    rquery (>= 1.4.9),
     utils,
     grid,
     gridExtra,
