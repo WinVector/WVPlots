@@ -87,7 +87,7 @@ plt <- plot_fit_trajectory(
   pick_metric = "minus binary cross entropy",
   discount_rate = 0.1)
 
-suppressWarnings(print(plt)) # too few points for loess
+print(plt)
 
 }
 \seealso{

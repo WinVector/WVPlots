@@ -2,7 +2,8 @@
 
 # WVPlots 1.3.4 2023-04-14
 
- * TODOs
+ * Fix docs.
+ * Remove smoother from perf graphs.
 
 # WVPlots 1.3.3 2023-04-14
 

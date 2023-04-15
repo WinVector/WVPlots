@@ -86,7 +86,7 @@ plt <- plot_Keras_fit_trajectory(
   d,
   title = "model performance by epoch, dataset, and measure")
 
-suppressWarnings(print(plt)) # too few points for loess
+print(plt)
 
 }
 \seealso{

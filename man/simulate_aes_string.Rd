@@ -2,7 +2,7 @@
 % Please edit documentation in R/SimulateAESString.R
 \name{simulate_aes_string}
 \alias{simulate_aes_string}
-\title{Simulate the needlessly deprecated \code{ggplot2::aes_string()}.}
+\title{Simulate the deprecated \code{ggplot2::aes_string()}.}
 \usage{
 simulate_aes_string(...)
 }
@@ -10,13 +10,12 @@ simulate_aes_string(...)
 \item{...}{named string arguments to turn into symbols using `rlang::data_sym()`.}
 }
 \value{
-some rlang NSE that simulates values at great complexity (but needed for newer ggplot2()).
+some rlang NSE that simulates string values at great complexity (but needed for newer ggplot2()).
 }
 \description{
-Use to allow (needlessly) replacing code of the form \code{ggplot2::aes_string(...)}
+Use to allow replacing code of the form \code{ggplot2::aes_string(...)}
 with code of the form \code{ggplot2::aes(!!!simulate_aes_string(...))}.
 Purpose is to get out of the way of the deprecation and possible future removal of \code{ggplot2::aes_string()}.
-This will itself break when \code{rlang} again chantes its API and deprecates the affordances used.
 Inspired by the research of \url{https://stackoverflow.com/a/74424353/6901725}.
 }
 \examples{
