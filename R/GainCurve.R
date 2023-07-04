@@ -620,7 +620,7 @@ GainCurvePlotWithNotation = function(frame,
     ggplot2::geom_hline(yintercept = gainy,
                         color = crosshair_color,
                         alpha = 0.5) +
-    ggplot2::scale_shape_discrete(guide = FALSE) +
+    ggplot2::scale_shape_discrete(guide = "none") +
     ggplot2::annotate(
       geom = "text",
       x = gainx + 0.01,
