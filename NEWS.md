@@ -1,9 +1,10 @@
 
 
-# WVPlots 1.3.4 2023-04-14
+# WVPlots 1.3.4 2023-07-25
 
  * Fix docs.
  * Remove smoother from perf graphs.
+ * ggplot2 API changes.
 
 # WVPlots 1.3.3 2023-04-14
 

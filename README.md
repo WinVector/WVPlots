@@ -1,5 +1,5 @@
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/WVPlots)](https://cran.r-project.org/package=WVPlots)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/WVPlots)](https://cran.r-project.org/package=WVPlots)
 [![status](https://tinyverse.netlify.com/badge/WVPlots)](https://CRAN.R-project.org/package=WVPlots)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,12 +16,12 @@ Website: <https://github.com/WinVector/WVPlots>
 
 More notes:
 
-  - <https://win-vector.com/2013/02/18/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
-  - <https://win-vector.com/2011/12/05/my-favorite-graphs/>
-  - <https://win-vector.com/2020/08/17/unrolling-the-roc/>
-  - <https://win-vector.com/2009/11/03/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/>
+- <https://win-vector.com/2013/02/18/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2/>
+- <https://win-vector.com/2011/12/05/my-favorite-graphs/>
+- <https://win-vector.com/2020/08/17/unrolling-the-roc/>
+- <https://win-vector.com/2009/11/03/i-dont-think-that-means-what-you-think-it-means-statistics-to-english-translation-part-1-accuracy-measures/>
 
------
+------------------------------------------------------------------------
 
 To install from CRAN:
 
