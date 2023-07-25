@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://win-vector.com/">Sponsor: Win-Vector LLC</a>
+  <a href="https://win-vector.com/" class="external-link">Sponsor: Win-Vector LLC</a>
 </li>
       </ul>
 </div>
@@ -79,122 +75,173 @@
 
       
 
-      </header><script src="WVPlots_concept_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>WVPlots concept</h1>
-                        <h4 class="author">Win-Vector LLC</h4>
+                        <h4 data-toc-skip class="author">Win-Vector
+LLC</h4>
             
-            <h4 class="date">2021-04-10</h4>
+            <h4 data-toc-skip class="date">2023-07-25</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/master/vignettes/WVPlots_concept.Rmd"><code>vignettes/WVPlots_concept.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/WinVector/WVPlots/blob/HEAD/vignettes/WVPlots_concept.Rmd" class="external-link"><code>vignettes/WVPlots_concept.Rmd</code></a></small>
       <div class="hidden name"><code>WVPlots_concept.Rmd</code></div>
 
     </div>
 
     
     
-<p><a target="_blank" href="https://win-vector.com/nina-zumel/">Nina Zumel</a> and <a target="_blank" href="https://win-vector.com/john-mount/">I</a> have been working on packaging our <a target="_blank" href="https://win-vector.com/2011/12/05/my-favorite-graphs/">favorite graphing techniques</a> in a more reusable way that emphasizes the analysis task at hand over the steps needed to produce a good visualization. The idea is: we sacrifice some of the flexibility and composability inherent to <a target="_blank" href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> in <a target="_blank" href="https://cran.r-project.org">R</a> for a menu of prescribed presentation solutions.</p>
-<p>For example the plot below showing both an observed discrete empirical distribution (as stems) and a matching theoretical distribution (as bars) is a built in “one liner.”</p>
+<p><a target="_blank" href="https://win-vector.com/nina-zumel/" class="external-link">Nina
+Zumel</a> and
+<a target="_blank" href="https://win-vector.com/john-mount/" class="external-link">I</a> have
+been working on packaging our
+<a target="_blank" href="https://win-vector.com/2011/12/05/my-favorite-graphs/" class="external-link">favorite
+graphing techniques</a> in a more reusable way that emphasizes the
+analysis task at hand over the steps needed to produce a good
+visualization. The idea is: we sacrifice some of the flexibility and
+composability inherent to
+<a target="_blank" href="https://CRAN.R-project.org/package=ggplot2" class="external-link">ggplot2</a>
+in <a target="_blank" href="https://cran.r-project.org" class="external-link">R</a> for a menu
+of prescribed presentation solutions.</p>
+<p>For example the plot below showing both an observed discrete
+empirical distribution (as stems) and a matching theoretical
+distribution (as bars) is a built in “one liner.”</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">52523</span><span class="op">)</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  wt <span class="op">=</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/PlotDistCountNormal.html">PlotDistCountNormal</a></span><span class="op">(</span><span class="va">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">52523</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  wt <span class="op">=</span> <span class="fl">100</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/PlotDistCountNormal.html">PlotDistCountNormal</a></span><span class="op">(</span><span class="va">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
-<p>The graph above is actually the product of a number of presentation decisions:</p>
+<p>The graph above is actually the product of a number of presentation
+decisions:</p>
 <ul>
-<li>Using a discrete histogram approach to summarize data (instead of a kernel density approach) to create a presentation more familiar to business partners.</li>
-<li>Using a Cleveland style dot with stem plot instead of wide bars to emphasize the stem heights represent total counts (and not the usual accidental misapprehension that bar <em>areas</em> represent totals).</li>
-<li>Automatically fitting and rendering the matching (properly count-scaled) normal distribution as thin translucent bars for easy comparison (again to try and de-emphasize area).</li>
+<li>Using a discrete histogram approach to summarize data (instead of a
+kernel density approach) to create a presentation more familiar to
+business partners.</li>
+<li>Using a Cleveland style dot with stem plot instead of wide bars to
+emphasize the stem heights represent total counts (and not the usual
+accidental misapprehension that bar <em>areas</em> represent
+totals).</li>
+<li>Automatically fitting and rendering the matching (properly
+count-scaled) normal distribution as thin translucent bars for easy
+comparison (again to try and de-emphasize area).</li>
 </ul>
-<p>All of these decisions are triggered by choosing which plot to use from the WVPlots library. In this case we chose <code><a href="../reference/PlotDistCountNormal.html">WVPlots::PlotDistCountNormal</a></code>. For an audience of analysts we might choose an area/density based representation (by instead specifying <code><a href="../reference/PlotDistDensityNormal.html">WVPlots::PlotDistDensityNormal</a></code>) which is shown below:</p>
+<p>All of these decisions are triggered by choosing which plot to use
+from the WVPlots library. In this case we chose
+<code><a href="../reference/PlotDistCountNormal.html">WVPlots::PlotDistCountNormal</a></code>. For an audience of analysts
+we might choose an area/density based representation (by instead
+specifying <code><a href="../reference/PlotDistDensityNormal.html">WVPlots::PlotDistDensityNormal</a></code>) which is shown
+below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/PlotDistDensityNormal.html">PlotDistDensityNormal</a></span><span class="op">(</span><span class="va">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/PlotDistDensityNormal.html">PlotDistDensityNormal</a></span><span class="op">(</span><span class="va">d</span>,<span class="st">'wt'</span>,<span class="st">'example'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<p>Switching the chosen plot simultaneously changes many of the details of the presentation. WVPlots is designed to make this change simple by insisting an a very simple unified calling convention. The plot calls all insist on roughly the following arguments:</p>
+<p>Switching the chosen plot simultaneously changes many of the details
+of the presentation. WVPlots is designed to make this change simple by
+insisting an a very simple unified calling convention. The plot calls
+all insist on roughly the following arguments:</p>
 <ul>
 <li>frame: data frame containing the data to be presented.</li>
 <li>xvar: name of the x variable column in the data frame.</li>
-<li>yvar: name of the y variable column in the data frame (not part of the shown density plots!).</li>
+<li>yvar: name of the y variable column in the data frame (not part of
+the shown density plots!).</li>
 <li>title: text title for the plot.</li>
 </ul>
-<p>This intentionally rigid calling interface is easy to remember and makes switching between plot types very easy. We have also make <code>title</code> a required argument, as we feel all plots should be labeled.</p>
-<p>What we are trying to do is separate the specification of exactly what plot we want from the details of how to produce it. We find this separation of concerns and encapsulation of implementation allows us to routinely use rich annotated graphics. Below are a few more examples:</p>
+<p>This intentionally rigid calling interface is easy to remember and
+makes switching between plot types very easy. We have also make
+<code>title</code> a required argument, as we feel all plots should be
+labeled.</p>
+<p>What we are trying to do is separate the specification of exactly
+what plot we want from the details of how to produce it. We find this
+separation of concerns and encapsulation of implementation allows us to
+routinely use rich annotated graphics. Below are a few more
+examples:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x<span class="op">=</span><span class="va">x</span>,
-  y<span class="op">=</span><span class="va">y</span>,
-  yC<span class="op">=</span><span class="va">y</span><span class="op">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">y</span>,probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">frm</span><span class="op">$</span><span class="va">absY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
-<span class="va">frm</span><span class="op">$</span><span class="va">posY</span> <span class="op">=</span> <span class="va">frm</span><span class="op">$</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span>
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, smoothmethod<span class="op">=</span><span class="st">"lm"</span>, 
-                     title<span class="op">=</span><span class="st">"Example Linear Fit"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  x<span class="op">=</span><span class="va">x</span>,</span>
+<span>  y<span class="op">=</span><span class="va">y</span>,</span>
+<span>  yC<span class="op">=</span><span class="va">y</span><span class="op">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">y</span>,probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">absY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">posY</span> <span class="op">=</span> <span class="va">frm</span><span class="op">$</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ScatterHist.html">ScatterHist</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, smoothmethod<span class="op">=</span><span class="st">"lm"</span>, </span>
+<span>                     title<span class="op">=</span><span class="st">"Example Linear Fit"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(density)` instead.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">WVPlots</span> package.</span></span>
+<span><span class="co">##   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/WinVector/WVPlots/issues&gt;</span>.</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span>
-<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">y</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  model<span class="op">=</span><span class="va">x</span>, 
-  value<span class="op">=</span><span class="va">y</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">frm</span><span class="op">$</span><span class="va">costs</span><span class="op">=</span><span class="fl">1</span>
-<span class="va">frm</span><span class="op">$</span><span class="va">costs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">=</span><span class="fl">5</span>
-<span class="va">frm</span><span class="op">$</span><span class="va">rate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">frm</span>, <span class="va">value</span><span class="op">/</span><span class="va">costs</span><span class="op">)</span>
-
-<span class="va">frm</span><span class="op">$</span><span class="va">isValuable</span> <span class="op">=</span> <span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">value</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">value</span>, probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">gainx</span> <span class="op">=</span> <span class="fl">0.10</span>  <span class="co"># get the top 10% most valuable points as sorted by the model</span>
-
-<span class="co"># make a function to calculate the label for the annotated point</span>
-<span class="va">labelfun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">gx</span>, <span class="va">gy</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">pctx</span> <span class="op">=</span> <span class="va">gx</span><span class="op">*</span><span class="fl">100</span>
-  <span class="va">pcty</span> <span class="op">=</span> <span class="va">gy</span><span class="op">*</span><span class="fl">100</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"The top "</span>, <span class="va">pctx</span>, <span class="st">"% most valuable points by the model\n"</span>,
-        <span class="st">"are "</span>, <span class="va">pcty</span>, <span class="st">"% of total actual value"</span>, sep<span class="op">=</span><span class="st">''</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/GainCurvePlotWithNotation.html">GainCurvePlotWithNotation</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>, 
-                                   title<span class="op">=</span><span class="st">"Example Gain Curve with annotation"</span>, 
-                          gainx<span class="op">=</span><span class="va">gainx</span>,labelfun<span class="op">=</span><span class="va">labelfun</span><span class="op">)</span> </code></pre></div>
-<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">52523</span><span class="op">)</span>
-<span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  meas<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">threshold</span> <span class="op">=</span> <span class="fl">1.5</span>
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"meas"</span>, <span class="va">threshold</span>, tail<span class="op">=</span><span class="st">"right"</span>, 
-                       title<span class="op">=</span><span class="st">"Example shaded density plot, right tail"</span><span class="op">)</span></code></pre></div>
-<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span></span>
+<span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">y</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  model<span class="op">=</span><span class="va">x</span>, </span>
+<span>  value<span class="op">=</span><span class="va">y</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">costs</span><span class="op">=</span><span class="fl">1</span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">costs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">=</span><span class="fl">5</span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">rate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">frm</span>, <span class="va">value</span><span class="op">/</span><span class="va">costs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">isValuable</span> <span class="op">=</span> <span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">value</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">frm</span><span class="op">$</span><span class="va">value</span>, probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">gainx</span> <span class="op">=</span> <span class="fl">0.10</span>  <span class="co"># get the top 10% most valuable points as sorted by the model</span></span>
+<span></span>
+<span><span class="co"># make a function to calculate the label for the annotated point</span></span>
+<span><span class="va">labelfun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">gx</span>, <span class="va">gy</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">pctx</span> <span class="op">=</span> <span class="va">gx</span><span class="op">*</span><span class="fl">100</span></span>
+<span>  <span class="va">pcty</span> <span class="op">=</span> <span class="va">gy</span><span class="op">*</span><span class="fl">100</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The top "</span>, <span class="va">pctx</span>, <span class="st">"% most valuable points by the model\n"</span>,</span>
+<span>        <span class="st">"are "</span>, <span class="va">pcty</span>, <span class="st">"% of total actual value"</span>, sep<span class="op">=</span><span class="st">''</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/GainCurvePlotWithNotation.html">GainCurvePlotWithNotation</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"model"</span>, <span class="st">"value"</span>, </span>
+<span>                                   title<span class="op">=</span><span class="st">"Example Gain Curve with annotation"</span>, </span>
+<span>                          gainx<span class="op">=</span><span class="va">gainx</span>,labelfun<span class="op">=</span><span class="va">labelfun</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span>
-<span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,
-  y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">frm</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">frm</span><span class="op">$</span><span class="va">x</span><span class="op">+</span><span class="va">frm</span><span class="op">$</span><span class="va">y</span>
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ScatterHistN.html">ScatterHistN</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, title<span class="op">=</span><span class="st">"Example Joint Distribution"</span><span class="op">)</span></code></pre></div>
-<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">52523</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  meas<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">threshold</span> <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ShadedDensity.html">ShadedDensity</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"meas"</span>, <span class="va">threshold</span>, tail<span class="op">=</span><span class="st">"right"</span>, </span>
+<span>                       title<span class="op">=</span><span class="st">"Example shaded density plot, right tail"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">x</span>,
-  yC <span class="op">=</span> <span class="va">y</span><span class="op">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">y</span>,probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ROCPlot.html">ROCPlot</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"yC"</span>, <span class="cn">TRUE</span>, title<span class="op">=</span><span class="st">"Example ROC plot"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span></span>
+<span><span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,</span>
+<span>  y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">frm</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">frm</span><span class="op">$</span><span class="va">x</span><span class="op">+</span><span class="va">frm</span><span class="op">$</span><span class="va">y</span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ScatterHistN.html">ScatterHistN</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span>, title<span class="op">=</span><span class="st">"Example Joint Distribution"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">frm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>  yC <span class="op">=</span> <span class="va">y</span><span class="op">&gt;=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">y</span>,probs<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="../reference/ROCPlot.html">ROCPlot</a></span><span class="op">(</span><span class="va">frm</span>, <span class="st">"x"</span>, <span class="st">"yC"</span>, <span class="cn">TRUE</span>, title<span class="op">=</span><span class="st">"Example ROC plot"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="WVPlots_concept_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
-<p>We know this collection doesn’t rise to the standard of a complete “grammar of graphics” (as in Leland Wilkinson’s ideas). But it can become (through accumulation) a re-usable repository of a number of specific graphing tasks done well. It is also a chance to eventually document presentation design decisions (though we haven’t gotten far on that yet). The complete set of graphs is shown in the <code>WVPlots_example</code> vignette.</p>
+<p>We know this collection doesn’t rise to the standard of a complete
+“grammar of graphics” (as in Leland Wilkinson’s ideas). But it can
+become (through accumulation) a re-usable repository of a number of
+specific graphing tasks done well. It is also a chance to eventually
+document presentation design decisions (though we haven’t gotten far on
+that yet). The complete set of graphs is shown in the
+<code>WVPlots_example</code> vignette.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -206,11 +253,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by John Mount, Nina Zumel.</p>
+  <p></p>
+<p>Developed by John Mount, Nina Zumel.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -218,6 +267,8 @@
 
   
 
+
+  
 
   </body>
 </html>

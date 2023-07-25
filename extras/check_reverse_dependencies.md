@@ -1,4 +1,4 @@
-check\_reverse\_dependencies
+check_reverse_dependencies
 ================
 
 ``` r
@@ -8,13 +8,13 @@ package = "WVPlots"
 date()
 ```
 
-    ## [1] "Mon Jan  4 12:41:24 2021"
+    ## [1] "Tue Jul 25 06:39:09 2023"
 
 ``` r
 packageVersion(package)
 ```
 
-    ## [1] '1.3.2'
+    ## [1] '1.3.4'
 
 ``` r
 parallelCluster <- NULL
@@ -33,7 +33,7 @@ setwd(td)
 print(td)
 ```
 
-    ## [1] "/var/folders/7f/sdjycp_d08n8wwytsbgwqgsw0000gn/T//RtmpUBS2yh"
+    ## [1] "/var/folders/7f/sdjycp_d08n8wwytsbgwqgsw0000gn/T//RtmpHuX0bQ"
 
 ``` r
 options(repos = c(CRAN="https://cloud.r-project.org"))

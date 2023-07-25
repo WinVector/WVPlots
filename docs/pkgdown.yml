@@ -1,11 +1,11 @@
-pandoc: 2.11.4
-pkgdown: 1.6.1
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   WVPlots_concept: WVPlots_concept.html
   WVPlots_examples: WVPlots_examples.html
-last_built: 2021-04-10T22:22Z
+last_built: 2023-07-25T13:43Z
 urls:
-  reference: https://winvector.github.io/WVPlots//reference
-  article: https://winvector.github.io/WVPlots//articles
+  reference: https://winvector.github.io/WVPlots/reference
+  article: https://winvector.github.io/WVPlots/articles
 
