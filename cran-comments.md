@@ -24,6 +24,28 @@
 ### Windows
 
   devtools::check_win_devel()
+  * using log directory 'd:/RCompile/CRANguest/R-devel/WVPlots.Rcheck'
+  * using R Under development (unstable) (2023-07-24 r84748 ucrt)
+  * using platform: x86_64-w64-mingw32
+  * R was compiled by
+      gcc.exe (GCC) 12.2.0
+      GNU Fortran (GCC) 12.2.0
+  * running under: Windows Server 2022 x64 (build 20348)
+  * using session charset: UTF-8
+  * checking for file 'WVPlots/DESCRIPTION' ... OK
+  * checking extension type ... Package
+  * this is package 'WVPlots' version '1.3.4'
+  * checking CRAN incoming feasibility ... [11s] NOTE
+  Maintainer: 'John Mount <jmount@win-vector.com>'
+  
+  Found the following (possibly) invalid URLs:
+    URL: https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210
+      From: man/ROCPlot.Rd
+      Status: 403
+      Message: Forbidden
+  ...
+  * DONE
+  Status: 1 NOTE
 
 ### Linux
 
