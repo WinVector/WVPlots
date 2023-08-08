@@ -43,15 +43,17 @@ NULL
 #' # compare to empirical p
 #' PlotDistCountBinomial(fdata, "n_female", class_size, title)
 #'
-#' # compare to theoretical p of 0.5
-#' PlotDistCountBinomial(fdata, "n_female", class_size, title,
-#'                       p = 0.5)
+#' if(FALSE) {
+#'   # compare to theoretical p of 0.5
+#'   PlotDistCountBinomial(fdata, "n_female", class_size, title,
+#'                         p = 0.5)
 #'
-#' # Example where the distribution is not of a true single binomial
-#' fdata2 = rbind(data.frame(n_female = rbinom(50, class_size, 0.25)),
-#'                data.frame(n_female = rbinom(10, class_size, 0.60)),
-#'                stringsAsFactors = FALSE )
-#' PlotDistCountBinomial(fdata2, "n_female", class_size, title)
+#'   # Example where the distribution is not of a true single binomial
+#'   fdata2 = rbind(data.frame(n_female = rbinom(50, class_size, 0.25)),
+#'                 data.frame(n_female = rbinom(10, class_size, 0.60)),
+#'                 stringsAsFactors = FALSE )
+#'   PlotDistCountBinomial(fdata2, "n_female", class_size, title)
+#' }
 #'
 #' @export
 PlotDistCountBinomial = function(frm, xvar, trial_size, title, ...,

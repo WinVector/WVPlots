@@ -194,6 +194,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #'    title = 'Sensitivity/Specificity',
 #'    metrics = c('sensitivity', 'specificity'),
 #'    truth_target = TRUE)
+#' if(FALSE) {
 #' MetricPairPlot(d, 'x', 'y',
 #'    x_metric = 'false_positive_rate',
 #'    y_metric = 'true_positive_rate',
@@ -216,6 +217,7 @@ ThresholdStats <- function(frame, xvar, truthVar,
 #' PRPlot(d, 'x', 'y',
 #'    truthTarget = TRUE,
 #'    title = 'p/r plot')
+#' }
 #'
 ThresholdPlot <- function(frame, xvar, truthVar, title,
                           ...,
@@ -328,15 +330,16 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' )
 #'
 #' # Sensitivity/Specificity examples
-#' ThresholdPlot(d, 'x', 'y',
-#'    title = 'Sensitivity/Specificity',
-#'    metrics = c('sensitivity', 'specificity'),
-#'    truth_target = TRUE)
 #' MetricPairPlot(d, 'x', 'y',
 #'    x_metric = 'false_positive_rate',
 #'    y_metric = 'true_positive_rate',
 #'    truth_target = TRUE,
 #'    title = 'ROC equivalent')
+#' if(FALSE) {
+#' ThresholdPlot(d, 'x', 'y',
+#'    title = 'Sensitivity/Specificity',
+#'    metrics = c('sensitivity', 'specificity'),
+#'    truth_target = TRUE)
 #' ROCPlot(d, 'x', 'y',
 #'    truthTarget = TRUE,
 #'    title = 'ROC example')
@@ -354,6 +357,7 @@ ThresholdPlot <- function(frame, xvar, truthVar, title,
 #' PRPlot(d, 'x', 'y',
 #'    truthTarget = TRUE,
 #'    title = 'p/r plot')
+#' }
 #'
 MetricPairPlot <- function(frame, xvar, truthVar, title,
                           ...,

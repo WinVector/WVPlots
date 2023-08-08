@@ -79,15 +79,16 @@ d <- rbind(
 )
 
 # Sensitivity/Specificity examples
-ThresholdPlot(d, 'x', 'y',
-   title = 'Sensitivity/Specificity',
-   metrics = c('sensitivity', 'specificity'),
-   truth_target = TRUE)
 MetricPairPlot(d, 'x', 'y',
    x_metric = 'false_positive_rate',
    y_metric = 'true_positive_rate',
    truth_target = TRUE,
    title = 'ROC equivalent')
+if(FALSE) {
+ThresholdPlot(d, 'x', 'y',
+   title = 'Sensitivity/Specificity',
+   metrics = c('sensitivity', 'specificity'),
+   truth_target = TRUE)
 ROCPlot(d, 'x', 'y',
    truthTarget = TRUE,
    title = 'ROC example')
@@ -105,6 +106,7 @@ MetricPairPlot(d, 'x', 'y',
 PRPlot(d, 'x', 'y',
    truthTarget = TRUE,
    title = 'p/r plot')
+}
 
 }
 \seealso{

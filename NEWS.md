@@ -1,5 +1,9 @@
 
 
+# WVPlots 1.3.5 2023-08-08
+
+ * Fix false-positive CRAN checks.
+
 # WVPlots 1.3.4 2023-08-08
 
  * Fix docs.

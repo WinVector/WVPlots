@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">WVPlots</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.5</span>
       </span>
     </div>
 
@@ -159,40 +159,35 @@ visualizing very large data sets.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Sensitivity/Specificity examples</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="ThresholdPlot.html">ThresholdPlot</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
-<span class="r-in"><span>   title <span class="op">=</span> <span class="st">'Sensitivity/Specificity'</span>,</span></span>
-<span class="r-in"><span>   metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'sensitivity'</span>, <span class="st">'specificity'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   truth_target <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="MetricPairPlot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">MetricPairPlot</span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
 <span class="r-in"><span>   x_metric <span class="op">=</span> <span class="st">'false_positive_rate'</span>,</span></span>
 <span class="r-in"><span>   y_metric <span class="op">=</span> <span class="st">'true_positive_rate'</span>,</span></span>
 <span class="r-in"><span>   truth_target <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>   title <span class="op">=</span> <span class="st">'ROC equivalent'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="MetricPairPlot-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="MetricPairPlot-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ThresholdPlot.html">ThresholdPlot</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
+<span class="r-in"><span>   title <span class="op">=</span> <span class="st">'Sensitivity/Specificity'</span>,</span></span>
+<span class="r-in"><span>   metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'sensitivity'</span>, <span class="st">'specificity'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   truth_target <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ROCPlot.html">ROCPlot</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
 <span class="r-in"><span>   truthTarget <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>   title <span class="op">=</span> <span class="st">'ROC example'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="MetricPairPlot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Precision/Recall examples</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ThresholdPlot.html">ThresholdPlot</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
 <span class="r-in"><span>   title <span class="op">=</span> <span class="st">'precision/recall'</span>,</span></span>
 <span class="r-in"><span>   metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'recall'</span>, <span class="st">'precision'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   truth_target <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 1 row containing missing values (`geom_line()`).</span>
-<span class="r-plt img"><img src="MetricPairPlot-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">MetricPairPlot</span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
 <span class="r-in"><span>   x_metric <span class="op">=</span> <span class="st">'recall'</span>,</span></span>
 <span class="r-in"><span>   y_metric <span class="op">=</span> <span class="st">'precision'</span>,</span></span>
 <span class="r-in"><span>   title <span class="op">=</span> <span class="st">'recall/precision'</span>,</span></span>
 <span class="r-in"><span>   truth_target <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 1 row containing missing values (`geom_line()`).</span>
-<span class="r-plt img"><img src="MetricPairPlot-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="PRPlot.html">PRPlot</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">'x'</span>, <span class="st">'y'</span>,</span></span>
 <span class="r-in"><span>   truthTarget <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>   title <span class="op">=</span> <span class="st">'p/r plot'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="MetricPairPlot-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
