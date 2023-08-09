@@ -1,4 +1,7 @@
 
+# WVPlots 1.3.6 2023-08-09
+
+ * Change URL \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210} to \doi{10.1177/0272989X15582210} at CRAN request.
 
 # WVPlots 1.3.5 2023-08-09
 

@@ -60,7 +60,7 @@ ROCPlot(
 
 \item{beta_ideal_curve_color}{color for ideal curve.}
 
-\item{add_beta1_ideal_curve}{logical, if TRUE add the beta(1, a), beta(b, 2) ideal curve defined in \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210}}
+\item{add_beta1_ideal_curve}{logical, if TRUE add the beta(1, a), beta(b, 2) ideal curve defined in \doi{10.1177/0272989X15582210}}
 
 \item{beta1_ideal_curve_color}{color for ideal curve.}
 
