@@ -20,14 +20,20 @@ NULL
 #' @param sd_color color for 1-standard deviation lines (can be NULL)
 #'
 #' @seealso \code{\link[ggplot2]{geom_density}}
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(52523)
 #' d <- data.frame(wt=100*rnorm(100))
 #' PlotDistDensityNormal(d,'wt','example')
 #'
-#' # no sd lines
-#' PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
+#' # # no sd lines
+#' # PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
 #'
 #' @export
 PlotDistDensityNormal <- function(frm, xvar, title, ...,
@@ -92,14 +98,20 @@ PlotDistDensityNormal <- function(frm, xvar, title, ...,
 #' @param normal_color color of matching theoretical normal
 #' @param mean_color color of mean line
 #' @param sd_color color of 1-standard deviation lines (can be NULL)
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(52523)
 #' d <- data.frame(wt=100*rnorm(100))
 #' PlotDistCountNormal(d,'wt','example')
 #'
-#' # no sd lines
-#' PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
+#' # # no sd lines
+#' # PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
 #'
 #' @export
 PlotDistCountNormal <- function(frm, xvar, title,
@@ -185,7 +197,13 @@ PlotDistCountNormal <- function(frm, xvar, title,
 #' @param beta_color color for matching theoretical beta
 #' @param mean_color color for mean line
 #' @param sd_color color for 1-standard deviation lines (can be NULL)
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(52523)
 #' N = 100
@@ -204,9 +222,9 @@ PlotDistCountNormal <- function(frm, xvar, title,
 #'   ggplot2::annotate("text", x=pgray+0.01, y=0.01, hjust="left",
 #'                     label = paste("True prevalence =", pgray))
 #'
-#' # no sd lines
-#' PlotDistDensityBeta(hdata, "rate_gray", title,
-#'                     sd_color=NULL)
+#' # # no sd lines
+#' # PlotDistDensityBeta(hdata, "rate_gray", title,
+#' #                     sd_color=NULL)
 #' @export
 PlotDistDensityBeta <- function(frm, xvar, title, ...,
                                 curve_color='lightgray',
@@ -275,8 +293,12 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
 #' @param sd_color color of 1-standard devation lines (can be NULL)
 #' @return ggplot2 plot
 #'
-#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(52523)
 #' N = 100
@@ -295,9 +317,9 @@ PlotDistDensityBeta <- function(frm, xvar, title, ...,
 #'   ggplot2::annotate("text", x=pgray+0.01, y=0.01, hjust="left",
 #'                     label = paste("True prevalence =", pgray))
 #'
-#' # no sd lines
-#' PlotDistHistBeta(hdata, "rate_gray", title,
-#'                     sd_color=NULL)
+#' # # no sd lines
+#' # PlotDistHistBeta(hdata, "rate_gray", title,
+#' #                     sd_color=NULL)
 #' @export
 PlotDistHistBeta <- function(frm, xvar, title,
                              ...,

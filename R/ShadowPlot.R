@@ -31,13 +31,20 @@
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' ShadowPlot(mtcars, "carb", "cyl",
 #'            title = "Number of example cars by carb and cyl counts")
 #'
+#' if (FALSE) {
 #' # colorcode the facets
 #' ShadowPlot(mtcars, "carb", "cyl",
 #'            monochrome = FALSE,
 #'            title = "Number of example cars by carb and cyl counts")
+#' }
 #'
 #' @export
 ShadowPlot = function(frm, condvar, refinevar, title, ...,

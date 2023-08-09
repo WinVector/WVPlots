@@ -18,7 +18,13 @@ is_integral = function(x) {
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param stem if TRUE add whisker/stems to plot
 #' @param color color of points and stems
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' frmx = data.frame(x = rbinom(1000, 20, 0.5))
 #' WVPlots::DiscreteDistribution(frmx, "x","Discrete example")

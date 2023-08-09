@@ -40,13 +40,20 @@ Plot the distribution of a variable with a tail shaded. Annotate with the area o
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(52523)
 d = data.frame(meas=rnorm(100))
 threshold = -1.5
 WVPlots::ShadedDensity(d, "meas", threshold,
                        title="Example shaded density plot, left tail")
+if (FALSE) {
 WVPlots::ShadedDensity(d, "meas", -threshold, tail="right",
                        title="Example shaded density plot, right tail")
+}
 
 }
 \seealso{

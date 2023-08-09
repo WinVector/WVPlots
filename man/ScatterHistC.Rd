@@ -50,6 +50,11 @@ discrete conditioning variable that indicates which category each point (x,y) be
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 frm = data.frame(x=rnorm(50),y=rnorm(50))
 frm$cat <- frm$x+frm$y>0

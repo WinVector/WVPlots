@@ -67,6 +67,11 @@ to use the wizard curve, set \code{sort_by_model = FALSE}
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 y = abs(rnorm(20)) + 0.1
 x = abs(y + 0.5*rnorm(20))

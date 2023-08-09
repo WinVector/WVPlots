@@ -31,7 +31,13 @@ NULL
 #' @param truth_target if not NULL compare to this scalar value.
 #' @param model_color color for the model curve
 #' @param wizard_color color for the "wizard" (best possible) curve
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1
@@ -170,7 +176,13 @@ LiftCurvePlot = function(frame, xvar, truthVar, title,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param truth_target if not NULL compare to this scalar value.
 #' @param palette color palette for the model curves
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1

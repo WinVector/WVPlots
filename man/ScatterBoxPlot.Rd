@@ -43,6 +43,11 @@ Plot a boxplot with the data points superimposed.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 classes = c("a", "b", "c")
 means = c(2, 4, 3)
 names(means) = classes

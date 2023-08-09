@@ -75,6 +75,11 @@ for some details.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 # example data (from Keras)
 d <- data.frame(
   val_loss = c(0.3769818, 0.2996994, 0.2963943, 0.2779052, 0.2842501),

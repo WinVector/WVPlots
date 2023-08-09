@@ -25,6 +25,11 @@ takes on a discrete set of values.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 frmx = data.frame(x = rbinom(1000, 20, 0.5))
 WVPlots::DiscreteDistribution(frmx, "x","Discrete example")
 

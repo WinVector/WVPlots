@@ -121,6 +121,11 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'data.table'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># don't multi-thread during CRAN checks</span></span></span>
+<span class="r-in"><span>    <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/openmp-utils.html" class="external-link">setDTthreads</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">34903490</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># discrete variable: letters of the alphabet</span></span></span>
 <span class="r-in"><span><span class="co"># frequencies of letters in English</span></span></span>
@@ -139,15 +144,13 @@
 <span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Example Cleveland-style dot plot"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ClevelandDotPlot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Note the use of sort = 0. Also note that the graph omits counts</span></span></span>
-<span class="r-in"><span><span class="co"># with no occurrences (5, and 7)</span></span></span>
-<span class="r-in"><span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu">ClevelandDotPlot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"carb"</span>, sort <span class="op">=</span> <span class="fl">0</span>, <span class="st">"Example of counting integer values"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ClevelandDotPlot-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># # Note the use of sort = 0. Also note that the graph omits counts</span></span></span>
+<span class="r-in"><span><span class="co"># # with no occurrences (5, and 7)</span></span></span>
+<span class="r-in"><span><span class="co"># WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># For counting integer values while including counts with no occurrences,</span></span></span>
-<span class="r-in"><span><span class="co"># use Discrete Distribution.</span></span></span>
-<span class="r-in"><span><span class="fu">WVPlots</span><span class="fu">::</span><span class="fu"><a href="DiscreteDistribution.html">DiscreteDistribution</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"carb"</span>, <span class="st">"Better way to count integer values"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ClevelandDotPlot-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># # For counting integer values while including counts with no occurrences,</span></span></span>
+<span class="r-in"><span><span class="co"># # use Discrete Distribution.</span></span></span>
+<span class="r-in"><span><span class="co"># WVPlots::DiscreteDistribution(mtcars, "carb", "Better way to count integer values")</span></span></span>
 </code></pre></div>
     </div>
   </div>

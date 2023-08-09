@@ -23,6 +23,11 @@
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' frm = data.frame(x=rnorm(50),y=rnorm(50))
 #' frm$cat <- frm$x+frm$y>0
@@ -206,6 +211,11 @@ ScatterHistC = function(frame, xvar, yvar, cvar, title, ...,
 #' @seealso \code{\link{ScatterHistC}}
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' frm = data.frame(x=rnorm(50),y=rnorm(50))

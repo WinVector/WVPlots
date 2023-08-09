@@ -109,7 +109,13 @@ thin_frame_by_orders <- function(d, cols, groupcol, large_count) {
 #' @param model_color color for the model curve
 #' @param wizard_color color for the "wizard" (best possible) curve
 #' @param shadow_color color for the shaded area under the curve
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1
@@ -346,6 +352,11 @@ makeRelativeGiniCostScorer <- function(costcol) {
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1
 #' x = abs(y + 0.5*rnorm(20))
@@ -548,6 +559,11 @@ get_gainy = function(frame, xvar, truthVar, gainx) {
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1
 #' x = abs(y + 0.5*rnorm(20))
@@ -655,7 +671,13 @@ GainCurvePlotWithNotation = function(frame,
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param truth_target if not NULL compare to this scalar value.
 #' @param palette color palette for the model curves
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' y = abs(rnorm(20)) + 0.1

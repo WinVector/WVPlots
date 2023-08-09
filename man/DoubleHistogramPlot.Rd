@@ -44,6 +44,11 @@ allows the user to choose a non-Brewer palette, for example with \code{\link[ggp
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
@@ -53,11 +58,13 @@ frm$posY = frm$y > 0
 frm$costX = 1
 WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
 
+if (FALSE) {
 # redo the plot with a custom palette
 plt = WVPlots::DoubleHistogramPlot(frm, "x", "yC", palette=NULL,
                               title="Example double histogram plot")
 cmap = c("TRUE" = "#b2df8a", "FALSE" = "#1f78b4")
 plt + ggplot2::scale_color_manual(values=cmap) +
       ggplot2::scale_fill_manual(values=cmap)
+}
 
 }

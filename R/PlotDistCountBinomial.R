@@ -33,6 +33,12 @@ NULL
 #' @seealso \code{\link{PlotDistHistBeta}}, \code{\link{PlotDistDensityBeta}},
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(23590)
 #' class_size = 35
 #' nclasses = 100

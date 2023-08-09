@@ -68,6 +68,11 @@ visualizing very large data sets.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 # data with two different regimes of behavior
 d <- rbind(
   data.frame(

@@ -54,6 +54,12 @@ the range of the empirical data. Otherwise, the range of the plot will be
 \code{0:trial_size} (the default).
 }
 \examples{
+
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(23590)
 class_size = 35
 nclasses = 100

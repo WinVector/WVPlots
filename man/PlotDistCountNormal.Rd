@@ -48,11 +48,16 @@ in the subtitle of the plot.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(52523)
 d <- data.frame(wt=100*rnorm(100))
 PlotDistCountNormal(d,'wt','example')
 
-# no sd lines
-PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
+# # no sd lines
+# PlotDistCountNormal(d, 'wt', 'example', sd_color=NULL)
 
 }

@@ -32,6 +32,10 @@
 #' @examples
 #'
 #' if(requireNamespace("hexbin", quietly = TRUE)) {
+#'    if (requireNamespace('data.table', quietly = TRUE)) {
+#'		   # don't multi-thread during CRAN checks
+#' 		   data.table::setDTthreads(1)
+#'    }
 #'    set.seed(634267)
 #'    dframe = data.frame(x = rnorm(1000), y = rnorm(1000))
 #'    print(HexBinPlot(dframe, "x", "y", "Example hexbin"))

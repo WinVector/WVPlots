@@ -63,6 +63,11 @@ Plots are in a single column, in the order specified by \code{plotvars}.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 df <- iris
 df$isVersicolor <- with(df, Species=='versicolor')
 model = glm(isVersicolor ~ Petal.Length + Petal.Width + Sepal.Length + Sepal.Width,
@@ -71,9 +76,11 @@ df$pred = predict(model, newdata=df, type="response")
 
 WVPlots::PRTPlot(df, "pred", "isVersicolor", TRUE, title="Example Precision-Recall threshold plot")
 
+if (FALSE) {
 WVPlots::PRTPlot(df, "pred", "isVersicolor", TRUE,
                  plotvars = c("sensitivity", "specificity", "false_positive_rate"),
                  title="Sensitivity/specificity/FPR as functions of threshold")
+}
 
 }
 \seealso{

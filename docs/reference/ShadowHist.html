@@ -150,6 +150,11 @@ For consistency with previous releases, <code>ShadowHist</code> defaults to <cod
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'data.table'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># don't multi-thread during CRAN checks</span></span></span>
+<span class="r-in"><span>    <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/openmp-utils.html" class="external-link">setDTthreads</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ShadowHist</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Species"</span>,</span></span>
 <span class="r-in"><span>           title <span class="op">=</span> <span class="st">"Petal Length distribution by Species"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use "none" instead as</span>
@@ -158,11 +163,12 @@ For consistency with previous releases, <code>ShadowHist</code> defaults to <cod
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/WinVector/WVPlots/issues&gt;</span>.</span>
 <span class="r-plt img"><img src="ShadowHist-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># make all the facets the same color</span></span></span>
 <span class="r-in"><span><span class="fu">ShadowHist</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"Petal.Length"</span>, <span class="st">"Species"</span>,</span></span>
 <span class="r-in"><span>           monochrome<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>           title <span class="op">=</span> <span class="st">"Petal Length distribution by Species"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ShadowHist-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

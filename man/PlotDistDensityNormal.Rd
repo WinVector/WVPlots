@@ -44,12 +44,17 @@ and plus/minus one standard deviation from the mean.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(52523)
 d <- data.frame(wt=100*rnorm(100))
 PlotDistDensityNormal(d,'wt','example')
 
-# no sd lines
-PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
+# # no sd lines
+# PlotDistDensityNormal(d, 'wt', 'example', sd_color=NULL)
 
 }
 \seealso{

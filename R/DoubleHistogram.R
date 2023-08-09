@@ -23,7 +23,13 @@ NULL
 #' @param ...  no unnamed argument, added to force named binding of later arguments.
 #' @param palette name of Brewer palette (can be NULL)
 #' @param breaks breaks to pass to histogram
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' x = rnorm(50)
@@ -34,12 +40,14 @@ NULL
 #' frm$costX = 1
 #' WVPlots::DoubleHistogramPlot(frm, "x", "yC", title="Example double histogram plot")
 #'
+#' if (FALSE) {
 #' # redo the plot with a custom palette
 #' plt = WVPlots::DoubleHistogramPlot(frm, "x", "yC", palette=NULL,
 #'                               title="Example double histogram plot")
 #' cmap = c("TRUE" = "#b2df8a", "FALSE" = "#1f78b4")
 #' plt + ggplot2::scale_color_manual(values=cmap) +
 #'       ggplot2::scale_fill_manual(values=cmap)
+#' }
 #'
 #' @export
 DoubleHistogramPlot <- function(frame, xvar, truthVar, title, ...,

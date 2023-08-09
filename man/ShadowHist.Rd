@@ -65,12 +65,19 @@ Please see here for some interesting discussion \url{https://drsimonj.svbtle.com
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 ShadowHist(iris, "Petal.Length", "Species",
            title = "Petal Length distribution by Species")
 
+if (FALSE) {
 # make all the facets the same color
 ShadowHist(iris, "Petal.Length", "Species",
            monochrome=TRUE,
            title = "Petal Length distribution by Species")
+}
 
 }

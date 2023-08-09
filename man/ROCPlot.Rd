@@ -84,6 +84,11 @@ and how the ROC plot relates to the precision/recall plot.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 beta_example <- function(
   n,
   shape1_pos, shape2_pos,

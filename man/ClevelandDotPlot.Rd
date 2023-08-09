@@ -47,6 +47,11 @@ Assumes that \code{xvar} is a factor or can be coerced to one (character or inte
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 # discrete variable: letters of the alphabet
 # frequencies of letters in English
@@ -64,11 +69,11 @@ randomDraws = data.frame(draw=1:N,
 WVPlots::ClevelandDotPlot(randomDraws, "letter",
   title = "Example Cleveland-style dot plot")
 
-# Note the use of sort = 0. Also note that the graph omits counts
-# with no occurrences (5, and 7)
-WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")
+# # Note the use of sort = 0. Also note that the graph omits counts
+# # with no occurrences (5, and 7)
+# WVPlots::ClevelandDotPlot(mtcars, "carb", sort = 0, "Example of counting integer values")
 
-# For counting integer values while including counts with no occurrences,
-# use Discrete Distribution.
-WVPlots::DiscreteDistribution(mtcars, "carb", "Better way to count integer values")
+# # For counting integer values while including counts with no occurrences,
+# # use Discrete Distribution.
+# WVPlots::DiscreteDistribution(mtcars, "carb", "Better way to count integer values")
 }

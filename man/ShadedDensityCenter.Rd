@@ -37,6 +37,11 @@ Plot the distribution of a variable with a center region shaded. Annotate with t
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(52523)
 d = data.frame(meas=rnorm(100))
 boundaries = c(-1.5, 1.5)

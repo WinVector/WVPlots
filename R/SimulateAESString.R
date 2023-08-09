@@ -13,6 +13,11 @@
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' d <- data.frame(x = c(1, 2, 3), y = c(4, 5, 6))
 #' xvar <- 'x'  # the idea is, this is passed in and not known at coding time
 #' yvar <- 'y'

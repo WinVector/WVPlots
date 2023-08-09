@@ -46,10 +46,16 @@ allows the user to choose a non-Brewer palette, for example with \code{\link[ggp
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 mpg = ggplot2::mpg
 mpg$trans = gsub("\\\\(.*$", '', mpg$trans)
 WVPlots::DoubleDensityPlot(mpg, "cty", "trans", "City driving mpg by transmission type")
 
+if (FALSE) {
 # redo the last plot with a custom palette
 cmap = c("auto" = "#b2df8a", "manual" = "#1f78b4")
 plt = WVPlots::DoubleDensityPlot(mpg, "cty", "trans",
@@ -67,5 +73,6 @@ frm = data.frame(score=x,
    rare=FALSE)
 frm[1,'rare'] = TRUE
 WVPlots::DoubleDensityPlot(frm, "score", "truth", title="Example double density plot")
+}
 
 }

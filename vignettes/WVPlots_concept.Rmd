@@ -11,6 +11,10 @@ vignette: >
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+	data.table::setDTthreads(1)
+}
 ```
 
 <a target="_blank" href="https://win-vector.com/nina-zumel/">Nina Zumel</a> and <a target="_blank" href="https://win-vector.com/john-mount/">I</a> have been working on packaging our <a target="_blank" href="https://win-vector.com/2011/12/05/my-favorite-graphs/">favorite graphing techniques</a> in a more reusable way that emphasizes the analysis task at hand over the steps needed to produce a good visualization.  The idea is: we sacrifice some of the flexibility and composability inherent to <a target="_blank" href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> in <a target="_blank" href="https://cran.r-project.org">R</a> for a menu of prescribed presentation solutions.

@@ -98,6 +98,11 @@ If \code{smoothmethod} is neither 'lm' or 'identity' then \code{estimate_sig} is
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 x = rnorm(50)
 y = 0.5*x^2 + 2*x + rnorm(length(x))
@@ -107,6 +112,7 @@ WVPlots::ScatterHist(frm, "x", "y",
   smoothmethod = "gam",
   contour = TRUE)
 
+if (FALSE) {
 # Same plot with custom colors
 WVPlots::ScatterHist(frm, "x", "y",
   title= "Example Fit",
@@ -117,6 +123,8 @@ WVPlots::ScatterHist(frm, "x", "y",
   smoothing_color = "#54278f", # dark purple
   density_color = "#08519c", # darker blue
   contour_color = "#9e9ac8") # lighter purple
+}
+
 }
 \seealso{
 \code{\link{ScatterHistC}}

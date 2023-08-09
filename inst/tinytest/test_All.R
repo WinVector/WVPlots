@@ -1,4 +1,9 @@
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+  # don't multi-thread during CRAN checks
+  data.table::setDTthreads(1)
+}
+
 
 test_a_1 <- function() {
   set.seed(52523)

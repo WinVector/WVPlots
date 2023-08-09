@@ -118,6 +118,11 @@ and plus/minus one standard deviation from the mean.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'data.table'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># don't multi-thread during CRAN checks</span></span></span>
+<span class="r-in"><span>    <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/openmp-utils.html" class="external-link">setDTthreads</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">52523</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">N</span> <span class="op">=</span> <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">pgray</span> <span class="op">=</span> <span class="fl">0.1</span>  <span class="co"># rate of gray horses in the population</span></span></span>
@@ -136,10 +141,9 @@ and plus/minus one standard deviation from the mean.</p>
 <span class="r-in"><span>                    label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"True prevalence ="</span>, <span class="va">pgray</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="PlotDistDensityBeta-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># no sd lines</span></span></span>
-<span class="r-in"><span><span class="fu">PlotDistDensityBeta</span><span class="op">(</span><span class="va">hdata</span>, <span class="st">"rate_gray"</span>, <span class="va">title</span>,</span></span>
-<span class="r-in"><span>                    sd_color<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="PlotDistDensityBeta-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># # no sd lines</span></span></span>
+<span class="r-in"><span><span class="co"># PlotDistDensityBeta(hdata, "rate_gray", title,</span></span></span>
+<span class="r-in"><span><span class="co">#                     sd_color=NULL)</span></span></span>
 </code></pre></div>
     </div>
   </div>

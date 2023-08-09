@@ -60,15 +60,21 @@ smoothing = function(frm, xvar, yvar, k, align) {
 #' @param point_alpha alpha/opaqueness of points.
 #' @param smooth_color color of smoothing line, when groupvar is NULL
 #' @param palette name of Brewer palette, when groupvar is non-NULL (can be NULL)
+#'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' y = c(1,2,3,4,5,10,15,18,20,25)
 #' x = seq_len(length(y))
 #' df = data.frame(x=x, y=y, group=x>5)
 #' WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", NULL,
 #'    title="left smooth, one group", align="left")
-#' WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "group",
-#'    title="left smooth, two groups", align="left")
+#' # WVPlots::ConditionalSmoothedScatterPlot(df, "x", "y", "group",
+#' #    title="left smooth, two groups", align="left")
 #'
 #' @export
 ConditionalSmoothedScatterPlot = function(frame, xvar, yvar,

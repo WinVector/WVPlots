@@ -50,6 +50,11 @@ The binwidth can also be passed in instead of the number of bins.
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(52523)
 N = 100
 pgray = 0.1  # rate of gray horses in the population
@@ -67,7 +72,7 @@ PlotDistHistBeta(hdata, "rate_gray", title) +
   ggplot2::annotate("text", x=pgray+0.01, y=0.01, hjust="left",
                     label = paste("True prevalence =", pgray))
 
-# no sd lines
-PlotDistHistBeta(hdata, "rate_gray", title,
-                    sd_color=NULL)
+# # no sd lines
+# PlotDistHistBeta(hdata, "rate_gray", title,
+#                     sd_color=NULL)
 }

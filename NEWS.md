@@ -1,8 +1,10 @@
 
 
-# WVPlots 1.3.5 2023-08-08
+# WVPlots 1.3.5 2023-08-09
 
  * Fix false-positive CRAN checks.
+ * Set data.table threads to 1 in all examples and tests.
+ * Cut down number of examples active.
 
 # WVPlots 1.3.4 2023-08-08
 

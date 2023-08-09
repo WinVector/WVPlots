@@ -57,6 +57,11 @@ allows the user to choose a non-Brewer palette, for example with \code{\link[ggp
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 x1 = rnorm(50)
 x2 = rnorm(length(x1))

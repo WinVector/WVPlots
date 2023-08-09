@@ -23,6 +23,11 @@
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))

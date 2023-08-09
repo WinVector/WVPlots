@@ -33,6 +33,11 @@ novelPointPositionsR <- function(x) {
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' x = rnorm(50)
 #' y = 0.5*x^2 + 2*x + rnorm(length(x))
@@ -111,6 +116,11 @@ NULL
 #' @seealso \code{\link{PRTPlot}}, \code{\link{ThresholdPlot}}
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' beta_example <- function(
 #'   n,
@@ -334,6 +344,11 @@ ROCPlot <- function(frame, xvar, truthVar, truthTarget, title,
 #'
 #' @examples
 #'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
+#'
 #' set.seed(34903490)
 #' x1 = rnorm(50)
 #' x2 = rnorm(length(x1))
@@ -456,6 +471,11 @@ ROCPlotPair <- function(frame, xvar1, xvar2, truthVar, truthTarget, title,
 #' @seealso \code{\link{ROCPlot}}, \code{\link{ROCPlotPair}}, \code{\link{ROCPlotPair2}}
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' x1 = rnorm(50)
@@ -589,6 +609,11 @@ ROCListPlot <- ROCPlotList
 #' @seealso \code{\link{ROCPlot}}
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' set.seed(34903490)
 #' x1 = rnorm(50)
@@ -726,6 +751,10 @@ ROCPlotPair2 <- function(nm1, frame1, xvar1, truthVar1, truthTarget1,
 #' @examples
 #'
 #' if(FALSE && requireNamespace("plotly", quietly = TRUE)) {
+#'    if (requireNamespace('data.table', quietly = TRUE)) {
+#'		   # don't multi-thread during CRAN checks
+#' 		   data.table::setDTthreads(1)
+#'    }
 #'    set.seed(34903490)
 #'    x = rnorm(50)
 #'    y = 0.5*x^2 + 2*x + rnorm(length(x))

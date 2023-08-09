@@ -45,6 +45,11 @@ allows the user to choose a non-Brewer palette, for example with \code{\link[ggp
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 # PairPlot(iris, colnames(iris)[1:4], "Example plot", group_var = "Species")
 
 # custom palette

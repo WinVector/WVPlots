@@ -1,7 +1,5 @@
 
 
-
-
 #' Plot the trajectory of a model fit.
 #'
 #' Plot a history of model fit performance over the a trajectory of times.
@@ -33,6 +31,11 @@
 #' @return ggplot2 plot
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' d <- data.frame(
 #'   epoch    = c(1,         2,         3,         4,         5),
@@ -223,6 +226,11 @@ plot_fit_trajectory <- function(d,
 #' @seealso \link{plot_fit_trajectory}
 #'
 #' @examples
+#'
+#' if (requireNamespace('data.table', quietly = TRUE)) {
+#'		# don't multi-thread during CRAN checks
+#' 		data.table::setDTthreads(1)
+#' }
 #'
 #' # example data (from Keras)
 #' d <- data.frame(

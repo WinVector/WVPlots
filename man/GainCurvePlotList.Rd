@@ -54,6 +54,11 @@ y-axis represents the gain seen so far (cumulative value of model over cummulati
 }
 \examples{
 
+if (requireNamespace('data.table', quietly = TRUE)) {
+	# don't multi-thread during CRAN checks
+		data.table::setDTthreads(1)
+}
+
 set.seed(34903490)
 y = abs(rnorm(20)) + 0.1
 x = abs(y + 0.5*rnorm(20))
