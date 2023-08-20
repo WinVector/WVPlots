@@ -1,4 +1,8 @@
 
+# WVPlots 1.3.7 2023-08-19
+
+ * Work around https://github.com/r-lib/roxygen2/issues/1491
+
 # WVPlots 1.3.6 2023-08-09
 
  * Change URL \url{https://journals.sagepub.com/doi/abs/10.1177/0272989X15582210} to \doi{10.1177/0272989X15582210} at CRAN request.

@@ -1,3 +1,4 @@
+
 #' WVPlots: Common Plots for Analysis
 #'
 #' Select data analysis plots, under a standardized calling interface implemented
@@ -14,9 +15,7 @@
 #'   \item \code{RShowDoc('WVPlots_examples',package='WVPlots')}
 #'   \item Website: \url{https://github.com/WinVector/WVPlots} }
 #'
-#' @docType package
-#' @name WVPlots
-NULL
+"_PACKAGE"
 
 #' @importFrom wrapr %:=%
 NULL
