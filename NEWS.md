@@ -1,4 +1,9 @@
 
+
+# WVPlots 1.3.8 2024-04-22
+
+ * Work around ggplot2 deprecating ..density..
+
 # WVPlots 1.3.7 2023-08-19
 
  * Work around https://github.com/r-lib/roxygen2/issues/1491

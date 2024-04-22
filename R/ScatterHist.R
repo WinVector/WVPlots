@@ -119,7 +119,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   }
   frame <- frame[, c(xvar,yvar), drop=FALSE]
   frame <- frame[complete.cases(frame), , drop=FALSE]
-  ..density.. <- NULL # used as a symbol, declare not an unbound variable
+  density <- NULL # used as a symbol, declare not an unbound variable
 
   if(estimate_sig && (smoothmethod %in% c("identity", "lm"))) {
     if(smoothmethod=='identity') {
@@ -194,7 +194,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
   # 0,0,0,1 -- left side is shorter
   #
   plot_top <- ggplot2::ggplot(data = frame, mapping = ggplot2::aes(!!!simulate_aes_string(x=xvar))) +
-    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
+    ggplot2::geom_histogram(ggplot2::aes(y=ggplot2::after_stat(density)), fill=hist_color,
                             color="white", binwidth=binwidth_x, bins=30) +
     ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_x) +
     ggplot2::coord_cartesian(xlim=xlims) +
@@ -228,7 +228,7 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
 
   # marginal density of y - plot on the right
   plot_right <- ggplot2::ggplot(data = frame, mapping = ggplot2::aes(!!!simulate_aes_string(x=yvar))) +
-    ggplot2::geom_histogram(ggplot2::aes(y=..density..), fill=hist_color,
+    ggplot2::geom_histogram(ggplot2::aes(y=ggplot2::after_stat(density)), fill=hist_color,
                             color="white", binwidth=binwidth_y, bins=30) +
     ggplot2::geom_line(stat='density',color=density_color, adjust=adjust_y) +
     # ggplot2::coord_cartesian(xlim=ylims) + # causes a warning with ggplot2 2.2.1.9000
