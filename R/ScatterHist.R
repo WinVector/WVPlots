@@ -4,7 +4,9 @@
 #' @importFrom grid unit
 #' @importFrom gridExtra grid.arrange
 #' @importFrom mgcv gam
+#' @importFrom MASS kde2d
 NULL
+
 
 #' Plot a scatter plot with marginals.
 #'
@@ -253,3 +255,11 @@ ScatterHist = function(frame, xvar, yvar, title, ...,
                           top=grid::textGrob(title),
                           ncol = 2, nrow = 2, widths = c(4,1), heights = c(1, 4))
 }
+
+
+# Dummy usage
+if (FALSE) {
+  MASS::kde2d()
+  kde2d()
+}
+
