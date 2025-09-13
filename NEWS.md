@@ -1,5 +1,9 @@
 
 
+# WVPlots 1.3.9 2025-09-12
+
+ * Work around ggplot2 no longer importing MASS (despite using it)
+
 # WVPlots 1.3.8 2024-04-22
 
  * Work around ggplot2 deprecating ..density..
